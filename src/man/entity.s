@@ -71,14 +71,11 @@ _man_createEntity::
     ld  h, #0x00
 
     LOAD_VARIABLE_IN_REGISTER _m_sizeOfEntity, l
-    ; ld  a, (#_m_sizeOfEntity)
-    ; ld  l, a
 
     add hl,de
     ld  (_m_next_free_entity),hl
     ld  hl, #_m_numEntities
     inc (hl)
-
 
     ld  l,e
     ld  h,d

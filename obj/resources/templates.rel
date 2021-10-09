@@ -1,0 +1,17 @@
+XL2
+H 1 areas 8 global symbols
+S .__.H$L. Def0000
+S _sprite_player01 Ref0000
+S _man_anim_player Ref0000
+S _sys_ai_behaviourLeftRight Ref0000
+S .__.ABS. Def0000
+S .__.CPU. Def0000
+S .__.$$$. Def2710
+A _CODE size 10 flags 0 addr 0
+S _player_template_e Def0000
+T 00 00
+R 00 00 00 00
+T 00 00 01 01 26 B0 06 08 00 00 00 00 00 00 00
+R 00 00 00 00 02 0A 01 00
+T 0D 00 00 00 10
+R 00 00 00 00 02 02 02 00

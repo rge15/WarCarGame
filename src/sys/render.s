@@ -7,6 +7,12 @@
 .globl cpct_drawSprite_asm
 
 ;===================================================================================================================================================
+; includes
+;===================================================================================================================================================
+.include "resources/macros.s"
+.include "resources/entityInfo.s"
+
+;===================================================================================================================================================
 ; Public functions
 ;===================================================================================================================================================
 .globl _man_entityForAllMatching
@@ -60,43 +66,48 @@ _sys_render_renderOneEntity:: ;;TODO : Ver de hacer esto con el reg IX
     ;; Si es una entidad marcada para destruir no se renderiza
     ld a, (hl)
     and #0x80    
-    jr NZ, noRender
+    jr NZ, dontRender
 
+    push hl
+    push hl
     ;; Conseguimos la direccion de memoria donde dibujar con las pos de la entity
-    push hl
-    push hl
     ld de, #0xC000
-    inc hl
-    inc hl
-    ld c,(hl)
-    inc hl
-    ld b,(hl)
-    call cpct_getScreenPtr_asm
-    
-    ;; Con la direccion de memoria dibujamos el sprite de la entidad 
-    ld e, l
-    ld d, h
-    pop hl
-    inc hl
-    inc hl
-    inc hl
-    inc hl
-    ld c,(hl) ;Cargamos el width
-    inc hl
-    ld b,(hl) ;Cargamos el height
-    inc hl
-    inc hl
-    inc hl
-    ld a,(hl)
-    push af
-    inc hl
-    ld a,(hl)
-    ld h,a
-    pop af
-    ld l,a
 
-    call cpct_drawSprite_asm
+    push hl
+    pop ix
+    ld  c, e_xpos(ix) 
+
+    ; ld  b, e_ypos(ix) 
+    LOAD_ENTITY_VARIABLE_IN_REGISTER hl, e_ypos, b
+
+    ;LOAD_ENTITY_VARIABLE_IN_REGISTER hl, e_xpos, c
+    ;LOAD_ENTITY_VARIABLE_IN_REGISTER hl, e_ypos, b
+
+    call cpct_getScreenPtr_asm
+    ex de,hl
     pop hl
-    noRender:
+    push de
+    ;; Con la direccion de memoria dibujamos el sprite de la entidad
+    ld  c, e_width(ix) 
+    ld  b, e_heigth(ix) 
+    ld  d, e_sprite1(ix) 
+    ld  e, e_sprite2(ix) 
+
+
+    ; LOAD_ENTITY_VARIABLE_IN_REGISTER hl, e_width, c
+    
+    ; LOAD_ENTITY_VARIABLE_IN_REGISTER hl, e_heigth, b
+    
+    ; LOAD_ENTITY_VARIABLE_IN_REGISTER hl, e_sprite1, d
+    ; LOAD_ENTITY_VARIABLE_IN_REGISTER hl, e_sprite2, e
+
+    ld h,e
+    ld l,d
+    pop de
+    
+    call cpct_drawSprite_asm
+
+    pop hl
+    dontRender:
 
     ret

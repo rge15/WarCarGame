@@ -7,6 +7,12 @@
 ;;  right after _CODE area contents.
 ;;
 .area _DATA
+;==========
+;TODO : Ver donde meto esto es una guarrada tener lo de los macros aqui
+;==========
+_macro_addresAux::
+    .dw #0x0000
+
 
 .area _CODE
 

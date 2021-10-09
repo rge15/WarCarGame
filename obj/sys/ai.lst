@@ -1,0 +1,187 @@
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 1.
+Hexadecimal [16-Bits]
+
+
+
+                              1 ;===================================================================================================================================================
+                              2 ; CPCTelera functions
+                              3 ;===================================================================================================================================================
+                              4 .globl cpct_scanKeyboard_f_asm
+                              5 .globl cpct_isKeyPressed_asm
+                              6 
+                              7 ;===================================================================================================================================================
+                              8 ; Public functions
+                              9 ;===================================================================================================================================================
+                             10 .globl _man_entityForAllMatching
+                             11 .globl _m_game_createEnemy
+                             12 .globl _m_game_destroyEntity
+                             13 .globl _m_functionMemory
+                             14 .globl _m_signatureMatch
+                             15 
+                             16 
+                             17 ;===================================================================================================================================================
+                             18 ; Manager data
+                             19 ;===================================================================================================================================================
+   0000                      20 _sys_ai_behaviourMemory::
+   0000                      21     .ds 2
+                             22 
+                             23 ;===================================================================================================================================================
+                             24 ; FUNCION _sys_ai_update
+                             25 ; Llama a la inversión de control para updatear el comportamiento de 
+                             26 ; las entidades que coincida con e_type_movable
+                             27 ; NO llega ningun dato
+                             28 ;===================================================================================================================================================
+   0002                      29 _sys_ai_update::
+   0002 21 11 00      [10]   30     ld hl, #_sys_ai_updateOneEntity
+   0005 22 00 00      [16]   31     ld (_m_functionMemory), hl
+   0008 21 00 00      [10]   32     ld hl , #_m_signatureMatch 
+   000B 36 0A         [10]   33     ld (hl), #0x0A ;;  e_type_movable | e_type_ai
+   000D CD 00 00      [17]   34     call _man_entityForAllMatching
+   0010 C9            [10]   35     ret
+                             36 
+                             37 ;===================================================================================================================================================
+                             38 ; FUNCION _sys_ai_updateOneEntity
+                             39 ; Busca el comportamiento de la entidad y lo ejecuta 
+                             40 ; HL : LA entidad a updatear
+                             41 ;===================================================================================================================================================
+   0011                      42 _sys_ai_updateOneEntity::    
+                             43     ; ex de, hl
+   0011 3E 0A         [ 7]   44     ld a,#0x0A
+   0013                      45     searchBehaviour:
+   0013 23            [ 6]   46         inc hl
+   0014 3D            [ 4]   47         dec a
+   0015 20 FC         [12]   48         jr NZ, searchBehaviour
+                             49     
+   0017 DD 21 39 00   [14]   50     ld ix, #updatedOneEntity
+   001B DD E5         [15]   51     push ix
+                             52 
+                             53     ;ex de, hl
+   001D E5            [11]   54     push hl
+   001E 7E            [ 7]   55     ld a, (hl)
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
+Hexadecimal [16-Bits]
+
+
+
+   001F 21 00 00      [10]   56     ld hl, #_sys_ai_behaviourMemory
+   0022 77            [ 7]   57     ld (hl),a
+   0023 E1            [10]   58     pop hl
+   0024 E5            [11]   59     push hl
+   0025 23            [ 6]   60     inc hl
+   0026 7E            [ 7]   61     ld a, (hl)
+   0027 21 00 00      [10]   62     ld hl, #_sys_ai_behaviourMemory
+   002A 23            [ 6]   63     inc hl
+   002B 77            [ 7]   64     ld (hl),a
+   002C E1            [10]   65     pop hl
+                             66 
+   002D 3E 0A         [ 7]   67     ld a,#0x0A
+   002F                      68     searchEntityType:
+   002F 2B            [ 6]   69         dec hl
+   0030 3D            [ 4]   70         dec a
+   0031 20 FC         [12]   71         jr NZ, searchEntityType
+                             72 
+   0033 DD 2A 00 00   [20]   73     ld ix, (#_sys_ai_behaviourMemory)
+   0037 DD E9         [ 8]   74     jp (ix)
+                             75 
+   0039                      76     updatedOneEntity:
+                             77     
+   0039 C9            [10]   78     ret
+                             79 
+                             80 
+                             81 ;===================================================================================================================================================
+                             82 ; FUNCION _sys_ai_behaviourEnemy
+                             83 ; Comportamiento de la MotherShip
+                             84 ; 1º Intenta crear un enemigo hijo
+                             85 ; 2º Se mueve de derecha a izquierda hasta los bordes
+                             86 ; HL : Entidad a updatear
+                             87 ;===================================================================================================================================================
+   003A                      88 _sys_ai_behaviourEnemy::
+                             89 
+                             90     ;; TODO : IA del enemigo
+   003A CD 3E 00      [17]   91     call _sys_ai_behaviourLeftRight
+                             92 
+   003D C9            [10]   93     ret
+                             94 
+                             95 
+                             96 
+                             97 
+                             98 ;===================================================================================================================================================
+                             99 ; FUNCION _sys_ai_behaviourLeftRight
+                            100 ; Si llega a alguno de los bordes establece su velocidad en la direccion contraria
+                            101 ; HL : Entidad a updatear
+                            102 ;===================================================================================================================================================
+   003E                     103 _sys_ai_behaviourLeftRight::
+   003E 3E 50         [ 7]  104     ld a, #0x50
+   0040 23            [ 6]  105     inc hl
+   0041 23            [ 6]  106     inc hl
+   0042 46            [ 7]  107     ld b,(hl) ;; b = x
+   0043 23            [ 6]  108     inc hl
+   0044 23            [ 6]  109     inc hl
+   0045 96            [ 7]  110     sub (hl)  ;; a = right bound
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 3.
+Hexadecimal [16-Bits]
+
+
+
+   0046 23            [ 6]  111     inc hl
+   0047 23            [ 6]  112     inc hl 
+   0048 04            [ 4]  113     inc b
+   0049 05            [ 4]  114     dec b
+   004A 28 09         [12]  115     jr Z, leftPart
+                            116 
+   004C 4F            [ 4]  117     ld c,a
+   004D 78            [ 4]  118     ld a,b
+   004E 41            [ 4]  119     ld b,c
+                            120 
+   004F 90            [ 4]  121     sub b
+   0050 28 08         [12]  122     jr Z, rightPart
+                            123 
+   0052 C3 5C 00      [10]  124     jp exitUpdate
+   0055                     125     leftPart:
+   0055 36 01         [10]  126         ld (hl), #0x01
+   0057 C3 5C 00      [10]  127         jp exitUpdate
+                            128 
+   005A                     129     rightPart:
+   005A 36 FF         [10]  130         ld (hl), #0xFF
+                            131 
+   005C                     132     exitUpdate:
+   005C C9            [10]  133     ret
+                            134 
+                            135 
+                            136 
+                            137 ;===================================================================================================================================================
+                            138 ; FUNCION _sys_ai_behaviourAutoDestroy
+                            139 ; Destruye la entidad pasado el tiempo del contador de la IA
+                            140 ; HL : Entidad a updatear
+                            141 ;===================================================================================================================================================
+                            142 
+                            143 ;!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                            144 ;Esto lo dejo aquí pero dudo que lo usemos
+                            145 ;!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                            146 
+   005D                     147 _sys_ai_behaviourAutoDestroy::
+   005D 3E 0C         [ 7]  148     ld a,#0x0C
+   005F                     149     searchAICounter:
+   005F 23            [ 6]  150         inc hl
+   0060 3D            [ 4]  151         dec a
+   0061 20 FC         [12]  152         jr NZ, searchAICounter
+                            153     
+   0063 35            [11]  154     dec (hl)
+   0064 20 09         [12]  155     jr NZ, dontDestroy
+                            156     
+   0066 3E 0C         [ 7]  157     ld a,#0x0C
+   0068                     158     searchType:
+   0068 2B            [ 6]  159         dec hl
+   0069 3D            [ 4]  160         dec a
+   006A 20 FC         [12]  161         jr NZ, searchType
+                            162 
+   006C CD 00 00      [17]  163     call _m_game_destroyEntity
+                            164     
+   006F                     165     dontDestroy:
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 4.
+Hexadecimal [16-Bits]
+
+
+
+                            166     
+   006F C9            [10]  167     ret

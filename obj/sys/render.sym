@@ -1,0 +1,46 @@
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 1.
+Hexadecimal [16-Bits]
+
+Symbol Table
+
+    .__.$$$.                                                    =  2710 GL
+    .__.ABS.                                                    =  0000 G
+    .__.CPU.                                                    =  0000 GL
+    .__.H$L.                                                    =  0000 GL
+    _m_functionMemory                                              **** GX
+    _m_signatureMatch                                              **** GX
+    _macro_addresAux                                               **** GX
+    _man_entityForAllMatching                                      **** GX
+  0 _sys_init_render                                               0000 GR
+  0 _sys_render_renderOneEntity                                    0021 GR
+  0 _sys_render_update                                             0012 GR
+    cpct_drawSprite_asm                                            **** GX
+    cpct_getScreenPtr_asm                                          **** GX
+    cpct_setPALColour_asm                                          **** GX
+    cpct_setVideoMode_asm                                          **** GX
+  0 dontRender                                                     0050 GR
+    e_aibeh1                                                    =  000D G
+    e_aibeh2                                                    =  000E G
+    e_anctr                                                     =  000F G
+    e_anim1                                                     =  000A G
+    e_anim2                                                     =  000B G
+    e_animctr                                                   =  000C G
+    e_cmp                                                       =  0001 G
+    e_heigth                                                    =  0005 G
+    e_sprite1                                                   =  0008 G
+    e_sprite2                                                   =  0009 G
+    e_type                                                      =  0000 G
+    e_vx                                                        =  0006 G
+    e_vy                                                        =  0007 G
+    e_width                                                     =  0004 G
+    e_xpos                                                      =  0002 G
+    e_ypos                                                      =  0003 G
+
+
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
+Hexadecimal [16-Bits]
+
+Area Table
+
+   0 _CODE                                      size   51   flags    0
+

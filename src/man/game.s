@@ -18,6 +18,10 @@
 .globl _sys_animator_update
 .globl _sys_ai_update
 
+;===================================================================================================================================================
+; includes
+;===================================================================================================================================================
+.include "resources/macros.s"
 
 ;===================================================================================================================================================
 ; Templates
@@ -61,9 +65,8 @@ _m_game_init::
    call  _sys_init_render
    call  _man_entityInit
 
-   ; CreatePlayer & Save in _m_playerEntity
-   ld bc, #_player_template_e
-   call _m_game_createInitTemplate
+   ; CreatePlayer & Save in _m_playerEntity   
+   CREATE_ENTITY_FROM_TEMPLATE _player_template_e 
    ex de,hl
    ld hl, #_m_playerEntity
    ld (hl), d
@@ -81,6 +84,7 @@ ret
 _m_game_play::
    updates:
       call _sys_ai_update
+      ;call _sys_input_update
       call _sys_physics_update
       call _sys_animator_update
       call _sys_render_update

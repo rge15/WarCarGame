@@ -1,0 +1,99 @@
+;!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+;!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+XL2
+H 1 areas 1A global symbols
+S .__.H$L. Def0000
+S _man_entityForAllMatching Ref0000
+S cpct_isKeyPressed_asm Ref0000
+S cpct_scanKeyboard_f_asm Ref0000
+S _m_functionMemory Ref0000
+S _m_game_createEnemy Ref0000
+S .__.ABS. Def0000
+S _m_signatureMatch Ref0000
+S _m_game_destroyEntity Ref0000
+S .__.CPU. Def0000
+S .__.$$$. Def2710
+A _CODE size 70 flags 0 addr 0
+S leftPart Def0055
+S _sys_ai_behaviourMemory Def0000
+S updatedOneEntity Def0039
+S _sys_ai_behaviourEnemy Def003A
+S _sys_ai_update Def0002
+S _sys_ai_behaviourAutoDestroy Def005D
+S _sys_ai_behaviourLeftRight Def003E
+S searchEntityType Def002F
+S searchType Def0068
+S searchBehaviour Def0013
+S exitUpdate Def005C
+S dontDestroy Def006F
+S searchAICounter Def005F
+S _sys_ai_updateOneEntity Def0011
+S rightPart Def005A
+T 00 00
+R 00 00 00 00
+T 00 00
+R 00 00 00 00
+T 02 00
+R 00 00 00 00
+T 02 00 21 11 00 22 00 00 21 00 00 36 0A CD
+R 00 00 00 00 00 03 00 00 02 06 04 00 02 09 07 00
+T 0E 00 00 00 C9
+R 00 00 00 00 02 02 01 00
+T 11 00
+R 00 00 00 00
+T 11 00 3E 0A
+R 00 00 00 00
+T 13 00
+R 00 00 00 00
+T 13 00 23 3D 20 FC DD 21 39 00 DD E5 E5 7E 21
+R 00 00 00 00 00 08 00 00
+T 20 00 00 00 77 E1 E5 23 7E 21 00 00 23 77 E1 3E
+R 00 00 00 00 00 02 00 00 00 0A 00 00
+T 2E 00 0A
+R 00 00 00 00
+T 2F 00
+R 00 00 00 00
+T 2F 00 2B 3D 20 FC DD 2A 00 00 DD E9
+R 00 00 00 00 00 08 00 00
+T 39 00
+R 00 00 00 00
+T 39 00 C9
+R 00 00 00 00
+T 3A 00
+R 00 00 00 00
+T 3A 00 CD 3E 00 C9
+R 00 00 00 00 00 03 00 00
+T 3E 00
+R 00 00 00 00
+T 3E 00 3E 50 23 23 46 23 23 96 23 23 04 05 28 09
+R 00 00 00 00
+T 4C 00 4F 78 41 90 28 08 C3 5C 00
+R 00 00 00 00 00 09 00 00
+T 55 00
+R 00 00 00 00
+T 55 00 36 01 C3 5C 00
+R 00 00 00 00 00 05 00 00
+T 5A 00
+R 00 00 00 00
+T 5A 00 36 FF
+R 00 00 00 00
+T 5C 00
+R 00 00 00 00
+T 5C 00 C9
+R 00 00 00 00
+T 5D 00
+R 00 00 00 00
+T 5D 00 3E 0C
+R 00 00 00 00
+T 5F 00
+R 00 00 00 00
+T 5F 00 23 3D 20 FC 35 20 09 3E 0C
+R 00 00 00 00
+T 68 00
+R 00 00 00 00
+T 68 00 2B 3D 20 FC CD 00 00
+R 00 00 00 00 02 07 08 00
+T 6F 00
+R 00 00 00 00
+T 6F 00 C9
+R 00 00 00 00

@@ -1,0 +1,57 @@
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 1.
+Hexadecimal [16-Bits]
+
+
+
+   0000                       1 _sprite_player01:
+   0000 00 FF                 2    .dw #0xFF00
+   0002 FF FF                 3    .dw #0xFFFF
+   0004 FF 00                 4    .dw #0x00FF
+   0006 00 FF                 5    .dw #0xFF00
+   0008 FF FF                 6    .dw #0xFFFF
+   000A FF 00                 7    .dw #0x00FF
+   000C 00 FF                 8    .dw #0xFF00
+   000E FF FF                 9    .dw #0xFFFF
+   0010 FF 00                10    .dw #0x00FF
+   0012 00 FF                11    .dw #0xFF00
+   0014 FF FF                12    .dw #0xFFFF
+   0016 FF 00                13    .dw #0x00FF
+   0018 00 FF                14    .dw #0xFF00
+   001A FF FF                15    .dw #0xFFFF
+   001C FF 00                16    .dw #0x00FF
+   001E 00 FF                17    .dw #0xFF00
+   0020 FF FF                18    .dw #0xFFFF
+   0022 FF 00                19    .dw #0x00FF
+   0024 00 FF                20    .dw #0xFF00
+   0026 FF FF                21    .dw #0xFFFF
+   0028 FF 00                22    .dw #0x00FF
+   002A 00 FF                23    .dw #0xFF00
+   002C FF FF                24    .dw #0xFFFF
+   002E FF 00                25    .dw #0x00FF
+                             26 
+                             27 
+   0030                      28 _sprite_player02:
+   0030 00 EE                29    .dw #0xEE00
+   0032 EE EE                30    .dw #0xEEEE
+   0034 EE 00                31    .dw #0x00EE
+   0036 00 EE                32    .dw #0xEE00
+   0038 EE EE                33    .dw #0xEEEE
+   003A EE 00                34    .dw #0x00EE
+   003C 00 EE                35    .dw #0xEE00
+   003E EE EE                36    .dw #0xEEEE
+   0040 EE 00                37    .dw #0x00EE
+   0042 00 EE                38    .dw #0xEE00
+   0044 EE EE                39    .dw #0xEEEE
+   0046 EE 00                40    .dw #0x00EE
+   0048 00 EE                41    .dw #0xEE00
+   004A EE EE                42    .dw #0xEEEE
+   004C EE 00                43    .dw #0x00EE
+   004E 00 EE                44    .dw #0xEE00
+   0050 EE EE                45    .dw #0xEEEE
+   0052 EE 00                46    .dw #0x00EE
+   0054 00 EE                47    .dw #0xEE00
+   0056 EE EE                48    .dw #0xEEEE
+   0058 EE 00                49    .dw #0x00EE
+   005A 00 EE                50    .dw #0xEE00
+   005C EE EE                51    .dw #0xEEEE
+   005E EE 00                52    .dw #0x00EE
