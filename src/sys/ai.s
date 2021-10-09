@@ -1,0 +1,167 @@
+;===================================================================================================================================================
+; CPCTelera functions
+;===================================================================================================================================================
+.globl cpct_scanKeyboard_f_asm
+.globl cpct_isKeyPressed_asm
+
+;===================================================================================================================================================
+; Public functions
+;===================================================================================================================================================
+.globl _man_entityForAllMatching
+.globl _m_game_createEnemy
+.globl _m_game_destroyEntity
+.globl _m_functionMemory
+.globl _m_signatureMatch
+
+
+;===================================================================================================================================================
+; Manager data
+;===================================================================================================================================================
+_sys_ai_behaviourMemory::
+    .ds 2
+
+;===================================================================================================================================================
+; FUNCION _sys_ai_update
+; Llama a la inversión de control para updatear el comportamiento de 
+; las entidades que coincida con e_type_movable
+; NO llega ningun dato
+;===================================================================================================================================================
+_sys_ai_update::
+    ld hl, #_sys_ai_updateOneEntity
+    ld (_m_functionMemory), hl
+    ld hl , #_m_signatureMatch 
+    ld (hl), #0x0A ;;  e_type_movable | e_type_ai
+    call _man_entityForAllMatching
+    ret
+
+;===================================================================================================================================================
+; FUNCION _sys_ai_updateOneEntity
+; Busca el comportamiento de la entidad y lo ejecuta 
+; HL : LA entidad a updatear
+;===================================================================================================================================================
+_sys_ai_updateOneEntity::    
+    ; ex de, hl
+    ld a,#0x0A
+    searchBehaviour:
+        inc hl
+        dec a
+        jr NZ, searchBehaviour
+    
+    ld ix, #updatedOneEntity
+    push ix
+
+    ;ex de, hl
+    push hl
+    ld a, (hl)
+    ld hl, #_sys_ai_behaviourMemory
+    ld (hl),a
+    pop hl
+    push hl
+    inc hl
+    ld a, (hl)
+    ld hl, #_sys_ai_behaviourMemory
+    inc hl
+    ld (hl),a
+    pop hl
+
+    ld a,#0x0A
+    searchEntityType:
+        dec hl
+        dec a
+        jr NZ, searchEntityType
+
+    ld ix, (#_sys_ai_behaviourMemory)
+    jp (ix)
+
+    updatedOneEntity:
+    
+    ret
+
+
+;===================================================================================================================================================
+; FUNCION _sys_ai_behaviourEnemy
+; Comportamiento de la MotherShip
+; 1º Intenta crear un enemigo hijo
+; 2º Se mueve de derecha a izquierda hasta los bordes
+; HL : Entidad a updatear
+;===================================================================================================================================================
+_sys_ai_behaviourEnemy::
+
+    ;; TODO : IA del enemigo
+    call _sys_ai_behaviourLeftRight
+
+    ret
+
+
+
+
+;===================================================================================================================================================
+; FUNCION _sys_ai_behaviourLeftRight
+; Si llega a alguno de los bordes establece su velocidad en la direccion contraria
+; HL : Entidad a updatear
+;===================================================================================================================================================
+_sys_ai_behaviourLeftRight::
+    ld a, #0x50
+    inc hl
+    inc hl
+    ld b,(hl) ;; b = x
+    inc hl
+    inc hl
+    sub (hl)  ;; a = right bound
+    inc hl
+    inc hl 
+    inc b
+    dec b
+    jr Z, leftPart
+
+    ld c,a
+    ld a,b
+    ld b,c
+
+    sub b
+    jr Z, rightPart
+
+    jp exitUpdate
+    leftPart:
+        ld (hl), #0x01
+        jp exitUpdate
+
+    rightPart:
+        ld (hl), #0xFF
+
+    exitUpdate:
+    ret
+
+
+
+;===================================================================================================================================================
+; FUNCION _sys_ai_behaviourAutoDestroy
+; Destruye la entidad pasado el tiempo del contador de la IA
+; HL : Entidad a updatear
+;===================================================================================================================================================
+
+;!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+;Esto lo dejo aquí pero dudo que lo usemos
+;!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+_sys_ai_behaviourAutoDestroy::
+    ld a,#0x0C
+    searchAICounter:
+        inc hl
+        dec a
+        jr NZ, searchAICounter
+    
+    dec (hl)
+    jr NZ, dontDestroy
+    
+    ld a,#0x0C
+    searchType:
+        dec hl
+        dec a
+        jr NZ, searchType
+
+    call _m_game_destroyEntity
+    
+    dontDestroy:
+    
+    ret
