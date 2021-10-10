@@ -76,15 +76,12 @@ _sys_render_renderOneEntity:: ;;TODO : Ver de hacer esto con el reg IX
     push hl
     pop ix
     ld  c, e_xpos(ix) 
-
     ld  b, e_ypos(ix) 
-    ;LOAD_ENTITY_VARIABLE_IN_REGISTER hl, e_ypos, b
-
-    ;LOAD_ENTITY_VARIABLE_IN_REGISTER hl, e_xpos, c
-    ;LOAD_ENTITY_VARIABLE_IN_REGISTER hl, e_ypos, b
 
     call cpct_getScreenPtr_asm
+
     ex de,hl
+
     pop hl
     push de
     ;; Con la direccion de memoria dibujamos el sprite de la entidad
@@ -92,14 +89,6 @@ _sys_render_renderOneEntity:: ;;TODO : Ver de hacer esto con el reg IX
     ld  b, e_heigth(ix) 
     ld  d, e_sprite1(ix) 
     ld  e, e_sprite2(ix) 
-
-
-    ; LOAD_ENTITY_VARIABLE_IN_REGISTER hl, e_width, c
-    
-    ; LOAD_ENTITY_VARIABLE_IN_REGISTER hl, e_heigth, b
-    
-    ; LOAD_ENTITY_VARIABLE_IN_REGISTER hl, e_sprite1, d
-    ; LOAD_ENTITY_VARIABLE_IN_REGISTER hl, e_sprite2, e
 
     ld h,e
     ld l,d

@@ -91,18 +91,6 @@ _sys_physics_checkKeyboard::
 ; HL : Entidad a updatear
 ;===================================================================================================================================================
 _sys_physics_updateOneEntity::    
-    ; push hl
-    ; inc hl
-    ; ld a,(hl) 
-    ; dec hl
-    ; and #0x04
-    ; ld b,h
-    ; ld c,l
-    ; jr Z,noInput
-    ; call _sys_physics_checkKeyboard
-    ; noInput:
-    ; pop hl
-
     push hl
     pop ix
     ld  b, e_xpos(ix) 
