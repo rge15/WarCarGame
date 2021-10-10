@@ -29,16 +29,17 @@ e_vx        =  6
 e_vy        =  7
 e_sprite1   =  8
 e_sprite2   =  9
-e_prevptr1  = 10
-e_prevptr2  = 11
-e_aibeh1    = 12
-e_aibeh2    = 13
-e_anctr     = 14
-e_anim1     = 15
-e_anim2     = 16
-e_animctr   = 17
-e_inputbeh1 = 18
-e_inputbeh2 = 19
+e_orient    = 10
+e_prevptr1  = 11
+e_prevptr2  = 12
+e_aibeh1    = 13
+e_aibeh2    = 14
+e_anctr     = 15
+e_anim1     = 16
+e_anim2     = 17
+e_animctr   = 18
+e_inputbeh1 = 19
+e_inputbeh2 = 20
 
 
 
@@ -54,7 +55,8 @@ e_inputbeh2 = 19
 ;    .db #0x00                         ; heigth
 ;    .db #0x00                         ; vx
 ;    .db #0x00                         ; vy
-;    .dw #_sprite_spriteExample        ; sprite   
+;    .dw #_sprite_spriteExample        ; sprite  
+;    .db #0x00                         ; orientation 
 ;    .dw #_prevptr_prevptrExample      ; prevptr
 ;    .dw #_man_anim_animExample        ; animator
 ;    .db #0x00                         ; anim. counter
