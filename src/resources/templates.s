@@ -27,7 +27,7 @@ _player_template_e:
    .db #0x00               ; vx
    .db #0x00               ; vy
    .dw #_sprite_player01   ; sprite
-   .dw #0x00               ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
+   .db #0x00               ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
    .dw #0x0000             ; prevptr
    .dw #0x0000             ;ai_behaviour
    .db #0x00               ;ai_counter
