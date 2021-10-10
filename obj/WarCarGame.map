@@ -42,19 +42,19 @@ Area                                    Addr        Size        Decimal Bytes (A
      00000009  e_sprite2                          
      0000000A  FW_CYAN                            cpct_keyboard
      0000000A  HW_BRIGHT_YELLOW                   cpct_keyboard
-     0000000A  e_anim1                            
+     0000000A  e_aibeh1                           
      0000000B  FW_SKY_BLUE                        cpct_keyboard
      0000000B  HW_BRIGHT_WHITE                    cpct_keyboard
-     0000000B  e_anim2                            
+     0000000B  e_aibeh2                           
      0000000C  FW_YELLOW                          cpct_keyboard
      0000000C  HW_BRIGHT_RED                      cpct_keyboard
-     0000000C  e_animctr                          
+     0000000C  e_anctr                            
      0000000D  FW_WHITE                           cpct_keyboard
      0000000D  HW_BRIGHT_MAGENTA                  cpct_keyboard
-     0000000D  e_aibeh1                           
+     0000000D  e_anim1                            
      0000000E  FW_PASTEL_BLUE                     cpct_keyboard
      0000000E  HW_ORANGE                          cpct_keyboard
-     0000000E  e_aibeh2                           
+     0000000E  e_anim2                            
      0000000F  FW_ORANGE                          cpct_keyboard
      0000000F  HW_PASTEL_MAGENTA                  cpct_keyboard
 ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
@@ -66,7 +66,7 @@ Area                                    Addr        Size        Decimal Bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     0000000F  e_anctr                            
+     0000000F  e_animctr                          
      00000010  FW_PINK                            cpct_keyboard
      00000010  cpct_page40_asm                    cpct_keyboard
      00000011  FW_PASTEL_MAGENTA                  cpct_keyboard
@@ -146,7 +146,7 @@ Area                                    Addr        Size        Decimal Bytes (A
      00000407  Key_E                              cpct_keyboard
      00000408  Key_Esc                            cpct_keyboard
      00000409  Joy0_Left                          cpct_keyboard
-     00000506  l__CODE                         
+     0000050F  l__CODE                         
      00000800  Key_F9                             cpct_keyboard
      00000801  Key_F8                             cpct_keyboard
      00000802  Key_CloseBracket                   cpct_keyboard
@@ -202,7 +202,7 @@ Area                                    Addr        Size        Decimal Bytes (A
      00004007  Key_C                              cpct_keyboard
      00004008  Key_CapsLock                       cpct_keyboard
      00004009  Joy0_Fire3                         cpct_keyboard
-     00004506  s__DATA                         
+     0000450F  s__DATA                         
      00007F00  GA_port                            cpct_keyboard
      00008000  Key_FDot                           cpct_keyboard
      00008001  Key_F0                             cpct_keyboard
@@ -221,125 +221,122 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00004000    00000506 =        1286. bytes (REL,CON)
+_CODE                               00004000    0000050F =        1295. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
      00004000  _main                              cpct_keyboard
      00004009  _man_anim_player                   
      00004012  _sprite_player01                   
-     00004042  _sprite_player02                   
-     00004072  _player_template_e                 
-     00004082  _m_entities                        
-     000040F2  _m_emptyMemCheck                   
-     000040F3  _m_next_free_entity                
-     000040F5  _m_functionMemory                  
-     000040F7  _m_signatureMatch                  
-     000040F8  _m_numEntities                     
-     000040F9  _m_sizeOfEntity                    
-     000040FA  _man_entityInit                    
-     00004112  _man_createEntity                  
-     00004127  _man_entityForAllMatching          
-     00004131  not_invalid2                       
-     0000413F  next_entity2                       
-     0000414C  checkSignature                     
-     0000415A  allDone                            
-     0000415C  _man_setEntity4Destroy             
-     00004161  _man_entityDestroy                 
-     00004169  setLast                            
-     00004173  checkMemory                        
-     00004177  copy                               
-     00004186  setLast2                           
-     0000418A  no_copy                            
-     00004198  _man_entityUpdate                  
-     000041A6  valid                              
-     000041AD  _next_entity                       
-     000041AE  continue                           
-     000041B5  _man_entity_freeSpace              
-     000041BD  _m_playerShot                      
-     000041BE  _m_playerEntity                    
-     000041C0  _m_game_createInitTemplate         
-     000041CF  _m_game_init                       
-     000041E4  _m_game_play                       
-     000041E4  updates                            
-     000041F9  _m_game_createEnemy                
-     000041FA  _m_game_destroyEntity              
-     000041FE  _m_game_playerShot                 
-     000041FF  _wait                              
-     00004201  waitLoop                           
-     0000420D  _sys_ai_behaviourMemory            
-     0000420F  _sys_ai_update                     
-     0000421E  _sys_ai_updateOneEntity            
-     00004220  searchBehaviour                    
-     0000423C  searchEntityType                   
-     00004246  updatedOneEntity                   
-     00004247  _sys_ai_behaviourEnemy             
-     0000424B  _sys_ai_behaviourLeftRight         
+     0000404E  _sprite_player02                   
+     0000408A  _player_template_e                 
+     0000409A  _m_entities                        
+     0000410A  _m_emptyMemCheck                   
+     0000410B  _m_next_free_entity                
+     0000410D  _m_functionMemory                  
+     0000410F  _m_signatureMatch                  
+     00004110  _m_numEntities                     
+     00004111  _m_sizeOfEntity                    
+     00004112  _man_entityInit                    
+     0000412A  _man_createEntity                  
+     0000413F  _man_entityForAllMatching          
+     00004149  not_invalid2                       
+     00004157  next_entity2                       
+     00004164  checkSignature                     
+     00004172  allDone                            
+     00004174  _man_setEntity4Destroy             
+     00004179  _man_entityDestroy                 
+     00004181  setLast                            
+     0000418B  checkMemory                        
+     0000418F  copy                               
+     0000419E  setLast2                           
+     000041A2  no_copy                            
+     000041B0  _man_entityUpdate                  
+     000041BE  valid                              
+     000041C5  _next_entity                       
+     000041C6  continue                           
+     000041CD  _man_entity_freeSpace              
+     000041D5  _m_playerShot                      
+     000041D6  _m_playerEntity                    
+     000041D8  _m_game_createInitTemplate         
+     000041E7  _m_game_init                       
+     000041FC  _m_game_play                       
+     000041FC  updates                            
+     00004211  _m_game_createEnemy                
+     00004212  _m_game_destroyEntity              
+     00004216  _m_game_playerShot                 
+     00004217  _wait                              
+     00004219  waitLoop                           
+     00004225  _sys_ai_behaviourMemory            
+     00004227  _sys_ai_update                     
+     00004236  _sys_ai_updateOneEntity            
+     00004238  searchBehaviour                    
+     00004254  searchEntityType                   
+     0000425E  updatedOneEntity                   
+     0000425F  _sys_ai_behaviourEnemy             
+     00004263  _sys_ai_behaviourLeftRight         
 ASxxxx Linker V03.00 + NoICE + sdld,  page 6.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00004000    00000506 =        1286. bytes (REL,CON)
+_CODE                               00004000    0000050F =        1295. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00004262  leftPart                           
-     00004267  rightPart                          
-     00004269  exitUpdate                         
-     0000426A  _sys_ai_behaviourAutoDestroy       
-     0000426C  searchAICounter                    
-     00004275  searchType                         
-     0000427C  dontDestroy                        
-     0000427D  _sys_animator_update               
-     0000428C  _sys_animator_updateOneEntity      
-     0000428E  searchCounter                      
-     000042AE  noRepeatAnim                       
-     000042C7  _sys_input_update                  
-     000042D6  _sys_input_updateOneEntity         
-     000042D7  _sys_physics_update                
-     000042E6  _sys_physics_checkKeyboard         
-     00004306  leftPressed                        
-     0000430C  rightPressed                       
-     0000430F  stopCheckMovement                  
-     0000431A  dontShoot                          
-     0000431B  _sys_physics_updateOneEntity       
-     00004328  noInput                            
-     00004336  setHLposX                          
-     00004342  _sys_init_render                   
-     00004354  _sys_render_update                 
-     00004363  _sys_render_renderOneEntity        
-     00004392  dontRender                         
-     00004393  _cpct_scanKeyboard_f               cpct_keyboard
-     00004393  cpct_scanKeyboard_f_asm            cpct_keyboard
-     000043FD  _cpct_isKeyPressed                 cpct_keyboard
-     000043FD  cpct_isKeyPressed_asm              cpct_keyboard
-     00004409  cpct_setPALColour_asm              cpct_video
-     00004413  cpct_drawSprite_asm                cpct_sprites
-     000044B3  _cpct_keyboardStatusBuffer         cpct_keyboard
-     000044BD  cpct_waitHalts_asm                 cpct_memutils
-     000044C1  cpct_setVideoMode_asm              cpct_video
-     000044CE  _cpct_waitVSYNC                    cpct_video
-     000044CE  cpct_waitVSYNC_asm                 cpct_video
-     000044D6  cpct_memset_asm                    cpct_memutils
-     000044DE  cpct_memcpy_asm                    cpct_memutils
-     000044E1  _cpct_disableFirmware              cpct_firmware
-     000044E1  _cpct_removeInterruptHandler       cpct_firmware
-     000044E1  cpct_disableFirmware_asm           cpct_firmware
-     000044E1  cpct_removeInterruptHandler_asm    cpct_firmware
-     000044F1  _cpct_mode_rom_status              cpct_firmware
-     000044F2  cpct_getScreenPtr_asm              cpct_video
+     0000427A  leftPart                           
+     0000427F  rightPart                          
+     00004281  exitUpdate                         
+     00004282  _sys_ai_behaviourAutoDestroy       
+     00004284  searchAICounter                    
+     0000428D  searchType                         
+     00004294  dontDestroy                        
+     00004295  _sys_animator_update               
+     000042A4  _sys_animator_updateOneEntity      
+     000042CA  noRepeatAnim                       
+     000042E0  _sys_input_update                  
+     000042EF  _sys_input_updateOneEntity         
+     000042F0  _sys_physics_update                
+     000042FF  _sys_physics_checkKeyboard         
+     0000431F  leftPressed                        
+     00004325  rightPressed                       
+     00004328  stopCheckMovement                  
+     00004333  dontShoot                          
+     00004334  _sys_physics_updateOneEntity       
+     0000434E  _sys_init_render                   
+     00004360  _sys_render_update                 
+     0000436F  _sys_render_renderOneEntity        
+     0000439B  dontRender                         
+     0000439C  _cpct_scanKeyboard_f               cpct_keyboard
+     0000439C  cpct_scanKeyboard_f_asm            cpct_keyboard
+     00004406  _cpct_isKeyPressed                 cpct_keyboard
+     00004406  cpct_isKeyPressed_asm              cpct_keyboard
+     00004412  cpct_setPALColour_asm              cpct_video
+     0000441C  cpct_drawSprite_asm                cpct_sprites
+     000044BC  _cpct_keyboardStatusBuffer         cpct_keyboard
+     000044C6  cpct_waitHalts_asm                 cpct_memutils
+     000044CA  cpct_setVideoMode_asm              cpct_video
+     000044D7  _cpct_waitVSYNC                    cpct_video
+     000044D7  cpct_waitVSYNC_asm                 cpct_video
+     000044DF  cpct_memset_asm                    cpct_memutils
+     000044E7  cpct_memcpy_asm                    cpct_memutils
+     000044EA  _cpct_disableFirmware              cpct_firmware
+     000044EA  _cpct_removeInterruptHandler       cpct_firmware
+     000044EA  cpct_disableFirmware_asm           cpct_firmware
+     000044EA  cpct_removeInterruptHandler_asm    cpct_firmware
+     000044FA  _cpct_mode_rom_status              cpct_firmware
+     000044FB  cpct_getScreenPtr_asm              cpct_video
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 7.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_DATA                               00004506    00000002 =           2. bytes (REL,CON)
+_DATA                               0000450F    00000002 =           2. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00004506  _macro_addresAux                   cpct_keyboard
+     0000450F  _macro_addresAux                   cpct_keyboard
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 8.
 

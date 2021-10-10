@@ -13,25 +13,25 @@ S e_sprite2 Def0009
 S e_xpos Def0002
 S cpct_drawSprite_asm Ref0000
 S e_ypos Def0003
-S e_anim1 Def000A
-S e_anim2 Def000B
-S e_anctr Def000F
+S e_anim1 Def000D
+S e_anim2 Def000E
+S e_anctr Def000C
 S .__.ABS. Def0000
 S e_width Def0004
 S _m_signatureMatch Ref0000
-S e_aibeh1 Def000D
-S e_aibeh2 Def000E
+S e_aibeh1 Def000A
+S e_aibeh2 Def000B
 S .__.CPU. Def0000
 S _macro_addresAux Ref0000
 S cpct_setVideoMode_asm Ref0000
-S e_animctr Def000C
+S e_animctr Def000F
 S e_vx Def0006
 S e_vy Def0007
 S .__.$$$. Def2710
 S e_heigth Def0005
 S cpct_getScreenPtr_asm Ref0000
-A _CODE size 51 flags 0 addr 0
-S dontRender Def0050
+A _CODE size 4E flags 0 addr 0
+S dontRender Def004D
 S _sys_render_renderOneEntity Def0021
 S _sys_init_render Def0000
 S _sys_render_update Def0012
@@ -49,15 +49,15 @@ T 1E 00 00 00 C9
 R 00 00 00 00 02 02 01 00
 T 21 00
 R 00 00 00 00
-T 21 00 7E E6 80 20 2A E5 E5 11 00 C0 E5 DD E1 DD
+T 21 00 7E E6 80 20 27 E5 E5 11 00 C0 E5 DD E1 DD
 R 00 00 00 00
-T 2F 00 4E 02 E5 DD E1 DD 46 03 CD 00 00 EB E1 D5
-R 00 00 00 00 02 0B 1B 00
-T 3D 00 DD 4E 04 DD 46 05 DD 56 08 DD 5E 09 63 6A
+T 2F 00 4E 02 DD 46 03 CD 00 00 EB E1 D5 DD 4E 04
+R 00 00 00 00 02 08 1B 00
+T 3D 00 DD 46 05 DD 56 08 DD 5E 09 63 6A D1 CD
 R 00 00 00 00
-T 4B 00 D1 CD 00 00 E1
-R 00 00 00 00 02 04 09 00
-T 50 00
+T 4A 00 00 00 E1
+R 00 00 00 00 02 02 09 00
+T 4D 00
 R 00 00 00 00
-T 50 00 C9
+T 4D 00 C9
 R 00 00 00 00

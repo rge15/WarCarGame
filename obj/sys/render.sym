@@ -18,13 +18,13 @@ Symbol Table
     cpct_getScreenPtr_asm                                          **** GX
     cpct_setPALColour_asm                                          **** GX
     cpct_setVideoMode_asm                                          **** GX
-  0 dontRender                                                     0050 GR
-    e_aibeh1                                                    =  000D G
-    e_aibeh2                                                    =  000E G
-    e_anctr                                                     =  000F G
-    e_anim1                                                     =  000A G
-    e_anim2                                                     =  000B G
-    e_animctr                                                   =  000C G
+  0 dontRender                                                     004D GR
+    e_aibeh1                                                    =  000A G
+    e_aibeh2                                                    =  000B G
+    e_anctr                                                     =  000C G
+    e_anim1                                                     =  000D G
+    e_anim2                                                     =  000E G
+    e_animctr                                                   =  000F G
     e_cmp                                                       =  0001 G
     e_heigth                                                    =  0005 G
     e_sprite1                                                   =  0008 G
@@ -42,5 +42,5 @@ Hexadecimal [16-Bits]
 
 Area Table
 
-   0 _CODE                                      size   51   flags    0
+   0 _CODE                                      size   4E   flags    0
 

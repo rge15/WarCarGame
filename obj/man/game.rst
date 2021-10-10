@@ -129,27 +129,27 @@ Hexadecimal [16-Bits]
                              33 ;===================================================================================================================================================
                              34 
                              35 ;;Descripcion : Saber si el jugador ha disparado ya 
-   41BD                      36 _m_playerShot:
-   41BD 00                   37    .db #0x00
+   41D5                      36 _m_playerShot:
+   41D5 00                   37    .db #0x00
                              38 
                              39 ;;Descripcion : Posición de memoria de la entidad del jugador
-   41BE                      40 _m_playerEntity:
-   41BE 00 00                41    .dw #0x0000
+   41D6                      40 _m_playerEntity:
+   41D6 00 00                41    .dw #0x0000
                              42 ;===================================================================================================================================================
                              43 ; FUNCION _m_game_createInitTemplate   
                              44 ; Crea la entidad con el template indicado
                              45 ; BC : Valor de template a crear
                              46 ;===================================================================================================================================================
-   41C0                      47 _m_game_createInitTemplate::
-   41C0 CD 12 41      [17]   48    call _man_createEntity
-   41C3 E5            [11]   49    push hl
-   41C4 EB            [ 4]   50    ex de,hl
-   41C5 60            [ 4]   51    ld h, b
-   41C6 69            [ 4]   52    ld l, c
-   41C7 01 10 00      [10]   53    ld bc,#0x0010
-   41CA CD DE 44      [17]   54    call cpct_memcpy_asm
-   41CD E1            [10]   55    pop hl
-   41CE C9            [10]   56    ret
+   41D8                      47 _m_game_createInitTemplate::
+   41D8 CD 2A 41      [17]   48    call _man_createEntity
+   41DB E5            [11]   49    push hl
+   41DC EB            [ 4]   50    ex de,hl
+   41DD 60            [ 4]   51    ld h, b
+   41DE 69            [ 4]   52    ld l, c
+   41DF 01 10 00      [10]   53    ld bc,#0x0010
+   41E2 CD E7 44      [17]   54    call cpct_memcpy_asm
+   41E5 E1            [10]   55    pop hl
+   41E6 C9            [10]   56    ret
                              57 
                              58 
                              59 ;===================================================================================================================================================
@@ -157,21 +157,21 @@ Hexadecimal [16-Bits]
                              61 ; Inicializa el juego y sus entidades
                              62 ; NO llega ningun dato
                              63 ;===================================================================================================================================================
-   41CF                      64 _m_game_init::
-   41CF CD 42 43      [17]   65    call  _sys_init_render
-   41D2 CD FA 40      [17]   66    call  _man_entityInit
+   41E7                      64 _m_game_init::
+   41E7 CD 4E 43      [17]   65    call  _sys_init_render
+   41EA CD 12 41      [17]   66    call  _man_entityInit
                              67 
                              68    ; CreatePlayer & Save in _m_playerEntity   
    0018                      69    CREATE_ENTITY_FROM_TEMPLATE _player_template_e 
-   41D5 01 72 40      [10]    1     ld bc, #_player_template_e
-   41D8 CD C0 41      [17]    2     call _m_game_createInitTemplate
-   41DB EB            [ 4]   70    ex de,hl
-   41DC 21 BE 41      [10]   71    ld hl, #_m_playerEntity
-   41DF 72            [ 7]   72    ld (hl), d
-   41E0 23            [ 6]   73    inc hl
-   41E1 73            [ 7]   74    ld (hl), e
-   41E2 EB            [ 4]   75    ex de,hl
-   41E3 C9            [10]   76 ret
+   41ED 01 8A 40      [10]    1     ld bc, #_player_template_e
+   41F0 CD D8 41      [17]    2     call _m_game_createInitTemplate
+   41F3 EB            [ 4]   70    ex de,hl
+   41F4 21 D6 41      [10]   71    ld hl, #_m_playerEntity
+   41F7 72            [ 7]   72    ld (hl), d
+   41F8 23            [ 6]   73    inc hl
+   41F9 73            [ 7]   74    ld (hl), e
+   41FA EB            [ 4]   75    ex de,hl
+   41FB C9            [10]   76 ret
                              77 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 5.
 Hexadecimal [16-Bits]
@@ -184,31 +184,31 @@ Hexadecimal [16-Bits]
                              81 ; Bucle del juego
                              82 ; NO llega ningun dato
                              83 ;===================================================================================================================================================
-   41E4                      84 _m_game_play::
-   41E4                      85    updates:
-   41E4 CD 0F 42      [17]   86       call _sys_ai_update
+   41FC                      84 _m_game_play::
+   41FC                      85    updates:
+   41FC CD 27 42      [17]   86       call _sys_ai_update
                              87       ;call _sys_input_update
-   41E7 CD D7 42      [17]   88       call _sys_physics_update
-   41EA CD 7D 42      [17]   89       call _sys_animator_update
-   41ED CD 54 43      [17]   90       call _sys_render_update
+   41FF CD F0 42      [17]   88       call _sys_physics_update
+   4202 CD 95 42      [17]   89       call _sys_animator_update
+   4205 CD 60 43      [17]   90       call _sys_render_update
                              91       
-   41F0 CD 98 41      [17]   92       call _man_entityUpdate
-   41F3 CD FF 41      [17]   93       call _wait
-   41F6 18 EC         [12]   94    jr updates
+   4208 CD B0 41      [17]   92       call _man_entityUpdate
+   420B CD 17 42      [17]   93       call _wait
+   420E 18 EC         [12]   94    jr updates
                              95 
-   41F8 C9            [10]   96 ret
+   4210 C9            [10]   96 ret
                              97 
                              98 ;===================================================================================================================================================
                              99 ; FUNCION _m_game_createEnemy   
                             100 ; Crea un enemigo
                             101 ; NO llega ningun dato
                             102 ;===================================================================================================================================================
-   41F9                     103 _m_game_createEnemy::
+   4211                     103 _m_game_createEnemy::
                             104    ;Create Enemy
                             105    ;ld bc, #_enemy_template_e   
                             106    ;call _m_game_createInitTemplate   
                             107    
-   41F9 C9            [10]  108    ret
+   4211 C9            [10]  108    ret
                             109 
                             110 
                             111 ;===================================================================================================================================================
@@ -216,9 +216,9 @@ Hexadecimal [16-Bits]
                             113 ; Funcion que destruye la entidad indicada
                             114 ; HL : Llega el valor de la entidad
                             115 ;===================================================================================================================================================
-   41FA                     116 _m_game_destroyEntity::
-   41FA CD 61 41      [17]  117    call _man_entityDestroy
-   41FD C9            [10]  118    ret
+   4212                     116 _m_game_destroyEntity::
+   4212 CD 79 41      [17]  117    call _man_entityDestroy
+   4215 C9            [10]  118    ret
                             119 
                             120 
                             121 ;===================================================================================================================================================
@@ -226,7 +226,7 @@ Hexadecimal [16-Bits]
                             123 ; Funcion que dispara si puede
                             124 ; NO llega nada
                             125 ;===================================================================================================================================================
-   41FE                     126 _m_game_playerShot::
+   4216                     126 _m_game_playerShot::
                             127    ;;; TODO : Create Shot
                             128    ;Checkear si se puede crear
                             129    ;Si se puede crear, crear la entidad
@@ -269,7 +269,7 @@ Hexadecimal [16-Bits]
                             161 ;    ld hl,#_m_playerShot
                             162 ;    inc (hl)
                             163 
-   41FE C9            [10]  164    ret
+   4216 C9            [10]  164    ret
                             165 
                             166 ;===================================================================================================================================================
                             167 ; FUNCION _wait   
@@ -277,12 +277,12 @@ Hexadecimal [16-Bits]
                             169 ; NO llega ningun dato
                             170 ;===================================================================================================================================================
                             171 
-   41FF                     172 _wait::
-   41FF 26 05         [ 7]  173    ld h, #0x05
-   4201                     174       waitLoop:
-   4201 06 02         [ 7]  175          ld b, #0x02
-   4203 CD BD 44      [17]  176          call cpct_waitHalts_asm
-   4206 CD CE 44      [17]  177          call cpct_waitVSYNC_asm
-   4209 25            [ 4]  178          dec h
-   420A 20 F5         [12]  179          jr NZ, waitLoop
-   420C C9            [10]  180    ret
+   4217                     172 _wait::
+   4217 26 05         [ 7]  173    ld h, #0x05
+   4219                     174       waitLoop:
+   4219 06 02         [ 7]  175          ld b, #0x02
+   421B CD C6 44      [17]  176          call cpct_waitHalts_asm
+   421E CD D7 44      [17]  177          call cpct_waitVSYNC_asm
+   4221 25            [ 4]  178          dec h
+   4222 20 F5         [12]  179          jr NZ, waitLoop
+   4224 C9            [10]  180    ret

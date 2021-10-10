@@ -138,38 +138,37 @@ Hexadecimal [16-Bits]
                      0007    29 e_vy      =  7
                      0008    30 e_sprite1 =  8
                      0009    31 e_sprite2 =  9
-                     000A    32 e_anim1   = 10
-                     000B    33 e_anim2   = 11
-                     000C    34 e_animctr = 12
-                     000D    35 e_aibeh1  = 13
-                     000E    36 e_aibeh2  = 14
-                     000F    37 e_anctr   = 15
+                     000A    32 e_aibeh1  = 10
+                     000B    33 e_aibeh2  = 11
+                     000C    34 e_anctr   = 12
+                     000D    35 e_anim1   = 13
+                     000E    36 e_anim2   = 14
+                     000F    37 e_animctr = 15
                              38 
                              39 
                              40 
-                             41 
-                             42 ;===================================================================================================================================================
-                             43 ; Entity struct       TODO : Investigar si así guay la estruct
-                             44 ;===================================================================================================================================================
-                             45 ; entity:
-                             46 ;    .db #0x00                      ; type
-                             47 ;    .db #0x00                      ; components
-                             48 ;    .db #0x00                      ; x-pos
-                             49 ;    .db #0x00                      ; y-pos
-                             50 ;    .db #0x00                      ; vx
-                             51 ;    .db #0x00                      ; vy
-                             52 ;    .db #0x00                      ; width
-                             53 ;    .db #0x00                      ; heigth
-                             54 ;    .dw #_sprite_spriteExample     ; sprite          
+                             41 ;===================================================================================================================================================
+                             42 ; Entity struct       TODO : Investigar si así guay la estruct
+                             43 ;===================================================================================================================================================
+                             44 ; entity:
+                             45 ;    .db #0x00                      ; type
+                             46 ;    .db #0x00                      ; components
+                             47 ;    .db #0x00                      ; x-pos
+                             48 ;    .db #0x00                      ; y-pos
+                             49 ;    .db #0x00                      ; vx
+                             50 ;    .db #0x00                      ; vy
+                             51 ;    .db #0x00                      ; width
+                             52 ;    .db #0x00                      ; heigth
+                             53 ;    .dw #_sprite_spriteExample     ; sprite          
+                             54 ;    .dw #_man_anim_animExample     ; animator
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 5.
 Hexadecimal [16-Bits]
 
 
 
-                             55 ;    .dw #_man_anim_animExample     ; animator
-                             56 ;    .db #0x00                      ; anim. counter
-                             57 ;    .dw #_sys_ai_behaviourExample  ; ai_behaviour
-                             58 ;    .db #0x00                      ; ai_counter
+                             55 ;    .db #0x00                      ; anim. counter
+                             56 ;    .dw #_sys_ai_behaviourExample  ; ai_behaviour
+                             57 ;    .db #0x00                      ; ai_counter
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 6.
 Hexadecimal [16-Bits]
 
@@ -193,32 +192,32 @@ Hexadecimal [16-Bits]
                              29 ; Se encarga de iniciar el color y el modo de video de Amstrad(?)
                              30 ; NO llega ningun dato
                              31 ;===================================================================================================================================================
-   4342                      32 _sys_init_render::
+   434E                      32 _sys_init_render::
                              33    ;;Destroyed : HL 
-   4342 0E 00         [ 7]   34    ld    c,#0x00
-   4344 CD C1 44      [17]   35    call  cpct_setVideoMode_asm
+   434E 0E 00         [ 7]   34    ld    c,#0x00
+   4350 CD CA 44      [17]   35    call  cpct_setVideoMode_asm
                              36    ;;Destroyed : AF & BC & HL 
-   4347 21 10 14      [10]   37    ld hl , #0x1410
-   434A CD 09 44      [17]   38    call  cpct_setPALColour_asm
+   4353 21 10 14      [10]   37    ld hl , #0x1410
+   4356 CD 12 44      [17]   38    call  cpct_setPALColour_asm
                              39    ;;Destroyed : F & BC & HL  
                              40 
-   434D 21 00 14      [10]   41    ld hl , #0x1400
-   4350 CD 09 44      [17]   42    call  cpct_setPALColour_asm
+   4359 21 00 14      [10]   41    ld hl , #0x1400
+   435C CD 12 44      [17]   42    call  cpct_setPALColour_asm
                              43    ;;Destroyed : F & BC & HL  
-   4353 C9            [10]   44    ret
+   435F C9            [10]   44    ret
                              45 
                              46 ;===================================================================================================================================================
                              47 ; FUNCION _sys_render_update
                              48 ; Llama a la inversión de control para renderizar los sprites de cada entidad que coincida con e_type_render
                              49 ; NO llega ningun dato
                              50 ;===================================================================================================================================================
-   4354                      51 _sys_render_update::
-   4354 21 63 43      [10]   52     ld hl, #_sys_render_renderOneEntity
-   4357 22 F5 40      [16]   53     ld (_m_functionMemory), hl
-   435A 21 F7 40      [10]   54     ld hl , #_m_signatureMatch 
-   435D 36 01         [10]   55     ld (hl), #0x01   ; e_type_render
-   435F CD 27 41      [17]   56     call _man_entityForAllMatching
-   4362 C9            [10]   57     ret
+   4360                      51 _sys_render_update::
+   4360 21 6F 43      [10]   52     ld hl, #_sys_render_renderOneEntity
+   4363 22 0D 41      [16]   53     ld (_m_functionMemory), hl
+   4366 21 0F 41      [10]   54     ld hl , #_m_signatureMatch 
+   4369 36 01         [10]   55     ld (hl), #0x01   ; e_type_render
+   436B CD 3F 41      [17]   56     call _man_entityForAllMatching
+   436E C9            [10]   57     ret
                              58 
                              59 
                              60 ;===================================================================================================================================================
@@ -226,85 +225,57 @@ Hexadecimal [16-Bits]
                              62 ; Renderiza los sprites de las entidades renderizables
                              63 ; HL : Entidad a renderizar
                              64 ;===================================================================================================================================================
-   4363                      65 _sys_render_renderOneEntity:: ;;TODO : Ver de hacer esto con el reg IX
+   436F                      65 _sys_render_renderOneEntity:: ;;TODO : Ver de hacer esto con el reg IX
                              66     ;; Si es una entidad marcada para destruir no se renderiza
-   4363 7E            [ 7]   67     ld a, (hl)
-   4364 E6 80         [ 7]   68     and #0x80    
+   436F 7E            [ 7]   67     ld a, (hl)
+   4370 E6 80         [ 7]   68     and #0x80    
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 7.
 Hexadecimal [16-Bits]
 
 
 
-   4366 20 2A         [12]   69     jr NZ, dontRender
+   4372 20 27         [12]   69     jr NZ, dontRender
                              70 
-   4368 E5            [11]   71     push hl
-   4369 E5            [11]   72     push hl
+   4374 E5            [11]   71     push hl
+   4375 E5            [11]   72     push hl
                              73     ;; Conseguimos la direccion de memoria donde dibujar con las pos de la entity
-   436A 11 00 C0      [10]   74     ld de, #0xC000
+   4376 11 00 C0      [10]   74     ld de, #0xC000
                              75 
-   436D E5            [11]   76     push hl
-   436E DD E1         [14]   77     pop ix
-   4370 DD 4E 02      [19]   78     ld  c, e_xpos(ix) 
+   4379 E5            [11]   76     push hl
+   437A DD E1         [14]   77     pop ix
+   437C DD 4E 02      [19]   78     ld  c, e_xpos(ix) 
                              79 
-                             80     ; ld  b, e_ypos(ix) 
-   0031                      81     LOAD_ENTITY_VARIABLE_IN_REGISTER hl, e_ypos, b
-                              1     ; push af
-                              2     ; push bc
-                              3     ; push hl
-   4373 E5            [11]    4     push hl
-   4374 DD E1         [14]    5     pop ix
-   4376 DD 46 03      [19]    6     ld b, e_ypos(ix)
-                              7 
-                              8     ; ld b,h
-                              9     ; ld c,l
-                             10     ; ld hl, #_macro_addresAux
-                             11     ; ld (hl), c
-                             12     ; inc hl
-                             13     ; ld (hl), b
-                             14 
-                             15     ; ld ix, #_macro_addresAux
-                             16     ; ld a, _entity_var(ix)
-                             17     
-                             18     ; pop hl
-                             19     ; pop bc
-                             20 
-                             21     ; ld _register, a
-                             22 
-                             23     ; pop af
+   437F DD 46 03      [19]   80     ld  b, e_ypos(ix) 
+                             81     ;LOAD_ENTITY_VARIABLE_IN_REGISTER hl, e_ypos, b
                              82 
                              83     ;LOAD_ENTITY_VARIABLE_IN_REGISTER hl, e_xpos, c
                              84     ;LOAD_ENTITY_VARIABLE_IN_REGISTER hl, e_ypos, b
                              85 
-   4379 CD F2 44      [17]   86     call cpct_getScreenPtr_asm
-   437C EB            [ 4]   87     ex de,hl
-   437D E1            [10]   88     pop hl
-   437E D5            [11]   89     push de
+   4382 CD FB 44      [17]   86     call cpct_getScreenPtr_asm
+   4385 EB            [ 4]   87     ex de,hl
+   4386 E1            [10]   88     pop hl
+   4387 D5            [11]   89     push de
                              90     ;; Con la direccion de memoria dibujamos el sprite de la entidad
-   437F DD 4E 04      [19]   91     ld  c, e_width(ix) 
-   4382 DD 46 05      [19]   92     ld  b, e_heigth(ix) 
-   4385 DD 56 08      [19]   93     ld  d, e_sprite1(ix) 
-   4388 DD 5E 09      [19]   94     ld  e, e_sprite2(ix) 
+   4388 DD 4E 04      [19]   91     ld  c, e_width(ix) 
+   438B DD 46 05      [19]   92     ld  b, e_heigth(ix) 
+   438E DD 56 08      [19]   93     ld  d, e_sprite1(ix) 
+   4391 DD 5E 09      [19]   94     ld  e, e_sprite2(ix) 
                              95 
                              96 
                              97     ; LOAD_ENTITY_VARIABLE_IN_REGISTER hl, e_width, c
                              98     
                              99     ; LOAD_ENTITY_VARIABLE_IN_REGISTER hl, e_heigth, b
                             100     
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 8.
-Hexadecimal [16-Bits]
-
-
-
                             101     ; LOAD_ENTITY_VARIABLE_IN_REGISTER hl, e_sprite1, d
                             102     ; LOAD_ENTITY_VARIABLE_IN_REGISTER hl, e_sprite2, e
                             103 
-   438B 63            [ 4]  104     ld h,e
-   438C 6A            [ 4]  105     ld l,d
-   438D D1            [10]  106     pop de
+   4394 63            [ 4]  104     ld h,e
+   4395 6A            [ 4]  105     ld l,d
+   4396 D1            [10]  106     pop de
                             107     
-   438E CD 13 44      [17]  108     call cpct_drawSprite_asm
+   4397 CD 1C 44      [17]  108     call cpct_drawSprite_asm
                             109 
-   4391 E1            [10]  110     pop hl
-   4392                     111     dontRender:
+   439A E1            [10]  110     pop hl
+   439B                     111     dontRender:
                             112 
-   4392 C9            [10]  113     ret
+   439B C9            [10]  113     ret

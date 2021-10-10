@@ -4420,8 +4420,8 @@ Hexadecimal [16-Bits]
                              10 ;==========
                              11 ;TODO : Ver donde meto esto es una guarrada tener lo de los macros aqui
                              12 ;==========
-   4506                      13 _macro_addresAux::
-   4506 00 00                14     .dw #0x0000
+   450F                      13 _macro_addresAux::
+   450F 00 00                14     .dw #0x0000
                              15 
                              16 
                              17 .area _CODE
@@ -4446,7 +4446,7 @@ Hexadecimal [16-Bits]
                              36 ; NO llega ningun valor
                              37 ;===================================================================================================================================================
    4000                      38 _main::
-   4000 CD E1 44      [17]   39    call	cpct_disableFirmware_asm
+   4000 CD EA 44      [17]   39    call	cpct_disableFirmware_asm
                              40 
-   4003 CD CF 41      [17]   41    call _m_game_init
-   4006 CD E4 41      [17]   42    call _m_game_play
+   4003 CD E7 41      [17]   41    call _m_game_init
+   4006 CD FC 41      [17]   42    call _m_game_play

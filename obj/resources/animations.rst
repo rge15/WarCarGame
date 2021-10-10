@@ -16,6 +16,6 @@ Hexadecimal [16-Bits]
    4009 0A                   11     .db #0x0A
    400A 12 40                12     .dw #_sprite_player01
    400C 0A                   13     .db #0x0A
-   400D 42 40                14     .dw #_sprite_player02
+   400D 4E 40                14     .dw #_sprite_player02
    400F 00                   15     .db #0x00
    4010 09 40                16     .dw #_man_anim_player

@@ -133,19 +133,19 @@ Hexadecimal [16-Bits]
                              37 ; Llama a la inversión de control para updatear las fisicas de cada entidad que coincida con e_type_movable
                              38 ; NO llega ningun dato
                              39 ;===================================================================================================================================================
-   42C7                      40 _sys_input_update::
-   42C7 21 D6 42      [10]   41     ld hl, #_sys_input_updateOneEntity
-   42CA 22 F5 40      [16]   42     ld (_m_functionMemory), hl
-   42CD 21 F7 40      [10]   43     ld hl , #_m_signatureMatch 
-   42D0 36 04         [10]   44     ld (hl), #0x04  ; e_type_input
-   42D2 CD 27 41      [17]   45     call _man_entityForAllMatching
-   42D5 C9            [10]   46     ret
+   42E0                      40 _sys_input_update::
+   42E0 21 EF 42      [10]   41     ld hl, #_sys_input_updateOneEntity
+   42E3 22 0D 41      [16]   42     ld (_m_functionMemory), hl
+   42E6 21 0F 41      [10]   43     ld hl , #_m_signatureMatch 
+   42E9 36 04         [10]   44     ld (hl), #0x04  ; e_type_input
+   42EB CD 3F 41      [17]   45     call _man_entityForAllMatching
+   42EE C9            [10]   46     ret
                              47 
                              48 ;===================================================================================================================================================
                              49 ; FUNCION _sys_input_updateOneEntity
                              50 ; Updatea cada una de las entidades que tiene componente input
                              51 ; HL : Entidad a updatear
                              52 ;===================================================================================================================================================
-   42D6                      53 _sys_input_updateOneEntity::    
+   42EF                      53 _sys_input_updateOneEntity::    
                              54     
-   42D6 C9            [10]   55    ret
+   42EF C9            [10]   55    ret

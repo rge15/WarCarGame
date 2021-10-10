@@ -30,12 +30,12 @@ Symbol Table
   0 copy                                                           00F5 GR
     cpct_memcpy_asm                                                **** GX
     cpct_memset_asm                                                **** GX
-    e_aibeh1                                                    =  000D G
-    e_aibeh2                                                    =  000E G
-    e_anctr                                                     =  000F G
-    e_anim1                                                     =  000A G
-    e_anim2                                                     =  000B G
-    e_animctr                                                   =  000C G
+    e_aibeh1                                                    =  000A G
+    e_aibeh2                                                    =  000B G
+    e_anctr                                                     =  000C G
+    e_anim1                                                     =  000D G
+    e_anim2                                                     =  000E G
+    e_animctr                                                   =  000F G
     e_cmp                                                       =  0001 G
     e_heigth                                                    =  0005 G
     e_sprite1                                                   =  0008 G

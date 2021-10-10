@@ -29,13 +29,12 @@ e_vx      =  6
 e_vy      =  7
 e_sprite1 =  8
 e_sprite2 =  9
-e_anim1   = 10
-e_anim2   = 11
-e_animctr = 12
-e_aibeh1  = 13
-e_aibeh2  = 14
-e_anctr   = 15
-
+e_aibeh1  = 10
+e_aibeh2  = 11
+e_anctr   = 12
+e_anim1   = 13
+e_anim2   = 14
+e_animctr = 15
 
 
 

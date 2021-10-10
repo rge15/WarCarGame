@@ -5,6 +5,11 @@
 .globl cpct_isKeyPressed_asm
 
 ;===================================================================================================================================================
+; includes
+;===================================================================================================================================================
+.include "resources/entityInfo.s"
+
+;===================================================================================================================================================
 ; Public functions
 ;===================================================================================================================================================
 .globl _man_entityForAllMatching
@@ -86,45 +91,33 @@ _sys_physics_checkKeyboard::
 ; HL : Entidad a updatear
 ;===================================================================================================================================================
 _sys_physics_updateOneEntity::    
+    ; push hl
+    ; inc hl
+    ; ld a,(hl) 
+    ; dec hl
+    ; and #0x04
+    ; ld b,h
+    ; ld c,l
+    ; jr Z,noInput
+    ; call _sys_physics_checkKeyboard
+    ; noInput:
+    ; pop hl
+
     push hl
-    inc hl
-    ld a,(hl) 
-    dec hl
-    and #0x04
-    ld b,h
-    ld c,l
-    jr Z,noInput
-    call _sys_physics_checkKeyboard
-    noInput:
-    pop hl
+    pop ix
+    ld  b, e_xpos(ix) 
+    ld  d, e_ypos(ix) 
 
-    inc hl
-    inc hl
-    ld  b,(hl) ; posX
-    inc hl
-    ld  d,(hl) ; posY 
-
-    inc hl
-    inc hl
-    inc hl
-    ld c,(hl) ; velX
-    inc hl
-    ld e,(hl) ; vely
-
-    ld a, #0x05
-    setHLposX:
-        dec hl
-        dec a
-        jr NZ, setHLposX
+    ld  c, e_vx(ix) 
+    ld  e, e_vy(ix) 
 
     ld a,b
     add a,c
-    ld (hl),a
+    ld e_xpos(ix),a
 
-    inc hl
     
     ld a,d
     add a,e
-    ld (hl),a
+    ld e_ypos(ix),a
     
    ret

@@ -1,4 +1,9 @@
 ;===================================================================================================================================================
+; includes
+;===================================================================================================================================================
+.include "resources/entityInfo.s"
+
+;===================================================================================================================================================
 ; Public functions
 ;===================================================================================================================================================
 .globl _man_entityForAllMatching
@@ -31,89 +36,88 @@ _sys_animator_update::
 ; resetea la animación y establece los datos como el paso descrito antes.
 ; HL : Entidad a updatear
 ;===================================================================================================================================================
-
-;!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-;IMPORTANTE : ESTE ANIMATOR SOLO SIRVE DEPENDIENDO DEL STRUCT DE LA ENITY
-;             REVISAR EN FUNCION DEL STRUCT QUE DECIDAMOS
-;!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
 _sys_animator_updateOneEntity::    
-
-    ld a,#0x0F
-    searchCounter:
-        inc hl
-        dec a
-        jr NZ, searchCounter
-    
-    dec (hl)
+    ;/
+    ;|Comprobamos comprobamos y debcrementamos el valor de anim. counter
+    ;\
+    push hl
+    pop ix
+    dec e_animctr(ix)
     ret NZ
+    push hl
 
-    ;; TODO : Aqui me falta asignar en la entidad la siguiente anim 
+    ;/
+    ;| Cargamos en DE el valor de la animacion de la entidad en este momento
+    ;\
+    ld d, e_anim2(ix)
+    ld e, e_anim1(ix)
 
-    dec hl
-    ld d,(hl)
-    dec hl
-    ld e,(hl)
-
+    ;/
+    ;| Hacemos que DE apunte a la siguiente parte de la animacion
+    ;\
     inc de
     inc de
     inc de
 
-    ld (hl), e
-    inc hl
-    ld (hl), d
-    dec hl
+    ;/
+    ;| Guardamos en la entidad la nueva parte de la animacion
+    ;\
+    ld e_anim1(ix), e
+    ld e_anim2(ix), d
 
-    ex de,hl 
-    ;HL tiene la direccion de la anim
-    ;Aqui HL llega apuntando al tiempo de la animacion en memoria 
-    ;DE tiene la primera posicion de la animacion de la memoria de entity
-    push de
+    ex de,hl  ;HL tiene la direccion de la anim
+
+    ;/
+    ;| En caso que el valor de la duracion de esta parte de la animacion sea 0,
+    ;| cargaremos de nuevo la animacion en la entidad desde el principio
+    ;\
     dec (hl)
     inc (hl)
     jr NZ, noRepeatAnim
 
-    ; Aqui HL llega apuntando al tiempo de la nueva anim
-    ; Aqui hay q hacer una cosas setear la animacion (direccion del sprite de inicio)
-    push de
+    ;/
+    ;| HL llega apuntando a la nueva parte de la animacion que sabemos que se acaba.
+    ;| Así que cargamos el inicio de la animacion en la animacion de la entity
+    ;\
     inc hl
     ld e, (hl)
     inc hl
     ld d, (hl)
-    pop hl
-    ld (hl),e
-    inc hl
-    ld (hl),d
-    ;;AQui ya está en la Entity asignado el inicio de la anim
 
+    ld e_anim2(ix),d
+    ld e_anim1(ix),e
+
+    ;/
+    ;| Aqui ya está en la Entity asignado el inicio de la anim
+    ;\
     noRepeatAnim:
-    pop hl   ;;Aqui en HL está el inicio de la animacion en la memoria de la entity
-    ld e,(hl)
-    inc hl
-    ld d,(hl)
-    inc hl
-    ex de,hl ;;Aqui en HL está la direcion de memoria del tiempo nuevo en la anim
-             ;;y en DE queda el counter del tiempo de la entity
+    ;pop hl   ;;Aqui en HL está el inicio de la animacion en la memoria de la entity
 
-    ; Aqui HL llega apuntando al tiempo de la nueva anim
+    ;/
+    ;| Aqui seteamos los valores de la entidad con los 
+    ;| valores de la nueva parte de la animacion
+    ;\    
+    ld h, e_anim2(ix)
+    ld l, e_anim1(ix)
+
+    ;/
+    ;| El valor del tiempo
+    ;\    
     ld a, (hl) ; a = newTIME
+    ld e_animctr(ix),a
+
+    ;/
+    ;| El valor del sprite
+    ;\    
     inc hl
-    ex de, hl
-    ld (hl),a
-    ;;Seteado el tiempo en la entity
-    dec hl
-    dec hl
-    dec hl
-    dec hl
-    dec hl
-    dec hl
-    ex de, hl ; Tengo en HL el inicio del nuevo sprite en la anim
-    ld c,(hl)
+    ld a,(hl)
+    ld e_sprite1(ix),a
     inc hl
-    ld b,(hl)
-    ex de, hl ;Tengo en BC el nuevo sprite, y en HL el segundo Byte del sprite de la entity
-    ld (hl), b
-    dec hl
-    ld (hl),c
-    
+    ld a,(hl)
+    ld e_sprite2(ix),a
+
+    ;/
+    ;| Devolvemos el valor de Hl del inicio
+    ;\    
+    pop hl
    ret

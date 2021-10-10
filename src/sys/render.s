@@ -77,8 +77,8 @@ _sys_render_renderOneEntity:: ;;TODO : Ver de hacer esto con el reg IX
     pop ix
     ld  c, e_xpos(ix) 
 
-    ; ld  b, e_ypos(ix) 
-    LOAD_ENTITY_VARIABLE_IN_REGISTER hl, e_ypos, b
+    ld  b, e_ypos(ix) 
+    ;LOAD_ENTITY_VARIABLE_IN_REGISTER hl, e_ypos, b
 
     ;LOAD_ENTITY_VARIABLE_IN_REGISTER hl, e_xpos, c
     ;LOAD_ENTITY_VARIABLE_IN_REGISTER hl, e_ypos, b

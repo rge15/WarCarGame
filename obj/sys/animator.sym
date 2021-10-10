@@ -13,13 +13,28 @@ Symbol Table
     _man_entityForAllMatching                                      **** GX
   0 _sys_animator_update                                           0000 GR
   0 _sys_animator_updateOneEntity                                  000F GR
-  0 noRepeatAnim                                                   0031 GR
-  0 searchCounter                                                  0011 GR
+    e_aibeh1                                                    =  000A G
+    e_aibeh2                                                    =  000B G
+    e_anctr                                                     =  000C G
+    e_anim1                                                     =  000D G
+    e_anim2                                                     =  000E G
+    e_animctr                                                   =  000F G
+    e_cmp                                                       =  0001 G
+    e_heigth                                                    =  0005 G
+    e_sprite1                                                   =  0008 G
+    e_sprite2                                                   =  0009 G
+    e_type                                                      =  0000 G
+    e_vx                                                        =  0006 G
+    e_vy                                                        =  0007 G
+    e_width                                                     =  0004 G
+    e_xpos                                                      =  0002 G
+    e_ypos                                                      =  0003 G
+  0 noRepeatAnim                                                   0035 GR
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
 Hexadecimal [16-Bits]
 
 Area Table
 
-   0 _CODE                                      size   4A   flags    0
+   0 _CODE                                      size   4B   flags    0
 

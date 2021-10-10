@@ -4,9 +4,9 @@ Hexadecimal [16-Bits]
 
 
    4012                       1 _sprite_player01:
-   4012 00 FF                 2    .dw #0xFF00
-   4014 FF FF                 3    .dw #0xFFFF
-   4016 FF 00                 4    .dw #0x00FF
+   4012 00 00                 2    .dw #0x0000
+   4014 00 00                 3    .dw #0x0000
+   4016 00 00                 4    .dw #0x0000
    4018 00 FF                 5    .dw #0xFF00
    401A FF FF                 6    .dw #0xFFFF
    401C FF 00                 7    .dw #0x00FF
@@ -28,30 +28,48 @@ Hexadecimal [16-Bits]
    403C 00 FF                23    .dw #0xFF00
    403E FF FF                24    .dw #0xFFFF
    4040 FF 00                25    .dw #0x00FF
-                             26 
-                             27 
-   4042                      28 _sprite_player02:
-   4042 00 EE                29    .dw #0xEE00
-   4044 EE EE                30    .dw #0xEEEE
-   4046 EE 00                31    .dw #0x00EE
-   4048 00 EE                32    .dw #0xEE00
-   404A EE EE                33    .dw #0xEEEE
-   404C EE 00                34    .dw #0x00EE
-   404E 00 EE                35    .dw #0xEE00
-   4050 EE EE                36    .dw #0xEEEE
-   4052 EE 00                37    .dw #0x00EE
-   4054 00 EE                38    .dw #0xEE00
-   4056 EE EE                39    .dw #0xEEEE
-   4058 EE 00                40    .dw #0x00EE
-   405A 00 EE                41    .dw #0xEE00
-   405C EE EE                42    .dw #0xEEEE
-   405E EE 00                43    .dw #0x00EE
-   4060 00 EE                44    .dw #0xEE00
-   4062 EE EE                45    .dw #0xEEEE
-   4064 EE 00                46    .dw #0x00EE
-   4066 00 EE                47    .dw #0xEE00
-   4068 EE EE                48    .dw #0xEEEE
-   406A EE 00                49    .dw #0x00EE
-   406C 00 EE                50    .dw #0xEE00
-   406E EE EE                51    .dw #0xEEEE
-   4070 EE 00                52    .dw #0x00EE
+   4042 00 FF                26    .dw #0xFF00
+   4044 FF FF                27    .dw #0xFFFF
+   4046 FF 00                28    .dw #0x00FF
+   4048 00 00                29    .dw #0x0000
+   404A 00 00                30    .dw #0x0000
+   404C 00 00                31    .dw #0x0000
+                             32 
+                             33 
+                             34 
+   404E                      35 _sprite_player02:
+   404E 00 00                36    .dw #0x0000
+   4050 00 00                37    .dw #0x0000
+   4052 00 00                38    .dw #0x0000
+   4054 00 EE                39    .dw #0xEE00
+   4056 EE EE                40    .dw #0xEEEE
+   4058 EE 00                41    .dw #0x00EE
+   405A 00 EE                42    .dw #0xEE00
+   405C EE EE                43    .dw #0xEEEE
+   405E EE 00                44    .dw #0x00EE
+   4060 00 EE                45    .dw #0xEE00
+   4062 EE EE                46    .dw #0xEEEE
+   4064 EE 00                47    .dw #0x00EE
+   4066 00 EE                48    .dw #0xEE00
+   4068 EE EE                49    .dw #0xEEEE
+   406A EE 00                50    .dw #0x00EE
+   406C 00 EE                51    .dw #0xEE00
+   406E EE EE                52    .dw #0xEEEE
+   4070 EE 00                53    .dw #0x00EE
+   4072 00 EE                54    .dw #0xEE00
+   4074 EE EE                55    .dw #0xEEEE
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
+Hexadecimal [16-Bits]
+
+
+
+   4076 EE 00                56    .dw #0x00EE
+   4078 00 EE                57    .dw #0xEE00
+   407A EE EE                58    .dw #0xEEEE
+   407C EE 00                59    .dw #0x00EE
+   407E 00 EE                60    .dw #0xEE00
+   4080 EE EE                61    .dw #0xEEEE
+   4082 EE 00                62    .dw #0x00EE
+   4084 00 00                63    .dw #0x0000
+   4086 00 00                64    .dw #0x0000
+   4088 00 00                65    .dw #0x0000
