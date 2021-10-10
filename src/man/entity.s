@@ -15,7 +15,7 @@
 ;===================================================================================================================================================
 ;; Descripcion : Array de entidades
 _m_entities::
-    .ds 112
+    .ds 120
 
 ;; Descripcion : Memoria vacia al final del array para controlar su final
 _m_emptyMemCheck::
@@ -39,7 +39,7 @@ _m_numEntities::
 
 ;; Descripcion : TAmaño en bytes de 1 entity
 _m_sizeOfEntity::
-    .db #0x10
+    .db #0x14
 
 
 ;===================================================================================================================================================
