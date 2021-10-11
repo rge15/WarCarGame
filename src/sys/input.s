@@ -3,6 +3,7 @@
 ;===================================================================================================================================================
 .globl cpct_scanKeyboard_f_asm
 .globl cpct_isKeyPressed_asm
+.globl cpct_getScreenPtr_asm
 
 ;===================================================================================================================================================
 ; Public functions
@@ -22,6 +23,7 @@
 ; Includes
 ;===================================================================================================================================================
 .include "resources/macros.s" ;;Info : Hay un macro todo wapo para ver si se pulsan la tecla indicada
+.include "resources/entityInfo.s"
 
 ;===================================================================================================================================================
 ; Keyboard  TODO : Intentar hacerlo con el joystick sería la polla lironda
@@ -52,4 +54,58 @@ _sys_input_update::
 ;===================================================================================================================================================
 _sys_input_updateOneEntity::    
     
+    push hl
+    pop ix
+
+    call cpct_scanKeyboard_f_asm
+    
+    ld hl, #0x0807  ;;Key W
+    call cpct_isKeyPressed_asm
+    jr NZ, upPressed
+
+    ld hl, #0x2008  ;;Key A
+    call cpct_isKeyPressed_asm
+    jr NZ, leftPressed
+
+    ld hl, #0x1007  ;;Key S
+    call cpct_isKeyPressed_asm
+    jr NZ, downPressed
+
+    ld hl, #0x2007  ;;Key D
+    call cpct_isKeyPressed_asm
+    jr NZ, rightPressed
+
+    jp stopCheckMovement
+
+    upPressed:
+        ld a, e_ypos(ix)
+        dec a
+        dec a
+        dec a
+        dec a
+        ld e_ypos(ix), a
+        jp stopCheckMovement
+
+    leftPressed:
+        ld a, e_xpos(ix)
+        dec a
+        ld e_xpos(ix), a
+        jp stopCheckMovement
+
+    downPressed:
+        ld a, e_ypos(ix)
+        inc a
+        inc a
+        inc a
+        inc a
+        ld e_ypos(ix), a
+        jp stopCheckMovement
+
+    rightPressed:
+        ld a, e_xpos(ix)
+        inc a
+        ld e_xpos(ix), a
+        jp stopCheckMovement
+
+    stopCheckMovement:
    ret

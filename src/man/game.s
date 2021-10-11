@@ -16,6 +16,7 @@
 .globl _sys_init_render
 .globl _sys_render_update
 .globl _sys_animator_update
+.globl _sys_input_update
 .globl _sys_ai_update
 
 ;===================================================================================================================================================
@@ -84,7 +85,7 @@ ret
 _m_game_play::
    updates:
       call _sys_ai_update
-      ;call _sys_input_update
+      call _sys_input_update
       call _sys_physics_update
       call _sys_animator_update
       call _sys_render_update

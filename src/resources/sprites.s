@@ -1,4 +1,13 @@
 _sprite_player01:
+   .dw #0x0000    ;; Nuevo
+   .dw #0x0000    ;; Nuevo
+   .dw #0x0000    ;; Nuevo
+   .dw #0x0000    ;; Nuevo
+   .dw #0x0000    ;; Nuevo
+   .dw #0x0000    ;; Nuevo
+   .dw #0x0000    ;; Nuevo
+   .dw #0x0000    ;; Nuevo
+   .dw #0x0000    ;; Nuevo
    .dw #0x0000
    .dw #0x0000
    .dw #0x0000
@@ -29,7 +38,15 @@ _sprite_player01:
    .dw #0x0000
    .dw #0x0000
    .dw #0x0000
-
+   .dw #0x0000    ;; Nuevo
+   .dw #0x0000    ;; Nuevo
+   .dw #0x0000    ;; Nuevo
+   .dw #0x0000    ;; Nuevo
+   .dw #0x0000    ;; Nuevo
+   .dw #0x0000    ;; Nuevo
+   .dw #0x0000    ;; Nuevo
+   .dw #0x0000    ;; Nuevo
+   .dw #0x0000    ;; Nuevo
 
 
 _sprite_player02:
