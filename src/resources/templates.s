@@ -32,5 +32,5 @@ _player_template_e:
    .dw #0x0000             ;ai_behaviour
    .db #0x00               ;ai_counter
    .dw #_man_anim_player   ;animator
-   .db #0x10               ;anim. counter
+   .db #0x0A               ;anim. counter
    .dw #0x0000             ;input_behaviour

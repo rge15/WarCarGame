@@ -38,7 +38,7 @@ _sys_animator_update::
 ;===================================================================================================================================================
 _sys_animator_updateOneEntity::    
     ;/
-    ;|Comprobamos comprobamos y debcrementamos el valor de anim. counter
+    ;|Comprobamos comprobamos y decrementamos el valor de anim. counter
     ;\
     push hl
     pop ix
