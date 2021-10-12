@@ -34,7 +34,7 @@ _sys_ai_update::
 ; Busca el comportamiento de la entidad y lo ejecuta 
 ; HL : LA entidad a updatear
 ;===================================================================================================================================================
-_sys_ai_updateOneEntity::    
+_sys_ai_updateOneEntity::
     ; ex de, hl
     ld a,#0x0A
     searchBehaviour:
