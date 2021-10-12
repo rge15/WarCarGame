@@ -1,24 +1,19 @@
-;===================================================================================================================================================
-; CPCTelera functions
-;===================================================================================================================================================
-.globl cpct_scanKeyboard_f_asm
-.globl cpct_isKeyPressed_asm
+.module Ai
 
-;===================================================================================================================================================
-; Public functions
-;===================================================================================================================================================
-.globl _man_entityForAllMatching
-.globl _m_game_createEnemy
-.globl _m_game_destroyEntity
-.globl _m_functionMemory
-.globl _m_signatureMatch
-
+.include "cpct_globals.h.s"
+.include "man/entity.h.s"
+.include "man/game.h.s"
+.include "physics.h.s"
+.include "ai.h.s"
 
 ;===================================================================================================================================================
 ; Manager data
 ;===================================================================================================================================================
 _sys_ai_behaviourMemory::
     .ds 2
+
+
+
 
 ;===================================================================================================================================================
 ; FUNCION _sys_ai_update
@@ -46,7 +41,7 @@ _sys_ai_updateOneEntity::
         inc hl
         dec a
         jr NZ, searchBehaviour
-    
+
     ld ix, #updatedOneEntity
     push ix
 
@@ -150,10 +145,10 @@ _sys_ai_behaviourAutoDestroy::
         inc hl
         dec a
         jr NZ, searchAICounter
-    
+
     dec (hl)
     jr NZ, dontDestroy
-    
+
     ld a,#0x0C
     searchType:
         dec hl
@@ -161,7 +156,7 @@ _sys_ai_behaviourAutoDestroy::
         jr NZ, searchType
 
     call _m_game_destroyEntity
-    
+
     dontDestroy:
-    
+
     ret

@@ -1,16 +1,22 @@
+.module Render
+
 ;===================================================================================================================================================
 ; CPCTelera functions
 ;===================================================================================================================================================
-.globl cpct_getScreenPtr_asm
-.globl cpct_setVideoMode_asm
-.globl cpct_setPALColour_asm
-.globl cpct_drawSprite_asm
+; .globl cpct_getScreenPtr_asm
+; .globl cpct_setVideoMode_asm
+; .globl cpct_setPALColour_asm
+; .globl cpct_drawSprite_asm
 
 ;===================================================================================================================================================
 ; includes
 ;===================================================================================================================================================
+.include "man/entity.h.s"
+.include "cpct_globals.h.s"
 .include "resources/macros.s"
 .include "resources/entityInfo.s"
+.include "resources/sprites.h.s"
+.include "resources/animations.h.s"
 
 ;===================================================================================================================================================
 ; Public functions

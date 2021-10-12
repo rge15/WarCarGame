@@ -1,3 +1,6 @@
+.module Sprites
+.include "sprites.h.s"
+
 _sprite_player01:
    .dw #0x0000
    .dw #0x0000
