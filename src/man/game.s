@@ -40,6 +40,10 @@
 ; Manager data
 ;===================================================================================================================================================
 
+;;Descripcion : Contador de las interrupciones por la que vamos
+_m_irCtr:
+   .db 6
+
 ;;Descripcion : Saber si el jugador ha disparado ya 
 _m_playerShot:
    .db #0x00
@@ -91,17 +95,31 @@ ret
 ; NO llega ningun dato
 ;===================================================================================================================================================
 _m_game_play::
-   updates:
-      call _sys_ai_update
-      ;call _sys_input_update
-      call _sys_physics_update
-      call _sys_animator_update
-      call _sys_render_update
+call _man_game_setManagerIr
+   
+   testIr:
+      ld a, (_m_irCtr)
+      cp #1
+      jr nz, testIr
+      cpctm_setBorder_asm HW_GREEN
+
+   jr testIr
+   
+   
+
+   ; updates:
+      ; cpctm_setBorder_asm HW_YELLOW
+      ; call _sys_ai_update
+      ; ;call _sys_input_update
+      ; call _sys_physics_update
+      ; call _sys_animator_update
+      ; call _sys_render_update
       
-      call _man_entityUpdate
-      call cpct_waitVSYNC_asm
-      ; call _wait
-   jr updates
+      ; call _man_entityUpdate
+      ; cpctm_setBorder_asm HW_BLACK
+      ; call cpct_waitVSYNC_asm
+      ; ;call _wait
+   ; jr updates
 
 ret
 
@@ -188,3 +206,31 @@ _wait::
          dec h
          jr NZ, waitLoop
    ret
+
+
+
+_man_game_setManagerIr::
+   im 1
+   call cpct_waitVSYNC_asm
+   halt
+   halt
+   call cpct_waitVSYNC_asm
+   di
+   ld a, #0xC3
+   ld (#0x38), a
+   ld hl, #_man_game_ir
+   ld (#0x39), hl
+   ei
+   ret
+_man_game_ir::
+   cpctm_setBorder_asm HW_BLACK
+
+   ld a, (_m_irCtr)
+   dec a
+   jr NZ, notReset
+      ld a, #6
+   notReset:
+   ld (_m_irCtr),a
+
+   ei
+   reti
