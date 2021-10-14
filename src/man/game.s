@@ -5,24 +5,19 @@
 .include "cpctelera.h.s"
 .include "cpct_globals.h.s"
 .include "man/entity.h.s"
-; .include "sys/render.h.s"
-.include "sys/physics.h.s"
-.include "resources/macros.s"
-.include "game.h.s"
 
-;===================================================================================================================================================
-; Public functions
-;===================================================================================================================================================
-.globl _sys_physics_update
+;; TODO:
+; .include "sys/render.h.s"
 .globl _sys_init_render
 .globl _sys_render_update
-.globl _sys_animator_update
-.globl _sys_ai_update
 
-;===================================================================================================================================================
-; Templates
-;===================================================================================================================================================
-.globl _player_template_e
+.include "sys/physics.h.s"
+.include "sys/animator.h.s"
+.include "sys/ai.h.s"
+.include "resources/macros.s"
+.include "resources/templates.h.s"
+.include "game.h.s"
+
 
 ;===================================================================================================================================================
 ; Manager data
