@@ -6,6 +6,7 @@
 .globl _m_game_play
 .globl _m_game_createEnemy
 .globl _m_game_destroyEntity
+.globl _m_game_bulletDestroyed
 .globl _m_game_playerShot
 .globl _wait
 

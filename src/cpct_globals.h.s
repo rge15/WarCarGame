@@ -11,7 +11,7 @@
 .globl cpct_memcpy_asm
 
 
-;; TODO: estos van en render pero esta en otra rama
+;; TODO: estos van en render
 .globl cpct_getScreenPtr_asm
 .globl cpct_setVideoMode_asm
 .globl cpct_setPALColour_asm
