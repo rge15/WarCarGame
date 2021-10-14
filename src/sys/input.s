@@ -75,36 +75,62 @@ _sys_input_updateOneEntity::
     call cpct_isKeyPressed_asm
     jr NZ, rightPressed
 
+    ld hl, #0x8005  ;;Key Space
+    call cpct_isKeyPressed_asm
+    jr NZ, spacePressed
+
     jp stopCheckMovement
 
     upPressed:
+        ;; Cambiamos la posicion
         ld a, e_ypos(ix)
+        ;; Meto cuatro dec para que avance byte y no pixels
         dec a
         dec a
         dec a
         dec a
         ld e_ypos(ix), a
+        ;; Actualizamos la orientación
+        ld a, #0x03
+        ld e_orient(ix), a
         jp stopCheckMovement
 
     leftPressed:
+        ;; Cambiamos la posicion
         ld a, e_xpos(ix)
         dec a
         ld e_xpos(ix), a
+        ;; Actualizamos la orientación
+        ld a, #0x02
+        ld e_orient(ix), a
         jp stopCheckMovement
 
     downPressed:
+        ;; Cambiamos la posicion
         ld a, e_ypos(ix)
+        ;; Meto cuatro dec para que avance byte y no pixels
         inc a
         inc a
         inc a
         inc a
         ld e_ypos(ix), a
+        ;; Actualizamos la orientación
+        ld a, #0x01
+        ld e_orient(ix), a
         jp stopCheckMovement
 
     rightPressed:
+        ;; Cambiamos la posicion
         ld a, e_xpos(ix)
         inc a
         ld e_xpos(ix), a
+        ;; Actualizamos la orientación
+        ld a, #0x00
+        ld e_orient(ix), a
+        jp stopCheckMovement
+
+    spacePressed:
+        call _m_game_playerShot
         jp stopCheckMovement
 
     stopCheckMovement:
