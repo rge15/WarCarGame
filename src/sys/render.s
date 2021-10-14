@@ -4,13 +4,24 @@
 .globl cpct_getScreenPtr_asm
 .globl cpct_setVideoMode_asm
 .globl cpct_setPALColour_asm
+.globl cpct_setPalette_asm
 .globl cpct_drawSprite_asm
+.globl cpct_etm_setDrawTilemap4x8_ag_asm
+.globl cpct_etm_drawTilemap4x8_ag_asm
 
 ;===================================================================================================================================================
 ; includes
 ;===================================================================================================================================================
 .include "resources/macros.s"
 .include "resources/entityInfo.s"
+
+
+;===================================================================================================================================================
+; Assets
+;===================================================================================================================================================
+.globl _tilemap_01
+.globl _tileset_0
+.globl _g_palette
 
 ;===================================================================================================================================================
 ; Public functions
@@ -30,18 +41,24 @@
 ; NO llega ningun dato
 ;===================================================================================================================================================
 _sys_init_render::
-   ;;Destroyed : HL 
-   ld    c,#0x00
-   call  cpct_setVideoMode_asm
-   ;;Destroyed : AF & BC & HL 
-   ld hl , #0x1410
-   call  cpct_setPALColour_asm
-   ;;Destroyed : F & BC & HL  
+    ;;Destroyed : HL 
+    ld  c, #0x00
+    call  cpct_setVideoMode_asm
+    ;;Destroyed : AF & BC & HL 
+    ld hl, #0x1410
+    call  cpct_setPALColour_asm
+    ;;Destroyed : F & BC & HL  
 
-   ld hl , #0x1400
-   call  cpct_setPALColour_asm
-   ;;Destroyed : F & BC & HL  
-   ret
+    ld hl, #0x1400
+    call  cpct_setPALColour_asm
+    ;;Destroyed : F & BC & HL  
+
+    ld hl, #_g_palette
+    ld de, #16
+    call cpct_setPalette_asm
+
+    call _sys_render_renderTileMap  
+    ret
 
 ;===================================================================================================================================================
 ; FUNCION _sys_render_update
@@ -62,7 +79,7 @@ _sys_render_update::
 ; Renderiza los sprites de las entidades renderizables
 ; HL : Entidad a renderizar
 ;===================================================================================================================================================
-_sys_render_renderOneEntity:: ;;TODO : Ver de hacer esto con el reg IX
+_sys_render_renderOneEntity::
     ;; Si es una entidad marcada para destruir no se renderiza
     ld a, (hl)
     and #0x80    
@@ -98,5 +115,24 @@ _sys_render_renderOneEntity:: ;;TODO : Ver de hacer esto con el reg IX
 
     pop hl
     dontRender:
+
+    ret
+
+
+;===================================================================================================================================================
+; FUNCION _sys_render_renderTileMap
+; Renderiza un tilemap con el tilesheet y el tilemap asignado
+; HL : Entidad a renderizar
+; 
+;===================================================================================================================================================
+_sys_render_renderTileMap::
+    ld  bc, #0x1914            ; Height & Width of screen in bytes
+    ld  de, #0x14              ; Width of the Tilemap in bytes
+    ld  hl, #_tileset_0        ; Tileset to draw with
+    call cpct_etm_setDrawTilemap4x8_ag_asm
+    
+    ld hl, #0xC000             ; Video mem. to draw tilemap
+    ld de, #_tilemap_01        ; Tilemap to be draw
+    call cpct_etm_drawTilemap4x8_ag_asm
 
     ret

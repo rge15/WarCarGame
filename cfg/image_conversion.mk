@@ -41,6 +41,19 @@
 #$(eval $(call IMG2SP, CONVERT_PALETTE , $(PALETTE), g_palette ))
 #$(eval $(call IMG2SP, CONVERT         , img.png , w, h, array, palette, tileset))
 
+PALETTE=0 1 2 3 6 9 11 12 13 15 16 18 20 24 25 26
+
+$(eval $(call IMG2SP, SET_PALETTE_FW  , $(PALETTE)         ))
+$(eval $(call IMG2SP, CONVERT_PALETTE , $(PALETTE), g_palette ))
+$(eval $(call IMG2SP, SET_FOLDER      , src/assets/maps  ))
+$(eval $(call IMG2SP, SET_IMG_FORMAT  , zgtiles  ))
+$(eval $(call IMG2SP, CONVERT         , assets/tileset.png , 8, 8, tileset,,))
+
+
+
+
+
+
 ##
 ## OLD MACROS (For compatibility)
 ##
