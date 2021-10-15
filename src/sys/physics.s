@@ -1,27 +1,12 @@
-;===================================================================================================================================================
-; CPCTelera functions
-;===================================================================================================================================================
-.globl cpct_scanKeyboard_f_asm
-.globl cpct_isKeyPressed_asm
-
+.module Physics
 ;===================================================================================================================================================
 ; includes
 ;===================================================================================================================================================
 .include "resources/entityInfo.s"
-
-;===================================================================================================================================================
-; Public functions
-;===================================================================================================================================================
-.globl _man_entityForAllMatching
-.globl _man_entityDestroy
-.globl _man_setEntity4Destroy
-.globl _m_game_playerShot
-
-;===================================================================================================================================================
-; Public data
-;===================================================================================================================================================
-.globl _m_functionMemory
-.globl _m_signatureMatch
+.include "cpct_globals.h.s"
+.include "man/entity.h.s"
+.include "man/game.h.s"
+.include "physics.h.s"
 
 ;===================================================================================================================================================
 ; FUNCION _sys_physics_update
@@ -42,46 +27,46 @@ _sys_physics_update::
 ; Y manda la orden de disparar si pulsa Espacio
 ; HL : LA entidad a updatear
 ;===================================================================================================================================================
-_sys_physics_checkKeyboard::
-    inc hl
-    inc hl
-    inc hl
-    inc hl
-    inc hl
-    inc hl
-    push hl
-
-    call cpct_scanKeyboard_f_asm
-    
-    ld hl, #0x0404  ;;Key O
-    call cpct_isKeyPressed_asm
-    jr NZ, leftPressed
-
-    ld hl, #0x0803 ;;Key P
-    call cpct_isKeyPressed_asm
-    jr NZ, rightPressed
-
-    pop hl
-    ld (hl), #0x00
-
-    jp stopCheckMovement
-    leftPressed:
-        pop hl
-        ld (hl), #0xFF
-        jp stopCheckMovement
-    rightPressed:
-        pop hl
-        ld (hl), #0x01
-
-    stopCheckMovement:
-
-    ld hl, #0x8005 ;;Key SpaceBar
-    call cpct_isKeyPressed_asm
-    jr Z, dontShoot
-    call _m_game_playerShot
-
-    dontShoot:
-    ret
+;;_sys_physics_checkKeyboard::
+;;    inc hl
+;;    inc hl
+;;    inc hl
+;;    inc hl
+;;    inc hl
+;;    inc hl
+;;    push hl
+;;
+;;    call cpct_scanKeyboard_f_asm
+;;    
+;;    ld hl, #0x0404  ;;Key O
+;;    call cpct_isKeyPressed_asm
+;;    jr NZ, leftPressed
+;;
+;;    ld hl, #0x0803 ;;Key P
+;;    call cpct_isKeyPressed_asm
+;;    jr NZ, rightPressed
+;;
+;;    pop hl
+;;    ld (hl), #0x00
+;;
+;;    jp stopCheckMovement
+;;    leftPressed:
+;;        pop hl
+;;        ld (hl), #0xFF
+;;        jp stopCheckMovement
+;;    rightPressed:
+;;        pop hl
+;;        ld (hl), #0x01
+;;
+;;    stopCheckMovement:
+;;
+;;    ld hl, #0x8005 ;;Key SpaceBar
+;;    call cpct_isKeyPressed_asm
+;;    jr Z, dontShoot
+;;    call _m_game_playerShot
+;;
+;;    dontShoot:
+;;    ret
 
 
 ;===================================================================================================================================================

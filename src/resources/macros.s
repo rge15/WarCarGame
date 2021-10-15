@@ -1,4 +1,6 @@
-.globl _macro_addresAux
+.module Macros
+
+
 
 ;;Cargar el valor de _m_sizeOfEntity
 .macro LOAD_VARIABLE_IN_REGISTER _var, _register
