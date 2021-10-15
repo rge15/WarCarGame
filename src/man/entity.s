@@ -15,7 +15,7 @@
 ;===================================================================================================================================================
 ;; Descripcion : Array de entidades
 _m_entities::
-    .ds 126
+    .ds 210
 
 ;; Descripcion : Memoria vacia al final del array para controlar su final
 _m_emptyMemCheck::

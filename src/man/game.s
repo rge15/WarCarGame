@@ -79,14 +79,15 @@ _m_game_init::
    call  _man_entityInit
 
    ; CreatePlayer & Save in _m_playerEntity   
-   CREATE_ENTITY_FROM_TEMPLATE _player_template_e 
+   CREATE_ENTITY_FROM_TEMPLATE _player_template_e
    ex de,hl
    ld hl, #_m_playerEntity
    ld (hl), d
    inc hl
    ld (hl), e
    ex de,hl
-ret
+   
+   ret
 
 
 ;===================================================================================================================================================
@@ -99,9 +100,23 @@ call _man_game_setManagerIr
    
    testIr:
       ld a, (_m_irCtr)
-      cp #1
+      cp #6
       jr nz, testIr
       cpctm_setBorder_asm HW_GREEN
+      call _sys_render_update
+      cpctm_setBorder_asm HW_YELLOW
+      call _sys_ai_update
+      ;cpctm_setBorder_asm HW_RED
+      ;call _sys_input_update
+      cpctm_setBorder_asm HW_WHITE
+      call _sys_physics_update
+      cpctm_setBorder_asm HW_PINK
+      call _sys_animator_update
+      cpctm_setBorder_asm HW_BLACK
+      ld a, (_m_irCtr)
+      cp #6
+      jr nz, testIr
+      halt
 
    jr testIr
    
@@ -210,6 +225,7 @@ _wait::
 
 
 _man_game_setManagerIr::
+   ei
    im 1
    call cpct_waitVSYNC_asm
    halt
@@ -223,7 +239,8 @@ _man_game_setManagerIr::
    ei
    ret
 _man_game_ir::
-   cpctm_setBorder_asm HW_BLACK
+   ; cpctm_setBorder_asm HW_BLACK
+   push af
 
    ld a, (_m_irCtr)
    dec a
@@ -231,6 +248,8 @@ _man_game_ir::
       ld a, #6
    notReset:
    ld (_m_irCtr),a
+
+   pop af
 
    ei
    reti
