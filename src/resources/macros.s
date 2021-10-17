@@ -76,3 +76,18 @@
     ld hl, #_key
     call cpct_isKeyPressed_asm
 .endm 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Pre requirements
+;;  -
+;; Objetive: Calculate the given number negated
+;; Return: Return the number negated in the _register
+;; Modifies: a
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+.macro NEGATE_NUMBER _n1
+
+   ld a, #_n1
+   xor #0xFF
+   add a, #0x01
+
+.endm

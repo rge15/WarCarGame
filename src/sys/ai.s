@@ -5,6 +5,7 @@
 .include "man/game.h.s"
 .include "resources/entityInfo.s"
 .include "resources/templates.h.s"
+.include "resources/macros.s"
 .include "sys/physics.h.s"
 .include "sys/ai.h.s"
 
@@ -16,6 +17,11 @@ _sys_ai_behaviourMemory::
 
 _sys_ai_directionMemory::
     .dw #0x0000
+
+;; xy coords
+;; max: 4e                 por el render
+_sys_ai_seek_to_pos::
+   .dw #0x4e00
 
 ;===================================================================================================================================================
 ; FUNCION _sys_ai_update
@@ -86,18 +92,88 @@ ret
 
 ;===================================================================================================================================================
 ; FUNCION _sys_ai_behaviourEnemy
-; Comportamiento de la MotherShip
-; 1º Intenta crear un enemigo hijo
-; 2º Se mueve de derecha a izquierda hasta los bordes
 ; HL : Entidad a updatear
 ;===================================================================================================================================================
 _sys_ai_behaviourEnemy::
 
-    ;; TODO : IA del enemigo
-    call _sys_ai_behaviourLeftRight
+   push bc
+   pop ix
 
-    ret
+   ;; TODO: con la velocidad va regular
+   ld d, #1
+   ld hl, (_sys_ai_seek_to_pos)
+   call _sys_ai_seekCoords_x
+   call _sys_ai_seekCoords_y
 
+   ; ;; TODO : IA del enemigo
+   ; call _sys_ai_behaviourLeftRight
+
+   ret
+
+
+;===============================================================================
+; Seek a unas coordenadas, usando CP(con unsigned en principio)
+; IX: entidad que va a hacer el seek
+; H: coordenada x
+;===============================================================================
+_sys_ai_seekCoords_x::
+   ld a, h
+
+   ld b, e_xpos(ix)
+   cp b
+   ;; b:actual, a: destino
+   jr z, set_zero_x
+   jr c, set_negative_x
+   jr set_positive_x
+
+   set_negative_x:
+      ;; TODO: use NEGATE_NUMBER macro?
+      ld a, d
+      xor #0xFF
+      add a, #0x01
+      ld e_vx(ix), a
+      ret
+
+   set_positive_x:
+      ld e_vx(ix), d
+      ret
+
+   set_zero_x:
+      ld e_vx(ix), #0
+      ret
+
+;===============================================================================
+; Seek a unas coordenadas, usando CP(con unsigned en principio)
+; IX: entidad que va a hacer el seek
+; L: coordenada y
+; D: velocidad
+;===============================================================================
+_sys_ai_seekCoords_y::
+   ld a, l
+
+   ld b, e_ypos(ix)
+   cp b
+   ;; b:actual, a: destino
+   jr z, set_zero_y
+   jr c, set_negative_y
+   jr set_positive_y
+
+   set_negative_y:
+      ;; TODO: use NEGATE_NUMBER macro?
+      ld a, d
+      ld a, d
+      xor #0xFF
+      add a, #0x01
+      ld e_vy(ix), a
+      ret
+
+   set_positive_y:
+      ld e_vy(ix), d
+      ret
+
+   set_zero_y:
+      ld e_vy(ix), #0
+      ret
 
 
 

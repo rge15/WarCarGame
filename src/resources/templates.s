@@ -27,6 +27,24 @@ _player_template_e:
    .db #0x0A               ;anim. counter
    .dw #0x0000             ;input_behaviour
 
+_enemy_template_e:
+   .db #0x10               ; type
+   .db #0x0b               ; cmp
+   .db #0x05               ; x
+   .db #0x05               ; y
+   .db #0x06               ; width
+   .db #0x0C               ; heigth
+   .db #0x00               ; vx
+   .db #0x00               ; vy
+   .dw #_sprite_enemy01   ; sprite
+   .db #0x00               ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
+   .dw #0x0000             ; prevptr
+   .dw #_sys_ai_behaviourEnemy             ;ai_behaviour
+   .db #0x00               ;ai_counter
+   .dw #_man_anim_player   ;animator
+   .db #0x0A               ;anim. counter
+   .dw #0x0000             ;input_behaviour
+
 _bullet_template_e:
    .db #0x04                           ; type
    .db #0x1B                           ; cmp          

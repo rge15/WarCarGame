@@ -67,6 +67,7 @@ _m_game_init::
    inc hl
    ld (hl), e
    ex de,hl
+   CREATE_ENTITY_FROM_TEMPLATE _enemy_template_e
 ret
 
 
