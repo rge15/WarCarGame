@@ -41,6 +41,14 @@
 #$(eval $(call IMG2SP, CONVERT_PALETTE , $(PALETTE), g_palette ))
 #$(eval $(call IMG2SP, CONVERT         , img.png , w, h, array, palette, tileset))
 
+
+PALETTE=0 1 2 3 6 9 11 12 13 15 16 18 20 24 25 26
+$(eval $(call IMG2SP, SET_FOLDER      , src/assets/sprites               ))
+$(eval $(call IMG2SP, CONVERT_PALETTE , $(PALETTE), g_palette ))
+# $(eval $(call IMG2SP, SET_IMG_FORMAT  , sprites            ))	{ sprites, zgtiles, screen }
+$(eval $(call IMG2SP, CONVERT         , assets/tanque.png , 10, 16, tanque,,))
+
+
 ##
 ## OLD MACROS (For compatibility)
 ##
