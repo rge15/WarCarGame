@@ -47,6 +47,9 @@ $(eval $(call IMG2SP, SET_FOLDER      , src/assets/sprites               ))
 $(eval $(call IMG2SP, CONVERT_PALETTE , $(PALETTE), g_palette ))
 # $(eval $(call IMG2SP, SET_IMG_FORMAT  , sprites            ))	{ sprites, zgtiles, screen }
 $(eval $(call IMG2SP, CONVERT         , assets/tanque.png , 12, 16, tanque,,))
+$(eval $(call IMG2SP, CONVERT         , assets/verticalBullet.png , 6, 6, vBullet,,))
+$(eval $(call IMG2SP, CONVERT         , assets/horizBullet.png , 4, 8, hBullet,,))
+
 
 
 ##

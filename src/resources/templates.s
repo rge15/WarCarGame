@@ -33,11 +33,11 @@ _bullet_template_e:
    .db #0x1B                           ; cmp          
    .db #0x00                           ; x
    .db #0x00                           ; y 
-   .db #0x04                           ; width
-   .db #0x04                           ; heigth
+   .db #0x03                           ; width
+   .db #0x06                           ; heigth
    .db #0x00                           ; vx
    .db #0x00                           ; vy
-   .dw #_sprite_bullet01               ; sprite
+   .dw #_vBullet_1                     ; sprite
    .db #0x00                           ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
    .db #0x00                           ; prev. orientation  
    .dw #0x0000                         ; prevptr
