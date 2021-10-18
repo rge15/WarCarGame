@@ -4,6 +4,8 @@
 ;===================================================================================================================================================
 .include "resources/macros.s"
 .include "resources/entityInfo.s"
+.include "resources/sprites.h.s"
+.include "resources/animations.h.s"
 .include "cpct_globals.h.s"
 .include "man/entity.h.s"
 
@@ -36,7 +38,7 @@ _m_numEntities::
 
 ;; Descripcion : TAmaño en bytes de 1 entity
 _m_sizeOfEntity::
-    .db #0x15
+    .db #0x16
 
 
 ;===================================================================================================================================================
@@ -206,11 +208,11 @@ _man_entityDestroy::
 
 
 ;===================================================================================================================================================
-; FUNCION _man_entityUpdate
+; FUNCION _man_entitiesUpdate
 ; Recorre todas las entidades y destruye las entidades marcadas
 ; NO llega ningun dato 
 ;===================================================================================================================================================
-_man_entityUpdate::
+_man_entitiesUpdate::
     ld hl, #_m_entities
 
     inc (hl)
@@ -248,3 +250,75 @@ _man_entity_freeSpace::
         sub (hl)
     ret
 
+
+_man_entityUpdate::
+    call _man_entitiesUpdate
+    call _man_playerUpdate
+    ret
+
+
+_man_playerUpdate::
+    ld ix, #_m_playerEntity
+    
+    ld h, (ix)
+    inc ix
+    ld l, (ix)
+    push hl
+    pop ix
+
+    ld a, e_orient(ix)
+    sub e_prorient(ix)
+    ret Z
+
+    ld a,   e_orient(ix)
+    ld e_prorient(ix), a
+
+    dec a ;Si vale 0 se irá a -1 y por lo tanto llegará al último jr
+    jr Z, setYDownAxis
+    dec a
+    jr Z, setXLeftAxis
+    dec a
+    jr Z, setYUpAxis
+    jr NZ, setXRightAxis
+
+    setXRightAxis:
+        ld hl, #_man_anim_player_x_right
+        ld e_anim2(ix), h
+        ld e_anim1(ix), l
+        ld hl, #_tanque_0
+        ld e_sprite2(ix), h
+        ld e_sprite1(ix), l
+        ld e_animctr(ix), #0x0A
+        jp endUpdater
+    setYUpAxis:    
+        ld hl, #_man_anim_player_y_up
+        ld e_anim2(ix), h
+        ld e_anim1(ix), l
+        ld hl, #_tanque_1
+        ld e_sprite2(ix), h
+        ld e_sprite1(ix), l
+        ld e_animctr(ix), #0x0A
+        jp endUpdater
+
+    setXLeftAxis:
+        ld hl, #_man_anim_player_x_left
+        ld e_anim2(ix), h
+        ld e_anim1(ix), l
+        ld hl, #_tanque_4
+        ld e_sprite2(ix), h
+        ld e_sprite1(ix), l
+        ld e_animctr(ix), #0x0A
+        jp endUpdater
+    setYDownAxis:    
+        ld hl, #_man_anim_player_y_down
+        ld e_anim2(ix), h
+        ld e_anim1(ix), l
+        ld hl, #_tanque_5
+        ld e_sprite2(ix), h
+        ld e_sprite1(ix), l
+        ld e_animctr(ix), #0x0A
+        jp endUpdater
+
+
+    endUpdater:
+    ret
