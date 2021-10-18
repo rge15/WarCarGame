@@ -129,11 +129,44 @@ _sys_ai_behaviourEnemy::
 
    ret
 
+
+_sys_ai_lastAim:: .dw #0x0000
+;===============================================================================
+; Seek a unas coordenadas, usando CP(con unsigned en principio)
+; IX: entidad que va a hacer el seek
+; HL: coordenadas nueas
+;===============================================================================
+_sys_ai_setAiAim::
+   ld hl, (_sys_ai_lastAim)
+   ld b, e_ai_aim_x(ix)
+   ld c, e_ai_aim_y(ix)
+   ld e_ai_aim_x(ix), h
+   ld e_ai_aim_y(ix), l
+   ld (_sys_ai_lastAim), bc
+
+   ret
+
+
+_sys_ai_behaviourAutoMoveIn_x::
+   push bc
+   pop ix
+
+   ld d, #1
+   call _sys_ai_seekCoords_x
+   call z, _sys_ai_setAiAim
+   ret
+
+_sys_ai_behaviourAutoMoveIn_y::
+   push bc
+   pop ix
+
+   ld d, #1
+   call _sys_ai_seekCoords_y
+   call z, _sys_ai_setAiAim
+   ret
+
 ; poner en el counter el valor que pasa hasta disparar una baga 
 
-_sys_ai_generateRandom::
-   call cpct_getRandom_mxor_u8_asm
-   ret
 ;===============================================================================
 ; Seek a unas coordenadas, usando CP(con unsigned en principio)
 ; IX: entidad que va a hacer el seek
@@ -143,8 +176,6 @@ _sys_ai_seekCoords_x::
    ld a, e_ai_aim_x(ix)
 
    ld b, e_xpos(ix)
-   or b
-   jr z, skip_all_x
    cp b
    ;; b:actual, a: destino
    jr z, set_zero_x
@@ -162,10 +193,9 @@ _sys_ai_seekCoords_x::
 
    set_zero_x:
       ld e_vx(ix), #0
-      call _sys_ai_updateNextPatrolCoords
+      ; call _sys_ai_updateNextPatrolCoords
       ret
 
-   skip_all_x:
    ret
 
 

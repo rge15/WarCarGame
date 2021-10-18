@@ -5,6 +5,8 @@
 .globl _sys_ai_update
 .globl _sys_ai_updateOneEntity
 .globl _sys_ai_behaviourEnemy
+.globl _sys_ai_behaviourAutoMoveIn_x
+.globl _sys_ai_behaviourAutoMoveIn_y
 .globl _sys_ai_behaviourBullet
 .globl _sys_ai_behaviourLeftRight
 .globl _sys_ai_behaviourAutoDestroy
