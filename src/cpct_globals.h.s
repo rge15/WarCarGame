@@ -15,6 +15,7 @@
 .globl cpct_getScreenPtr_asm
 .globl cpct_setVideoMode_asm
 .globl cpct_setPALColour_asm
+.globl cpct_drawSolidBox_asm
 .globl cpct_drawSprite_asm
 .globl cpct_drawSpriteVFlip_f_asm
 .globl cpct_drawSpriteHFlip_at_asm

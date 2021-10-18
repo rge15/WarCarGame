@@ -110,7 +110,7 @@ _m_game_createEnemy::
 ; HL : Llega el valor de la entidad
 ;===================================================================================================================================================
 _m_game_destroyEntity::
-   call _man_entityDestroy
+   call _man_setEntity4Destroy
    ret
 
 

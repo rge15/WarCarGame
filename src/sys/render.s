@@ -70,10 +70,6 @@ _sys_render_update::
 ;===================================================================================================================================================
 _sys_render_renderOneEntity:: ;;TODO : Ver de hacer esto con el reg IX
     ;; Si es una entidad marcada para destruir no se renderiza
-    ld a, (hl)
-    and #0x80    
-    jr NZ, dontRender
-
     push hl
     push hl
     ;; Conseguimos la direccion de memoria donde dibujar con las pos de la entity
@@ -89,6 +85,11 @@ _sys_render_renderOneEntity:: ;;TODO : Ver de hacer esto con el reg IX
     ex de,hl
 
     pop hl
+
+    ld a, (hl)
+    and #0x80    
+    jr NZ, eraseSprite
+
     push de
     ;; Con la direccion de memoria dibujamos el sprite de la entidad
     ld  c, e_width(ix) 
@@ -102,7 +103,18 @@ _sys_render_renderOneEntity:: ;;TODO : Ver de hacer esto con el reg IX
     
     call cpct_drawSprite_asm
 
+    jp endRender
+    eraseSprite:
+        ;DE has already de V_Memo
+        ld  c, e_width(ix) 
+        ld  b, e_heigth(ix)
+        ld  a, #0xF3
+
+        call cpct_drawSolidBox_asm
+
+
+    endRender:
+
     pop hl
-    dontRender:
 
     ret
