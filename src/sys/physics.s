@@ -84,13 +84,20 @@ _sys_physics_updateOneEntity::
     ld  c, e_vx(ix) 
     ld  e, e_vy(ix) 
 
+    ;; TODO: realmente se deberia comprobar???
     ld a,b
     add a,c
+    cp #0x4c
+    jr nc, skip_x_increment
     ld e_xpos(ix),a
+    skip_x_increment:
 
-    
+    ;c5
     ld a,d
     add a,e
+    cp #0xc2
+    jr nc, skip_x_increment
     ld e_ypos(ix),a
-    
+    skip_y_increment:
+
    ret

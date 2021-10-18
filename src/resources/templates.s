@@ -26,6 +26,7 @@ _player_template_e:
    .dw #_man_anim_player   ;animator
    .db #0x0A               ;anim. counter
    .dw #0x0000             ;input_behaviour
+   .dw #0x0000             ;ai_aim_position
 
 _enemy_template_e:
    .db #0x10               ; type
@@ -44,6 +45,7 @@ _enemy_template_e:
    .dw #_man_anim_player   ;animator
    .db #0x0A               ;anim. counter
    .dw #0x0000             ;input_behaviour
+   .dw #0x2020             ;ai_aim_position
 
 _bullet_template_e:
    .db #0x04                           ; type
@@ -62,3 +64,4 @@ _bullet_template_e:
    .dw #0x00                           ; animator
    .db #0x00                           ; anim. counter
    .dw #0x0000                         ; input_behaviour
+   .dw #0x0000                         ;ai_aim_position

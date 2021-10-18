@@ -127,6 +127,7 @@ _sys_ai_generateRandom::
 ;===============================================================================
 _sys_ai_seekCoords_x::
    ld a, h
+   ld a, e_ai_aim_x(ix)
 
    ld b, e_xpos(ix)
    cp b
@@ -155,7 +156,9 @@ _sys_ai_seekCoords_x::
 ; D: velocidad
 ;===============================================================================
 _sys_ai_seekCoords_y::
-   ld a, l
+   ; ld a, l
+   ld a, e_ai_aim_y(ix)
+
 
    ld b, e_ypos(ix)
    cp b
