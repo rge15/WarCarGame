@@ -13,6 +13,7 @@
 
 .include "sys/ai.h.s"
 .include "sys/animator.h.s"
+.include "sys/collision.h.s"
 .include "sys/input.h.s"
 .include "sys/physics.h.s"
 .include "resources/macros.s"
@@ -82,6 +83,7 @@ _m_game_play::
       call _sys_physics_update
       call _sys_animator_update
       call _sys_render_update
+      call _sys_collision_update
       
       call _man_entityUpdate
       call cpct_waitVSYNC_asm
