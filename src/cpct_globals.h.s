@@ -9,6 +9,7 @@
 .globl cpct_waitHalts_asm
 .globl cpct_waitVSYNC_asm
 .globl cpct_memcpy_asm
+.globl cpct_getRandom_mxor_u8_asm
 
 
 ;; TODO: estos van en render

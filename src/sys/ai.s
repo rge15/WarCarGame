@@ -5,6 +5,7 @@
 .include "man/game.h.s"
 .include "resources/entityInfo.s"
 .include "resources/templates.h.s"
+.include "resources/macros.h.s"
 .include "resources/macros.s"
 .include "sys/physics.h.s"
 .include "sys/ai.h.s"
@@ -19,9 +20,12 @@ _sys_ai_directionMemory::
     .dw #0x0000
 
 ;; xy coords
-;; max: 4e                 por el render
+;; aprox max: 4ec5                 por el render, depende de la dimension tambien
 _sys_ai_seek_to_pos::
-   .dw #0x4e00
+   ; .dw #0x4e00
+   ; .dw #0xcccc
+   .dw #0x2020
+
 
 ;===================================================================================================================================================
 ; FUNCION _sys_ai_update
@@ -102,15 +106,20 @@ _sys_ai_behaviourEnemy::
    ;; TODO: con la velocidad va regular
    ld d, #1
    ld hl, (_sys_ai_seek_to_pos)
+
+   ; call cpct_getRandom_mxor_u8_asm
+   ;; TODO: entiendo que hay que comproba en cada iteracion no hay otra forma???
+   ; calcular las posiciones desde un principio
    call _sys_ai_seekCoords_x
    call _sys_ai_seekCoords_y
 
-   ; ;; TODO : IA del enemigo
-   ; call _sys_ai_behaviourLeftRight
-
    ret
 
+; poner en el counter el valor que pasa hasta disparar una baga 
 
+_sys_ai_generateRandom::
+   call cpct_getRandom_mxor_u8_asm
+   ret
 ;===============================================================================
 ; Seek a unas coordenadas, usando CP(con unsigned en principio)
 ; IX: entidad que va a hacer el seek
@@ -127,10 +136,7 @@ _sys_ai_seekCoords_x::
    jr set_positive_x
 
    set_negative_x:
-      ;; TODO: use NEGATE_NUMBER macro?
-      ld a, d
-      xor #0xFF
-      add a, #0x01
+      NEGATE_NUMBER d
       ld e_vx(ix), a
       ret
 
@@ -159,11 +165,7 @@ _sys_ai_seekCoords_y::
    jr set_positive_y
 
    set_negative_y:
-      ;; TODO: use NEGATE_NUMBER macro?
-      ld a, d
-      ld a, d
-      xor #0xFF
-      add a, #0x01
+      NEGATE_NUMBER d
       ld e_vy(ix), a
       ret
 
@@ -173,6 +175,9 @@ _sys_ai_seekCoords_y::
 
    set_zero_y:
       ld e_vy(ix), #0
+      ;; TODO: change beh
+      ; ld hl, #3020
+      ; ld (_sys_ai_seek_to_pos), hl
       ret
 
 

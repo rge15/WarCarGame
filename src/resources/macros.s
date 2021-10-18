@@ -1,5 +1,6 @@
 .module Macros
 
+.include "resources/macros.h.s"
 
 
 ;;Cargar el valor de _m_sizeOfEntity
@@ -84,9 +85,8 @@
 ;; Return: Return the number negated in the _register
 ;; Modifies: a
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-.macro NEGATE_NUMBER _n1
-
-   ld a, #_n1
+.macro NEGATE_NUMBER _register
+   ld a, _register
    xor #0xFF
    add a, #0x01
 

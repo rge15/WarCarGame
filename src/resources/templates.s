@@ -30,8 +30,8 @@ _player_template_e:
 _enemy_template_e:
    .db #0x10               ; type
    .db #0x0b               ; cmp
-   .db #0x05               ; x
-   .db #0x05               ; y
+   .db #0x00               ; x
+   .db #0x00               ; y
    .db #0x06               ; width
    .db #0x0C               ; heigth
    .db #0x00               ; vx
