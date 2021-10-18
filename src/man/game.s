@@ -57,6 +57,7 @@ _m_game_createInitTemplate::
 ;===================================================================================================================================================
 _m_game_init::
    call  _sys_init_render
+   call  _sys_ai_init
    call  _man_entityInit
 
    ; CreatePlayer & Save in _m_playerEntity   

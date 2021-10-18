@@ -26,6 +26,20 @@ _sys_ai_seek_to_pos::
    ; .dw #0xcccc
    .dw #0x2020
 
+_sys_ai_nextPatrolCoords::
+   .ds 2
+
+_sys_ai_patrol_pos:
+   .dw #0x0000
+   .dw #0x2000
+   .dw #0x2020
+   .dw #0x0020
+
+
+_sys_ai_init::
+   ld hl, #_sys_ai_nextPatrolCoords
+   ld (hl), #_sys_ai_patrol_pos
+   ret
 
 ;===================================================================================================================================================
 ; FUNCION _sys_ai_update
@@ -126,10 +140,11 @@ _sys_ai_generateRandom::
 ; H: coordenada x
 ;===============================================================================
 _sys_ai_seekCoords_x::
-   ld a, h
    ld a, e_ai_aim_x(ix)
 
    ld b, e_xpos(ix)
+   or b
+   jr z, skip_all_x
    cp b
    ;; b:actual, a: destino
    jr z, set_zero_x
@@ -147,7 +162,30 @@ _sys_ai_seekCoords_x::
 
    set_zero_x:
       ld e_vx(ix), #0
+      call _sys_ai_updateNextPatrolCoords
       ret
+
+   skip_all_x:
+   ret
+
+
+
+; por parametro el array a las posociones a las que tiene que hacer patrool
+; beh patrol
+; beh x right left
+; beh y up down
+;===============================================================================
+; actualiza _sys_ai_nextPatrolCoords
+; Destroy: HL
+;===============================================================================
+_sys_ai_updateNextPatrolCoords::
+   ; ld e_ai_aim_x(ix), #0x0000
+   ld de, #_sys_ai_nextPatrolCoords
+   ; ld e_ai_aim_x(ix), (hl)
+   ; ld hl, (_sys_ai_nextPatrolCoords)
+   inc hl
+   inc hl
+   ret
 
 ;===============================================================================
 ; Seek a unas coordenadas, usando CP(con unsigned en principio)
@@ -156,9 +194,7 @@ _sys_ai_seekCoords_x::
 ; D: velocidad
 ;===============================================================================
 _sys_ai_seekCoords_y::
-   ; ld a, l
    ld a, e_ai_aim_y(ix)
-
 
    ld b, e_ypos(ix)
    cp b
@@ -181,6 +217,7 @@ _sys_ai_seekCoords_y::
       ;; TODO: change beh
       ; ld hl, #3020
       ; ld (_sys_ai_seek_to_pos), hl
+      ; ld hl, #_sys_ai_seek_to_pos
       ret
 
 

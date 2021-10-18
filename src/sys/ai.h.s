@@ -1,6 +1,7 @@
 ;================================================================================
 ; Function declaration
 ;================================================================================
+.globl _sys_ai_init
 .globl _sys_ai_update
 .globl _sys_ai_updateOneEntity
 .globl _sys_ai_behaviourEnemy
