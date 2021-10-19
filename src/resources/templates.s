@@ -30,7 +30,7 @@ _player_template_e:
 
 _bullet_template_e:
    .db #0x04                           ; type
-   .db #0x1B                           ; cmp          
+   .db #0x3B                           ; cmp          
    .db #0x00                           ; x
    .db #0x00                           ; y 
    .db #0x03                           ; width

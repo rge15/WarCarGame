@@ -77,7 +77,7 @@ _sys_input_updateOneEntity::
         ld a, #0xFE
         ;; Meto dos dec para que avance byte y no pixels
         ld e_vy(ix), a
-        ld a, #0X00
+        ld a, #0x00
         ld e_vx(ix), a
         ;; Actualizamos la orientación
         ld a, #0x03
@@ -89,7 +89,7 @@ _sys_input_updateOneEntity::
         ld a, #0xFF
         ; dec a
         ld e_vx(ix), a
-        ld a, #0X00
+        ld a, #0x00
         ld e_vy(ix), a
         ;; Actualizamos la orientación
         ld a, #0x02
@@ -98,9 +98,9 @@ _sys_input_updateOneEntity::
 
     downPressed:
         ;; Cambiamos la posicion
-        ld a, #0X02
+        ld a, #0x02
         ld e_vy(ix), a
-        ld a, #0X00
+        ld a, #0x00
         ld e_vx(ix), a
         ;; Actualizamos la orientación
         ld a, #0x01

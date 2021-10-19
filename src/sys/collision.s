@@ -9,10 +9,11 @@
 .include "cpctelera.h.s"
 .include "collision.h.s"
 .include "assets/maps/map01.h.s"
+.include "resources/macros.s"
 
 ;===================================================================================================================================================
 ; FUNCION _sys_collision_update
-; Llama a la inversión de control para updatear las fisicas de cada entidad que coincida con e_type_movable
+; Llama a la inversión de control para updatear las colisiones
 ; NO llega ningun dato
 ;===================================================================================================================================================
 _sys_collision_update::
@@ -25,10 +26,13 @@ _sys_collision_update::
 
 ;===================================================================================================================================================
 ; FUNCION _sys_collision_updateOneEntity
-; Updatea las posiciones de las entidades en funcion de 
-; los valores de sus velocidades
+; Comprueba si la entidad colisiona con alguna tile y en ese caso quita su velocidad
 ; HL : Entidad a updatear
 ;===================================================================================================================================================
+;; Si la orientacion es hacia abajo, que compruebe la suma hacia abajo
+;; Hacer macro que se gun que orientación, devuelva en D 
+;; - #0xFF (comprueba parte arriba sprite) - #0x10 (comprueba abajo sprite)
+
 _sys_collision_updateOneEntity::    
     push hl
     pop ix
@@ -38,8 +42,9 @@ _sys_collision_updateOneEntity::
     ;; p = tilemap + ty * tw + tx
     
     ;; A = y  
+    CHECK_ORIENTATION_PLAYER_FOR_COLLISION_Y e_orient(ix) e_heigth(ix)
     ld  a, e_ypos(ix)
-    add #0x0F     ;; Sumo el alto de mi personaje
+    add d   ;; Sumo el alto de mi personaje 10
     ;; Desplazo a la derecha 3 veces el bit 
     ;;(Si deplazo a la derecha 1 bit divido entre 2)
     ;; A = ty (y/8)
@@ -59,7 +64,9 @@ _sys_collision_updateOneEntity::
     add hl, de  ;; HL = 20*ty
 
     ;; A = x
+    CHECK_ORIENTATION_PLAYER_FOR_COLLISION_X e_orient(ix) e_width(ix)
     ld  a, e_xpos(ix)
+    add d
     srl a ;; | A = tx(x/4)
     srl a ;; |
 
@@ -69,12 +76,23 @@ _sys_collision_updateOneEntity::
 
     ;; HL = tilemap + ty * tw + tx
     ;; Ya tenemos a hl apuntando al byte que queríamos
-    ld  a, (hl) ;; A = indice del tile debajo de mi pj
+    ld  a, (hl) ;; A ld a, #0x03
     and #0b11111110
 
     ret nz
     ;; COLISION DETECTADA
-
-    ld  e_vy(ix), #0    ;; Para a la entidad
     
+    ;; Dependiendo de la colision del axis setea a 0 la vel. 
+    CHECK_ORIENTATION_AXIS_PLAYER e_orient(ix)
+    inc a
+    dec a
+    jp z, _stop_x_axis
+    ld  e_vy(ix), #0    ;; Para a la entidad
+    jp _is_none_axis
+
+    _stop_x_axis:
+    ld  e_vx(ix), #0    ;; Para a la entidad
+
+    _is_none_axis:
+
    ret

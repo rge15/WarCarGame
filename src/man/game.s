@@ -80,10 +80,13 @@ ret
 _m_game_play::
    updates:
       call _sys_ai_update
-      call _sys_input_update
-      call _sys_physics_update
+      ;;call _sys_input_update
+      ;;call _sys_physics_update
       call _sys_animator_update
+      
       call _sys_render_update
+      call _sys_physics_update ;; Quitar esto para orig
+      call _sys_input_update   ;; Quitar esto para orig
       call _sys_collision_update
       
       call _man_entityUpdate
