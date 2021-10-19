@@ -125,11 +125,9 @@ _sys_render_renderOneEntity::
         ;DE has already de V_Memo
         ld  c, e_width(ix) 
         ld  b, e_heigth(ix)
-        ld  a, #0xF3
+        ld  a, #0x3F
 
         call cpct_drawSolidBox_asm
-
-
     endRender:
 
     pop hl

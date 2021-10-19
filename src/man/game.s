@@ -90,10 +90,10 @@ call _man_game_setManagerIr
       ld a, (_m_irCtr)
       cp #6
       jr nz, testIr
-      cpctm_setBorder_asm HW_GREEN
-      call _sys_render_update
       cpctm_setBorder_asm HW_YELLOW
       call _sys_ai_update
+      cpctm_setBorder_asm HW_GREEN
+      call _sys_render_update
       cpctm_setBorder_asm HW_WHITE
       call _sys_physics_update
       cpctm_setBorder_asm HW_RED
@@ -294,7 +294,7 @@ _m_game_playerShot::
       ld e_heigth(ix), #0x08
       
       ld a, e_ypos(ix)
-      add a, #0x01
+      add a, #0x02
       ld e_ypos(ix), a
       ld a, e_xpos(ix)
       add a, #0x02
