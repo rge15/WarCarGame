@@ -246,7 +246,7 @@ _m_game_playerShot::
       add a, #0x06
       ld e_ypos(ix), a
       ld a, e_xpos(ix)
-      add a, #0x06
+      add a, #0x02
       ld e_xpos(ix), a
       jp stopCheckOrientation
 
@@ -258,11 +258,12 @@ _m_game_playerShot::
       ld e_heigth(ix), #0x08
       
       ld a, e_ypos(ix)
-      add a, #0x10
+      add a, #0x2
       ld e_ypos(ix), a
       ld a, e_xpos(ix)
       add a, #0x02
       ld e_xpos(ix), a
+
       ld hl, #_hBullet_1
       ld e_sprite2(ix), h
       ld e_sprite1(ix), l
@@ -271,12 +272,14 @@ _m_game_playerShot::
    leftOrientation:
       ld e_vx(ix), #0xFF
       ld e_orient(ix), #0x02
+
       ld a, e_ypos(ix)
       add a, #0x06
       ld e_ypos(ix), a
       ld a, e_xpos(ix)
-      sub a, e_width(ix)
+      add a, #0x01
       ld e_xpos(ix), a
+
       ld hl, #_vBullet_0
       ld e_sprite2(ix), h
       ld e_sprite1(ix), l
@@ -286,14 +289,17 @@ _m_game_playerShot::
    upOrientation:
       ld e_vy(ix), #0xFE
       ld e_orient(ix), #0x03
+
       ld e_width(ix),  #0x02
       ld e_heigth(ix), #0x08
+      
       ld a, e_ypos(ix)
-      sub a, e_heigth(ix)
+      add a, #0x01
       ld e_ypos(ix), a
       ld a, e_xpos(ix)
       add a, #0x02
       ld e_xpos(ix), a
+      
       ld hl, #_hBullet_0
       ld e_sprite2(ix), h
       ld e_sprite1(ix), l
