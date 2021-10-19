@@ -94,17 +94,21 @@ call _man_game_setManagerIr
       call _sys_render_update
       cpctm_setBorder_asm HW_YELLOW
       call _sys_ai_update
-      cpctm_setBorder_asm HW_RED
-      call _sys_input_update
       cpctm_setBorder_asm HW_WHITE
       call _sys_physics_update
+      cpctm_setBorder_asm HW_RED
+      call _sys_input_update
       cpctm_setBorder_asm HW_PINK
       call _sys_animator_update
       cpctm_setBorder_asm HW_BLACK
+      call _sys_collision_update
+
+      call _man_entityUpdate
       ld a, (_m_irCtr)
       cp #6
       jr nz, testIr
       halt
+      
 
    jr testIr
    
@@ -113,7 +117,7 @@ call _man_game_setManagerIr
    ; updates:
       ; cpctm_setBorder_asm HW_YELLOW
       ; call _sys_ai_update
-      ; ;call _sys_input_update
+      ; call _sys_input_update
       ; call _sys_physics_update
       ; call _sys_animator_update
       ; call _sys_render_update

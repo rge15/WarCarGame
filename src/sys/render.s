@@ -51,12 +51,12 @@ _sys_init_render::
     ld  c, #0x00
     call  cpct_setVideoMode_asm
     ;;Destroyed : AF & BC & HL 
-    ld hl, #0x1410
-    call  cpct_setPALColour_asm
-    ;;Destroyed : F & BC & HL  
+    ; ld hl, #0x1410
+    ; call  cpct_setPALColour_asm
+    ; ;;Destroyed : F & BC & HL  
 
-    ld hl, #0x1400
-    call  cpct_setPALColour_asm
+    ; ld hl, #0x1400
+    ; call  cpct_setPALColour_asm
     ;;Destroyed : F & BC & HL  
 
     ld hl, #_g_palette
