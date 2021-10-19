@@ -21,19 +21,16 @@ _sys_ai_directionMemory::
 
 ;; xy coords
 ;; aprox max: 4ec5                 por el render, depende de la dimension tambien
-_sys_ai_seek_to_pos::
-   ; .dw #0x4e00
-   ; .dw #0xcccc
-   .dw #0x2020
 
+;; ptr to next coord
 _sys_ai_nextPatrolCoords::
-   .ds 1
+   .dw #0x0000
 
 _sys_ai_patrol_pos:
-   .dw #0x3000
-   .dw #0x2000
+   .dw #0x1000
+   .dw #0x1010
+   .dw #0x2010
    .dw #0x2020
-   .dw #0x0050
 
 
 _sys_ai_init::
@@ -45,6 +42,7 @@ _sys_ai_inc_next_patrol::
    ld bc, (_sys_ai_nextPatrolCoords)
    ld hl, #2
    add hl, bc
+
    ld (_sys_ai_nextPatrolCoords), hl
 
    ret
@@ -127,7 +125,7 @@ _sys_ai_behaviourEnemy::
 
    ;; TODO: con la velocidad va regular
    ld d, #1
-   ld hl, (_sys_ai_seek_to_pos)
+   ; ld hl, (_sys_ai_seek_to_pos)
 
    ; call cpct_getRandom_mxor_u8_asm
    ;; TODO: entiendo que hay que comproba en cada iteracion no hay otra forma???
@@ -147,16 +145,13 @@ _sys_ai_behaviourEnemy::
 ; Destroy: HL
 ;===============================================================================
 _sys_ai_updateNextPatrolCoords::
-   ; ld de, (_sys_ai_nextPatrolCoords)
-   ; inc de
-   ; inc de
-   ; ld (_sys_ai_nextPatrolCoords), de
-   ;
-   ; ; ld #_sys_ai_nextPatrolCoords, de
-   ; ; ld h, d
-   ; ; ld l, e
 
    ld hl, (_sys_ai_nextPatrolCoords)
+   ld d, (hl)
+   inc hl
+   ld e, (hl)
+   ex de, hl
+
    call _sys_ai_setAiAim
    call _sys_ai_inc_next_patrol
    ret

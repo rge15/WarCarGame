@@ -55,7 +55,7 @@ _enemy_template_e:
 _enemy_template_e2:
    .db #0x10               ; type
    .db #0x0b               ; cmp
-   .db #0x10               ; x
+   .db #0x00               ; x
    .db #0x00               ; y
    .db #0x06               ; width
    .db #0x0C               ; heigth
@@ -70,7 +70,7 @@ _enemy_template_e2:
    .db #0x0A               ;anim. counter
    .dw #0x0000             ;input_behaviour
    .db #0x20               ;e_ai_aim_x
-   .db #0x30               ;e_ai_aim_y
+   .db #0x20               ;e_ai_aim_y
    .db #0x00               ;e_ai_last_aim_x
    .db #0x00               ;e_ai_last_aim_y
 
