@@ -13,11 +13,13 @@
 
 .include "sys/ai.h.s"
 .include "sys/animator.h.s"
+.include "sys/collision.h.s"
 .include "sys/input.h.s"
 .include "sys/physics.h.s"
 .include "resources/macros.s"
 .include "resources/entityInfo.s"
 .include "resources/templates.h.s"
+.include "resources/sprites.h.s"
 .include "game.h.s"
 
 
@@ -143,7 +145,7 @@ _m_game_createEnemy::
 ; HL : Llega el valor de la entidad
 ;===================================================================================================================================================
 _m_game_destroyEntity::
-   call _man_entityDestroy
+   call _man_setEntity4Destroy
    ret
 
 
@@ -236,21 +238,61 @@ _m_game_playerShot::
    righOrientation:
       ld e_vx(ix), #0x01
       ld e_orient(ix), #0x00
+      ld a, e_ypos(ix)
+      add a, #0x06
+      ld e_ypos(ix), a
+      ld a, e_xpos(ix)
+      add a, #0x06
+      ld e_xpos(ix), a
       jp stopCheckOrientation
 
    downOrientation:
       ld e_vy(ix), #0x02
       ld e_orient(ix), #0x01
+
+      ld e_width(ix),  #0x02
+      ld e_heigth(ix), #0x08
+      
+      ld a, e_ypos(ix)
+      add a, #0x10
+      ld e_ypos(ix), a
+      ld a, e_xpos(ix)
+      add a, #0x02
+      ld e_xpos(ix), a
+      ld hl, #_hBullet_1
+      ld e_sprite2(ix), h
+      ld e_sprite1(ix), l
       jp stopCheckOrientation
 
    leftOrientation:
       ld e_vx(ix), #0xFF
       ld e_orient(ix), #0x02
+      ld a, e_ypos(ix)
+      add a, #0x06
+      ld e_ypos(ix), a
+      ld a, e_xpos(ix)
+      sub a, e_width(ix)
+      ld e_xpos(ix), a
+      ld hl, #_vBullet_0
+      ld e_sprite2(ix), h
+      ld e_sprite1(ix), l
+
       jp stopCheckOrientation
 
    upOrientation:
       ld e_vy(ix), #0xFE
       ld e_orient(ix), #0x03
+      ld e_width(ix),  #0x02
+      ld e_heigth(ix), #0x08
+      ld a, e_ypos(ix)
+      sub a, e_heigth(ix)
+      ld e_ypos(ix), a
+      ld a, e_xpos(ix)
+      add a, #0x02
+      ld e_xpos(ix), a
+      ld hl, #_hBullet_0
+      ld e_sprite2(ix), h
+      ld e_sprite1(ix), l
       jp stopCheckOrientation
 
    stopCheckOrientation:

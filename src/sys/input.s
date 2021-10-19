@@ -65,15 +65,20 @@ _sys_input_updateOneEntity::
     call cpct_isKeyPressed_asm
     jr NZ, spacePressed
 
+    ;EN caso de no pulsar nada se queda quieto
+    ld a, #0x00
+    ld e_vx(ix), a
+    ld e_vy(ix), a
+
     jp stopCheckMovement
 
     upPressed:
         ;; Cambiamos la posicion
-        ld a, e_ypos(ix)
-        ;; Meto cuatro dec para que avance byte y no pixels
-        dec a
-        dec a
-        ld e_ypos(ix), a
+        ld a, #0xFE
+        ;; Meto dos dec para que avance byte y no pixels
+        ld e_vy(ix), a
+        ld a, #0x00
+        ld e_vx(ix), a
         ;; Actualizamos la orientación
         ld a, #0x03
         ld e_orient(ix), a
@@ -81,9 +86,11 @@ _sys_input_updateOneEntity::
 
     leftPressed:
         ;; Cambiamos la posicion
-        ld a, e_xpos(ix)
-        dec a
-        ld e_xpos(ix), a
+        ld a, #0xFF
+        ; dec a
+        ld e_vx(ix), a
+        ld a, #0x00
+        ld e_vy(ix), a
         ;; Actualizamos la orientación
         ld a, #0x02
         ld e_orient(ix), a
@@ -91,11 +98,10 @@ _sys_input_updateOneEntity::
 
     downPressed:
         ;; Cambiamos la posicion
-        ld a, e_ypos(ix)
-        ;; Meto cuatro dec para que avance byte y no pixels
-        inc a
-        inc a
-        ld e_ypos(ix), a
+        ld a, #0x02
+        ld e_vy(ix), a
+        ld a, #0x00
+        ld e_vx(ix), a
         ;; Actualizamos la orientación
         ld a, #0x01
         ld e_orient(ix), a
@@ -103,9 +109,10 @@ _sys_input_updateOneEntity::
 
     rightPressed:
         ;; Cambiamos la posicion
-        ld a, e_xpos(ix)
-        inc a
-        ld e_xpos(ix), a
+        ld a, #0x01
+        ld e_vx(ix), a
+        ld a, #0x00
+        ld e_vy(ix), a
         ;; Actualizamos la orientación
         ld a, #0x00
         ld e_orient(ix), a
