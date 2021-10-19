@@ -42,14 +42,14 @@ _enemy_template_e:
    .dw #_sprite_enemy01   ; sprite
    .db #0x00               ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
    .dw #0x0000             ; prevptr
-   .dw #_sys_ai_behaviourPatrol             ;ai_behaviour
+   .dw #_sys_ai_behaviourAutoMoveIn_x             ;ai_behaviour
    .db #0x00               ;ai_counter
    .dw #_man_anim_player   ;animator
    .db #0x0A               ;anim. counter
    .dw #0x0000             ;input_behaviour
    .db #0x00               ;e_ai_aim_x
    .db #0x00              ;e_ai_aim_y
-   .db #0x00               ;e_ai_last_aim_x
+   .db #0x40               ;e_ai_last_aim_x
    .db #0x00               ;e_ai_last_aim_y
 
 _enemy_template_e2:
