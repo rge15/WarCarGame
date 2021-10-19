@@ -31,10 +31,10 @@ _sys_ai_patrol_pos:
    ; .dw #0x0304
    ; .dw #0x0506
    ; .dw #0x0708
-   .dw #0x0010
-   .dw #0x1010
-   .dw #0x1000
    .dw #0x0000
+   .dw #0x0040
+   .dw #0x4040
+   .dw #0x4000
 
 _sys_ai_patrol_size:
    .db #4
@@ -190,7 +190,7 @@ _sys_ai_behaviourPatrol::
    call _sys_ai_seekCoords_x
    call _sys_ai_seekCoords_y
 
-   ;; TODO: salta cuando y lleag a 0
+   ;; TODO: arreglar, tiene que ser cuando X y Y son 0, ahora hace cuando el ultimo es 0
    call z, _sys_ai_updateNextPatrolCoords
    ret
 

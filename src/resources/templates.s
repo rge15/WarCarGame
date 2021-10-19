@@ -47,8 +47,8 @@ _enemy_template_e:
    .dw #_man_anim_player   ;animator
    .db #0x0A               ;anim. counter
    .dw #0x0000             ;input_behaviour
-   .db #0x06               ;e_ai_aim_x
-   .db #0x06              ;e_ai_aim_y
+   .db #0x00               ;e_ai_aim_x
+   .db #0x00              ;e_ai_aim_y
    .db #0x00               ;e_ai_last_aim_x
    .db #0x00               ;e_ai_last_aim_y
 
