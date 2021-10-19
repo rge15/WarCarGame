@@ -11,6 +11,7 @@
 ; Manager data   
 ;===================================================================================================================================================
 ;; Descripcion : Array de entidades
+;; TODO: recalcular con los cambios de estructura de entity
 _m_entities::
     .ds 126
 
@@ -36,7 +37,7 @@ _m_numEntities::
 
 ;; Descripcion : TAmaño en bytes de 1 entity
 _m_sizeOfEntity::
-    .db #0x17
+    .db #0x19
 
 
 ;===================================================================================================================================================

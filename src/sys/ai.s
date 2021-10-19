@@ -27,18 +27,26 @@ _sys_ai_seek_to_pos::
    .dw #0x2020
 
 _sys_ai_nextPatrolCoords::
-   .ds 2
+   .ds 1
 
 _sys_ai_patrol_pos:
-   .dw #0x0000
+   .dw #0x3000
    .dw #0x2000
    .dw #0x2020
-   .dw #0x0020
+   .dw #0x0050
 
 
 _sys_ai_init::
-   ld hl, #_sys_ai_nextPatrolCoords
-   ld (hl), #_sys_ai_patrol_pos
+   ld hl, #_sys_ai_patrol_pos
+   ld (_sys_ai_nextPatrolCoords), hl
+
+
+_sys_ai_inc_next_patrol::
+   ld bc, (_sys_ai_nextPatrolCoords)
+   ld hl, #2
+   add hl, bc
+   ld (_sys_ai_nextPatrolCoords), hl
+
    ret
 
 ;===================================================================================================================================================
@@ -130,38 +138,89 @@ _sys_ai_behaviourEnemy::
    ret
 
 
-_sys_ai_lastAim:: .dw #0x0000
+; por parametro el array a las posociones a las que tiene que hacer patrool
+; beh patrol
+; beh x right left
+; beh y up down
 ;===============================================================================
-; Seek a unas coordenadas, usando CP(con unsigned en principio)
+; actualiza _sys_ai_nextPatrolCoords
+; Destroy: HL
+;===============================================================================
+_sys_ai_updateNextPatrolCoords::
+   ; ld de, (_sys_ai_nextPatrolCoords)
+   ; inc de
+   ; inc de
+   ; ld (_sys_ai_nextPatrolCoords), de
+   ;
+   ; ; ld #_sys_ai_nextPatrolCoords, de
+   ; ; ld h, d
+   ; ; ld l, e
+
+   ld hl, (_sys_ai_nextPatrolCoords)
+   call _sys_ai_setAiAim
+   call _sys_ai_inc_next_patrol
+   ret
+
+;; TODO: de momento con array aux
+_sys_ai_behaviourPatrol::
+   push bc
+   pop ix
+
+   ld d, #1
+   call _sys_ai_seekCoords_x
+   call _sys_ai_seekCoords_y
+
+   ;; TODO: salta cuando y lleag a 0
+   call z, _sys_ai_updateNextPatrolCoords
+   ret
+
+;===============================================================================
+; actualizar ai_aim a nueva posicion y guardar en ai_last_aim la de antes del cambio
 ; IX: entidad que va a hacer el seek
-; HL: coordenadas nueas
+; HL: coordenadas nuveas
 ;===============================================================================
 _sys_ai_setAiAim::
-   ld hl, (_sys_ai_lastAim)
+
    ld b, e_ai_aim_x(ix)
    ld c, e_ai_aim_y(ix)
+
    ld e_ai_aim_x(ix), h
    ld e_ai_aim_y(ix), l
-   ld (_sys_ai_lastAim), bc
 
+   ld e_ai_last_aim_x(ix), b
+   ld e_ai_last_aim_y(ix), c
    ret
 
 
+;===============================================================================
+; Moverse en el eje X entre posicon inicial y e_ai_aim_x
+;
+;===============================================================================
 _sys_ai_behaviourAutoMoveIn_x::
    push bc
    pop ix
 
    ld d, #1
    call _sys_ai_seekCoords_x
+
+   ld h, e_ai_last_aim_x(ix)
+   ld l, e_ai_last_aim_y(ix)
    call z, _sys_ai_setAiAim
    ret
 
+;===============================================================================
+; Moverse en el eje Y entre posicon inicial y e_ai_aim_y
+;
+;===============================================================================
 _sys_ai_behaviourAutoMoveIn_y::
    push bc
    pop ix
 
    ld d, #1
    call _sys_ai_seekCoords_y
+
+   ld h, e_ai_last_aim_x(ix)
+   ld l, e_ai_last_aim_y(ix)
    call z, _sys_ai_setAiAim
    ret
 
@@ -171,6 +230,7 @@ _sys_ai_behaviourAutoMoveIn_y::
 ; Seek a unas coordenadas, usando CP(con unsigned en principio)
 ; IX: entidad que va a hacer el seek
 ; H: coordenada x
+; D: velocidad
 ;===============================================================================
 _sys_ai_seekCoords_x::
    ld a, e_ai_aim_x(ix)
@@ -193,28 +253,8 @@ _sys_ai_seekCoords_x::
 
    set_zero_x:
       ld e_vx(ix), #0
-      ; call _sys_ai_updateNextPatrolCoords
       ret
 
-   ret
-
-
-
-; por parametro el array a las posociones a las que tiene que hacer patrool
-; beh patrol
-; beh x right left
-; beh y up down
-;===============================================================================
-; actualiza _sys_ai_nextPatrolCoords
-; Destroy: HL
-;===============================================================================
-_sys_ai_updateNextPatrolCoords::
-   ; ld e_ai_aim_x(ix), #0x0000
-   ld de, #_sys_ai_nextPatrolCoords
-   ; ld e_ai_aim_x(ix), (hl)
-   ; ld hl, (_sys_ai_nextPatrolCoords)
-   inc hl
-   inc hl
    ret
 
 ;===============================================================================

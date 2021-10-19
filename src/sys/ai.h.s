@@ -7,6 +7,8 @@
 .globl _sys_ai_behaviourEnemy
 .globl _sys_ai_behaviourAutoMoveIn_x
 .globl _sys_ai_behaviourAutoMoveIn_y
+.globl _sys_ai_behaviourPatrol
+
 .globl _sys_ai_behaviourBullet
 .globl _sys_ai_behaviourLeftRight
 .globl _sys_ai_behaviourAutoDestroy

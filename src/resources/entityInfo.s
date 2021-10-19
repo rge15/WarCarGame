@@ -45,6 +45,8 @@ e_inputbeh1 = 19
 e_inputbeh2 = 20
 e_ai_aim_x  = 21
 e_ai_aim_y  = 22
+e_ai_last_aim_x = 23
+e_ai_last_aim_y = 23
 
 
 
