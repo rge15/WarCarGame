@@ -8,3 +8,4 @@ _level1:
     .db #0x26                   ;Entity X
     .db #0xB0                   ;Entity Y
     .db #0x00                   ;With 00 we mark the end of level array
+    .db #0x00                   ;With 00 we mark the end of level array

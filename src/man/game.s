@@ -45,6 +45,10 @@ _m_lifePlayer:
 _m_gameLevel:
    .ds 2
 
+;;Descripcion : Siguiente nivel del juego
+_m_nextLevel:
+   .ds 2
+
 ;;Descripcion : Numero enemigos
 _m_enemyCounter:
    .ds 1
@@ -60,6 +64,11 @@ _m_playerScore:
 press_str:
    .asciz "PRESS ENTER"
 
+restart_str:
+   .asciz "PRESS ENTER TO RESTART GAME"
+
+victory_str:
+   .asciz "Has ganao suprimo, dale a enter pa volver a generar endorcinas"
 ;===================================================================================================================================================
 ; FUNCION _m_game_createInitTemplate   
 ; Crea la entidad con el template indicado
@@ -85,7 +94,7 @@ _m_game_createInitTemplate::
 ;===================================================================================================================================================
 _m_game_init::
    call  _sys_init_render
-   call  _man_entityInit
+   ;call  _man_entityInit
 
    ; CreatePlayer & Save in _m_playerEntity   
    ; CREATE_ENTITY_FROM_TEMPLATE _player_template_e
@@ -127,9 +136,10 @@ waitKeyPressed::
 ; NO llega ningun dato
 ;===================================================================================================================================================
 _m_game_play::
-
+call _man_game_setManagerIr
 ;Pantalla de Press Play
 startGame:
+   ;TODO : Hacer una pantalla de inicio bonica y cargarla aquí
    ld hl, #0x0004
    call cpct_setDrawCharM0_asm
    ld iy, #press_str
@@ -147,13 +157,18 @@ call _man_game_initGameVar
 
 ;jr .
 ;Carga de Nivel
+restartLevel:
+call _man_entityInit
 call _man_game_loadLevel
 call _sys_render_renderTileMap
+
+call _man_game_interruptionsReset
+;reset _man_game_interruptionsReset
+
 
 ; jr .
 
 ;Inicio Juego
-call _man_game_setManagerIr
    
    testIr:
       ld a, (_m_irCtr)
@@ -173,7 +188,30 @@ call _man_game_setManagerIr
       call _sys_collision_update
 
       call _man_entityUpdate
-      ;GameStatusUpdate
+      call _man_game_updateGameVar
+
+
+
+      ;/
+      ;|  Codigo completamente auxiliar para checkear el flujo de juego -- START
+      ;\
+      ld hl, #Key_Enter
+      push hl
+      call cpct_scanKeyboard_f_asm
+      pop hl
+      push hl
+      call cpct_isKeyPressed_asm
+      pop hl
+      jr  z, auxJump
+         call _man_game_decreaseEnemyCounter
+
+      auxJump:
+      ;/
+      ;|  Codigo completamente auxiliar para checkear el flujo de juego  -- END
+      ;\
+
+
+
       ld a, (_m_irCtr)
       cp #6
       jr nz, testIr
@@ -182,7 +220,36 @@ call _man_game_setManagerIr
 
    jr testIr
    
+
+   endGame:
+   ;TODO : Hacer una pantalla de endgame bonica y cargarla aquí
+   cpctm_clearScreen_asm 0
+   ld hl, #0x0004
+   call cpct_setDrawCharM0_asm
+   ld iy, #restart_str
+   ld hl, #0xC000
+   call cpct_drawStringM0_asm
    
+   ld hl, #Key_Enter
+   call waitKeyPressed
+   cpctm_clearScreen_asm 0
+   jp startGame
+
+
+   victoryScreen:
+   ;TODO : Hacer una pantalla de victoria bonica y cargarla aquí
+   cpctm_clearScreen_asm 0
+   ld hl, #0x0004
+   call cpct_setDrawCharM0_asm
+   ld iy, #victory_str
+   ld hl, #0xC000
+   call cpct_drawStringM0_asm
+   
+   ld hl, #Key_Enter
+   call waitKeyPressed
+   cpctm_clearScreen_asm 0
+   jp startGame
+
 
    ; updates:
       ; cpctm_setBorder_asm HW_YELLOW
@@ -430,6 +497,12 @@ _man_game_ir::
    ei
    reti
 
+_man_game_interruptionsReset::
+   di
+   ld a, #0x06 
+   ld (_m_irCtr),a
+   ei
+   ret
 
 _man_game_initGameVar::
 
@@ -527,4 +600,80 @@ _man_game_loadLevel::
       jr NZ, loopCreateEntities
 
    endLoadLevel:
+   inc hl
+   ex de,hl
+   ld hl, #_m_nextLevel
+   ld (hl), e
+   inc hl
+   ld (hl), d
+
+   ret
+
+_man_game_updateGameVar::
+
+   ; /
+   ; | Se checkea si el jugador ha perdido las 3 vidas
+   ; \
+   ld hl , #_m_lifePlayer
+   inc (hl)
+   dec (hl)
+   jr NZ, checkEnemy
+   pop hl
+   jp  endGame
+   checkEnemy:
+
+   ; /
+   ; | Se checkea si el jugador ha acabado con los enemigos y pasa de nivel
+   ; \
+   ld hl, #_m_enemyCounter
+   inc (hl)
+   dec (hl)
+   jr NZ, dontPassLevel
+   ld ix, #_m_nextLevel
+   
+   ;/
+   ;| Llegados a este punto vamos a cargar el siguiente nivel o la pantalla de victoria 
+   ;| entonces al hacer jp hay que desacerse del ret de la pila
+   ;\
+   pop hl 
+
+   ld a, (ix)
+   ld l, a
+   ld a, 1(ix)
+   ld h, a
+
+   inc (hl)
+   dec (hl)
+   jr NZ, nextLevel
+   
+   jp victoryScreen
+   nextLevel:
+   ld ix, #_m_nextLevel
+   ld hl, #_m_gameLevel
+   ld a, 1(ix)
+   ld (hl), a
+   inc hl
+   ld a, (ix)
+   ld (hl), a
+   
+   jp restartLevel
+
+   ;Check Num enemigos
+      ;Pasar Nivel con _m_nextLevel
+   ;Updatear Puntuacion pantalla
+   dontPassLevel:
+   ret
+
+
+_man_game_decreasePlayerLife::
+   ld hl, #_m_lifePlayer
+   dec (hl)
+   pop hl ;AQui quitamos lo ultimo de la pila pues no vamos a hacer un ret
+   jp restartLevel
+
+   ret
+
+_man_game_decreaseEnemyCounter::
+   ld hl, #_m_enemyCounter
+   dec (hl)
    ret
