@@ -27,10 +27,14 @@ _sys_ai_nextPatrolCoords::
    .dw #0x0000
 
 _sys_ai_patrol_pos:
-   .dw #0x0040
-   .dw #0x2040
-   .dw #0x4020
-   .dw #0x0020
+   ; .dw #0x0102
+   ; .dw #0x0304
+   ; .dw #0x0506
+   ; .dw #0x0708
+   .dw #0x0010
+   .dw #0x1010
+   .dw #0x1000
+   .dw #0x0000
 
 _sys_ai_patrol_size:
    .db #4
