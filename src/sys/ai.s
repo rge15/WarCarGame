@@ -26,6 +26,7 @@ _sys_ai_directionMemory::
 _sys_ai_nextPatrolCoords::
    .dw #0x0000
 
+;; yx
 _sys_ai_patrol_pos:
    ; .dw #0x0102
    ; .dw #0x0304
@@ -33,8 +34,11 @@ _sys_ai_patrol_pos:
    ; .dw #0x0708
    .dw #0x0000
    .dw #0x0040
-   .dw #0x4040
-   .dw #0x4000
+   .dw #0x4023
+   ; .dw #0x4000
+   .dw #0x0520
+   
+   ; .dw #0x3000
 
 _sys_ai_patrol_size:
    .db #4
@@ -189,7 +193,7 @@ _sys_ai_behaviourEnemy::
 ; beh x right left
 ; beh y up down
 ;===============================================================================
-; actualiza _sys_ai_nextPatrolCoords
+; actualiza _sys_ai_nextPatrolCoords y llama a _sys_ai_setAiAim
 ; Destroy: HL
 ;===============================================================================
 _sys_ai_updateNextPatrolCoords::
@@ -202,19 +206,56 @@ _sys_ai_updateNextPatrolCoords::
 
    call _sys_ai_setAiAim
    call _sys_ai_inc_next_patrol
-   ret
-
-;; TODO: de momento con array aux
-_sys_ai_behaviourPatrol::
-   push bc
-   pop ix
 
    ld d, #1
    call _sys_ai_seekCoords_x
    call _sys_ai_seekCoords_y
 
-   ;; TODO: arreglar, tiene que ser cuando X y Y son 0, ahora hace cuando el ultimo es 0
-   call z, _sys_ai_updateNextPatrolCoords
+   ret
+
+;; TODO: de momento con array aux
+;===============================================================================
+; actualiza _sys_ai_nextPatrolCoords
+; Destroy: HL, BC
+;===============================================================================
+_sys_ai_behaviourPatrol::
+   push bc
+   pop ix
+
+   ;; guardar el registro f para compara si en seekCoords_x y seekCoords_y se ha llegado 
+   ;; a la posicon final y se ha puesto la velocidad a 0
+   ;; no entiendo como es que funciona jakdjakjj en serio ??
+   ;; vale despues hay que meter una mascara de bits vaya movida
+   ;; la mascara de bits tiene que ser 0x40 porque es el flag z
+   ;; depues hay que compara que los flags sean iguales y que sean 0x40, en los otros casos no
+   ; queremos hacer update de las patrol coords
+   ld d, #1
+   call _sys_ai_seekCoords_x
+   push af
+   ld d, #2
+   call _sys_ai_seekCoords_y
+   push af
+   pop hl
+   pop bc
+
+   ld a, #0x40
+   and l
+   ld l, a
+
+   ld a, #0x40
+   and c
+   ld c, a
+
+   ld a, l
+   cp c
+   jr z, same_values_in_f
+   ret
+
+   same_values_in_f:
+      ld a, #0x40
+      cp c
+
+      call z, _sys_ai_updateNextPatrolCoords
    ret
 
 ;===============================================================================
