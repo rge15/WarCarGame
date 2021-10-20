@@ -120,7 +120,7 @@ _sys_ai_behaviourBullet::
     push hl
     pop ix
 
-    ld a, e_anctr(ix)
+    ld a, e_aictr(ix)
     dec a
     jr z, destroyBullet ;; Si es 0 se destruye la bala
 
@@ -135,9 +135,32 @@ _sys_ai_behaviourBullet::
 
 
     stopUpdateBullet:
-    ld e_anctr(ix), a
+    ld e_aictr(ix), a
 ret
 
+;===============================================================================
+; El enemigo dispara una bala hacia el jugador
+; Genera una entidad _bullet_template y le cambia la posicion a la del enemy
+; BC: posicon desde dodne sale
+;===============================================================================
+_sys_ai_shootBullet::
+   ;; TODO: es para resetear el valor, ver donde meterlo mejor
+   ; ld e_aictr(ix), #0x16
+
+   push bc
+
+   ;; este template tiene el behaviour para hacer seek al player
+   CREATE_ENTITY_FROM_TEMPLATE _bullet_template_e2
+   ; macro deja posicion en hl
+   push hl
+   pop ix
+
+   pop bc
+   ld e_xpos(ix), b
+   ld e_ypos(ix), c
+
+   ;; TODO: destruir la bala
+   ret
 
 ;===================================================================================================================================================
 ; FUNCION _sys_ai_behaviourEnemy
@@ -150,7 +173,6 @@ _sys_ai_behaviourEnemy::
 
    ;; TODO: con la velocidad va regular
    ld d, #1
-   ; ld hl, (_sys_ai_seek_to_pos)
 
    ; call cpct_getRandom_mxor_u8_asm
    ;; TODO: entiendo que hay que comproba en cada iteracion no hay otra forma???
@@ -214,6 +236,7 @@ _sys_ai_setAiAim::
 
 ;===============================================================================
 ; Moverse en el eje X entre posicon inicial y e_ai_aim_x
+; tambien dispara bala a player segun el tiempo aictr
 ;
 ;===============================================================================
 _sys_ai_behaviourAutoMoveIn_x::
@@ -226,6 +249,14 @@ _sys_ai_behaviourAutoMoveIn_x::
    ld h, e_ai_last_aim_x(ix)
    ld l, e_ai_last_aim_y(ix)
    call z, _sys_ai_setAiAim
+
+   ; ld a, e_aictr(ix)
+   ; dec a
+   ; ld e_aictr(ix), a
+   dec e_aictr(ix)
+   ld b, e_xpos(ix)
+   ld c, e_ypos(ix)
+   call z, _sys_ai_shootBullet
    ret
 
 ;===============================================================================
@@ -244,12 +275,42 @@ _sys_ai_behaviourAutoMoveIn_y::
    call z, _sys_ai_setAiAim
    ret
 
+;; TODO: no actulizar el xpos ypos en cada iteracion porque te sigue a cualquier pos
+_sys_ai_behaviourSeektoPlayer::
+   push bc
+   pop ix
+
+   ;; TODO: usar _m_playerEntity
+   ; ld bc, #_m_playerEntity
+   ; ld iy, (bc)
+   ld iy, #_m_entities
+
+   ;; TODO: si el aim es 0,0 no va supongo<?
+   ld a, e_ai_aim_x(ix)
+   add a, e_ai_aim_y(ix)
+   or a
+   jr nz, skip_set_coords
+
+   ld a, e_xpos(iy)
+   ld e_ai_aim_x(ix), a
+
+   ld a, e_ypos(iy)
+   ld e_ai_aim_y(ix), a
+
+   skip_set_coords:
+
+   ld d, #2
+   call _sys_ai_seekCoords_x
+   ld d, #4
+   call _sys_ai_seekCoords_y
+
+   ret
+
 ; poner en el counter el valor que pasa hasta disparar una baga 
 
 ;===============================================================================
-; Seek a unas coordenadas, usando CP(con unsigned en principio)
+; Seek a unas coordenadas segun e_ai_aim_x, usando CP(con unsigned en principio)
 ; IX: entidad que va a hacer el seek
-; H: coordenada x
 ; D: velocidad
 ;===============================================================================
 _sys_ai_seekCoords_x::
@@ -278,9 +339,8 @@ _sys_ai_seekCoords_x::
    ret
 
 ;===============================================================================
-; Seek a unas coordenadas, usando CP(con unsigned en principio)
+; Seek a unas coordenadas segun e_ai_aim_y, usando CP(con unsigned en principio)
 ; IX: entidad que va a hacer el seek
-; L: coordenada y
 ; D: velocidad
 ;===============================================================================
 _sys_ai_seekCoords_y::
@@ -304,10 +364,6 @@ _sys_ai_seekCoords_y::
 
    set_zero_y:
       ld e_vy(ix), #0
-      ;; TODO: change beh
-      ; ld hl, #3020
-      ; ld (_sys_ai_seek_to_pos), hl
-      ; ld hl, #_sys_ai_seek_to_pos
       ret
 
 
