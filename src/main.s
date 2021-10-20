@@ -29,7 +29,7 @@ _macro_addresAux::
 ; NO llega ningun valor
 ;===================================================================================================================================================
 _main::
-   call cpct_disableFirmware_asm
+   call	cpct_disableFirmware_asm
 
    call _m_game_init
    call _m_game_play

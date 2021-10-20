@@ -51,12 +51,12 @@ _sys_init_render::
     ld  c, #0x00
     call  cpct_setVideoMode_asm
     ;;Destroyed : AF & BC & HL 
-    ld hl, #0x1410
-    call  cpct_setPALColour_asm
-    ;;Destroyed : F & BC & HL  
+    ; ld hl, #0x1410
+    ; call  cpct_setPALColour_asm
+    ; ;;Destroyed : F & BC & HL  
 
-    ld hl, #0x1400
-    call  cpct_setPALColour_asm
+    ; ld hl, #0x1400
+    ; call  cpct_setPALColour_asm
     ;;Destroyed : F & BC & HL  
 
     ld hl, #_g_palette
@@ -125,11 +125,9 @@ _sys_render_renderOneEntity::
         ;DE has already de V_Memo
         ld  c, e_width(ix) 
         ld  b, e_heigth(ix)
-        ld  a, #0xF3
+        ld  a, #0x3F
 
         call cpct_drawSolidBox_asm
-
-
     endRender:
 
     pop hl
