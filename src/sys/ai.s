@@ -19,9 +19,8 @@ _sys_ai_behaviourMemory::
 _sys_ai_directionMemory::
     .dw #0x0000
 
-;; xy coords
-;; aprox max: 4ec5                 por el render, depende de la dimension tambien
 
+;; TODO[Edu]: move patrol variables to Patrol file
 ;; ptr to next coord
 _sys_ai_nextPatrolCoords::
    .dw #0x0000
@@ -37,7 +36,6 @@ _sys_ai_patrol_pos:
    .dw #0x4023
    ; .dw #0x4000
    .dw #0x0520
-   
    ; .dw #0x3000
 
 _sys_ai_patrol_size:
@@ -46,6 +44,11 @@ _sys_ai_patrol_size:
 _sys_ai_patrol_count:
    .db #0
 
+
+;;--------------------------------------------------------------------------------
+;; AI FUNCTIONS
+;;--------------------------------------------------------------------------------
+
 _sys_ai_init::
    ld hl, #_sys_ai_patrol_pos
    ld (_sys_ai_nextPatrolCoords), hl
@@ -53,8 +56,6 @@ _sys_ai_init::
    ld hl, #_sys_ai_patrol_count
    ld (hl), #0x0000
 
-_sys_ai_resetPatrolInitial::
-   ret
 
 
 _sys_ai_inc_next_patrol::
@@ -113,6 +114,137 @@ _sys_ai_updateOneEntity::
     ret
 
 
+;===============================================================================
+; El enemigo dispara una bala hacia el jugador
+; Genera una entidad _bullet_template y le cambia la posicion a la del enemy
+; BC: posicon desde dodne sale
+;; TODO[Edu]: no sale del centro de la entidad
+;===============================================================================
+_sys_ai_shootBullet::
+   ;; TODO: es para resetear el valor, ver donde meterlo mejor
+   ; ld e_aictr(ix), #0x16
+
+   push bc
+
+   ;; este template tiene el behaviour para hacer seek al player
+   CREATE_ENTITY_FROM_TEMPLATE _bullet_template_e2
+   ; macro deja posicion en hl
+   push hl
+   pop ix
+
+   pop bc
+   ld e_xpos(ix), b
+   ld e_ypos(ix), c
+
+   ;; TODO: destruir la bala
+   ret
+
+
+; por parametro el array a las posociones a las que tiene que hacer patrool
+; beh patrol
+; beh x right left
+; beh y up down
+;===============================================================================
+; actualiza _sys_ai_nextPatrolCoords y llama a _sys_ai_setAiAim
+; Destroy: HL
+;===============================================================================
+_sys_ai_updateNextPatrolCoords::
+
+   ld hl, (_sys_ai_nextPatrolCoords)
+   ld d, (hl)
+   inc hl
+   ld e, (hl)
+   ex de, hl
+
+   call _sys_ai_setAiAim
+   call _sys_ai_inc_next_patrol
+   ret
+
+;===============================================================================
+; actualizar ai_aim a nueva posicion y guardar en ai_last_aim la de antes del cambio
+; IX: entidad que va a hacer el seek
+; HL: coordenadas nuveas
+;===============================================================================
+_sys_ai_setAiAim::
+
+   ld b, e_ai_aim_x(ix)
+   ld c, e_ai_aim_y(ix)
+
+   ld e_ai_aim_x(ix), h
+   ld e_ai_aim_y(ix), l
+
+   ld e_ai_last_aim_x(ix), b
+   ld e_ai_last_aim_y(ix), c
+   ret
+
+
+
+; poner en el counter el valor que pasa hasta disparar una baga 
+
+;===============================================================================
+; Seek a unas coordenadas segun e_ai_aim_x, usando CP(con unsigned en principio)
+; IX: entidad que va a hacer el seek
+; D: velocidad
+;===============================================================================
+_sys_ai_seekCoords_x::
+   ld a, e_ai_aim_x(ix)
+
+   ld b, e_xpos(ix)
+   cp b
+   ;; b:actual, a: destino
+   jr z, set_zero_x
+   jr c, set_negative_x
+   jr set_positive_x
+
+   set_negative_x:
+      NEGATE_NUMBER d
+      ld e_vx(ix), a
+      ret
+
+   set_positive_x:
+      ld e_vx(ix), d
+      ret
+
+   set_zero_x:
+      ld e_vx(ix), #0
+      ret
+
+   ret
+
+;===============================================================================
+; Seek a unas coordenadas segun e_ai_aim_y, usando CP(con unsigned en principio)
+; IX: entidad que va a hacer el seek
+; D: velocidad
+;===============================================================================
+_sys_ai_seekCoords_y::
+   ld a, e_ai_aim_y(ix)
+
+   ld b, e_ypos(ix)
+   cp b
+   ;; b:actual, a: destino
+   jr z, set_zero_y
+   jr c, set_negative_y
+   jr set_positive_y
+
+   set_negative_y:
+      NEGATE_NUMBER d
+      ld e_vy(ix), a
+      ret
+
+   set_positive_y:
+      ld e_vy(ix), d
+      ret
+
+   set_zero_y:
+      ld e_vy(ix), #0
+      ret
+
+
+
+;;--------------------------------------------------------------------------------
+;; AI BEHAVIOURS
+;;--------------------------------------------------------------------------------
+
 ;===================================================================================================================================================
 ; FUNCION _sys_ai_behaviourBullet
 ; Updatea el contador de existencia de la bala y la destruye si hace falta
@@ -142,30 +274,6 @@ _sys_ai_behaviourBullet::
     ld e_aictr(ix), a
 ret
 
-;===============================================================================
-; El enemigo dispara una bala hacia el jugador
-; Genera una entidad _bullet_template y le cambia la posicion a la del enemy
-; BC: posicon desde dodne sale
-;; TODO[Edu]: no sale del centro de la entidad
-;===============================================================================
-_sys_ai_shootBullet::
-   ;; TODO: es para resetear el valor, ver donde meterlo mejor
-   ; ld e_aictr(ix), #0x16
-
-   push bc
-
-   ;; este template tiene el behaviour para hacer seek al player
-   CREATE_ENTITY_FROM_TEMPLATE _bullet_template_e2
-   ; macro deja posicion en hl
-   push hl
-   pop ix
-
-   pop bc
-   ld e_xpos(ix), b
-   ld e_ypos(ix), c
-
-   ;; TODO: destruir la bala
-   ret
 
 ;===================================================================================================================================================
 ; FUNCION _sys_ai_behaviourEnemy
@@ -188,31 +296,6 @@ _sys_ai_behaviourEnemy::
    ret
 
 
-; por parametro el array a las posociones a las que tiene que hacer patrool
-; beh patrol
-; beh x right left
-; beh y up down
-;===============================================================================
-; actualiza _sys_ai_nextPatrolCoords y llama a _sys_ai_setAiAim
-; Destroy: HL
-;===============================================================================
-_sys_ai_updateNextPatrolCoords::
-
-   ld hl, (_sys_ai_nextPatrolCoords)
-   ld d, (hl)
-   inc hl
-   ld e, (hl)
-   ex de, hl
-
-   call _sys_ai_setAiAim
-   call _sys_ai_inc_next_patrol
-
-   ld d, #1
-   call _sys_ai_seekCoords_x
-   call _sys_ai_seekCoords_y
-
-   ret
-
 ;; TODO: de momento con array aux
 ;===============================================================================
 ; actualiza _sys_ai_nextPatrolCoords
@@ -232,7 +315,6 @@ _sys_ai_behaviourPatrol::
    ld d, #1
    call _sys_ai_seekCoords_x
    push af
-   ld d, #2
    call _sys_ai_seekCoords_y
    push af
    pop hl
@@ -256,23 +338,6 @@ _sys_ai_behaviourPatrol::
       cp c
 
       call z, _sys_ai_updateNextPatrolCoords
-   ret
-
-;===============================================================================
-; actualizar ai_aim a nueva posicion y guardar en ai_last_aim la de antes del cambio
-; IX: entidad que va a hacer el seek
-; HL: coordenadas nuveas
-;===============================================================================
-_sys_ai_setAiAim::
-
-   ld b, e_ai_aim_x(ix)
-   ld c, e_ai_aim_y(ix)
-
-   ld e_ai_aim_x(ix), h
-   ld e_ai_aim_y(ix), l
-
-   ld e_ai_last_aim_x(ix), b
-   ld e_ai_last_aim_y(ix), c
    ret
 
 
@@ -348,107 +413,6 @@ _sys_ai_behaviourSeektoPlayer::
    call _sys_ai_seekCoords_y
 
    ret
-
-; poner en el counter el valor que pasa hasta disparar una baga 
-
-;===============================================================================
-; Seek a unas coordenadas segun e_ai_aim_x, usando CP(con unsigned en principio)
-; IX: entidad que va a hacer el seek
-; D: velocidad
-;===============================================================================
-_sys_ai_seekCoords_x::
-   ld a, e_ai_aim_x(ix)
-
-   ld b, e_xpos(ix)
-   cp b
-   ;; b:actual, a: destino
-   jr z, set_zero_x
-   jr c, set_negative_x
-   jr set_positive_x
-
-   set_negative_x:
-      NEGATE_NUMBER d
-      ld e_vx(ix), a
-      ret
-
-   set_positive_x:
-      ld e_vx(ix), d
-      ret
-
-   set_zero_x:
-      ld e_vx(ix), #0
-      ret
-
-   ret
-
-;===============================================================================
-; Seek a unas coordenadas segun e_ai_aim_y, usando CP(con unsigned en principio)
-; IX: entidad que va a hacer el seek
-; D: velocidad
-;===============================================================================
-_sys_ai_seekCoords_y::
-   ld a, e_ai_aim_y(ix)
-
-   ld b, e_ypos(ix)
-   cp b
-   ;; b:actual, a: destino
-   jr z, set_zero_y
-   jr c, set_negative_y
-   jr set_positive_y
-
-   set_negative_y:
-      NEGATE_NUMBER d
-      ld e_vy(ix), a
-      ret
-
-   set_positive_y:
-      ld e_vy(ix), d
-      ret
-
-   set_zero_y:
-      ld e_vy(ix), #0
-      ret
-
-
-
-;===================================================================================================================================================
-; FUNCION _sys_ai_behaviourLeftRight
-; Si llega a alguno de los bordes establece su velocidad en la direccion contraria
-; HL : Entidad a updatear
-;===================================================================================================================================================
-_sys_ai_behaviourLeftRight::
-    ld a, #0x50
-    inc hl
-    inc hl
-    ld b,(hl) ;; b = x
-    inc hl
-    inc hl
-    sub (hl)  ;; a = right bound
-    inc hl
-    inc hl 
-    inc b
-    dec b
-    jr Z, leftPart
-
-    ld c,a
-    ld a,b
-    ld b,c
-
-    sub b
-    jr Z, rightPart
-
-    jp exitUpdate
-    leftPart:
-        ld (hl), #0x01
-        jp exitUpdate
-
-    rightPart:
-        ld (hl), #0xFF
-
-    exitUpdate:
-    ret
-
-
 
 ;===================================================================================================================================================
 ; FUNCION _sys_ai_behaviourAutoDestroy
