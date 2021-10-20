@@ -14,6 +14,12 @@
     call _m_game_createInitTemplate
 .endm
 
+;;Cargar crear entidades con el template indicado
+.macro CREATE_ENTITY_FROM_REGISTER _template
+    ld bc, #_template
+    call _m_game_createInitTemplate
+.endm
+
 
 
 ;;;;;;;;;;;;;;;;;;;WORK ON PROGRESS ;;;;;;;;;;;;;;;;;;;;;;

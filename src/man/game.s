@@ -5,12 +5,10 @@
 .include "cpctelera.h.s"
 .include "cpct_globals.h.s"
 .include "man/entity.h.s"
+.include "resources/levels.h.s"
 
-;; TODO:
-; .include "sys/render.h.s"
-.globl _sys_init_render
-.globl _sys_render_update
-
+ 
+.include "sys/render.h.s"
 .include "sys/ai.h.s"
 .include "sys/animator.h.s"
 .include "sys/collision.h.s"
@@ -38,6 +36,29 @@ _m_playerShot:
 ;;Descripcion : Posición de memoria de la entidad del jugador
 _m_playerEntity:
    .dw #0x0000
+
+;;Descripcion : Número de vidas restantes
+_m_lifePlayer:
+   .ds 1
+
+;;Descripcion : Nivel actual del juego
+_m_gameLevel:
+   .ds 2
+
+;;Descripcion : Numero enemigos
+_m_enemyCounter:
+   .ds 1
+
+
+;;Descripcion : Puntuacion jugador
+_m_playerScore:
+   .ds 2
+
+
+
+;;Descripcion : Texto que sale en la pantalla de inicio
+press_str:
+   .asciz "PRESS ENTER"
 
 ;===================================================================================================================================================
 ; FUNCION _m_game_createInitTemplate   
@@ -67,13 +88,35 @@ _m_game_init::
    call  _man_entityInit
 
    ; CreatePlayer & Save in _m_playerEntity   
-   CREATE_ENTITY_FROM_TEMPLATE _player_template_e
-   ex de,hl
-   ld hl, #_m_playerEntity
-   ld (hl), d
-   inc hl
-   ld (hl), e
-   ex de,hl
+   ; CREATE_ENTITY_FROM_TEMPLATE _player_template_e
+   ; ex de,hl
+   ; ld hl, #_m_playerEntity
+   ; ld (hl), d
+   ; inc hl
+   ; ld (hl), e
+   ; ex de,hl
+   
+   ret
+
+
+
+waitKeyPressed::
+   push hl
+   call cpct_scanKeyboard_f_asm
+   pop hl
+   push hl
+   call cpct_isKeyPressed_asm
+   pop hl
+   jr  nz, waitKeyPressed
+
+   loopWaitKey:
+      push hl
+      call cpct_scanKeyboard_f_asm
+      pop hl
+      push hl
+      call cpct_isKeyPressed_asm
+      pop hl
+      jr  z, loopWaitKey
    
    ret
 
@@ -84,6 +127,32 @@ _m_game_init::
 ; NO llega ningun dato
 ;===================================================================================================================================================
 _m_game_play::
+
+;Pantalla de Press Play
+startGame:
+   ld hl, #0x0004
+   call cpct_setDrawCharM0_asm
+   ld iy, #press_str
+   ld hl, #0xC000
+   call cpct_drawStringM0_asm
+   
+   ld hl, #Key_Enter
+   call waitKeyPressed
+
+   cpctm_clearScreen_asm 0
+
+;Set de variables de juego (Num Vidas / Num Nivel / Num Enemy / Puntuacion)
+call _man_game_initGameVar
+
+
+;jr .
+;Carga de Nivel
+call _man_game_loadLevel
+call _sys_render_renderTileMap
+
+; jr .
+
+;Inicio Juego
 call _man_game_setManagerIr
    
    testIr:
@@ -104,6 +173,7 @@ call _man_game_setManagerIr
       call _sys_collision_update
 
       call _man_entityUpdate
+      ;GameStatusUpdate
       ld a, (_m_irCtr)
       cp #6
       jr nz, testIr
@@ -359,3 +429,102 @@ _man_game_ir::
 
    ei
    reti
+
+
+_man_game_initGameVar::
+
+   ld hl, #_m_lifePlayer
+   ld (hl), #0x03
+
+   ld hl, #_m_gameLevel
+   ld de, #_level1
+   ld (hl), e
+   inc hl
+   ld (hl), d
+
+   ld hl, #_m_enemyCounter
+   ld (hl), #0x00
+
+   ld hl, #_m_playerScore
+   ld (hl), #0x00
+   inc hl
+   ld (hl), #0x00
+
+   ret
+
+
+_man_game_loadLevel::
+   ld hl, #_m_gameLevel
+   ld e, (hl)
+   inc hl
+   ld d, (hl)
+   ex de, hl ; En HL tengo el inicio del array del nivel asignado
+   
+   ;En de cargo el tilemap y se lo paso a _m_render_tilemap
+   ;y dejo hl apuntando al inicio de las entidades para crear
+   ld e, (hl)
+   inc hl
+   ld d, (hl)
+   inc hl
+   push hl
+   ld hl, #_m_render_tilemap
+   ld (hl), e
+   inc hl
+   ld (hl), d
+   pop hl
+
+   inc (hl)
+   dec (hl)
+   jr Z, endLoadLevel
+
+   loopCreateEntities:      
+      ;;Creamos la entidad de la template que pase el nivel
+      inc hl
+      ld c, (hl)
+      inc hl
+      ld b, (hl)
+      ;CREATE_ENTITY_FROM_TEMPLATE de
+      push hl
+      call _m_game_createInitTemplate
+      push hl
+      pop ix
+      pop hl
+
+      ;Una vez creada la entidad le ponemos mas coordenadas del nivel
+      inc hl
+      ld a, (hl)
+      ld e_xpos(ix), a
+      inc hl
+      ld a, (hl)
+      ld e_ypos(ix), a
+
+      ld a, e_type(ix)
+      dec a
+      jr Z, playerCreated ; Si no entra aqui crea un enemigo pq no hay más entityType del level así que sumamos uno a los enemigos
+
+      push hl
+      ld hl, #_m_enemyCounter
+      inc (hl)
+      pop  hl
+      jp checkNextLevelEntity
+
+      playerCreated:
+      ;Aqui guardamos en _m_playerEntity la direccion de memoria del jugador
+      push ix
+      pop  de
+      push hl     
+      ld hl, #_m_playerEntity
+      ld (hl), d
+      inc hl
+      ld (hl), e
+      pop  hl
+      jp checkNextLevelEntity
+
+      checkNextLevelEntity:
+      inc hl
+      inc (hl)
+      dec (hl)
+      jr NZ, loopCreateEntities
+
+   endLoadLevel:
+   ret
