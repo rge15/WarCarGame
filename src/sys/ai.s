@@ -142,6 +142,7 @@ ret
 ; El enemigo dispara una bala hacia el jugador
 ; Genera una entidad _bullet_template y le cambia la posicion a la del enemy
 ; BC: posicon desde dodne sale
+;; TODO[Edu]: no sale del centro de la entidad
 ;===============================================================================
 _sys_ai_shootBullet::
    ;; TODO: es para resetear el valor, ver donde meterlo mejor
@@ -235,7 +236,8 @@ _sys_ai_setAiAim::
 
 
 ;===============================================================================
-; Moverse en el eje X entre posicon inicial y e_ai_aim_x
+; Moverse en el eje X entre e_ai_aim_x y e_ai_last_aim_x
+;; TODO: se podria hacer guardando la posicon inicial y comprobando cada vez pero es mucho coste?
 ; tambien dispara bala a player segun el tiempo aictr
 ;
 ;===============================================================================
@@ -260,8 +262,8 @@ _sys_ai_behaviourAutoMoveIn_x::
    ret
 
 ;===============================================================================
-; Moverse en el eje Y entre posicon inicial y e_ai_aim_y
-;
+; Moverse en el eje Y entre posicon e_ai_aim_y y e_ai_last_aim_y
+;; TODO: se podria hacer guardando la posicon inicial y comprobando cada vez pero es mucho coste?
 ;===============================================================================
 _sys_ai_behaviourAutoMoveIn_y::
    push bc
