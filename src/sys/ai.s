@@ -27,15 +27,26 @@ _sys_ai_nextPatrolCoords::
    .dw #0x0000
 
 _sys_ai_patrol_pos:
-   .dw #0x1000
-   .dw #0x1010
-   .dw #0x2010
-   .dw #0x2020
+   .dw #0x0040
+   .dw #0x2040
+   .dw #0x4020
+   .dw #0x0020
 
+_sys_ai_patrol_size:
+   .db #4
+
+_sys_ai_patrol_count:
+   .db #0
 
 _sys_ai_init::
    ld hl, #_sys_ai_patrol_pos
    ld (_sys_ai_nextPatrolCoords), hl
+
+   ld hl, #_sys_ai_patrol_count
+   ld (hl), #0x0000
+
+_sys_ai_resetPatrolInitial::
+   ret
 
 
 _sys_ai_inc_next_patrol::
@@ -44,6 +55,16 @@ _sys_ai_inc_next_patrol::
    add hl, bc
 
    ld (_sys_ai_nextPatrolCoords), hl
+
+   ;; check if last
+   ld hl, (_sys_ai_patrol_count)
+   inc l
+   ld (_sys_ai_patrol_count), hl
+
+   ld a, (_sys_ai_patrol_size)
+   cp l
+   ;; TODO: acutalizar si ia tiene mas inicializadores
+   call z, _sys_ai_init
 
    ret
 
