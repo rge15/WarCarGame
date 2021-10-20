@@ -137,10 +137,14 @@ ret
 ;===================================================================================================================================================
 _m_game_playerShot::
    ;; Se comprueba si el jugador ha disparado ya
-   ld hl,#_m_playerShot
-   dec (hl)
-   inc (hl)
-   ret NZ
+   ;; Si el ai_counter del player es != 0 es que está en cooldown (ha disparado)
+   GET_ENTITY_POSITION #_m_playerEntity
+   push de
+   pop ix
+   ld a, e_anctr(ix)
+   ld b, #0x00
+   sub b
+   ret NZ ;; Si ha disparado se sale de la etiqueta
 
 
    CREATE_ENTITY_FROM_TEMPLATE _bullet_template_e
@@ -268,8 +272,11 @@ _m_game_playerShot::
    stopCheckOrientation:
 
    ;; Indicamos que ya ha disparado
-   ld hl,#_m_playerShot
-   ld (hl), #0x01
+   GET_ENTITY_POSITION, #_m_playerEntity
+   push de
+   pop ix
+   ld e_anctr(ix), #0x20 ;; SETEAMOS EL COOLDWON
+
    ret   
 
 ;===================================================================================================================================================

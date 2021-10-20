@@ -23,7 +23,7 @@ _player_template_e:
    .db #0x00               ; prev. orientation  
    .dw #0x0000             ; prevptr
    .dw #0x0000             ;ai_behaviour
-   .db #0x00               ;ai_counter
+   .db #0x00               ;ai_counter    ;; Cooldwon de la bala
    .dw #_man_anim_player_x_right ;animator
    .db #0x0A               ;anim. counter
    .dw #0x0000             ;input_behaviour
