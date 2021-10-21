@@ -76,7 +76,8 @@ _m_game_init::
    ld (hl), e
    ex de,hl
    ; CREATE_ENTITY_FROM_TEMPLATE _enemy_template_e
-   CREATE_ENTITY_FROM_TEMPLATE _enemy_template_e2
+   ; CREATE_ENTITY_FROM_TEMPLATE _enemy_template_e2
+   CREATE_ENTITY_FROM_TEMPLATE _spawner_template_e
 ret
 
 

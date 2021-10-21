@@ -16,6 +16,9 @@
 _sys_ai_directionMemory::
     .dw #0x0000
 
+enemy_max_spawn = 2
+_sys_ai_enemy_count: .db 0
+
 
 ;; TODO[Edu]: move patrol variables to Patrol file
 ;; ptr to next coord
@@ -24,16 +27,15 @@ _sys_ai_nextPatrolCoords::
 
 ;; yx
 _sys_ai_patrol_pos:
-   ; .dw #0x0102
-   ; .dw #0x0304
-   ; .dw #0x0506
-   ; .dw #0x0708
-   .dw #0x0005
-   .dw #0x0040
-   .dw #0x4040
-   .dw #0x3415
-   ; .dw #0x0520
-   ; .dw #0x3000
+   .db 0x20, 0x40
+   .db 0x20, 0x60
+   .db 0x40, 0x60
+   .db 0x40, 0x40
+
+   ; .dw #0x0005
+   ; .dw #0x0040
+   ; .dw #0x4040
+   ; .dw #0x3415
 
 ; no hacer contador y poner algo al final para decir que ha llegado al final?
 
@@ -42,7 +44,7 @@ _sys_ai_patrol_size:
    .db #4
 
 _sys_ai_patrol_count:
-   .db #-1
+   .db #0
 
 
 ;;--------------------------------------------------------------------------------
@@ -54,7 +56,7 @@ _sys_ai_init::
    ld (_sys_ai_nextPatrolCoords), hl
 
    ld hl, #_sys_ai_patrol_count
-   ld (hl), #-1
+   ld (hl), #0
    ret
 
 
@@ -135,7 +137,7 @@ _sys_ai_updateOneEntity::
 ;===============================================================================
 _sys_ai_shootBullet::
    ;; TODO: es para resetear el valor, ver donde meterlo mejor
-   ; ld e_aictr(ix), #0x16
+   ; ld e_aictr(ix), #0x30
 
    push bc
 
@@ -149,9 +151,38 @@ _sys_ai_shootBullet::
    ld e_xpos(ix), b
    ld e_ypos(ix), c
 
-   ;; TODO: destruir la bala
    ret
 
+;===============================================================================
+; Genera una entidad _bullet_template y le cambia la posicion a la del enemy
+; BC: posicion donde debe sale
+;; TODO[Edu]: no sale del centro de la entidad
+;===============================================================================
+_sys_ai_spawnEnemy::
+   push bc
+   ld hl, #_sys_ai_enemy_count
+   inc (hl)
+
+   ;; TODO[Edu]: pasar por paraetro el template para diferentes enemigos
+   ld bc, #_enemy_template_e2
+   call _m_game_createInitTemplate
+
+
+   push hl
+   pop ix
+
+   pop bc
+
+   ld e_xpos(ix), b
+   ld a, c
+   add #20
+   ; ld e_ypos(ix), c
+   ld e_ypos(ix), a
+
+   ;; TODO[Edu]: segun el template del enemy habria que cambiar
+   call _sys_ai_updateNextPatrolCoords
+
+   ret
 
 ; por parametro el array a las posociones a las que tiene que hacer patrool
 ; beh patrol
@@ -333,6 +364,14 @@ _sys_ai_behaviourPatrol::
    call _sys_ai_seekCoords_x
    call _sys_ai_seekCoords_y
 
+   dec e_aictr(ix)
+   ld b, e_xpos(ix)
+   ld c, e_ypos(ix)
+
+   push ix
+   call z, _sys_ai_shootBullet
+   pop ix
+
    CHECK_VX_VY_ZERO _sys_ai_updateNextPatrolCoords
    ret
 
@@ -379,7 +418,26 @@ _sys_ai_behaviourAutoMoveIn_y::
    call z, _sys_ai_setAiAim
    ret
 
-;; TODO: no actulizar el xpos ypos en cada iteracion porque te sigue a cualquier pos
+_sys_ai_behaviourSpawner::
+   push bc
+   pop ix
+
+   dec e_aictr(ix)
+   ld b, e_xpos(ix)
+   ld c, e_ypos(ix)
+
+   ; call z, _sys_ai_spawnEnemy
+   jr z, check_if_spawn_enemy
+   ret
+   check_if_spawn_enemy:
+      ld d, #enemy_max_spawn
+      ld a, (_sys_ai_enemy_count)
+      cp d
+      call c, _sys_ai_spawnEnemy
+   ret
+
+
+
 _sys_ai_behaviourBulletSeektoPlayer::
    push bc
    pop ix
@@ -389,8 +447,11 @@ _sys_ai_behaviourBulletSeektoPlayer::
 
    ;; TODO: si el aim es 0,0 no va supongo<?
    ld a, e_ai_aim_x(ix)
-   add a, e_ai_aim_y(ix)
+   ld d, e_ai_aim_y(ix)
+   ; add a, e_ai_aim_y(ix)
+   add a
    or a
+
    jr nz, skip_set_coords
 
    ld a, e_xpos(iy)

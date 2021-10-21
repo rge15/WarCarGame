@@ -57,6 +57,29 @@ _enemy_template_e:
 _enemy_template_e2:
    .db #0x10                                 ; type
    .db #0x0b                                 ; cmp
+   .db #50                                 ; x
+   .db #50                                 ; y
+   .db #0x06                                 ; width
+   .db #0x0C                                 ; heigth
+   .db #0x00                                 ; vx
+   .db #0x00                                 ; vy
+   .dw #_sprite_enemy01                      ; sprite
+   .db #0x00                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
+   .db #0x00                                 ; prev. orientation
+   .dw #0x0000                               ; prevptr
+   .dw #_sys_ai_behaviourAutoMoveIn_x              ; ai_behaviour
+   .db #0x16                                 ; ai_counter
+   .dw #0x0                                  ; animator
+   .db #0x0A                                 ; anim. counter
+   .dw #0x0000                               ; input_behaviour
+   .db #0x00                                 ; e_ai_aim_x
+   .db #0x00                                 ; e_ai_aim_y
+   .db #0x00                                 ; e_ai_last_aim_x
+   .db #0x00                                 ; e_ai_last_aim_y
+
+_enemy_template_e3:
+   .db #0x10                                 ; type
+   .db #0x0b                                 ; cmp
    .db #0x00                                 ; x
    .db #0x00                                 ; y
    .db #0x06                                 ; width
@@ -68,6 +91,30 @@ _enemy_template_e2:
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
    .dw #_sys_ai_behaviourPatrol              ; ai_behaviour
+   .db #0x16                                 ; ai_counter
+   .dw #0x0                                  ; animator
+   .db #0x0A                                 ; anim. counter
+   .dw #0x0000                               ; input_behaviour
+   .db #0x00                                 ; e_ai_aim_x
+   .db #0x00                                 ; e_ai_aim_y
+   .db #0x00                                 ; e_ai_last_aim_x
+   .db #0x00                                 ; e_ai_last_aim_y
+
+; es como un enemy raealmente
+_spawner_template_e:
+   .db #0x10                                 ; type
+   .db #0x0b                                 ; cmp
+   .db #15                                    ; x
+   .db #50                                    ; y
+   .db #0x06                                 ; width
+   .db #0x0C                                 ; heigth
+   .db #0x00                                 ; vx
+   .db #0x00                                 ; vy
+   .dw #_sprite_player02                      ; sprite
+   .db #0x00                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
+   .db #0x00                                 ; prev. orientation
+   .dw #0x0000                               ; prevptr
+   .dw #_sys_ai_behaviourSpawner             ; ai_behaviour
    .db #0x16                                 ; ai_counter
    .dw #0x0                                  ; animator
    .db #0x0A                                 ; anim. counter

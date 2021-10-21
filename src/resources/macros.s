@@ -144,6 +144,7 @@
    or a
    jr z, . + 3
    ret
+   ;; jr
       ld a, e_vy(ix)
       or a
       call z, _call_on_succes
@@ -265,3 +266,7 @@
     _axis_checked:
 
 .endm
+
+; .macro UPDATE_COUNTER_DEC _register
+;
+; .endm
