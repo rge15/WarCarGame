@@ -4,10 +4,10 @@
 
 #include <types.h>
 #define HUDLIFE_0_W 10
-#define HUDLIFE_0_H 20
-extern const u8 HUDLife_0[10 * 20];
+#define HUDLIFE_0_H 21
+extern const u8 HUDLife_0[10 * 21];
 #define HUDLIFE_1_W 10
-#define HUDLIFE_1_H 20
-extern const u8 HUDLife_1[10 * 20];
+#define HUDLIFE_1_H 21
+extern const u8 HUDLife_1[10 * 21];
 
 #endif

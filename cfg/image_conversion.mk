@@ -59,7 +59,7 @@ $(eval $(call IMG2SP, CONVERT         , assets/tanque.png , 12, 16, tanque,,))
 $(eval $(call IMG2SP, CONVERT         , assets/verticalBullet.png , 6, 6, vBullet,,))
 $(eval $(call IMG2SP, CONVERT         , assets/horizBullet.png , 4, 8, hBullet,,))
 $(eval $(call IMG2SP, CONVERT         , assets/test.png , 4, 4, test,,))
-$(eval $(call IMG2SP, CONVERT         , assets/HUD.png , 20, 20, HUDLife,,))
+$(eval $(call IMG2SP, CONVERT         , assets/HUD.png , 20, 21, HUDLife,,))
 
 
 

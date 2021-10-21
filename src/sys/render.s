@@ -160,8 +160,13 @@ _sys_render_renderTileMap::
 
     ret
 
-_sys_render_renderHUDLifes::
 
+;===================================================================================================================================================
+; FUNCION _sys_render_renderHUDLifes
+; Función encargada renderizar las vidaz en funcion de su estado
+; HL : Llega el inicio del array de vidas
+;===================================================================================================================================================
+_sys_render_renderHUDLifes::
     ld a, #0x03
     renderHUDLife:
     push af

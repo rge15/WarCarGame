@@ -135,11 +135,12 @@ waitKeyPressed::
 ; NO llega ningun dato
 ;===================================================================================================================================================
 _m_game_play::
-call _man_game_setManagerIr
+   call _man_game_setManagerIr
 ;==================
 ;Pantalla inicio
 ;==================
 startGame:
+   di
    ;TODO : Hacer una pantalla de inicio bonica y cargarla aquí
    ld hl, #0x0004
    call cpct_setDrawCharM0_asm
@@ -156,21 +157,25 @@ startGame:
 call _man_game_initGameVar
 call _m_HUD_initLifes
 
+;reset _man_game_interruptionsReset
+call _man_game_interruptionsReset
+
+
 ;==================
 ;Carga de Nivel
 ;==================
 restartLevel:
+di
 call _man_entityInit
 call _man_game_loadLevel
 call _sys_render_renderTileMap
-call _man_game_interruptionsReset
 call _m_HUD_renderLifes
-;reset _man_game_interruptionsReset
 
 
 ;==================
 ;Inicio Juego
 ;==================
+ei
    testIr:
       ld a, (_m_irCtr)
       cp #6
@@ -188,8 +193,12 @@ call _m_HUD_renderLifes
       cpctm_setBorder_asm HW_BLACK
       call _sys_collision_update
 
+      cpctm_setBorder_asm HW_GREEN
       call _man_entityUpdate
+      cpctm_setBorder_asm HW_YELLOW
       call _man_game_updateGameStatus
+      cpctm_setBorder_asm HW_BLACK
+
 
 
 
@@ -210,9 +219,6 @@ call _m_HUD_renderLifes
       ;/
       ;|  Codigo completamente auxiliar para checkear el flujo de juego  -- END
       ;\
-
-
-
       ld a, (_m_irCtr)
       cp #6
       jr nz, testIr
@@ -223,6 +229,7 @@ call _m_HUD_renderLifes
    
 
    endGame:
+   di
    ;TODO : Hacer una pantalla de endgame bonica y cargarla aquí
    cpctm_clearScreen_asm 0
    ld hl, #0x0004
@@ -238,6 +245,7 @@ call _m_HUD_renderLifes
 
 
    victoryScreen:
+   di
    ;TODO : Hacer una pantalla de victoria bonica y cargarla aquí
    cpctm_clearScreen_asm 0
    ld hl, #0x0004
@@ -505,7 +513,7 @@ _man_game_ir::
 ;===================================================================================================================================================
 _man_game_interruptionsReset::
    di
-   ld a, #0x06 
+   ld a, #0x06
    ld (_m_irCtr),a
    ei
    ret
