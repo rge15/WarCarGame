@@ -5,6 +5,7 @@
 .include "cpctelera.h.s"
 .include "cpct_globals.h.s"
 .include "man/entity.h.s"
+.include "man/HUD.h.s"
 .include "resources/levels.h.s"
 
  
@@ -58,8 +59,6 @@ _m_enemyCounter:
 _m_playerScore:
    .ds 2
 
-
-
 ;;Descripcion : Texto que sale en la pantalla de inicio
 press_str:
    .asciz "PRESS ENTER"
@@ -93,7 +92,7 @@ _m_game_createInitTemplate::
 ; NO llega ningun dato
 ;===================================================================================================================================================
 _m_game_init::
-   call  _sys_init_render
+   call _sys_init_render
    ;call  _man_entityInit
 
    ; CreatePlayer & Save in _m_playerEntity   
@@ -155,7 +154,7 @@ startGame:
 
 ;Set de variables de juego (Num Vidas / Num Nivel / Num Enemy / Puntuacion)
 call _man_game_initGameVar
-
+call _m_HUD_initLifes
 
 ;==================
 ;Carga de Nivel
@@ -164,8 +163,8 @@ restartLevel:
 call _man_entityInit
 call _man_game_loadLevel
 call _sys_render_renderTileMap
-
 call _man_game_interruptionsReset
+call _m_HUD_renderLifes
 ;reset _man_game_interruptionsReset
 
 
@@ -194,23 +193,23 @@ call _man_game_interruptionsReset
 
 
 
-      ; ;/
-      ; ;|  Codigo completamente auxiliar para checkear el flujo de juego -- START
-      ; ;\
-      ; ld hl, #Key_Enter
-      ; push hl
-      ; call cpct_scanKeyboard_f_asm
-      ; pop hl
-      ; push hl
-      ; call cpct_isKeyPressed_asm
-      ; pop hl
-      ; jr  z, auxJump
-         ; call _man_game_decreaseEnemyCounter
+      ;/
+      ;|  Codigo completamente auxiliar para checkear el flujo de juego -- START
+      ;\
+      ld hl, #Key_Enter
+      push hl
+      call cpct_scanKeyboard_f_asm
+      pop hl
+      push hl
+      call cpct_isKeyPressed_asm
+      pop hl
+      jr  z, auxJump
+         call _man_game_decreasePlayerLife
 
-      ; auxJump:
-      ; ;/
-      ; ;|  Codigo completamente auxiliar para checkear el flujo de juego  -- END
-      ; ;\
+      auxJump:
+      ;/
+      ;|  Codigo completamente auxiliar para checkear el flujo de juego  -- END
+      ;\
 
 
 
@@ -694,6 +693,8 @@ _man_game_updateGameStatus::
 _man_game_decreasePlayerLife::
    ld hl, #_m_lifePlayer
    dec (hl)
+   call _m_HUD_decreaseLife
+   call _m_HUD_renderLifes
    pop hl ;Aqui quitamos lo ultimo de la pila pues no vamos a hacer un ret
    jp restartLevel
 

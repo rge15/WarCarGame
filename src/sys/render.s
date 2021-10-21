@@ -20,6 +20,7 @@
 .include "resources/entityInfo.s"
 .include "resources/sprites.h.s"
 .include "resources/animations.h.s"
+.include "man/HUD.h.s"
 
 
 ;===================================================================================================================================================
@@ -156,5 +157,50 @@ _sys_render_renderTileMap::
     ld hl, #0xC000             ; Video mem. to draw tilemap
     ld de, #_tilemap_01        ; Tilemap to be draw
     call cpct_etm_drawTilemap4x8_ag_asm
+
+    ret
+
+_sys_render_renderHUDLifes::
+
+    ld a, #0x03
+    renderHUDLife:
+    push af
+    
+    inc (hl)
+    dec (hl)
+    push hl
+    jr Z , setEmptyLife
+    jr NZ , setLife
+    
+    setEmptyLife:
+    ld hl, #_HUDLife_1
+    jp startDraw
+    setLife:
+    ld hl, #_HUDLife_0
+    startDraw:
+    pop de
+    push de
+    push hl
+    ex de, hl
+    inc hl
+    ld e, (hl)
+    inc hl
+    ld d, (hl)
+    inc hl
+    ld hl, #_m_HUD_lifeHeight
+    ld b, (hl)
+    ld hl, #_m_HUD_lifeWidth
+    ld c, (hl)
+    pop hl     
+
+    call cpct_drawSprite_asm
+    pop hl
+    inc hl
+    inc hl
+    inc hl
+    pop af
+    dec a
+    jr NZ, renderHUDLife
+
 
     ret

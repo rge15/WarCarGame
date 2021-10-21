@@ -18,4 +18,7 @@
 .globl _hBullet_0
 .globl _hBullet_1
 
+.globl _HUDLife_0
+.globl _HUDLife_1
+
 .globl _sprite_bullet01
