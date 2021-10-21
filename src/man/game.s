@@ -137,7 +137,9 @@ waitKeyPressed::
 ;===================================================================================================================================================
 _m_game_play::
 call _man_game_setManagerIr
-;Pantalla de Press Play
+;==================
+;Pantalla inicio
+;==================
 startGame:
    ;TODO : Hacer una pantalla de inicio bonica y cargarla aquí
    ld hl, #0x0004
@@ -155,8 +157,9 @@ startGame:
 call _man_game_initGameVar
 
 
-;jr .
+;==================
 ;Carga de Nivel
+;==================
 restartLevel:
 call _man_entityInit
 call _man_game_loadLevel
@@ -166,10 +169,9 @@ call _man_game_interruptionsReset
 ;reset _man_game_interruptionsReset
 
 
-; jr .
-
+;==================
 ;Inicio Juego
-   
+;==================
    testIr:
       ld a, (_m_irCtr)
       cp #6
@@ -188,27 +190,27 @@ call _man_game_interruptionsReset
       call _sys_collision_update
 
       call _man_entityUpdate
-      call _man_game_updateGameVar
+      call _man_game_updateGameStatus
 
 
 
-      ;/
-      ;|  Codigo completamente auxiliar para checkear el flujo de juego -- START
-      ;\
-      ld hl, #Key_Enter
-      push hl
-      call cpct_scanKeyboard_f_asm
-      pop hl
-      push hl
-      call cpct_isKeyPressed_asm
-      pop hl
-      jr  z, auxJump
-         call _man_game_decreaseEnemyCounter
+      ; ;/
+      ; ;|  Codigo completamente auxiliar para checkear el flujo de juego -- START
+      ; ;\
+      ; ld hl, #Key_Enter
+      ; push hl
+      ; call cpct_scanKeyboard_f_asm
+      ; pop hl
+      ; push hl
+      ; call cpct_isKeyPressed_asm
+      ; pop hl
+      ; jr  z, auxJump
+         ; call _man_game_decreaseEnemyCounter
 
-      auxJump:
-      ;/
-      ;|  Codigo completamente auxiliar para checkear el flujo de juego  -- END
-      ;\
+      ; auxJump:
+      ; ;/
+      ; ;|  Codigo completamente auxiliar para checkear el flujo de juego  -- END
+      ; ;\
 
 
 
@@ -245,25 +247,11 @@ call _man_game_interruptionsReset
    ld hl, #0xC000
    call cpct_drawStringM0_asm
    
+   
    ld hl, #Key_Enter
    call waitKeyPressed
    cpctm_clearScreen_asm 0
    jp startGame
-
-
-   ; updates:
-      ; cpctm_setBorder_asm HW_YELLOW
-      ; call _sys_ai_update
-      ; call _sys_input_update
-      ; call _sys_physics_update
-      ; call _sys_animator_update
-      ; call _sys_render_update
-      
-      ; call _man_entityUpdate
-      ; cpctm_setBorder_asm HW_BLACK
-      ; call cpct_waitVSYNC_asm
-      ; ;call _wait
-   ; jr updates
 
 ret
 
@@ -467,6 +455,12 @@ _wait::
 
 
 
+
+;===================================================================================================================================================
+; FUNCION _man_game_setManagerIr   
+; Función encargada de setear la llamada de las interrupciones
+; NO llega ningun dato
+;===================================================================================================================================================
 _man_game_setManagerIr::
    ei
    im 1
@@ -481,6 +475,13 @@ _man_game_setManagerIr::
    ld (#0x39), hl
    ei
    ret
+
+;===================================================================================================================================================
+; FUNCION _man_game_ir   
+; Función a la que llaman las interrpciones
+; Encargada de controlar en que interrupcion nos encontramos
+; NO llega ningun dato
+;===================================================================================================================================================
 _man_game_ir::
    ; cpctm_setBorder_asm HW_BLACK
    push af
@@ -497,6 +498,12 @@ _man_game_ir::
    ei
    reti
 
+
+;===================================================================================================================================================
+; FUNCION _man_game_interruptionsReset   
+; Función encargada de resetear el contador de interrupciones
+; NO llega ningun dato
+;===================================================================================================================================================
 _man_game_interruptionsReset::
    di
    ld a, #0x06 
@@ -504,6 +511,11 @@ _man_game_interruptionsReset::
    ei
    ret
 
+;===================================================================================================================================================
+; FUNCION _man_game_initGameVar   
+; Función encargada de iniciar/resetear los valores del juego
+; NO llega ningun dato
+;===================================================================================================================================================
 _man_game_initGameVar::
 
    ld hl, #_m_lifePlayer
@@ -516,7 +528,7 @@ _man_game_initGameVar::
    ld (hl), d
 
    ld hl, #_m_enemyCounter
-   ld (hl), #0x00
+   ld (hl), #0x01          ;!!!!! Esto empezará en 0 no en 1
 
    ld hl, #_m_playerScore
    ld (hl), #0x00
@@ -526,6 +538,11 @@ _man_game_initGameVar::
    ret
 
 
+;===================================================================================================================================================
+; FUNCION _man_game_loadLevel   
+; Función encargada de cargar los datos y crear entidades del nivel
+; NO llega ningun dato
+;===================================================================================================================================================
 _man_game_loadLevel::
    ld hl, #_m_gameLevel
    ld e, (hl)
@@ -609,7 +626,13 @@ _man_game_loadLevel::
 
    ret
 
-_man_game_updateGameVar::
+
+;===================================================================================================================================================
+; FUNCION _man_game_updateGameStatus   
+; Función encargada de updatear el estado del juego y nivel
+; NO llega ningun dato
+;===================================================================================================================================================
+_man_game_updateGameStatus::
 
    ; /
    ; | Se checkea si el jugador ha perdido las 3 vidas
@@ -658,21 +681,30 @@ _man_game_updateGameVar::
    
    jp restartLevel
 
-   ;Check Num enemigos
-      ;Pasar Nivel con _m_nextLevel
-   ;Updatear Puntuacion pantalla
    dontPassLevel:
    ret
 
 
+
+;===================================================================================================================================================
+; FUNCION _man_game_updateGameStatus   
+; Función encargada de decrementar la vida del jugador
+; NO llega ningun dato
+;===================================================================================================================================================
 _man_game_decreasePlayerLife::
    ld hl, #_m_lifePlayer
    dec (hl)
-   pop hl ;AQui quitamos lo ultimo de la pila pues no vamos a hacer un ret
+   pop hl ;Aqui quitamos lo ultimo de la pila pues no vamos a hacer un ret
    jp restartLevel
 
    ret
 
+
+;===================================================================================================================================================
+; FUNCION _man_game_decreaseEnemyCounter   
+; Función encargada de decrementar el número de enemigos
+; NO llega ningun dato
+;===================================================================================================================================================
 _man_game_decreaseEnemyCounter::
    ld hl, #_m_enemyCounter
    dec (hl)
