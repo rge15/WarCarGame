@@ -528,7 +528,7 @@ _man_game_initGameVar::
    ld (hl), d
 
    ld hl, #_m_enemyCounter
-   ld (hl), #0x01          ;!!!!! Esto empezará en 0 no en 1
+   ld (hl), #0x01          ;!!!!! TODO : Esto empezará en 0 no en 1
 
    ld hl, #_m_playerScore
    ld (hl), #0x00
