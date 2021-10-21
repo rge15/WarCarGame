@@ -41,6 +41,27 @@
 #$(eval $(call IMG2SP, CONVERT_PALETTE , $(PALETTE), g_palette ))
 #$(eval $(call IMG2SP, CONVERT         , img.png , w, h, array, palette, tileset))
 
+
+PALETTE=0 1 2 3 6 9 11 12 13 15 16 18 20 24 25 26
+
+## ========== MAPA ========== 
+$(eval $(call IMG2SP, SET_PALETTE_FW  , $(PALETTE)         ))
+$(eval $(call IMG2SP, CONVERT_PALETTE , $(PALETTE), g_palette ))
+$(eval $(call IMG2SP, SET_FOLDER      , src/assets/maps  ))
+$(eval $(call IMG2SP, SET_IMG_FORMAT  , zgtiles  ))
+$(eval $(call IMG2SP, CONVERT         , assets/tileset.png , 8, 8, tileset,,))
+
+## ========== TANQUE Y BALAS ========== 
+$(eval $(call IMG2SP, SET_FOLDER      , src/assets/sprites               ))
+# $(eval $(call IMG2SP, CONVERT_PALETTE , $(PALETTE), g_palette ))
+$(eval $(call IMG2SP, SET_IMG_FORMAT  , sprites            )) #	{ sprites, zgtiles, screen }
+$(eval $(call IMG2SP, CONVERT         , assets/tanque.png , 12, 16, tanque,,))
+$(eval $(call IMG2SP, CONVERT         , assets/verticalBullet.png , 6, 6, vBullet,,))
+$(eval $(call IMG2SP, CONVERT         , assets/horizBullet.png , 4, 8, hBullet,,))
+$(eval $(call IMG2SP, CONVERT         , assets/test.png , 4, 4, test,,))
+
+
+
 ##
 ## OLD MACROS (For compatibility)
 ##

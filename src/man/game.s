@@ -13,17 +13,24 @@
 
 .include "sys/ai.h.s"
 .include "sys/animator.h.s"
+.include "sys/collision.h.s"
 .include "sys/input.h.s"
 .include "sys/physics.h.s"
 .include "resources/macros.s"
 .include "resources/entityInfo.s"
 .include "resources/templates.h.s"
+.include "resources/sprites.h.s"
 .include "game.h.s"
 
 
 ;===================================================================================================================================================
 ; Manager data
 ;===================================================================================================================================================
+
+;;Descripcion : Contador de las interrupciones por la que vamos
+_m_irCtr:
+   .db 6
+
 ;;Descripcion : Saber si el jugador ha disparado ya 
 _m_playerShot:
    .db #0x00
@@ -61,7 +68,7 @@ _m_game_init::
    call  _man_entityInit
 
    ; CreatePlayer & Save in _m_playerEntity   
-   CREATE_ENTITY_FROM_TEMPLATE _player_template_e 
+   CREATE_ENTITY_FROM_TEMPLATE _player_template_e
    ex de,hl
    ld hl, #_m_playerEntity
    ld (hl), d
@@ -79,17 +86,49 @@ ret
 ; NO llega ningun dato
 ;===================================================================================================================================================
 _m_game_play::
-   updates:
+call _man_game_setManagerIr
+   
+   testIr:
+      ld a, (_m_irCtr)
+      cp #6
+      jr nz, testIr
+      cpctm_setBorder_asm HW_YELLOW
       call _sys_ai_update
-      call _sys_input_update
-      call _sys_physics_update
-      call _sys_animator_update
+      cpctm_setBorder_asm HW_GREEN
       call _sys_render_update
-      
+      cpctm_setBorder_asm HW_WHITE
+      call _sys_physics_update
+      cpctm_setBorder_asm HW_RED
+      call _sys_input_update
+      cpctm_setBorder_asm HW_PINK
+      call _sys_animator_update
+      cpctm_setBorder_asm HW_BLACK
+      call _sys_collision_update
+
       call _man_entityUpdate
-      call cpct_waitVSYNC_asm
-      ; call _wait
-   jr updates
+      ld a, (_m_irCtr)
+      cp #6
+      jr nz, testIr
+      halt
+      
+
+   jr testIr
+   
+   
+
+   ; updates:
+      ; cpctm_setBorder_asm HW_YELLOW
+      ; call _sys_ai_update
+      ; call _sys_input_update
+      ; call _sys_physics_update
+      ; call _sys_animator_update
+      ; call _sys_render_update
+      
+      ; call _man_entityUpdate
+      ; cpctm_setBorder_asm HW_BLACK
+      ; call cpct_waitVSYNC_asm
+      ; ;call _wait
+   ; jr updates
 
 ret
 
@@ -112,7 +151,7 @@ _m_game_createEnemy::
 ; HL : Llega el valor de la entidad
 ;===================================================================================================================================================
 _m_game_destroyEntity::
-   call _man_entityDestroy
+   call _man_setEntity4Destroy
    ret
 
 
@@ -205,21 +244,67 @@ _m_game_playerShot::
    righOrientation:
       ld e_vx(ix), #0x01
       ld e_orient(ix), #0x00
+      ld a, e_ypos(ix)
+      add a, #0x06
+      ld e_ypos(ix), a
+      ld a, e_xpos(ix)
+      add a, #0x02
+      ld e_xpos(ix), a
       jp stopCheckOrientation
 
    downOrientation:
       ld e_vy(ix), #0x02
       ld e_orient(ix), #0x01
+
+      ld e_width(ix),  #0x02
+      ld e_heigth(ix), #0x08
+      
+      ld a, e_ypos(ix)
+      add a, #0x2
+      ld e_ypos(ix), a
+      ld a, e_xpos(ix)
+      add a, #0x02
+      ld e_xpos(ix), a
+
+      ld hl, #_hBullet_1
+      ld e_sprite2(ix), h
+      ld e_sprite1(ix), l
       jp stopCheckOrientation
 
    leftOrientation:
       ld e_vx(ix), #0xFF
       ld e_orient(ix), #0x02
+
+      ld a, e_ypos(ix)
+      add a, #0x06
+      ld e_ypos(ix), a
+      ld a, e_xpos(ix)
+      add a, #0x01
+      ld e_xpos(ix), a
+
+      ld hl, #_vBullet_0
+      ld e_sprite2(ix), h
+      ld e_sprite1(ix), l
+
       jp stopCheckOrientation
 
    upOrientation:
       ld e_vy(ix), #0xFE
       ld e_orient(ix), #0x03
+
+      ld e_width(ix),  #0x02
+      ld e_heigth(ix), #0x08
+      
+      ld a, e_ypos(ix)
+      add a, #0x02
+      ld e_ypos(ix), a
+      ld a, e_xpos(ix)
+      add a, #0x02
+      ld e_xpos(ix), a
+      
+      ld hl, #_hBullet_0
+      ld e_sprite2(ix), h
+      ld e_sprite1(ix), l
       jp stopCheckOrientation
 
    stopCheckOrientation:
@@ -244,3 +329,35 @@ _wait::
          dec h
          jr NZ, waitLoop
    ret
+
+
+
+_man_game_setManagerIr::
+   ei
+   im 1
+   call cpct_waitVSYNC_asm
+   halt
+   halt
+   call cpct_waitVSYNC_asm
+   di
+   ld a, #0xC3
+   ld (#0x38), a
+   ld hl, #_man_game_ir
+   ld (#0x39), hl
+   ei
+   ret
+_man_game_ir::
+   ; cpctm_setBorder_asm HW_BLACK
+   push af
+
+   ld a, (_m_irCtr)
+   dec a
+   jr NZ, notReset
+      ld a, #6
+   notReset:
+   ld (_m_irCtr),a
+
+   pop af
+
+   ei
+   reti

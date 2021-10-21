@@ -163,3 +163,105 @@
    pop _register
 .endm
 
+;; Según la orientación de la entidad devuelve el bounding box
+;; de arriba o abajo
+.macro CHECK_ORIENTATION_PLAYER_FOR_COLLISION_Y _orientation _height
+
+    ;; UP = 3
+    ld a, #0x03
+    ld d, _orientation
+    sub d
+    jp z, _is_up
+
+    ;; DOWN = 1
+    ld a, #0x01
+    ld d, _orientation
+    sub d
+    jp z, _is_down
+
+    jp _is_none_x
+
+    _is_up:
+    ld d, #0xFF
+    jp _done_check_y_orientation
+
+    _is_down:
+    ld d, _height
+    jp _done_check_y_orientation
+
+    _is_none_x:
+    ld d, #0x00
+
+    _done_check_y_orientation:
+
+.endm
+
+.macro CHECK_ORIENTATION_PLAYER_FOR_COLLISION_X _orientation _width
+
+    ;; RIGHT = 0
+    ld a, #0x00
+    ld d, _orientation
+    sub d
+    jp z, _is_right
+
+    ;; LEFT = 2
+    ld a, #0x02
+    ld d, _orientation
+    sub d
+    jp z, _is_left
+
+    jp _is_none_y
+
+    _is_right:
+    ld d, _width
+    jp _done_check_x_orientation
+
+    _is_left:
+    ld d, #0xFF
+    jp _done_check_x_orientation
+
+    _is_none_y:
+    ld d, #0x00
+
+    _done_check_x_orientation:
+
+.endm
+
+;; Según la orientación del axis del jugador
+;; devuelve en a (0 = x_axis) o (1 = y_axis)
+.macro CHECK_ORIENTATION_AXIS_PLAYER _orientation
+
+    ;; RIGHT = 0
+    ld a, #0x00
+    ld d, _orientation
+    sub d
+    jp z, _is_x_axis
+
+    ;; DOWN = 1
+    ld a, #0x01
+    ld d, _orientation
+    sub d
+    jp z, _is_y_axis
+
+    ;; LEFT = 2
+    ld a, #0x02
+    ld d, _orientation
+    sub d
+    jp z, _is_x_axis
+
+    ;; UP = 3
+    ld a, #0x03
+    ld d, _orientation
+    sub d
+    jp z, _is_y_axis
+
+    _is_x_axis:
+    ld a, #0x00
+    jp _axis_checked
+
+    _is_y_axis:
+    ld a, #0x01
+
+    _axis_checked:
+
+.endm

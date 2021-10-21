@@ -78,13 +78,16 @@ _sys_physics_update::
 _sys_physics_updateOneEntity::    
     push hl
     pop ix
+
+    ;; BD = x_pos y_pos
     ld  b, e_xpos(ix) 
     ld  d, e_ypos(ix) 
 
+    ;; CE = x_vel y_vel
     ld  c, e_vx(ix) 
     ld  e, e_vy(ix) 
 
-    ;; TODO: realmente se deberia comprobar???
+    ;; A = x_pos + x_vel
     ld a,b
     add a,c
     cp #0x4c
@@ -92,7 +95,7 @@ _sys_physics_updateOneEntity::
     ld e_xpos(ix),a
     skip_x_increment:
 
-    ;c5
+    ;; A = y_pos + y_vel
     ld a,d
     add a,e
     cp #0xc2

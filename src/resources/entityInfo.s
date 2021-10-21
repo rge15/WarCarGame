@@ -33,20 +33,23 @@ e_vy        =  7
 e_sprite1   =  8
 e_sprite2   =  9
 e_orient    = 10
-e_prevptr1  = 11
-e_prevptr2  = 12
-e_aibeh1    = 13
-e_aibeh2    = 14
-e_aictr     = 15
-e_anim1     = 16
-e_anim2     = 17
-e_animctr   = 18
-e_inputbeh1 = 19
-e_inputbeh2 = 20
-e_ai_aim_x  = 21
-e_ai_aim_y  = 22
-e_ai_last_aim_x = 23
-e_ai_last_aim_y = 24
+
+e_prorient  = 11
+e_prevptr1  = 12
+e_prevptr2  = 13
+e_aibeh1    = 14
+e_aibeh2    = 15
+e_aictr     = 16
+e_anim1     = 17
+e_anim2     = 18
+e_animctr   = 19
+e_inputbeh1 = 20
+e_inputbeh2 = 21
+
+e_ai_aim_x  = 22
+e_ai_aim_y  = 23
+e_ai_last_aim_x = 24
+e_ai_last_aim_y = 25
 
 
 
