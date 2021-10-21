@@ -12,8 +12,6 @@
 ;===================================================================================================================================================
 ; Manager data
 ;===================================================================================================================================================
-_sys_ai_behaviourMemory::
-    .ds 2
 
 _sys_ai_directionMemory::
     .dw #0x0000
@@ -30,18 +28,21 @@ _sys_ai_patrol_pos:
    ; .dw #0x0304
    ; .dw #0x0506
    ; .dw #0x0708
-   .dw #0x0000
+   .dw #0x0005
    .dw #0x0040
-   .dw #0x4023
-   ; .dw #0x4000
-   .dw #0x0520
+   .dw #0x4040
+   .dw #0x3415
+   ; .dw #0x0520
    ; .dw #0x3000
 
+; no hacer contador y poner algo al final para decir que ha llegado al final?
+
+;; TODO[Edu]: bug
 _sys_ai_patrol_size:
    .db #4
 
 _sys_ai_patrol_count:
-   .db #0
+   .db #-1
 
 
 ;;--------------------------------------------------------------------------------
@@ -53,9 +54,19 @@ _sys_ai_init::
    ld (_sys_ai_nextPatrolCoords), hl
 
    ld hl, #_sys_ai_patrol_count
-   ld (hl), #0x0000
+   ld (hl), #-1
+   ret
 
 
+;===============================================================================
+; Actualiza ai_beh
+; HL: direction of new behaviour
+;===============================================================================
+_sys_ai_changeBevaviour::
+   ld hl, #_sys_ai_behaviourAutoMoveIn_x
+   ld e_aibeh1(ix), l
+   ld e_aibeh2(ix), h
+   ret
 
 _sys_ai_inc_next_patrol::
    ld bc, (_sys_ai_nextPatrolCoords)
@@ -69,9 +80,12 @@ _sys_ai_inc_next_patrol::
    inc l
    ld (_sys_ai_patrol_count), hl
 
+
+
    ld a, (_sys_ai_patrol_size)
    cp l
    ;; TODO: acutalizar si ia tiene mas inicializadores
+   ; call z, _sys_ai_changeBevaviour
    call z, _sys_ai_init
 
    ret
@@ -398,6 +412,39 @@ _sys_ai_behaviourBulletSeektoPlayer::
 
    ret
 
+;; TODO: no actulizar el xpos ypos en cada iteracion porque te sigue a cualquier pos
+; _sys_ai_behaviourBulletIn_x::
+;    push bc
+;    pop ix
+;
+;    GET_PLAYER_ENTITY iy
+;
+;
+;    ;; TODO: si el aim es 0,0 no va supongo<?
+;    ld a, e_ai_aim_x(ix)
+;    add a, e_ai_aim_y(ix)
+;    or a
+;    jr nz, skip_set_coords
+;
+;    ld a, e_xpos(iy)
+;    ld e_ai_aim_x(ix), a
+;
+;    ld a, e_ypos(iy)
+;    ld e_ai_aim_y(ix), a
+;
+;    skip_set_coords:
+;
+;    ;; TODO[Edu]: con velociada mayor a veces no llega y se queda
+;    ; una entidad sin destruir y ya peta un poco todo
+;    ld d, #1
+;    call _sys_ai_seekCoords_x
+;    call _sys_ai_seekCoords_y
+;    push ix
+;    pop hl
+;    CHECK_VX_VY_ZERO _man_setEntity4Destroy
+;
+;    ret
+;
 ;===================================================================================================================================================
 ; FUNCION _sys_ai_behaviourAutoDestroy
 ; Destruye la entidad pasado el tiempo del contador de la IA
