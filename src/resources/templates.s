@@ -48,7 +48,7 @@ _enemy_template_e:
    .db #0x0A               ;anim. counter
    .dw #0x0000             ;input_behaviour
    .db #0x00               ;e_ai_aim_x
-   .db #0x00              ;e_ai_aim_y
+   .db #0x00               ;e_ai_aim_y
    .db #0x25               ;e_ai_last_aim_x
    .db #0x00               ;e_ai_last_aim_y
 
@@ -109,7 +109,7 @@ _bullet_template_e2:
    .dw #_sprite_bullet01               ; sprite
    .db #0x00                           ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
    .dw #0x0000                         ; prevptr
-   .dw #_sys_ai_behaviourSeektoPlayer
+   .dw #_sys_ai_behaviourBulletSeektoPlayer
    .db #0x01B                          ; ai_counter   ;; Contador de la bala
    .dw #0x00                           ; animator
    .db #0x00                           ; anim. counter

@@ -5,7 +5,6 @@
 .include "man/game.h.s"
 .include "resources/entityInfo.s"
 .include "resources/templates.h.s"
-.include "resources/macros.h.s"
 .include "resources/macros.s"
 .include "sys/physics.h.s"
 .include "sys/ai.h.s"
@@ -312,32 +311,15 @@ _sys_ai_behaviourPatrol::
    ;; la mascara de bits tiene que ser 0x40 porque es el flag z
    ;; depues hay que compara que los flags sean iguales y que sean 0x40, en los otros casos no
    ; queremos hacer update de las patrol coords
+
    ld d, #1
+   ; SEEK_COORDS_X_Y_SAVING_FLAGS
+   ; X_AND_Y_ON_ZERO_AFTER_SEEK _sys_ai_updateNextPatrolCoords
+
    call _sys_ai_seekCoords_x
-   push af
    call _sys_ai_seekCoords_y
-   push af
-   pop hl
-   pop bc
 
-   ld a, #0x40
-   and l
-   ld l, a
-
-   ld a, #0x40
-   and c
-   ld c, a
-
-   ld a, l
-   cp c
-   jr z, same_values_in_f
-   ret
-
-   same_values_in_f:
-      ld a, #0x40
-      cp c
-
-      call z, _sys_ai_updateNextPatrolCoords
+   CHECK_VX_VY_ZERO _sys_ai_updateNextPatrolCoords
    ret
 
 
@@ -384,14 +366,12 @@ _sys_ai_behaviourAutoMoveIn_y::
    ret
 
 ;; TODO: no actulizar el xpos ypos en cada iteracion porque te sigue a cualquier pos
-_sys_ai_behaviourSeektoPlayer::
+_sys_ai_behaviourBulletSeektoPlayer::
    push bc
    pop ix
 
-   ;; TODO: usar _m_playerEntity
-   ; ld bc, #_m_playerEntity
-   ; ld iy, (bc)
-   ld iy, #_m_entities
+   GET_PLAYER_ENTITY iy
+
 
    ;; TODO: si el aim es 0,0 no va supongo<?
    ld a, e_ai_aim_x(ix)
@@ -407,10 +387,14 @@ _sys_ai_behaviourSeektoPlayer::
 
    skip_set_coords:
 
-   ld d, #2
+   ;; TODO[Edu]: con velociada mayor a veces no llega y se queda
+   ; una entidad sin destruir y ya peta un poco todo
+   ld d, #1
    call _sys_ai_seekCoords_x
-   ld d, #4
    call _sys_ai_seekCoords_y
+   push ix
+   pop hl
+   CHECK_VX_VY_ZERO _man_setEntity4Destroy
 
    ret
 
