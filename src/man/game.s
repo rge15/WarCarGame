@@ -66,6 +66,8 @@ _m_game_init::
    call  _sys_init_render
    call  _man_entityInit
 
+   ;CREATE_ENTITY_FROM_TEMPLATE _enemy_template_e
+
    ; CreatePlayer & Save in _m_playerEntity   
    CREATE_ENTITY_FROM_TEMPLATE _player_template_e
    ex de,hl

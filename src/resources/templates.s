@@ -28,6 +28,25 @@ _player_template_e:
    .db #0x0A               ;anim. counter
    .dw #0x0000             ;input_behaviour
 
+_enemy_template_e:
+   .db #0x08               ; type
+   .db #0x3B               ; cmp
+   .db #0x2F               ; x
+   .db #0xB0               ; y
+   .db #0x06               ; width
+   .db #0x10               ; heigth
+   .db #0x00               ; vx
+   .db #0x00               ; vy
+   .dw #_tanque_0          ; sprite
+   .db #0x00               ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
+   .db #0x00               ; prev. orientation  
+   .dw #0x0000             ; prevptr
+   .dw #0x0000             ;ai_behaviour
+   .db #0x00               ;ai_counter    ;; Cooldwon de la bala
+   .dw #_man_anim_player_x_right ;animator
+   .db #0x0A               ;anim. counter
+   .dw #0x0000             ;input_behaviour
+
 _bullet_template_e:
    .db #0x04                           ; type
    .db #0x3B                           ; cmp          
