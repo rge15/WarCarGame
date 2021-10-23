@@ -54,11 +54,6 @@ _m_nextLevel:
 _m_enemyCounter:
    .ds 1
 
-
-;;Descripcion : Puntuacion jugador
-_m_playerScore:
-   .ds 2
-
 ;;Descripcion : Texto que sale en la pantalla de inicio
 press_str:
    .asciz "PRESS ENTER"
@@ -155,8 +150,7 @@ startGame:
 
 ;Set de variables de juego (Num Vidas / Num Nivel / Num Enemy / Puntuacion)
 call _man_game_initGameVar
-call _m_HUD_initLifes
-
+call _m_HUD_initHUD
 ;reset _man_game_interruptionsReset
 call _man_game_interruptionsReset
 
@@ -169,7 +163,7 @@ di
 call _man_entityInit
 call _man_game_loadLevel
 call _sys_render_renderTileMap
-call _m_HUD_renderLifes
+call _m_HUD_renderHUD
 
 
 ;==================
@@ -213,7 +207,8 @@ ei
       call cpct_isKeyPressed_asm
       pop hl
       jr  z, auxJump
-         call _man_game_decreasePlayerLife
+         call _m_HUD_addPoints
+         call _m_HUD_renderScore
 
       auxJump:
       ;/
@@ -537,11 +532,6 @@ _man_game_initGameVar::
    ld hl, #_m_enemyCounter
    ld (hl), #0x01          ;!!!!! TODO : Esto empezará en 0 no en 1
 
-   ld hl, #_m_playerScore
-   ld (hl), #0x00
-   inc hl
-   ld (hl), #0x00
-
    ret
 
 
@@ -717,4 +707,6 @@ _man_game_decreasePlayerLife::
 _man_game_decreaseEnemyCounter::
    ld hl, #_m_enemyCounter
    dec (hl)
+   call _m_HUD_addPoints
+   call _m_HUD_renderScore
    ret

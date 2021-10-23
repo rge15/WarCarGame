@@ -1,6 +1,15 @@
 .module Macros
 
+.macro PREPARE_SCORE_DIGIT_TO_RENDER _vmem 
 
+    and #0x0F
+    ld de, #_vmem
+    ld hl, #_m_HUD_scoreHeight
+    ld b, (hl)
+    ld hl, #_m_HUD_scoreWidth
+    ld c, (hl)
+
+.endm 
 
 ;;Cargar el valor de _m_sizeOfEntity
 .macro LOAD_VARIABLE_IN_REGISTER _var, _register

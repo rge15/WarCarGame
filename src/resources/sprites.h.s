@@ -21,4 +21,15 @@
 .globl _HUDLife_0
 .globl _HUDLife_1
 
+.globl _spriteScore_00
+.globl _spriteScore_01
+.globl _spriteScore_02
+.globl _spriteScore_03
+.globl _spriteScore_04
+.globl _spriteScore_05
+.globl _spriteScore_06
+.globl _spriteScore_07
+.globl _spriteScore_08
+.globl _spriteScore_09
+
 .globl _sprite_bullet01

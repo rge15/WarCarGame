@@ -209,3 +209,74 @@ _sys_render_renderHUDLifes::
 
 
     ret
+
+_sys_render_renderHUDScore::
+
+    inc a
+    dec a
+    jr Z, value0
+    dec a
+    jr Z, value1
+    dec a
+    jr Z, value2
+    dec a
+    jr Z, value3
+    dec a
+    jr Z, value4
+    dec a
+    jr Z, value5
+    dec a
+    jr Z, value6
+    dec a
+    jr Z, value7
+    dec a
+    jr Z, value8
+    dec a
+    jr Z, value9
+    ; jr NZ, dontRender
+
+    value0:
+    ld hl, #_spriteScore_00
+    jp render
+
+    value1:
+    ld hl, #_spriteScore_01
+    jp render
+
+    value2:
+    ld hl, #_spriteScore_02
+    jp render
+
+    value3:
+    ld hl, #_spriteScore_03
+    jp render
+
+    value4:
+    ld hl, #_spriteScore_04
+    jp render
+
+    value5:
+    ld hl, #_spriteScore_05
+    jp render
+
+    value6:
+    ld hl, #_spriteScore_06
+    jp render
+
+    value7:
+    ld hl, #_spriteScore_07
+    jp render
+
+    value8:
+    ld hl, #_spriteScore_08
+    jp render
+
+    value9:
+    ld hl, #_spriteScore_09
+
+    render:
+    call cpct_drawSprite_asm
+
+    dontRender:
+
+    ret

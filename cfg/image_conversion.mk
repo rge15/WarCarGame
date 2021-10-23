@@ -60,7 +60,7 @@ $(eval $(call IMG2SP, CONVERT         , assets/verticalBullet.png , 6, 6, vBulle
 $(eval $(call IMG2SP, CONVERT         , assets/horizBullet.png , 4, 8, hBullet,,))
 $(eval $(call IMG2SP, CONVERT         , assets/test.png , 4, 4, test,,))
 $(eval $(call IMG2SP, CONVERT         , assets/HUD.png , 20, 21, HUDLife,,))
-
+$(eval $(call IMG2SP, CONVERT         , assets/scoreNumeros.png , 6, 8, spriteScore,,))
 
 
 
