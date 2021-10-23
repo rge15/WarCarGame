@@ -163,13 +163,13 @@ di
 call _man_entityInit
 call _man_game_loadLevel
 call _sys_render_renderTileMap
-call _m_HUD_renderHUD
-
+call _m_HUD_renderLifes
 
 ;==================
 ;Inicio Juego
 ;==================
 ei
+   call _m_HUD_renderScore
    testIr:
       ld a, (_m_irCtr)
       cp #6
@@ -196,6 +196,7 @@ ei
 
 
 
+
       ;/
       ;|  Codigo completamente auxiliar para checkear el flujo de juego -- START
       ;\
@@ -207,8 +208,8 @@ ei
       call cpct_isKeyPressed_asm
       pop hl
       jr  z, auxJump
-         call _m_HUD_addPoints
-         call _m_HUD_renderScore
+         call _man_game_decreasePlayerLife
+         ; call _m_HUD_renderScore
 
       auxJump:
       ;/
