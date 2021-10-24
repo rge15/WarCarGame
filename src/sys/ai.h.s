@@ -4,6 +4,8 @@
 .globl _sys_ai_init
 .globl _sys_ai_update
 .globl _sys_ai_updateOneEntity
+.globl _sys_ai_setAiAim
+.globl _sys_ai_inc_next_patrol
 
 .globl _sys_ai_behaviourEnemy
 .globl _sys_ai_behaviourAutoMoveIn_x

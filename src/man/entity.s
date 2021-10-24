@@ -15,7 +15,7 @@
 ;; Descripcion : Array de entidades
 ;; TODO: recalcular con los cambios de estructura de entity
 _m_entities::
-    .ds 300
+    .ds 448
 
 ;; Descripcion : Memoria vacia al final del array para controlar su final
 _m_emptyMemCheck::
@@ -39,7 +39,7 @@ _m_numEntities::
 
 ;; Descripcion : TAmaño en bytes de 1 entity
 _m_sizeOfEntity::
-    .db #0x1a
+    .db #0x1c
 
 
 ;===================================================================================================================================================

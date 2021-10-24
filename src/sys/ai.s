@@ -7,6 +7,7 @@
 .include "resources/templates.h.s"
 .include "resources/macros.s"
 .include "sys/physics.h.s"
+.include "sys/patrol.h.s"
 .include "sys/ai.h.s"
 
 ;===================================================================================================================================================
@@ -20,43 +21,16 @@ enemy_max_spawn = 2
 _sys_ai_enemy_count: .db 0
 
 
-;; TODO[Edu]: move patrol variables to Patrol file
-;; ptr to next coord
-_sys_ai_nextPatrolCoords::
-   .dw #0x0000
-
-;; yx
-_sys_ai_patrol_pos:
-   .db 0x20, 0x40
-   .db 0x20, 0x60
-   .db 0x40, 0x60
-   .db 0x40, 0x40
-
-   ; .dw #0x0005
-   ; .dw #0x0040
-   ; .dw #0x4040
-   ; .dw #0x3415
-
-; no hacer contador y poner algo al final para decir que ha llegado al final?
-
-;; TODO[Edu]: bug
-_sys_ai_patrol_size:
-   .db #4
-
-_sys_ai_patrol_count:
-   .db #0
-
-
 ;;--------------------------------------------------------------------------------
 ;; AI FUNCTIONS
 ;;--------------------------------------------------------------------------------
 
 _sys_ai_init::
-   ld hl, #_sys_ai_patrol_pos
-   ld (_sys_ai_nextPatrolCoords), hl
-
-   ld hl, #_sys_ai_patrol_count
-   ld (hl), #0
+   ; ld hl, #_sys_ai_patrol_pos
+   ; ld (_sys_ai_nextPatrolCoords), hl
+   ;
+   ; ld hl, #_sys_ai_patrol_count
+   ; ld (hl), #0
    ret
 
 
@@ -71,24 +45,24 @@ _sys_ai_changeBevaviour::
    ret
 
 _sys_ai_inc_next_patrol::
-   ld bc, (_sys_ai_nextPatrolCoords)
-   ld hl, #2
-   add hl, bc
-
-   ld (_sys_ai_nextPatrolCoords), hl
-
-   ;; check if last
-   ld hl, (_sys_ai_patrol_count)
-   inc l
-   ld (_sys_ai_patrol_count), hl
-
-
-
-   ld a, (_sys_ai_patrol_size)
-   cp l
-   ;; TODO: acutalizar si ia tiene mas inicializadores
-   ; call z, _sys_ai_changeBevaviour
-   call z, _sys_ai_init
+   ; ld bc, (_sys_ai_nextPatrolCoords)
+   ; ld hl, #2
+   ; add hl, bc
+   ;
+   ; ld (_sys_ai_nextPatrolCoords), hl
+   ;
+   ; ;; check if last
+   ; ld hl, (_sys_ai_patrol_count)
+   ; inc l
+   ; ld (_sys_ai_patrol_count), hl
+   ;
+   ;
+   ;
+   ; ld a, (_sys_ai_patrol_size)
+   ; cp l
+   ; ;; TODO: acutalizar si ia tiene mas inicializadores
+   ; ; call z, _sys_ai_changeBevaviour
+   ; call z, _sys_ai_init
 
    ret
 
@@ -137,7 +111,7 @@ _sys_ai_updateOneEntity::
 ;===============================================================================
 _sys_ai_shootBullet::
    ;; TODO: es para resetear el valor, ver donde meterlo mejor
-   ; ld e_aictr(ix), #0x30
+   ld e_aictr(ix), #0x30
 
    push bc
 
@@ -164,7 +138,7 @@ _sys_ai_spawnEnemy::
    inc (hl)
 
    ;; TODO[Edu]: pasar por paraetro el template para diferentes enemigos
-   ld bc, #_enemy_template_e2
+   ld bc, #_enemy_template_e
    call _m_game_createInitTemplate
 
 
@@ -180,28 +154,8 @@ _sys_ai_spawnEnemy::
    ld e_ypos(ix), a
 
    ;; TODO[Edu]: segun el template del enemy habria que cambiar
-   call _sys_ai_updateNextPatrolCoords
+   ; call _sys_ai_updateNextPatrolCoords
 
-   ret
-
-; por parametro el array a las posociones a las que tiene que hacer patrool
-; beh patrol
-; beh x right left
-; beh y up down
-;===============================================================================
-; actualiza _sys_ai_nextPatrolCoords y llama a _sys_ai_setAiAim
-; Destroy: HL
-;===============================================================================
-_sys_ai_updateNextPatrolCoords::
-
-   ld hl, (_sys_ai_nextPatrolCoords)
-   ld d, (hl)
-   inc hl
-   ld e, (hl)
-   ex de, hl
-
-   call _sys_ai_setAiAim
-   call _sys_ai_inc_next_patrol
    ret
 
 ;===============================================================================
@@ -358,24 +312,24 @@ _sys_ai_behaviourPatrol::
    ; queremos hacer update de las patrol coords
 
    ld d, #1
-   ; SEEK_COORDS_X_Y_SAVING_FLAGS
-   ; X_AND_Y_ON_ZERO_AFTER_SEEK _sys_ai_updateNextPatrolCoords
-
    call _sys_ai_seekCoords_x
+   ld d, #2
    call _sys_ai_seekCoords_y
 
-   dec e_aictr(ix)
-   ld b, e_xpos(ix)
-   ld c, e_ypos(ix)
+   ; dec e_aictr(ix)
+   ; ld b, e_xpos(ix)
+   ; ld c, e_ypos(ix)
+   ;
+   ; push ix
+   ; call z, _sys_ai_shootBullet
+   ; pop ix
 
-   push ix
-   call z, _sys_ai_shootBullet
-   pop ix
+   CHECK_VX_VY_ZERO _sys_patrol_next
 
-   CHECK_VX_VY_ZERO _sys_ai_updateNextPatrolCoords
    ret
 
 
+;; TODO: hacer con posicion relativa pasada por parametro
 ;===============================================================================
 ; Moverse en el eje X entre e_ai_aim_x y e_ai_last_aim_x
 ;; TODO: se podria hacer guardando la posicon inicial y comprobando cada vez pero es mucho coste?
@@ -435,7 +389,6 @@ _sys_ai_behaviourSpawner::
       cp d
       call c, _sys_ai_spawnEnemy
    ret
-
 
 
 _sys_ai_behaviourBulletSeektoPlayer::
