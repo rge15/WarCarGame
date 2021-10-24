@@ -5,13 +5,13 @@
 .globl _sys_ai_update
 .globl _sys_ai_updateOneEntity
 .globl _sys_ai_setAiAim
-.globl _sys_ai_inc_next_patrol
 
 .globl _sys_ai_behaviourEnemy
 .globl _sys_ai_behaviourAutoMoveIn_x
 .globl _sys_ai_behaviourAutoMoveIn_y
 .globl _sys_ai_behaviourPatrol
 .globl _sys_ai_behaviourSpawner
+.globl _sys_ai_behaviourSeekAndPatrol
 
 .globl _sys_ai_behaviourBulletSeektoPlayer
 

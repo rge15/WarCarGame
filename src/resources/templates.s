@@ -14,7 +14,7 @@ _player_template_e:
    .db #0x01                                 ; type
    .db #0x37                                 ; cmp
    .db #0x26                                 ; x
-   .db #0xB0                                 ; y
+   .db #0xa0                                 ; y
    .db #0x06                                 ; width
    .db #0x10                                 ; heigth
    .db #0x00                                 ; vx
@@ -29,8 +29,8 @@ _player_template_e:
    .db #0x0A                                 ; anim. counter
    .dw #0x0000                               ; input_behaviour
    .dw #0x0000                               ; ai_aim_position
-   .db #0x00                                 ; e_ai_last_aim_x
-   .db #0x00                                 ; e_ai_last_aim_y
+   .db #0x00                                 ; e_ai_aux_l
+   .db #0x00                                 ; e_ai_aux_h
    .db #0x00                                 ; e_patrol_step_l
    .db #0x00                                 ; e_patrol_step_h
 
@@ -54,8 +54,8 @@ _enemy_template_e:
    .dw #0x0000                               ; input_behaviour
    .db #0x00                                 ; e_ai_aim_x
    .db #0x00                                 ; e_ai_aim_y
-   .db #0x25                                 ; e_ai_last_aim_x
-   .db #0x00                                 ; e_ai_last_aim_y
+   .db #0x25                                 ; e_ai_aux_l
+   .db #0x00                                 ; e_ai_aux_h
    .db #0x00                                 ; e_patrol_step_l
    .db #0x00                                 ; e_patrol_step_h
 
@@ -64,7 +64,7 @@ _enemy_template_e2:
    .db #0x10                                 ; type
    .db #0x0b                                 ; cmp
    .db #50                                 ; x
-   .db #50                                 ; y
+   .db #80                                 ; y
    .db #0x06                                 ; width
    .db #0x0C                                 ; heigth
    .db #0x00                                 ; vx
@@ -73,16 +73,16 @@ _enemy_template_e2:
    .db #0x00                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
-   .dw #_sys_ai_behaviourPatrol              ; ai_behaviour
-   .db #0x16                                 ; ai_counter
+   .dw #_sys_ai_behaviourSeekAndPatrol              ; ai_behaviour
+   .db #0x1                                 ; ai_counter
    .dw #0x0                                  ; animator
    .db #0x0A                                 ; anim. counter
    .dw #0x0000                               ; input_behaviour
-   .db #70                                 ; e_ai_aim_x
-   .db #70                                 ; e_ai_aim_y
-   .db #0x00                                 ; e_ai_last_aim_x
-   .db #0x00                                 ; e_ai_last_aim_y
-   .dw #patrol_02
+   .db #0                                 ; e_ai_aim_x
+   .db #0                                 ; e_ai_aim_y
+   .db #0                                 ; e_ai_aux_l
+   .db #0                                 ; e_ai_aux_h
+   .dw #patrol_relative_01
 
 _enemy_template_e3:
    .db #0x10                                 ; type
@@ -104,9 +104,9 @@ _enemy_template_e3:
    .dw #0x0000                               ; input_behaviour
    .db #0x00                                 ; e_ai_aim_x
    .db #0x00                                 ; e_ai_aim_y
-   .db #0x00                                 ; e_ai_last_aim_x
-   .db #0x00                                 ; e_ai_last_aim_y
-   .dw #patrol_01                            ; e_patrol_step
+   .db #0x00                                 ; e_ai_aux_l
+   .db #0x00                                 ; e_ai_aux_h
+   .dw #patrol_relative_01                            ; e_patrol_step
 
 ; es como un enemy raealmente
 _spawner_template_e:
@@ -129,8 +129,8 @@ _spawner_template_e:
    .dw #0x0000                               ; input_behaviour
    .db #0x00                                 ; e_ai_aim_x
    .db #0x00                                 ; e_ai_aim_y
-   .db #0x00                                 ; e_ai_last_aim_x
-   .db #0x00                                 ; e_ai_last_aim_y
+   .db #0x00                                 ; e_ai_aux_l
+   .db #0x00                                 ; e_ai_aux_h
    .db #0x00                                 ; e_patrol_step_l
    .db #0x00                                 ; e_patrol_step_h
 
@@ -153,8 +153,8 @@ _bullet_template_e:
    .db #0x00                                 ; anim. counter
    .dw #0x0000                               ; input_behaviour
    .dw #0x0000                               ; ai_aim_position
-   .db #0x00                                 ; e_ai_last_aim_x
-   .db #0x00                                 ; e_ai_last_aim_y
+   .db #0x00                                 ; e_ai_aux_l
+   .db #0x00                                 ; e_ai_aux_h
    .db #0x00                                 ; e_patrol_step_l
    .db #0x00                                 ; e_patrol_step_h
 
@@ -180,7 +180,7 @@ _bullet_template_e2:
    .dw #0x0000                               ; input_behaviour
    .db #0x00                                 ; e_ai_aim_x
    .db #0x00                                 ; e_ai_aim_y
-   .db #0x00                                 ; e_ai_last_aim_x
-   .db #0x00                                 ; e_ai_last_aim_y
+   .db #0x00                                 ; e_ai_aux_l
+   .db #0x00                                 ; e_ai_aux_h
    .db #0x00                                 ; e_patrol_step_l
    .db #0x00                                 ; e_patrol_step_h

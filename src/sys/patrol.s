@@ -23,6 +23,20 @@ patrol_02:
    .db #patrol_invalid_move
    .dw #patrol_02
 
+patrol_03:
+   .db  50, 50
+   .db  20, 50
+   .db #patrol_invalid_move
+   .dw #patrol_03
+
+patrol_relative_01:
+   .db  8, -8
+   .db  8, 8
+   .db  -8, 8
+   .db  -8, -8
+   .db #patrol_invalid_move
+   .dw #patrol_relative_01
+
 
 ; por parametro el array a las posociones a las que tiene que hacer patrool
 ; beh patrol
@@ -35,19 +49,19 @@ patrol_02:
 ;===============================================================================
 _sys_patrol_next::
 
-   ;; poruqe litle endiand tal
    ld h, e_patrol_step_h(ix)
    ld l, e_patrol_step_l(ix)
 
    ld a, (hl)
    cp #patrol_invalid_move
-   jr z, reset_patrol
+   call z, reset_patrol
 
    ld d, (hl)
    inc hl
    ld e, (hl)
    ex de, hl
 
+   ;; TODO: cambiar
    call _sys_ai_setAiAim
 
    ex de, hl
@@ -56,7 +70,24 @@ _sys_patrol_next::
    ld e_patrol_step_h(ix), h
    ld e_patrol_step_l(ix), l
 
-   ; call _sys_ai_inc_next_patrol
+   ret
+
+_sys_patrol_next_relative:
+   call _sys_patrol_next
+
+   ld h, e_ai_aim_x(ix)
+   ld l, e_ai_aim_y(ix)
+
+   ld d, e_ai_aux_h(ix)
+   ld e, e_ai_aux_l(ix)
+
+   ld a, h
+   add a, e
+   ld e_ai_aim_x(ix), a
+
+   ld a, l
+   add a, d
+   ld e_ai_aim_y(ix), a
    ret
 
 reset_patrol:
@@ -68,4 +99,25 @@ reset_patrol:
    ld e_patrol_step_l(ix), a
    ld e_patrol_step_h(ix), h
 
+   ; actualizamos nuevo para volver a _sys_patrol_next
+   ld h, e_patrol_step_h(ix)
+   ld l, e_patrol_step_l(ix)
+
    ret
+
+;===============================================================================
+; Meter en ai_aux la posicion del jugador al hacer el call
+; Destroy: BC
+; IY: entity to set as origin
+; IX: AI
+;===============================================================================
+_sys_patrol_set_relative_origin:
+
+   ld h, e_xpos(iy)
+   ld l, e_ypos(iy)
+
+   ld e_ai_aux_h(ix), l
+   ld e_ai_aux_l(ix), h
+
+   ret
+

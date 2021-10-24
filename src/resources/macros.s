@@ -143,12 +143,25 @@
    ld a, e_vx(ix)
    or a
    jr z, . + 3
-   ret
-   ;; jr
+   jr . + 9
+   ;; . + 3
       ld a, e_vy(ix)
       or a
       call z, _call_on_succes
+   ;; . + 9
 
+.endm
+
+.macro CHECK_NO_AIM_XY _call_on_succes2
+   ld a, e_ai_aim_x(ix)
+   or a
+   jr z, . + 3
+   jr . + 9
+   ;; . + 3
+      ld a, e_ai_aim_y(ix)
+      or a
+      call z, _call_on_succes2
+   ;; . + 9
 .endm
 
 ;===============================================================================

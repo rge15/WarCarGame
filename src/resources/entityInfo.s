@@ -48,8 +48,9 @@ e_inputbeh2 = 21
 
 e_ai_aim_x  = 22
 e_ai_aim_y  = 23
-e_ai_last_aim_x = 24
-e_ai_last_aim_y = 25
+;; se usa segun el comportamiento
+e_ai_aux_l = 24
+e_ai_aux_h = 25
 
 e_patrol_step_l = 26
 e_patrol_step_h = 27

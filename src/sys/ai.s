@@ -44,27 +44,6 @@ _sys_ai_changeBevaviour::
    ld e_aibeh2(ix), h
    ret
 
-_sys_ai_inc_next_patrol::
-   ; ld bc, (_sys_ai_nextPatrolCoords)
-   ; ld hl, #2
-   ; add hl, bc
-   ;
-   ; ld (_sys_ai_nextPatrolCoords), hl
-   ;
-   ; ;; check if last
-   ; ld hl, (_sys_ai_patrol_count)
-   ; inc l
-   ; ld (_sys_ai_patrol_count), hl
-   ;
-   ;
-   ;
-   ; ld a, (_sys_ai_patrol_size)
-   ; cp l
-   ; ;; TODO: acutalizar si ia tiene mas inicializadores
-   ; ; call z, _sys_ai_changeBevaviour
-   ; call z, _sys_ai_init
-
-   ret
 
 ;===================================================================================================================================================
 ; FUNCION _sys_ai_update
@@ -165,14 +144,14 @@ _sys_ai_spawnEnemy::
 ;===============================================================================
 _sys_ai_setAiAim::
 
-   ld b, e_ai_aim_x(ix)
-   ld c, e_ai_aim_y(ix)
+   ; ld b, e_ai_aim_x(ix)
+   ; ld c, e_ai_aim_y(ix)
 
    ld e_ai_aim_x(ix), h
    ld e_ai_aim_y(ix), l
 
-   ld e_ai_last_aim_x(ix), b
-   ld e_ai_last_aim_y(ix), c
+   ; ld e_ai_aux_l(ix), b
+   ; ld e_ai_aux_h(ix), c
    ret
 
 
@@ -311,9 +290,11 @@ _sys_ai_behaviourPatrol::
    ;; depues hay que compara que los flags sean iguales y que sean 0x40, en los otros casos no
    ; queremos hacer update de las patrol coords
 
+   CHECK_VX_VY_ZERO _sys_patrol_next
+
    ld d, #1
    call _sys_ai_seekCoords_x
-   ld d, #2
+   ld d, #1
    call _sys_ai_seekCoords_y
 
    ; dec e_aictr(ix)
@@ -324,14 +305,12 @@ _sys_ai_behaviourPatrol::
    ; call z, _sys_ai_shootBullet
    ; pop ix
 
-   CHECK_VX_VY_ZERO _sys_patrol_next
-
    ret
 
 
 ;; TODO: hacer con posicion relativa pasada por parametro
 ;===============================================================================
-; Moverse en el eje X entre e_ai_aim_x y e_ai_last_aim_x
+; Moverse en el eje X entre e_ai_aim_x y e_ai_aux_l
 ;; TODO: se podria hacer guardando la posicon inicial y comprobando cada vez pero es mucho coste?
 ; tambien dispara bala a player segun el tiempo aictr
 ;
@@ -343,8 +322,8 @@ _sys_ai_behaviourAutoMoveIn_x::
    ld d, #1
    call _sys_ai_seekCoords_x
 
-   ld h, e_ai_last_aim_x(ix)
-   ld l, e_ai_last_aim_y(ix)
+   ld h, e_ai_aux_l(ix)
+   ld l, e_ai_aux_h(ix)
    call z, _sys_ai_setAiAim
 
    ; ld a, e_aictr(ix)
@@ -357,7 +336,7 @@ _sys_ai_behaviourAutoMoveIn_x::
    ret
 
 ;===============================================================================
-; Moverse en el eje Y entre posicon e_ai_aim_y y e_ai_last_aim_y
+; Moverse en el eje Y entre posicon e_ai_aim_y y e_ai_aux_h
 ;; TODO: se podria hacer guardando la posicon inicial y comprobando cada vez pero es mucho coste?
 ;===============================================================================
 _sys_ai_behaviourAutoMoveIn_y::
@@ -367,11 +346,12 @@ _sys_ai_behaviourAutoMoveIn_y::
    ld d, #1
    call _sys_ai_seekCoords_y
 
-   ld h, e_ai_last_aim_x(ix)
-   ld l, e_ai_last_aim_y(ix)
+   ld h, e_ai_aux_l(ix)
+   ld l, e_ai_aux_h(ix)
    call z, _sys_ai_setAiAim
    ret
 
+;; TODO: hacer estructura de datos para generar segun templates con un invalid al finla
 _sys_ai_behaviourSpawner::
    push bc
    pop ix
@@ -398,7 +378,7 @@ _sys_ai_behaviourBulletSeektoPlayer::
    GET_PLAYER_ENTITY iy
 
 
-   ;; TODO: si el aim es 0,0 no va supongo<?
+   ;; TODO: mejorar porque en algunos casos puede fallar
    ld a, e_ai_aim_x(ix)
    ld d, e_ai_aim_y(ix)
    ; add a, e_ai_aim_y(ix)
@@ -423,6 +403,41 @@ _sys_ai_behaviourBulletSeektoPlayer::
    push ix
    pop hl
    CHECK_VX_VY_ZERO _man_setEntity4Destroy
+
+   ret
+
+;===============================================================================
+; Poner el aim de una entidad en la pos de otro
+; IX: changes aim
+; IY: entity to set as aim
+;===============================================================================
+_sys_ai_aim_to_entity:
+   ld a, e_xpos(iy)
+   ld e_ai_aim_x(ix), a
+
+   ld a, e_ypos(iy)
+   ld e_ai_aim_y(ix), a
+   ret
+
+_sys_ai_behaviourSeekAndPatrol::
+   push bc
+   pop ix
+
+   GET_PLAYER_ENTITY iy
+   CHECK_NO_AIM_XY _sys_ai_aim_to_entity
+
+   dec e_aictr(ix)
+
+   push ix
+   pop ix
+   call z, _sys_patrol_set_relative_origin
+
+   CHECK_VX_VY_ZERO _sys_patrol_next_relative
+
+
+   ld d, #1
+   call _sys_ai_seekCoords_x
+   call _sys_ai_seekCoords_y
 
    ret
 
