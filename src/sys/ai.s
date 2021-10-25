@@ -408,80 +408,45 @@ _sys_ai_behaviourPatrol_shoot_sp::
 
 
 ;===============================================================================
-; actualiza _sys_ai_nextPatrolCoords
+; Patron con posiones relativas a xy, actualiza _sys_ai_nextPatrolCoords
+; !!! Necesario poner en e_ai_aux mismas posiciones que en xpos ypos
 ; Destroy: HL, BC
 ;===============================================================================
 _sys_ai_behaviourPatrolRelative::
    push bc
    pop ix
-
    ;; TODO: ver como poner el origen solo una vez 
    push ix
    pop iy
    dec e_aictr(ix)
-   call z, _sys_patrol_set_relative_origin
-   ld e_aictr(ix), #2
+   ; call z, _sys_patrol_set_relative_origin
+   ; ld e_aictr(ix), #2
 
    CHECK_VX_VY_ZERO _sys_patrol_next_relative
-
 
    ld d, #1
    call _sys_ai_seekCoords_x
    ld d, #2
    call _sys_ai_seekCoords_y
 
-   ; dec e_aictr(ix)
-   ; ld b, e_xpos(ix)
-   ; ld c, e_ypos(ix)
-   ;
-   ; push ix
-   ; call z, _sys_ai_shootBullet
-   ; pop ix
+   ret
 
+;; TODO: tipo de shoot_linear y posicion relativa comparten aictr !!
+;===============================================================================
+; actualiza _sys_ai_nextPatrolCoords
+; de momoento shoot_linear
+; Destroy: HL, BC
+;===============================================================================
+_sys_ai_behaviourPatrolRelative_shoot:
+   call _sys_ai_behaviourPatrolRelative
+   call _sys_ai_shoot_condition_l
    ret
 
 
-;; TODO: hacer con posicion relativa pasada por parametro
-;===============================================================================
-; Moverse en el eje X entre e_ai_aim_x y e_ai_aux_l
-;; TODO: se podria hacer guardando la posicon inicial y comprobando cada vez pero es mucho coste?
-; tambien dispara bala a player segun el tiempo aictr
-;
-;===============================================================================
 _sys_ai_behaviourAutoMoveIn_x::
-   push bc
-   pop ix
-
-   ld d, #1
-   call _sys_ai_seekCoords_x
-
-   ld h, e_ai_aux_l(ix)
-   ld l, e_ai_aux_h(ix)
-   call z, _sys_ai_setAiAim
-
-   ; ld a, e_aictr(ix)
-   ; dec a
-   ; ld e_aictr(ix), a
-   ; dec e_aictr(ix)
-   ; ld b, e_xpos(ix)
-   ; ld c, e_ypos(ix)
-   ; call z, _sys_ai_shootBulletLinear
    ret
 
-;===============================================================================
-; Moverse en el eje Y entre posicon e_ai_aim_y y e_ai_aux_h
-;; TODO: se podria hacer guardando la posicon inicial y comprobando cada vez pero es mucho coste?
-;===============================================================================
 _sys_ai_behaviourAutoMoveIn_y::
-   push bc
-   pop ix
-
-   ld d, #1
-   call _sys_ai_seekCoords_y
-
-   ld h, e_ai_aux_l(ix)
-   ld l, e_ai_aux_h(ix)
-   call z, _sys_ai_setAiAim
    ret
 
 ;; TODO: hacer estructura de datos para generar segun templates con un invalid al finla

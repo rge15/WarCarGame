@@ -59,7 +59,7 @@ t_enemy_patrolr_01:
    .db #e_type_enemy                                 ; type
    .db #0x2b                                 ; cmp
    .db #16                                    ; x
-   .db #50                                    ; y
+   .db #60                                    ; y
    .db #0x06                                 ; width
    .db #0x0C                                 ; heigth
    .db #0x00                                 ; vx
@@ -69,14 +69,18 @@ t_enemy_patrolr_01:
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
    .dw #_sys_ai_behaviourPatrolRelative        ; ai_behaviour
-   .db #1
+   .db #t_shoot_timer_enemy
+   ; .dw #_sys_ai_behaviourPatrolRelative        ; ai_behaviour
+   ; .db #1
    .dw #0x0                                  ; animator
    .db #0x0A                                 ; anim. counter
    .dw #0x0000                               ; input_behaviour
    .db #0x00                                 ; e_ai_aim_x
    .db #0x00                                 ; e_ai_aim_y
-   .db #0x25                                 ; e_ai_aux_l
-   .db #0x00                                 ; e_ai_aux_h
+   ;; poner en e_ai_aux mismo valor que position
+   ;; para que funcione patrol relativo
+   .db #16
+   .db #60                                 ; e_ai_aux_h
    .dw #patrol_relative_01                            ; e_patrol_step
 
 t_enemy_seeknpatrol:
