@@ -148,6 +148,7 @@ ret
 ; HL : La entidad para ser destruida
 ;===================================================================================================================================================
 _man_entityDestroy::
+    ; push hl
     ld de, (#_m_next_free_entity)
     ex de, hl
     ;; HL = _m_next_free_entity
@@ -185,6 +186,10 @@ _man_entityDestroy::
 
     ;;Volvemos a asignar a hl el valor de la ultima entity
     ld hl, #_m_next_free_entity
+    ld e,(hl)
+    inc hl
+    ld d,(hl)
+    ex de,hl
     ld  a, (#_m_sizeOfEntity)
     setLast2:
         dec hl

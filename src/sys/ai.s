@@ -455,7 +455,7 @@ _sys_ai_behaviourBulletSeektoPlayer::
 
    push ix
    pop hl
-   CHECK_VX_VY_ZERO _man_setEntity4Destroy
+   CHECK_VX_VY_ZERO _m_game_destroyEntity
 
    ;; Compruebo si tiene velocidad
    ;; Se comprueba que la velocidad de la bala no sea 0
