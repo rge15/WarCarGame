@@ -360,3 +360,15 @@ _man_playerBulletCooldown::
     _stopCheckCooldown:
 
 ret
+
+_man_getEntityArray::
+      ld hl, #_m_entities
+ret
+
+_man_getNumEntities::
+      ld hl, #_m_numEntities
+ret
+
+_man_getSizeOfEntity::
+      ld hl, #_m_sizeOfEntity
+ret

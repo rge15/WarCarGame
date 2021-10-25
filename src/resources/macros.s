@@ -69,6 +69,15 @@
     pop af
 .endm
 
+;; Aumenta el registro X veces
+.macro INCREMENT_REGISTER _register, _numLoops
+    ld a, _numLoops
+    _loopIncrement:
+        inc _register
+        dec a
+        jr nz, _loopIncrement
+.endm
+
 ;;Comprueba si la tecla pasada por parametro se está pulsando
 .macro CHECK_KEYBOARD_INPUT_IN_KEY _key
     call cpct_scanKeyboard_f_asm

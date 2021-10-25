@@ -28,18 +28,153 @@ _sys_entityColisionPos2_X::
 _sys_entityColisionPos2_Y::
     .ds 1
 
+_sys_entityArray::
+    .dw #0x0000
+
+_sys_numEntities::
+    .ds 1
+
+_sys_sizeOfEntity::
+    .ds 1    
 ;===================================================================================================================================================
 ; FUNCION _sys_collision_update
-; Llama a la inversión de control para updatear las colisiones
+; Llama a varias etiquetas para updatear las colisiones
 ; NO llega ningun dato
 ;===================================================================================================================================================
 _sys_collision_update::
+
+    call _sys_checkColissionBwEntities
+    call _sys_checkColissionBwTile
+
+    ret
+
+
+;===================================================================================================================================================
+; FUNCION _sys_checkColissionBwEntities
+; Setea las variables para comprobar la colision entre todas las entidades
+; NO llega ningun dato
+;===================================================================================================================================================
+_sys_checkColissionBwEntities::
+    call _man_getEntityArray ;; Devuelve en hl
+    ld (#_sys_entityArray), hl
+    call _man_getNumEntities ;; Devuelve en hl
+    ld a, (hl)
+    ld (#_sys_numEntities), a
+    call _man_getSizeOfEntity ;; Devuelve en hl
+    ld a, (hl)
+    ld (#_sys_sizeOfEntity), a
+    call _sys_collision_updateMultiple
+ret
+
+
+;===================================================================================================================================================
+; FUNCION _sys_checkColissionBwTile
+; Comprueba la colision de los type colisionables con el tile del mapa
+; NO llega ningun dato
+;===================================================================================================================================================
+_sys_checkColissionBwTile::
     ld hl, #_sys_collision_updateOneEntity
     ld (_m_functionMemory), hl
     ld hl , #_m_signatureMatch 
     ld (hl), #0x21  ; e_type_movable | e_cmp_collider = #0x21
     call _man_entityForAllMatching
-    ret
+ret
+
+
+;===================================================================================================================================================
+; FUNCION _sys_collision_updateMultiple
+; Comprueba la colision entre todas las entidades
+; NO llega ningun dato
+;===================================================================================================================================================
+_sys_collision_updateMultiple::
+    ;; Guardamos en "ix" la entidad base a updatear
+    ld hl, (#_sys_entityArray)
+    push hl
+    pop ix
+    ld d, h
+    ld e, l
+    jp _next_iy
+
+    _next_ix:
+        ;; NO PONGO EL MACRO PORQUE NO ME DEJA EL DESGRACIADO
+        ld a, (#_sys_sizeOfEntity)
+        _loop:
+            inc hl
+            dec a
+            jr nz, _loop
+
+    push hl
+    pop ix
+    ld d, h
+    ld e, l
+
+    ld a, (de)
+    inc a
+    dec a
+    ret z
+
+    ;; Se pasa a la siguiente entidad para iy
+    _next_iy:
+    INCREMENT_REGISTER de, (#_sys_sizeOfEntity)
+
+    ld a, (de)
+    inc a
+    dec a
+    jr z, _jumpNext
+
+    push de
+    pop iy
+
+    ld a, e_type(iy)
+
+    call _sys_collisionEntity_check
+    jr c, _no_collision
+
+    _collision:
+    ld a, #0xFF
+    ld (0xC000), a
+    ;jr _jumpNext
+    jr _next_iy
+    
+    _no_collision:
+    ld a, #0x00
+    ld (0xC000), a
+    jr _next_iy
+
+    _jumpNext:
+        jp _next_ix
+ret
+
+
+;===================================================================================================================================================
+; FUNCION _sys_collision_updateMultiple
+; Comprueba se las entidades realmente colisionan
+; NO llega ningun dato
+;===================================================================================================================================================
+_sys_collisionEntity_check::
+    
+    ld a, e_xpos(ix)
+    add e_width(ix)
+    sub e_xpos(iy)
+    ret c
+
+    ld a, e_xpos(iy)
+    add e_width(iy)
+    sub e_xpos(ix)
+    ret c
+
+
+    ld a, e_ypos(ix)
+    add e_heigth(ix)
+    sub e_ypos(iy)
+    ret c
+
+    ld a, e_ypos(iy)
+    add e_heigth(iy)
+    sub e_ypos(ix)
+    ret c
+
+ret
 
 ;===================================================================================================================================================
 ; FUNCION _sys_collision_updateOneEntity
@@ -49,6 +184,7 @@ _sys_collision_update::
 _sys_collision_updateOneEntity::
     push hl
     pop ix
+
 
     ld d, h ;; | Guardamos hl en de 
     ld e, l ;; |
@@ -75,7 +211,6 @@ _sys_collision_updateOneEntity::
     call _sys_checkTilePosition
 
 ret
-
 
 ;===================================================================================================================================================
 ; FUNCION _sys_checkTilePosition
@@ -121,7 +256,7 @@ _sys_checkTilePosition::
       ret nz
     ;; COLISION DETECTADA
     
-    ;; Dependiendo de la colision del axis setea a 0 la vel. 
+    ;; Dependiendo de la colision del axis setea a 0 la vel.
     CHECK_ORIENTATION_AXIS_PLAYER e_orient(ix)
     inc a
     dec a
