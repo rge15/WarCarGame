@@ -88,13 +88,11 @@ _sys_ai_updateOneEntity::
 ; BC: posicon desde dodne sale
 ;; TODO[Edu]: no sale del centro de la entidad
 ;===============================================================================
-_sys_ai_shootBullet::
-   ;; TODO: es para resetear el valor, ver donde meterlo mejor
-   ; ld e_aictr(ix), #0x30
+_sys_ai_shootBulletSeek::
+   call _sys_ai_reset_shoot_aictr
 
    push bc
 
-   ;; este template tiene el behaviour para hacer seek al player
    CREATE_ENTITY_FROM_TEMPLATE t_bullet_enemy_sp
    ; macro deja posicion en hl
    push hl
@@ -104,13 +102,48 @@ _sys_ai_shootBullet::
    ld e_xpos(ix), b
    ld e_ypos(ix), c
 
-   ; GET_PLAYER_ENTITY iy
-   ; ld a, e_xpos(iy)
-   ; ld e_ai_aim_x(ix), a
-   ;
-   ; ld a, e_ypos(iy)
-   ; ld e_ai_aim_y(ix), a
+   GET_PLAYER_ENTITY iy
+   call _sys_ai_aim_to_entity
+   ld e_vy(ix), #1
 
+   ret
+
+;===============================================================================
+; valores de e_ai_aux_l:
+; 0: disapar x
+; 1: dispara y
+; TODO: hacer una tercera opcion para calcular solo
+; Destroy: BC, DE, HL, IX, IY
+;===============================================================================
+_sys_ai_shootBulletLinear:
+   ; viene con IX de entidad que dispara
+   call _sys_ai_reset_shoot_aictr
+   ld e, e_ai_aux_l(ix)
+   push de
+
+   push bc
+
+   CREATE_ENTITY_FROM_TEMPLATE t_bullet_enemy_l
+   ; macro deja posicion en hl
+   push hl
+   pop ix
+
+   pop bc
+   ld e_xpos(ix), b
+   ld e_ypos(ix), c
+
+   GET_PLAYER_ENTITY iy
+   call _sys_ai_aim_to_entity
+
+   pop de
+   ld d, #1
+   dec e
+
+   jr z, shoot_linear_b_x
+   call _sys_ai_seekCoords_y
+   ret
+   shoot_linear_b_x:
+      call _sys_ai_seekCoords_x
    ret
 
 ;===============================================================================
@@ -151,17 +184,9 @@ _sys_ai_spawnEnemy::
 ;===============================================================================
 _sys_ai_setAiAim::
 
-   ; ld b, e_ai_aim_x(ix)
-   ; ld c, e_ai_aim_y(ix)
-
    ld e_ai_aim_x(ix), h
    ld e_ai_aim_y(ix), l
-
-   ; ld e_ai_aux_l(ix), b
-   ; ld e_ai_aux_h(ix), c
    ret
-
-
 
 ; poner en el counter el valor que pasa hasta disparar una baga 
 
@@ -223,7 +248,43 @@ _sys_ai_seekCoords_y::
       ld e_vy(ix), #0
       ret
 
+;;--------------------------------------------------------------------------------
+;; Shoot Conditions
+;;--------------------------------------------------------------------------------
 
+;===============================================================================
+; dec e_aictr y si es cero llama a un shoot
+; Destroy: BC
+;===============================================================================
+_sys_ai_shoot_condition_common:
+   dec e_aictr(ix)
+   ld b, e_xpos(ix)
+   ld c, e_ypos(ix)
+   ret
+
+;===============================================================================
+; dispara bala tipo Linear
+; Destroy: BC
+;===============================================================================
+_sys_ai_shoot_condition_l:
+   call _sys_ai_shoot_condition_common
+
+   push ix
+   call z, _sys_ai_shootBulletLinear
+   pop ix
+   ret
+
+;===============================================================================
+; dispara bala tipo SeektoPlayer
+; Destroy: BC
+;===============================================================================
+_sys_ai_shoot_condition_sp:
+   call _sys_ai_shoot_condition_common
+
+   push ix
+   call z, _sys_ai_shootBulletSeek
+   pop ix
+   ret
 
 ;;--------------------------------------------------------------------------------
 ;; AI BEHAVIOURS
@@ -234,7 +295,7 @@ _sys_ai_seekCoords_y::
 ; Updatea el contador de existencia de la bala y la destruye si hace falta
 ; BC : Entidad a updatear
 ;===================================================================================================================================================
-_sys_ai_behaviourBullet::    
+_sys_ai_behaviourBullet::
     ld h, b
     ld l, c
     push hl
@@ -304,15 +365,14 @@ _sys_ai_behaviourPatrol::
    call _sys_ai_seekCoords_x
    call _sys_ai_seekCoords_y
 
-   dec e_aictr(ix)
-   ld b, e_xpos(ix)
-   ld c, e_ypos(ix)
+   ret
 
-   push ix
-   call z, _sys_ai_shootBullet
-   pop ix
+_sys_ai_behaviourPatrol_shoot::
+   call _sys_ai_behaviourPatrol
+   call _sys_ai_shoot_condition_l
 
    ret
+
 
 ;===============================================================================
 ; actualiza _sys_ai_nextPatrolCoords
@@ -369,10 +429,10 @@ _sys_ai_behaviourAutoMoveIn_x::
    ; ld a, e_aictr(ix)
    ; dec a
    ; ld e_aictr(ix), a
-   dec e_aictr(ix)
-   ld b, e_xpos(ix)
-   ld c, e_ypos(ix)
-   call z, _sys_ai_shootBullet
+   ; dec e_aictr(ix)
+   ; ld b, e_xpos(ix)
+   ; ld c, e_ypos(ix)
+   ; call z, _sys_ai_shootBulletLinear
    ret
 
 ;===============================================================================
@@ -412,6 +472,18 @@ _sys_ai_behaviourSpawner::
    ret
 
 _sys_ai_behaviourBulletLinear::
+   push bc
+   pop ix
+
+   dec e_aictr(ix)
+   jr z, has_to_destroy_bullet
+   ret
+
+   has_to_destroy_bullet:
+      push ix
+      pop hl
+      call _man_setEntity4Destroy
+      ; call _sys_ai_reset_bullet_aictr
    ret
 
 _sys_ai_behaviourBulletSeektoPlayer::
@@ -485,8 +557,12 @@ _sys_ai_aim_to_entity:
    ld e_ai_aim_y(ix), a
    ret
 
-_sys_ai_reset_aictr:
-   ld e_aictr(ix), #16
+_sys_ai_reset_shoot_aictr:
+   ld e_aictr(ix), #t_shoot_timer_enemy
+   ret
+
+_sys_ai_reset_bullet_aictr:
+   ld e_aictr(ix), #t_bullet_timer_enemy
    ret
 
 ;; TODO: si pos inicial 1 peta no se
@@ -521,39 +597,6 @@ _sys_ai_behaviourSeekAndPatrol::
 
    ret
 
-;; TODO: no actulizar el xpos ypos en cada iteracion porque te sigue a cualquier pos
-; _sys_ai_behaviourBulletIn_x::
-;    push bc
-;    pop ix
-;
-;    GET_PLAYER_ENTITY iy
-;
-;
-;    ;; TODO: si el aim es 0,0 no va supongo<?
-;    ld a, e_ai_aim_x(ix)
-;    add a, e_ai_aim_y(ix)
-;    or a
-;    jr nz, skip_set_coords
-;
-;    ld a, e_xpos(iy)
-;    ld e_ai_aim_x(ix), a
-;
-;    ld a, e_ypos(iy)
-;    ld e_ai_aim_y(ix), a
-;
-;    skip_set_coords:
-;
-;    ;; TODO[Edu]: con velociada mayor a veces no llega y se queda
-;    ; una entidad sin destruir y ya peta un poco todo
-;    ld d, #1
-;    call _sys_ai_seekCoords_x
-;    call _sys_ai_seekCoords_y
-;    push ix
-;    pop hl
-;    CHECK_VX_VY_ZERO _man_setEntity4Destroy
-;
-;    ret
-;
 ;===================================================================================================================================================
 ; FUNCION _sys_ai_behaviourAutoDestroy
 ; Destruye la entidad pasado el tiempo del contador de la IA

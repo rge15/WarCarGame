@@ -6,6 +6,26 @@
 .include "resources/sprites.h.s"
 .include "templates.h.s"
 
+; hacer un esquema con
+; t_enemy_...
+; t_bullet...
+; t_spawner
+; t_enemy_patrol_bs
+; t_enemy_patrolr_bl
+
+; spawner aictr que sea para hacer un spawn de un t_enemy diferente
+; en el aux del spawner meter un t_enemy tocho
+; en el game meter un couter de current enemies;  
+
+
+; si da tiempo
+; subir la velocidad del siguiente entity a spawnear
+
+; tiempo hasta que un enemy dispara
+t_shoot_timer_enemy = 70
+
+; tiempo hasta que la bala de un enemy se destruye
+t_bullet_timer_enemy = 100
 
 ;===================================================================================================================================================
 ; Templates
@@ -58,7 +78,6 @@ t_enemy_patrolr_01:
    .db #0x00                                 ; e_ai_aux_h
    .dw #patrol_relative_01                            ; e_patrol_step
 
-ai_counter01 = 20
 t_enemy_seeknpatrol:
    .db #0x08                                 ; type
    .db #0x2b                                 ; cmp
@@ -107,7 +126,9 @@ t_enemy_patrol_01:
    .db #0x00                                 ; e_ai_aux_h
    .dw #patrol_01                            ; e_patrol_step
 
-t_enemy_patrol_x_axis:
+
+;; e_ai_aux_l para decir si dispara en x o en y
+t_enemy_patrol_x_shoot_y:
    .db #0x8                                ; type
    .db #0x2b                                 ; cmp
    .db #40                                 ; x
@@ -120,7 +141,7 @@ t_enemy_patrol_x_axis:
    .db #0x00                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
-   .dw #_sys_ai_behaviourPatrol; ai_behaviour
+   .dw #_sys_ai_behaviourPatrol_shoot; ai_behaviour
    .db #0x1                                 ; ai_counter
    .dw #0x0                                  ; animator
    .db #0x0A                                 ; anim. counter
@@ -199,6 +220,33 @@ t_bullet_enemy_sp:
    ; .dw #_sys_ai_behaviourBulletSeektoPlayer  ; ai_behaviour
    .dw #_sys_ai_behaviourBulletSeektoPlayer  ; ai_behaviour
    .db #0x1b                                ; ai_counter   ;; Contador de la bala
+   .dw #0x00                                 ; animator
+   .db #0x00                                 ; anim. counter
+   .dw #0x0000                               ; input_behaviour
+   .db #0x00                                 ; e_ai_aim_x
+   .db #0x00                                 ; e_ai_aim_y
+   .db #0x00                                 ; e_ai_aux_l
+   .db #0x00                                 ; e_ai_aux_h
+   .db #0x00                                 ; e_patrol_step_l
+   .db #0x00                                 ; e_patrol_step_h
+
+t_bullet_enemy_l:
+   .db #0x04                                 ; type
+   .db #0x3B                                 ; cmp
+   .db #0x00                                 ; x
+   .db #0x00                                 ; y
+   .db #0x04                                 ; width
+   .db #0x04                                 ; heigth
+   .db #0x00                                 ; vx
+   .db #0x00                                 ; vy
+   .dw #_sprite_bullet01                     ; sprite
+   .db #0x00                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
+   .dw #0x0000                               ; prevptr
+   .db #0x00                                 ; prev. orientation
+   ; .dw #_sys_ai_behaviourBulletSeektoPlayer  ; ai_behaviour
+   ; .dw #_sys_ai_behaviourBulletLinear  ; ai_behaviour
+   .dw #_sys_ai_behaviourBulletLinear; ai_behaviour
+   .db #t_bullet_timer_enemy                                 ; ai_counter   ;; Contador de la bala
    .dw #0x00                                 ; animator
    .db #0x00                                 ; anim. counter
    .dw #0x0000                               ; input_behaviour

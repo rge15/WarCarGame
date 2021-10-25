@@ -10,11 +10,13 @@
 .globl _sys_ai_behaviourAutoMoveIn_x
 .globl _sys_ai_behaviourAutoMoveIn_y
 .globl _sys_ai_behaviourPatrol
+.globl _sys_ai_behaviourPatrol_shoot
 .globl _sys_ai_behaviourPatrolRelative
 .globl _sys_ai_behaviourSpawner
 .globl _sys_ai_behaviourSeekAndPatrol
 
 .globl _sys_ai_behaviourBulletSeektoPlayer
+.globl _sys_ai_behaviourBulletLinear
 
 .globl _sys_ai_behaviourBullet
 .globl _sys_ai_behaviourAutoDestroy
