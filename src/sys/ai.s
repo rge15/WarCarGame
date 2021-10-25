@@ -104,6 +104,14 @@ _sys_ai_shootBullet::
    ld e_xpos(ix), b
    ld e_ypos(ix), c
 
+
+   GET_PLAYER_ENTITY iy
+   ld a, e_xpos(iy)
+   ld e_ai_aim_x(ix), a
+
+   ld a, e_ypos(iy)
+   ld e_ai_aim_y(ix), a
+
    ret
 
 ;===============================================================================
@@ -233,6 +241,16 @@ _sys_ai_behaviourBullet::
     push hl
     pop ix
 
+    ;; Compruebo si tiene velocidad
+    ;; Se comprueba que la velocidad de la bala no sea 0
+    ;; En caso de que lo sea, sea manda a destruir
+    ; CHECK_HAS_MOVEMENT e_vx(ix), e_vy(ix)
+    ld a, #0x01
+    sub b
+    jr z, destroyBullet ;; Si no tiene vel. se destruye
+
+    ;; Se comprueba que el contador de mov. restantes de las
+    ;; balas sea 0. En ese caso se manda a destruir
     ld a, e_aictr(ix)
     dec a
     jr z, destroyBullet ;; Si es 0 se destruye la bala
@@ -242,9 +260,9 @@ _sys_ai_behaviourBullet::
     destroyBullet:
         ;; Volvemos a indicar que no tiene balas y re-seteamos el contador
         push hl
-        call _m_game_destroyEntity
-        pop hl
         call _m_game_bulletDestroyed
+        pop hl
+        call _m_game_destroyEntity
 
 
     stopUpdateBullet:
@@ -375,6 +393,7 @@ _sys_ai_behaviourAutoMoveIn_y::
    ret
 
 ;; TODO: hacer estructura de datos para generar segun templates con un invalid al finla
+;; TODO: comprobar que tengas 3 vidas y si tiene 0 4destroy
 _sys_ai_behaviourSpawner::
    push bc
    pop ix
@@ -393,39 +412,65 @@ _sys_ai_behaviourSpawner::
       call c, _sys_ai_spawnEnemy
    ret
 
+_sys_ai_behaviourBulletLinear::
+   ret
 
 _sys_ai_behaviourBulletSeektoPlayer::
    push bc
    pop ix
 
-   GET_PLAYER_ENTITY iy
-
-
-   ;; TODO: mejorar porque en algunos casos puede fallar
-   ld a, e_ai_aim_x(ix)
-   ld d, e_ai_aim_y(ix)
-   ; add a, e_ai_aim_y(ix)
-   add a
-   or a
-
-   jr nz, skip_set_coords
-
-   ld a, e_xpos(iy)
-   ld e_ai_aim_x(ix), a
-
-   ld a, e_ypos(iy)
-   ld e_ai_aim_y(ix), a
-
-   skip_set_coords:
+   ; GET_PLAYER_ENTITY iy
+   ; CHECK_NO_AIM_XY _sys_ai_aim_to_entity
+   ;
+   ;
+   ; ;; TODO: mejorar porque en algunos casos puede fallar
+   ; ld a, e_ai_aim_x(ix)
+   ; ld d, e_ai_aim_y(ix)
+   ; ; add a, e_ai_aim_y(ix)
+   ; add a
+   ; or a
+   ;
+   ; jr nz, skip_set_coords
+   ;
+   ; ld a, e_xpos(iy)
+   ; ld e_ai_aim_x(ix), a
+   ;
+   ; ld a, e_ypos(iy)
+   ; ld e_ai_aim_y(ix), a
+   ;
+   ; skip_set_coords:
 
    ;; TODO[Edu]: con velociada mayor a veces no llega y se queda
    ; una entidad sin destruir y ya peta un poco todo
-   ld d, #1
-   call _sys_ai_seekCoords_x
-   call _sys_ai_seekCoords_y
+   ; ld d, #1
+   ; call _sys_ai_seekCoords_x
+   ; call _sys_ai_seekCoords_y
+   ;
+   dec e_aictr(ix)
+   jr z, set_zero_vel
+   ret
+   set_zero_vel:
+      ld e_vx(ix), #0
+      ld e_vy(ix), #0
+
    push ix
    pop hl
    CHECK_VX_VY_ZERO _man_setEntity4Destroy
+
+   ;; Compruebo si tiene velocidad
+   ;; Se comprueba que la velocidad de la bala no sea 0
+   ;; En caso de que lo sea, sea manda a destruir
+   ; CHECK_HAS_MOVEMENT e_vx(ix), e_vy(ix)
+   ; ld a, #0x01
+   ; sub b
+   ; jr z, destroyBullet2 ;; Si no tiene vel. se destruye
+   ; ret
+   ; destroyBullet2:
+   ;    push hl
+   ;    call _m_game_bulletDestroyed
+   ;    pop hl
+   ;    call _m_game_destroyEntity
+   ;
 
    ret
 
@@ -458,18 +503,18 @@ _sys_ai_behaviourSeekAndPatrol::
    dec e_aictr(ix)
    call z, _sys_patrol_set_relative_origin
 
-   ; CHECK_VX_VY_ZERO _sys_patrol_next_relative
+   CHECK_VX_VY_ZERO _sys_patrol_next_relative
 
-   ld a, e_aictr(ix)
-   ld h, #1
-   cp h
-
-   ld b, e_xpos(ix)
-   ld c, e_ypos(ix)
-
-   push ix
-   call z, _sys_ai_shootBullet
-   pop ix
+   ; ld a, e_aictr(ix)
+   ; ld h, #1
+   ; cp h
+   ;
+   ; ld b, e_xpos(ix)
+   ; ld c, e_ypos(ix)
+   ;
+   ; push ix
+   ; call z, _sys_ai_shootBullet
+   ; pop ix
 
    ld d, #1
    call _sys_ai_seekCoords_x

@@ -9,6 +9,9 @@
 .globl _man_entityDestroy
 .globl _man_entityUpdate
 .globl _man_entity_freeSpace
+.globl _man_getEntityArray
+.globl _man_getNumEntities
+.globl _man_getSizeOfEntity
 
 ;================================================================================
 ; Manager Data

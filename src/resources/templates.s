@@ -35,8 +35,8 @@ _player_template_e:
    .db #0x00                                 ; e_patrol_step_h
 
 _enemy_template_e:
-   .db #0x10                                 ; type
-   .db #0x0b                                 ; cmp
+   .db #0x08                                 ; type
+   .db #0x2b                                 ; cmp
    .db #16                                    ; x
    .db #50                                    ; y
    .db #0x06                                 ; width
@@ -60,8 +60,8 @@ _enemy_template_e:
 
 ai_counter01 = 20
 _enemy_template_e2:
-   .db #0x10                                 ; type
-   .db #0x0b                                 ; cmp
+   .db #0x08                                 ; type
+   .db #0x2b                                 ; cmp
    .db #50                                 ; x
    .db #80                                 ; y
    .db #0x06                                 ; width
@@ -84,8 +84,8 @@ _enemy_template_e2:
    .dw #patrol_relative_02
 
 _enemy_template_e3:
-   .db #0x10                                 ; type
-   .db #0x0b                                 ; cmp
+   .db #0x8                                ; type
+   .db #0x2b                                 ; cmp
    .db #40                                 ; x
    .db #40                                 ; y
    .db #0x06                                 ; width
@@ -109,7 +109,7 @@ _enemy_template_e3:
 
 ; es como un enemy raealmente
 _spawner_template_e:
-   .db #0x10                                 ; type
+   .db #0x08                                 ; type
    .db #0x0b                                 ; cmp
    .db #16                                    ; x
    .db #50                                    ; y
@@ -161,19 +161,20 @@ _bullet_template_e:
 ;; la bullet del enemey
 _bullet_template_e2:
    .db #0x04                                 ; type
-   .db #0x1B                                 ; cmp
+   .db #0x3B                                 ; cmp
    .db #0x00                                 ; x
    .db #0x00                                 ; y
    .db #0x04                                 ; width
    .db #0x04                                 ; heigth
-   .db #0x00                                 ; vx
-   .db #0x00                                 ; vy
+   .db #0x01                                 ; vx
+   .db #0x01                                 ; vy
    .dw #_sprite_bullet01                     ; sprite
    .db #0x00                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
    .dw #0x0000                               ; prevptr
    .db #0x00                                 ; prev. orientation
+   ; .dw #_sys_ai_behaviourBulletSeektoPlayer  ; ai_behaviour
    .dw #_sys_ai_behaviourBulletSeektoPlayer  ; ai_behaviour
-   .db #0x01B                                ; ai_counter   ;; Contador de la bala
+   .db #0x1b                                ; ai_counter   ;; Contador de la bala
    .dw #0x00                                 ; animator
    .db #0x00                                 ; anim. counter
    .dw #0x0000                               ; input_behaviour

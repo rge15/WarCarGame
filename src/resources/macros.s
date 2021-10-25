@@ -70,6 +70,15 @@
     pop af
 .endm
 
+;; Aumenta el registro X veces
+.macro INCREMENT_REGISTER _register, _numLoops
+    ld a, _numLoops
+    _loopIncrement:
+        inc _register
+        dec a
+        jr nz, _loopIncrement
+.endm
+
 ;;Comprueba si la tecla pasada por parametro se está pulsando
 .macro CHECK_KEYBOARD_INPUT_IN_KEY _key
     call cpct_scanKeyboard_f_asm
@@ -280,6 +289,40 @@
 
 .endm
 
-; .macro UPDATE_COUNTER_DEC _register
-;
-; .endm
+
+.macro CHECK_HAS_MOVEMENT _vx_vel _vy_vel
+    ;; a = 0 -> no_vel
+    ;; a = 1 -> x_vel
+    ;; a = 2 -> y_vel
+
+    ld a, _vx_vel
+    ld b, #0x00
+    sub b
+    jr nz, _has_vel
+
+    ld a, _vy_vel
+    ld b, #0x00
+    sub b
+    jr nz, _has_vel
+
+    jp _has_no_vel
+
+    _has_vel:
+    ld b, #0x00
+    jp _vel_checked
+
+    _has_no_vel:
+    ld b, #0x01
+    
+    _vel_checked:
+    
+.endm
+
+;; Obtiene la posición de la entidad en el array que se le pasa
+;;      - DE: La posición de la entidad en el array
+.macro GET_ENTITY_POSITION _entityDirection
+   ld hl, #_entityDirection
+   ld d, (hl)
+   inc hl
+   ld e, (hl)
+.endm

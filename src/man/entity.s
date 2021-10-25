@@ -265,6 +265,9 @@ _man_entityUpdate::
 ; NO llega ningun dato 
 ;===================================================================================================================================================
 _man_playerUpdate::
+    ;; Actualiza el cooldown de la bala
+    call _man_playerBulletCooldown
+    
     ld ix, #_m_playerEntity
     
     ld h, (ix)
@@ -329,3 +332,44 @@ _man_playerUpdate::
 
     endUpdater:
     ret
+
+
+;===================================================================================================================================================
+; FUNCION _man_playerBulletCooldown
+; Descuenta el cooldown de la bala
+; NO llega ningun dato 
+;===================================================================================================================================================
+_man_playerBulletCooldown::
+    ld ix, #_m_playerEntity
+    
+    ld h, (ix)
+    inc ix
+    ld l, (ix)
+    push hl
+    pop ix
+
+    ;; Comprueba si el player ha disparado
+    ld a, e_aictr(ix)
+    ld b, #0x00
+    sub b
+    jp z, _stopCheckCooldown ;; Si es 0 (no hay cooldown)
+
+    ld a, e_aictr(ix)
+    dec a
+    ld e_aictr(ix), a
+
+    _stopCheckCooldown:
+
+ret
+
+_man_getEntityArray::
+      ld hl, #_m_entities
+ret
+
+_man_getNumEntities::
+      ld hl, #_m_numEntities
+ret
+
+_man_getSizeOfEntity::
+      ld hl, #_m_sizeOfEntity
+ret

@@ -12,39 +12,214 @@
 .include "resources/macros.s"
 
 ;===================================================================================================================================================
+; Manager data   
+;===================================================================================================================================================
+;; Punto 1 de la colision de la entidad
+_sys_entityColisionPos1_X::
+    .ds 1
+
+_sys_entityColisionPos1_Y::
+    .ds 1
+
+;; Punto 2 de la colision de la entidad
+_sys_entityColisionPos2_X::
+    .ds 1
+
+_sys_entityColisionPos2_Y::
+    .ds 1
+
+_sys_entityArray::
+    .dw #0x0000
+
+_sys_numEntities::
+    .ds 1
+
+_sys_sizeOfEntity::
+    .ds 1    
+;===================================================================================================================================================
 ; FUNCION _sys_collision_update
-; Llama a la inversión de control para updatear las colisiones
+; Llama a varias etiquetas para updatear las colisiones
 ; NO llega ningun dato
 ;===================================================================================================================================================
 _sys_collision_update::
+
+    call _sys_checkColissionBwEntities
+    call _sys_checkColissionBwTile
+
+    ret
+
+
+;===================================================================================================================================================
+; FUNCION _sys_checkColissionBwEntities
+; Setea las variables para comprobar la colision entre todas las entidades
+; NO llega ningun dato
+;===================================================================================================================================================
+_sys_checkColissionBwEntities::
+    call _man_getEntityArray ;; Devuelve en hl
+    ld (#_sys_entityArray), hl
+    call _man_getNumEntities ;; Devuelve en hl
+    ld a, (hl)
+    ld (#_sys_numEntities), a
+    call _man_getSizeOfEntity ;; Devuelve en hl
+    ld a, (hl)
+    ld (#_sys_sizeOfEntity), a
+    call _sys_collision_updateMultiple
+ret
+
+
+;===================================================================================================================================================
+; FUNCION _sys_checkColissionBwTile
+; Comprueba la colision de los type colisionables con el tile del mapa
+; NO llega ningun dato
+;===================================================================================================================================================
+_sys_checkColissionBwTile::
     ld hl, #_sys_collision_updateOneEntity
     ld (_m_functionMemory), hl
     ld hl , #_m_signatureMatch 
     ld (hl), #0x21  ; e_type_movable | e_cmp_collider = #0x21
     call _man_entityForAllMatching
-    ret
+ret
+
+
+;===================================================================================================================================================
+; FUNCION _sys_collision_updateMultiple
+; Comprueba la colision entre todas las entidades
+; NO llega ningun dato
+;===================================================================================================================================================
+_sys_collision_updateMultiple::
+    ;; Guardamos en "ix" la entidad base a updatear
+    ld hl, (#_sys_entityArray)
+    push hl
+    pop ix
+    ld d, h
+    ld e, l
+    jp _next_iy
+
+    _next_ix:
+        ;; NO PONGO EL MACRO PORQUE NO ME DEJA EL DESGRACIADO
+        ld a, (#_sys_sizeOfEntity)
+        _loop:
+            inc hl
+            dec a
+            jr nz, _loop
+
+    push hl
+    pop ix
+    ld d, h
+    ld e, l
+
+    ld a, (de)
+    inc a
+    dec a
+    ret z
+
+    ;; Se pasa a la siguiente entidad para iy
+    _next_iy:
+    INCREMENT_REGISTER de, (#_sys_sizeOfEntity)
+
+    ld a, (de)
+    inc a
+    dec a
+    jr z, _jumpNext
+
+    push de
+    pop iy
+
+    ld a, e_type(iy)
+
+    call _sys_collisionEntity_check
+    jr c, _no_collision
+
+    _collision:
+    ld a, #0xFF
+    ld (0xC000), a
+    ;jr _jumpNext
+    jr _next_iy
+    
+    _no_collision:
+    ld a, #0x00
+    ld (0xC000), a
+    jr _next_iy
+
+    _jumpNext:
+        jp _next_ix
+ret
+
+
+;===================================================================================================================================================
+; FUNCION _sys_collision_updateMultiple
+; Comprueba se las entidades realmente colisionan
+; NO llega ningun dato
+;===================================================================================================================================================
+_sys_collisionEntity_check::
+    
+    ld a, e_xpos(ix)
+    add e_width(ix)
+    sub e_xpos(iy)
+    ret c
+
+    ld a, e_xpos(iy)
+    add e_width(iy)
+    sub e_xpos(ix)
+    ret c
+
+
+    ld a, e_ypos(ix)
+    add e_heigth(ix)
+    sub e_ypos(iy)
+    ret c
+
+    ld a, e_ypos(iy)
+    add e_heigth(iy)
+    sub e_ypos(ix)
+    ret c
+
+ret
 
 ;===================================================================================================================================================
 ; FUNCION _sys_collision_updateOneEntity
-; Comprueba si la entidad colisiona con alguna tile y en ese caso quita su velocidad
+; Comprueba según la orientación si está colisionando con una tile
 ; HL : Entidad a updatear
 ;===================================================================================================================================================
-;; Si la orientacion es hacia abajo, que compruebe la suma hacia abajo
-;; Hacer macro que se gun que orientación, devuelva en D 
-;; - #0xFF (comprueba parte arriba sprite) - #0x10 (comprueba abajo sprite)
-
-_sys_collision_updateOneEntity::    
+_sys_collision_updateOneEntity::
     push hl
     pop ix
-    ;; tx = x/4
-    ;; ty = y/8
-    ;; tw = tilemap-width (0x14, 20)
-    ;; p = tilemap + ty * tw + tx
-    
-    ;; A = y  
-    CHECK_ORIENTATION_PLAYER_FOR_COLLISION_Y e_orient(ix) e_heigth(ix)
+
+
+    ld d, h ;; | Guardamos hl en de 
+    ld e, l ;; |
+
+    ;; Establecemos los dos puntos de colisiones del sprite
+    ld a, e_orient(ix)
+    call _sys_setEntityCollisionPoints
+    ex de, hl
+
+    push hl
+    pop ix
+    ;; Chekeamos que el primer punto no esté en el tile que no toca
+    ld a, (#_sys_entityColisionPos1_Y)
+    ld b, a
+    ld a, (#_sys_entityColisionPos1_X)
+    ld c, a
+    call _sys_checkTilePosition
+
+    ;; Chekeamos que el segundo punto no esté en el tile que no toca
+    ld a, (#_sys_entityColisionPos2_Y)
+    ld b, a
+    ld a, (#_sys_entityColisionPos2_X)
+    ld c, a
+    call _sys_checkTilePosition
+
+ret
+
+;===================================================================================================================================================
+; FUNCION _sys_checkTilePosition
+; Comprueba si el punto que le han pasado colisiona con la tile y en ese caso updatea su velocidad
+; BC : El punto en el que se va a comprobar la colision
+;===================================================================================================================================================
+_sys_checkTilePosition::
     ld  a, e_ypos(ix)
-    add d   ;; Sumo el alto de mi personaje 10
+    add b ;; Sumo el alto de mi personaje 10
     ;; Desplazo a la derecha 3 veces el bit 
     ;;(Si deplazo a la derecha 1 bit divido entre 2)
     ;; A = ty (y/8)
@@ -64,9 +239,8 @@ _sys_collision_updateOneEntity::
     add hl, de  ;; HL = 20*ty
 
     ;; A = x
-    CHECK_ORIENTATION_PLAYER_FOR_COLLISION_X e_orient(ix) e_width(ix)
     ld  a, e_xpos(ix)
-    add d
+    add c
     srl a ;; | A = tx(x/4)
     srl a ;; |
 
@@ -79,10 +253,10 @@ _sys_collision_updateOneEntity::
     ld  a, (hl) ;; A ld a, #0x03
     and #0b11111110
 
-    ret nz
+      ret nz
     ;; COLISION DETECTADA
     
-    ;; Dependiendo de la colision del axis setea a 0 la vel. 
+    ;; Dependiendo de la colision del axis setea a 0 la vel.
     CHECK_ORIENTATION_AXIS_PLAYER e_orient(ix)
     inc a
     dec a
@@ -94,5 +268,114 @@ _sys_collision_updateOneEntity::
     ld  e_vx(ix), #0    ;; Para a la entidad
 
     _is_none_axis:
+ret
 
-   ret
+
+;===================================================================================================================================================
+; FUNCION _sys_setEntityCollisionPoints
+; Según la orientación de la entidad. Setea los puntos a comprobar en las variables
+; BC : El punto en el que se va a comprobar la colision
+;===================================================================================================================================================
+_sys_setEntityCollisionPoints::
+    ld c, a
+
+    ;; RIGHT = 0
+    ld b, #0x00
+    sub b
+    jr z, _setCollisionRight
+    ld a, c
+
+    ;; DOWN = 1
+    ld b, #0x01
+    sub b
+    jr z, _setCollisionDown
+    ld a, c
+
+    ;; LEFT = 2
+    ld b, #0x02
+    sub b
+    jr z, _setCollisionLeft
+    ld a, c
+
+    ;; UP = 3
+    ld b, #0x03
+    sub b
+    jr z, _setCollisionUp
+
+    _setCollisionRight:
+        ;; Establecemos los parametros a usar
+        ;; que ayudaran a saber en que tile se encuentra
+        ;; el punto
+
+        ;; Punto 1
+        ld a, e_width(ix)
+        ld (#_sys_entityColisionPos1_X), a
+
+        ld a, #0x00
+        ld (#_sys_entityColisionPos1_Y), a
+
+        ;; Punto 2
+        ld a, e_width(ix)
+        ld (#_sys_entityColisionPos2_X), a
+
+        ld a, #0x00 - 1  ;; El "- 1" es para que pueda pegarse mas a la pared
+        add e_heigth(ix)
+        ld (#_sys_entityColisionPos2_Y), a
+
+        jp _stopCheckingCollisionPoints
+
+    _setCollisionDown:
+        ;; Punto 1
+        ld a, #0x00
+        ld (#_sys_entityColisionPos1_X), a
+
+        ld a, e_heigth(ix)
+        ld (#_sys_entityColisionPos1_Y), a
+
+        ;; Punto 2
+        ld a, #0x00 - 1
+        add e_width(ix)
+        ld (#_sys_entityColisionPos2_X), a
+
+        ld a, e_heigth(ix)
+        ld (#_sys_entityColisionPos2_Y), a
+
+        jp _stopCheckingCollisionPoints
+
+    _setCollisionLeft:
+        ;; Punto 1
+        ld a, #0xFF
+        ld (#_sys_entityColisionPos1_X), a
+
+        ld a, #0x00
+        ld (#_sys_entityColisionPos1_Y), a
+
+        ;; Punto 2
+        ld a, #0xFF
+        ld (#_sys_entityColisionPos2_X), a
+
+        ld a, #0x00 - 1
+        add e_heigth(ix)
+        ld (#_sys_entityColisionPos2_Y), a
+
+        jp _stopCheckingCollisionPoints
+
+    _setCollisionUp:
+        ;; Punto 1
+        ld a, #0x00
+        ld (#_sys_entityColisionPos1_X), a
+
+        ld a, #0xFF
+        ld (#_sys_entityColisionPos1_Y), a
+
+        ;; Punto 2
+        ld a, #0x00 - 1
+        add e_width(ix)
+        ld (#_sys_entityColisionPos2_X), a
+
+        ld a, #0xFF
+        ld (#_sys_entityColisionPos2_Y), a
+
+    _stopCheckingCollisionPoints:
+
+ret
