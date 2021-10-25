@@ -30,13 +30,26 @@ patrol_03:
    .dw #patrol_03
 
 patrol_relative_01:
-   .db  8, -8
-   .db  8, 8
-   .db  -8, 8
-   .db  -8, -8
+   .db  6, -10
+   .db  6, 10
+   .db  -6, 10
+   .db  -6, -10
    .db #patrol_invalid_move
    .dw #patrol_relative_01
 
+patrol_relative_02:
+   .db  8, -16
+   .db  8, 16
+   .db #patrol_invalid_move
+   .dw #patrol_relative_02
+
+patrol_relative_03:
+   .db  0, 12
+   .db  12, 12
+   .db  12, 0
+   .db  0, 0
+   .db #patrol_invalid_move
+   .dw #patrol_relative_03
 
 ; por parametro el array a las posociones a las que tiene que hacer patrool
 ; beh patrol
@@ -118,6 +131,9 @@ _sys_patrol_set_relative_origin:
 
    ld e_ai_aux_h(ix), l
    ld e_ai_aux_l(ix), h
+
+   ;; TODO: donde va aaa
+   ld e_aictr(ix), #16
 
    ret
 

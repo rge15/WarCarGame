@@ -10,6 +10,7 @@
 .globl _sys_ai_behaviourAutoMoveIn_x
 .globl _sys_ai_behaviourAutoMoveIn_y
 .globl _sys_ai_behaviourPatrol
+.globl _sys_ai_behaviourPatrolRelative
 .globl _sys_ai_behaviourSpawner
 .globl _sys_ai_behaviourSeekAndPatrol
 

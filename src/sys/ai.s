@@ -17,7 +17,7 @@
 _sys_ai_directionMemory::
     .dw #0x0000
 
-enemy_max_spawn = 2
+enemy_max_spawn = 4
 _sys_ai_enemy_count: .db 0
 
 
@@ -117,7 +117,7 @@ _sys_ai_spawnEnemy::
    inc (hl)
 
    ;; TODO[Edu]: pasar por paraetro el template para diferentes enemigos
-   ld bc, #_enemy_template_e
+   ld bc, #_enemy_template_e2
    call _m_game_createInitTemplate
 
 
@@ -273,7 +273,6 @@ _sys_ai_behaviourEnemy::
    ret
 
 
-;; TODO: de momento con array aux
 ;===============================================================================
 ; actualiza _sys_ai_nextPatrolCoords
 ; Destroy: HL, BC
@@ -282,19 +281,43 @@ _sys_ai_behaviourPatrol::
    push bc
    pop ix
 
-   ;; guardar el registro f para compara si en seekCoords_x y seekCoords_y se ha llegado 
-   ;; a la posicon final y se ha puesto la velocidad a 0
-   ;; no entiendo como es que funciona jakdjakjj en serio ??
-   ;; vale despues hay que meter una mascara de bits vaya movida
-   ;; la mascara de bits tiene que ser 0x40 porque es el flag z
-   ;; depues hay que compara que los flags sean iguales y que sean 0x40, en los otros casos no
-   ; queremos hacer update de las patrol coords
-
    CHECK_VX_VY_ZERO _sys_patrol_next
 
    ld d, #1
    call _sys_ai_seekCoords_x
+   call _sys_ai_seekCoords_y
+
+   ; dec e_aictr(ix)
+   ; ld b, e_xpos(ix)
+   ; ld c, e_ypos(ix)
+   ;
+   ; push ix
+   ; call z, _sys_ai_shootBullet
+   ; pop ix
+
+   ret
+
+;===============================================================================
+; actualiza _sys_ai_nextPatrolCoords
+; Destroy: HL, BC
+;===============================================================================
+_sys_ai_behaviourPatrolRelative::
+   push bc
+   pop ix
+
+   ;; TODO: ver como poner el origen solo una vez 
+   push ix
+   pop iy
+   dec e_aictr(ix)
+   call z, _sys_patrol_set_relative_origin
+   ld e_aictr(ix), #2
+
+   CHECK_VX_VY_ZERO _sys_patrol_next_relative
+
+
    ld d, #1
+   call _sys_ai_seekCoords_x
+   ld d, #2
    call _sys_ai_seekCoords_y
 
    ; dec e_aictr(ix)
@@ -419,6 +442,10 @@ _sys_ai_aim_to_entity:
    ld e_ai_aim_y(ix), a
    ret
 
+_sys_ai_reset_aictr:
+   ld e_aictr(ix), #16
+   ret
+
 _sys_ai_behaviourSeekAndPatrol::
    push bc
    pop ix
@@ -427,9 +454,6 @@ _sys_ai_behaviourSeekAndPatrol::
    CHECK_NO_AIM_XY _sys_ai_aim_to_entity
 
    dec e_aictr(ix)
-
-   push ix
-   pop ix
    call z, _sys_patrol_set_relative_origin
 
    CHECK_VX_VY_ZERO _sys_patrol_next_relative
@@ -437,6 +461,7 @@ _sys_ai_behaviourSeekAndPatrol::
 
    ld d, #1
    call _sys_ai_seekCoords_x
+   ld d, #2
    call _sys_ai_seekCoords_y
 
    ret

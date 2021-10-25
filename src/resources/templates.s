@@ -37,8 +37,8 @@ _player_template_e:
 _enemy_template_e:
    .db #0x10                                 ; type
    .db #0x0b                                 ; cmp
-   .db #0x00                                 ; x
-   .db #0x00                                 ; y
+   .db #16                                    ; x
+   .db #50                                    ; y
    .db #0x06                                 ; width
    .db #0x0C                                 ; heigth
    .db #0x00                                 ; vx
@@ -47,8 +47,8 @@ _enemy_template_e:
    .db #0x00                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
-   .dw #_sys_ai_behaviourAutoMoveIn_x        ; ai_behaviour
-   .db #0x16                                 ; ai_counter
+   .dw #_sys_ai_behaviourPatrolRelative        ; ai_behaviour
+   .db #1
    .dw #0x0                                  ; animator
    .db #0x0A                                 ; anim. counter
    .dw #0x0000                               ; input_behaviour
@@ -56,8 +56,7 @@ _enemy_template_e:
    .db #0x00                                 ; e_ai_aim_y
    .db #0x25                                 ; e_ai_aux_l
    .db #0x00                                 ; e_ai_aux_h
-   .db #0x00                                 ; e_patrol_step_l
-   .db #0x00                                 ; e_patrol_step_h
+   .dw #patrol_relative_02                            ; e_patrol_step
 
 ai_counter01 = 20
 _enemy_template_e2:
@@ -82,7 +81,7 @@ _enemy_template_e2:
    .db #0                                 ; e_ai_aim_y
    .db #0                                 ; e_ai_aux_l
    .db #0                                 ; e_ai_aux_h
-   .dw #patrol_relative_01
+   .dw #patrol_relative_02
 
 _enemy_template_e3:
    .db #0x10                                 ; type
@@ -97,7 +96,7 @@ _enemy_template_e3:
    .db #0x00                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
-   .dw #_sys_ai_behaviourPatrol              ; ai_behaviour
+   .dw #_sys_ai_behaviourPatrol; ai_behaviour
    .db #0x22                                 ; ai_counter
    .dw #0x0                                  ; animator
    .db #0x0A                                 ; anim. counter
@@ -106,13 +105,13 @@ _enemy_template_e3:
    .db #0x00                                 ; e_ai_aim_y
    .db #0x00                                 ; e_ai_aux_l
    .db #0x00                                 ; e_ai_aux_h
-   .dw #patrol_relative_01                            ; e_patrol_step
+   .dw #patrol_03                            ; e_patrol_step
 
 ; es como un enemy raealmente
 _spawner_template_e:
    .db #0x10                                 ; type
    .db #0x0b                                 ; cmp
-   .db #15                                    ; x
+   .db #16                                    ; x
    .db #50                                    ; y
    .db #0x06                                 ; width
    .db #0x0C                                 ; heigth
