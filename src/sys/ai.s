@@ -425,7 +425,7 @@ _sys_ai_behaviourBulletSeektoPlayer::
    call _sys_ai_seekCoords_y
    push ix
    pop hl
-   CHECK_VX_VY_ZERO _man_setEntity4Destroy
+   CHECK_VX_VY_ZERO _m_game_destroyEntity
 
    ret
 
