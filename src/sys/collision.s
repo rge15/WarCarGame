@@ -145,6 +145,9 @@ _sys_collision_updateMultiple::
     ;                                si es una enemyBullet se eliminan las 2
     ; (DONE) e_type_enemyBullet           = si es una bullet se destruyen los dos y au
     ;===========================================================================================================================================
+    push de
+    push hl
+
     ld a, #0x01
     and e_type(ix)
     call NZ, playerCollisionBehaviour
@@ -164,6 +167,9 @@ _sys_collision_updateMultiple::
     ld a, #0x20
     and e_type(ix)
     call NZ, enemyBulletCollisionBehaviour
+    
+    pop hl
+    pop de
 
 
     ; ld a, #0xFF
@@ -416,6 +422,11 @@ _sys_setEntityCollisionPoints::
 ret
 
 
+;===================================================================================================================================================
+; FUNCION playerCollisionBehaviour
+; Comportamiento de las colisiones del jugador
+; NO llega nada
+;===================================================================================================================================================
 playerCollisionBehaviour::
     ld a, #0x04
     and e_type(iy)
@@ -424,53 +435,55 @@ playerCollisionBehaviour::
 
 
 
+;===================================================================================================================================================
+; FUNCION enemyCollisionBehaviour
+; Comportamiento de las colisiones del enemigo
+; NO llega nada
+;===================================================================================================================================================
 enemyCollisionBehaviour::
     ld a, #0x04
     and e_type(iy)
     ret Z
 
-    push de
-    push hl
+    call destroyPairOfEntities
 
-    push ix
-    pop hl 
-    call _m_game_destroyEntity
     call _man_game_decreaseEnemyCounter
     
-    push iy
-    pop hl 
-    call _m_game_destroyEntity
     call _m_game_bulletDestroyed
-
-    pop hl
-    pop de
 
     ret
 
 
+;===================================================================================================================================================
+; FUNCION destroyPairOfEntities
+; Método encargado las dos entidades que colisionan
+; NO llega nada
+;===================================================================================================================================================
+destroyPairOfEntities::
+    push iy
+    pop hl 
+    call _m_game_destroyEntity
+
+    push ix
+    pop hl 
+    call _m_game_destroyEntity  
+    
+    ret
 
 
+;===================================================================================================================================================
+; FUNCION enemySpawnerCollisionBehaviour
+; Método encargado de las colisiones del enemySpawner
+; NO llega nada
+;===================================================================================================================================================
 enemySpawnerCollisionBehaviour::
 
     ld a, #0x04
     and e_type(iy)
     ret Z
 
-    push de
-    push hl
-
-    push iy
-    pop hl 
-    call _m_game_destroyEntity
+    call destroyPairOfEntities
     call _m_game_bulletDestroyed
-
-    ;; TODO : AQui en vez de destruir se llama a quitar vida
-    push ix
-    pop hl 
-    call _m_game_destroyEntity  
-
-    pop hl
-    pop de
 
     ret
 
@@ -480,6 +493,11 @@ enemySpawnerCollisionBehaviour::
 ;                                Y SE BORRA ASÍ MISMO
 ;                                si es una enemyBullet se eliminan las 2
 
+;===================================================================================================================================================
+; FUNCION bulletCollisionBehaviour
+; Método encargado de las colisiones del bullet
+; NO llega nada
+;===================================================================================================================================================
 bulletCollisionBehaviour::
     ld a, #0x08
     and e_type(iy)
@@ -494,63 +512,37 @@ bulletCollisionBehaviour::
     ret
     decreaseLifeSpawner:
     ;;Llamar método resta via al spawner
-    push de
-    push hl
     
     push ix
     pop hl 
     call _m_game_destroyEntity
     call _m_game_bulletDestroyed
-
-    pop hl
-    pop de
     
     ret
     destroyEnity:
-    push de
-    push hl
 
-    push ix
-    pop hl 
-    call _m_game_destroyEntity
-    ;TODO : Llamar al método que quita enemigos del game
-    
-    push iy
-    pop hl 
-    call _m_game_destroyEntity
-    call _m_game_bulletDestroyed
     ld a, #0x08
     and e_type(iy)
     call NZ, _man_game_decreaseEnemyCounter
 
-    pop hl
-    pop de
+    call destroyPairOfEntities 
 
     ret
 
 
 
-; e_type_enemyBullet           = si es una bullet se destruyen los dos y au
+;===================================================================================================================================================
+; FUNCION enemyBulletCollisionBehaviour
+; Método encargado de las colisiones del enemyBullet
+; NO llega nada
+;===================================================================================================================================================
 enemyBulletCollisionBehaviour::
     ld a, #0x04
     and e_type(iy)
     ret Z
 
-    push de
-    push hl
-
-    push ix
-    pop hl 
-    call _m_game_destroyEntity
-    
-    push iy
-    pop hl 
-    call _m_game_destroyEntity
-    
     call _m_game_bulletDestroyed
 
-    pop hl
-    pop de
-
+    call destroyPairOfEntities
 
     ret
