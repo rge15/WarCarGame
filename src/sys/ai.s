@@ -83,7 +83,7 @@ _sys_ai_updateOneEntity::
 
 
 ;===============================================================================
-; El enemigo dispara una bala hacia el jugador
+; El enemigo dispara una bala hacia el jugador, se destruye al llegar
 ; Genera una entidad _bullet_template y le cambia la posicion a la del enemy
 ; BC: posicon desde dodne sale
 ;; TODO[Edu]: no sale del centro de la entidad
@@ -104,11 +104,14 @@ _sys_ai_shootBulletSeek::
 
    GET_PLAYER_ENTITY iy
    call _sys_ai_aim_to_entity
-   ld e_vy(ix), #1
+
+   ; call _sys_ai_seekCoords_x
+   ; call _sys_ai_seekCoords_y
 
    ret
 
 ;===============================================================================
+; Esta bala muere cuando aictr llega a 0
 ; valores de e_ai_aux_l:
 ; 0: disapar x
 ; 1: dispara y
@@ -128,7 +131,16 @@ _sys_ai_shootBulletLinear:
    push hl
    pop ix
 
+   inc b
+   inc c
+
+   ;; TODO: calcular margen para no collision
    pop bc
+   ; ld a, e_heigth(ix)
+   ld a, #12
+   add a, c
+   ld c, a
+
    ld e_xpos(ix), b
    ld e_ypos(ix), c
 
@@ -137,6 +149,13 @@ _sys_ai_shootBulletLinear:
 
    pop de
    ld d, #1
+
+   ;; comprobar si es 2
+   ld a, #2
+   cp e
+   call z, _sys_ai_movida
+
+   ;; comprobar si es 0 o 1
    dec e
 
    jr z, shoot_linear_b_x
@@ -144,6 +163,14 @@ _sys_ai_shootBulletLinear:
    ret
    shoot_linear_b_x:
       call _sys_ai_seekCoords_x
+   ret
+
+_sys_ai_movida:
+   ld d, #1
+   call _sys_ai_seekCoords_x
+   ld d, #2
+   call _sys_ai_seekCoords_y
+
    ret
 
 ;===============================================================================
@@ -367,9 +394,15 @@ _sys_ai_behaviourPatrol::
 
    ret
 
-_sys_ai_behaviourPatrol_shoot::
+_sys_ai_behaviourPatrol_shoot_l::
    call _sys_ai_behaviourPatrol
    call _sys_ai_shoot_condition_l
+
+   ret
+
+_sys_ai_behaviourPatrol_shoot_sp::
+   call _sys_ai_behaviourPatrol
+   call _sys_ai_shoot_condition_sp
 
    ret
 
@@ -471,6 +504,9 @@ _sys_ai_behaviourSpawner::
       call c, _sys_ai_spawnEnemy
    ret
 
+;===============================================================================
+; Esta bala muere cuado aictr llega a 0
+;===============================================================================
 _sys_ai_behaviourBulletLinear::
    push bc
    pop ix
@@ -486,6 +522,9 @@ _sys_ai_behaviourBulletLinear::
       ; call _sys_ai_reset_bullet_aictr
    ret
 
+;===============================================================================
+; Esta bala muere cuado llega al ai_aim
+;===============================================================================
 _sys_ai_behaviourBulletSeektoPlayer::
    push bc
    pop ix
@@ -502,12 +541,7 @@ _sys_ai_behaviourBulletSeektoPlayer::
 
    jr nz, skip_set_coords
 
-   ld a, e_xpos(iy)
-   ld e_ai_aim_x(ix), a
-
-   ld a, e_ypos(iy)
-   ld e_ai_aim_y(ix), a
-
+   call _sys_ai_aim_to_entity
    skip_set_coords:
 
    ; TODO[Edu]: con velociada mayor a veces no llega y se queda
@@ -566,6 +600,9 @@ _sys_ai_reset_bullet_aictr:
    ret
 
 ;; TODO: si pos inicial 1 peta no se
+;===============================================================================
+; Sigue al jugador cambiando y se para a hacer un patron
+;===============================================================================
 _sys_ai_behaviourSeekAndPatrol::
    push bc
    pop ix

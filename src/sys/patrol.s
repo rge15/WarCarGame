@@ -16,7 +16,7 @@ patrol_01:
 
 patrol_02:
    .db  50, 50
-   .db  12, 12
+   .db  30, 140
    .db  12, 30
    .db  64, 30
    .db  10, 100
@@ -24,8 +24,8 @@ patrol_02:
    .dw #patrol_02
 
 patrol_03:
-   .db  50, 50
-   .db  20, 50
+   .db  50, 80
+   .db  20, 80
    .db #patrol_invalid_move
    .dw #patrol_03
 
@@ -45,8 +45,8 @@ patrol_relative_01:
    .dw #patrol_relative_01
 
 patrol_relative_02:
-   .db  8, -16
-   .db  8, 16
+   .db  0, -16
+   .db  0, 16
    .db #patrol_invalid_move
    .dw #patrol_relative_02
 
@@ -81,7 +81,6 @@ _sys_patrol_next::
    ld e, (hl)
    ex de, hl
 
-   ;; TODO: cambiar
    call _sys_ai_setAiAim
 
    ex de, hl

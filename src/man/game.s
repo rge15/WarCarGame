@@ -77,8 +77,9 @@ _m_game_init::
    inc hl
    ld (hl), e
    ex de,hl
-   ; CREATE_ENTITY_FROM_TEMPLATE t_enemy_patrolr_01
-   CREATE_ENTITY_FROM_TEMPLATE t_enemy_patrol_x_shoot_y
+
+   CREATE_ENTITY_FROM_TEMPLATE t_enemy_patrol_01
+   ; CREATE_ENTITY_FROM_TEMPLATE t_enemy_patrol_x_shoot_y
    ; CREATE_ENTITY_FROM_TEMPLATE t_enemy_patrol_01
 
    ; CREATE_ENTITY_FROM_TEMPLATE t_enemy_seeknpatrol

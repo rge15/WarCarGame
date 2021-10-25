@@ -268,7 +268,30 @@ _sys_checkTilePosition::
     ld  e_vx(ix), #0    ;; Para a la entidad
 
     _is_none_axis:
-ret
+      ld a, #e_type_enemy_bullet
+
+      cp e_type(ix)
+      jr z, is_type_enemy_bullet
+
+      ld a, #e_type_enemy
+      cp e_type(ix)
+      jr z, is_type_enemy
+
+      is_type_enemy_bullet:
+         push ix
+         pop hl
+         ld  e_vx(ix), #0
+         ld  e_vy(ix), #0
+         ; call _man_setEntity4Destroy
+         ret
+      is_type_enemy:
+         push ix
+         pop hl
+         ld  e_vx(ix), #0
+         ld  e_vy(ix), #0
+         ret
+
+   ret
 
 
 ;===================================================================================================================================================

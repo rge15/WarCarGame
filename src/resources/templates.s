@@ -5,6 +5,7 @@
 .include "animations.h.s"
 .include "resources/sprites.h.s"
 .include "templates.h.s"
+.include "entityInfo.s"
 
 ; hacer un esquema con
 ; t_enemy_...
@@ -25,13 +26,13 @@
 t_shoot_timer_enemy = 70
 
 ; tiempo hasta que la bala de un enemy se destruye
-t_bullet_timer_enemy = 100
+t_bullet_timer_enemy = 24
 
 ;===================================================================================================================================================
 ; Templates
 ;===================================================================================================================================================
 t_player:
-   .db #0x01                                 ; type
+   .db #e_type_player
    .db #0x37                                 ; cmp
    .db #0x26                                 ; x
    .db #0xa0                                 ; y
@@ -55,7 +56,7 @@ t_player:
    .db #0x00                                 ; e_patrol_step_h
 
 t_enemy_patrolr_01:
-   .db #0x08                                 ; type
+   .db #e_type_enemy                                 ; type
    .db #0x2b                                 ; cmp
    .db #16                                    ; x
    .db #50                                    ; y
@@ -79,7 +80,7 @@ t_enemy_patrolr_01:
    .dw #patrol_relative_01                            ; e_patrol_step
 
 t_enemy_seeknpatrol:
-   .db #0x08                                 ; type
+   .db #e_type_enemy                                 ; type
    .db #0x2b                                 ; cmp
    .db #50                                 ; x
    .db #80                                 ; y
@@ -103,10 +104,11 @@ t_enemy_seeknpatrol:
    .dw #patrol_relative_02
 
 t_enemy_patrol_01:
-   .db #0x8                                ; type
+   .db #e_type_enemy                                 ; type
    .db #0x2b                                 ; cmp
-   .db #40                                 ; x
-   .db #40                                 ; y
+   ; .db #40                                 ; x
+   ; .db #40                                 ; y
+   .dw #patrol_02
    .db #0x06                                 ; width
    .db #0x0C                                 ; heigth
    .db #0x00                                 ; vx
@@ -124,12 +126,12 @@ t_enemy_patrol_01:
    .db #0x00                                 ; e_ai_aim_y
    .db #0x00                                 ; e_ai_aux_l
    .db #0x00                                 ; e_ai_aux_h
-   .dw #patrol_01                            ; e_patrol_step
+   .dw #patrol_02                            ; e_patrol_step
 
 
 ;; e_ai_aux_l para decir si dispara en x o en y
 t_enemy_patrol_x_shoot_y:
-   .db #0x8                                ; type
+   .db #e_type_enemy                                 ; type
    .db #0x2b                                 ; cmp
    .db #40                                 ; x
    .db #40                                 ; y
@@ -141,8 +143,8 @@ t_enemy_patrol_x_shoot_y:
    .db #0x00                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
-   .dw #_sys_ai_behaviourPatrol_shoot; ai_behaviour
-   .db #0x1                                 ; ai_counter
+   .dw #_sys_ai_behaviourPatrol_shoot_l; ai_behaviour
+   .db #t_shoot_timer_enemy                                 ; ai_counter
    .dw #0x0                                  ; animator
    .db #0x0A                                 ; anim. counter
    .dw #0x0000                               ; input_behaviour
@@ -154,7 +156,7 @@ t_enemy_patrol_x_shoot_y:
 
 ; es como un enemy raealmente
 t_spawner_01:
-   .db #0x08                                 ; type
+   .db #e_type_spawner
    .db #0x0b                                 ; cmp
    .db #16                                    ; x
    .db #50                                    ; y
@@ -179,7 +181,7 @@ t_spawner_01:
    .db #0x00                                 ; e_patrol_step_h
 
 t_bullet_player:
-   .db #0x04                                 ; type
+   .db #e_type_bullet                                 ; type
    .db #0x3B                                 ; cmp
    .db #0x00                                 ; x
    .db #0x00                                 ; y
@@ -205,8 +207,8 @@ t_bullet_player:
 
 ;; la bullet del enemey
 t_bullet_enemy_sp:
-   .db #0x04                                 ; type
-   .db #0x3B                                 ; cmp
+   .db #e_type_bullet                                 ; type
+   .db #0x2B                                 ; cmp
    .db #0x00                                 ; x
    .db #0x00                                 ; y
    .db #0x04                                 ; width
@@ -217,9 +219,8 @@ t_bullet_enemy_sp:
    .db #0x00                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
    .dw #0x0000                               ; prevptr
    .db #0x00                                 ; prev. orientation
-   ; .dw #_sys_ai_behaviourBulletSeektoPlayer  ; ai_behaviour
    .dw #_sys_ai_behaviourBulletSeektoPlayer  ; ai_behaviour
-   .db #0x1b                                ; ai_counter   ;; Contador de la bala
+   .db #t_bullet_timer_enemy                 ; ai_counter   ;; Contador de la bala
    .dw #0x00                                 ; animator
    .db #0x00                                 ; anim. counter
    .dw #0x0000                               ; input_behaviour
@@ -231,28 +232,26 @@ t_bullet_enemy_sp:
    .db #0x00                                 ; e_patrol_step_h
 
 t_bullet_enemy_l:
-   .db #0x04                                 ; type
-   .db #0x3B                                 ; cmp
+   .db #e_type_bullet                                 ; type
+   .db #0x2B                                 ; cmp
    .db #0x00                                 ; x
    .db #0x00                                 ; y
-   .db #0x04                                 ; width
-   .db #0x04                                 ; heigth
+   .db #0x03                                 ; width
+   .db #0x06                                 ; heigth
    .db #0x00                                 ; vx
    .db #0x00                                 ; vy
    .dw #_sprite_bullet01                     ; sprite
    .db #0x00                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
    .dw #0x0000                               ; prevptr
    .db #0x00                                 ; prev. orientation
-   ; .dw #_sys_ai_behaviourBulletSeektoPlayer  ; ai_behaviour
-   ; .dw #_sys_ai_behaviourBulletLinear  ; ai_behaviour
    .dw #_sys_ai_behaviourBulletLinear; ai_behaviour
-   .db #t_bullet_timer_enemy                                 ; ai_counter   ;; Contador de la bala
+   .db #t_bullet_timer_enemy                 ; ai_counter   ;; Contador de la bala
    .dw #0x00                                 ; animator
    .db #0x00                                 ; anim. counter
    .dw #0x0000                               ; input_behaviour
    .db #0x00                                 ; e_ai_aim_x
    .db #0x00                                 ; e_ai_aim_y
-   .db #0x00                                 ; e_ai_aux_l
+   .db #0x7                                 ; e_ai_aux_l
    .db #0x00                                 ; e_ai_aux_h
    .db #0x00                                 ; e_patrol_step_l
    .db #0x00                                 ; e_patrol_step_h

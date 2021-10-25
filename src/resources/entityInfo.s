@@ -2,22 +2,24 @@
 ;===================================================================================================================================================
 ; Entity types   
 ;===================================================================================================================================================
-; #define e_type_invalid     0x00
-; #define e_type_player      0x01
-; #define e_type_default     0x02 
-; #define e_type_bullet      0x04 
-; #define e_type_enemy       0x08
-; #define e_type_dead        0x80
+e_type_invalid       = 0x00
+e_type_player        = 0x01
+e_type_default       = 0x02
+e_type_bullet        = 0x04
+e_type_enemy         = 0x08
+e_type_spawner       = 0x10
+e_type_enemy_bullet  = 0x20
+e_type_dead          = 0x80
 
 ;===================================================================================================================================================
 ; Component types   
 ;===================================================================================================================================================
-; #define e_cmp_render   0x01
-; #define e_cmp_movable  0x02
-; #define e_cmp_input    0x04
-; #define e_cmp_ai       0x08
-; #define e_cmp_animated 0x10
-; #define e_cmp_collider 0x20
+e_cmp_render   = 0x01
+e_cmp_movable  = 0x02
+e_cmp_input    = 0x04
+e_cmp_ai       = 0x08
+e_cmp_animated = 0x10
+e_cmp_collider = 0x20
 
 ;===================================================================================================================================================
 ; Entity variables    TODO : MIrar como puedo hacer defines para poder llamar al macro LOAD_ENTITY_VARIABLE_IN_REGISTER
