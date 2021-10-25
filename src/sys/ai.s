@@ -95,7 +95,7 @@ _sys_ai_shootBullet::
    push bc
 
    ;; este template tiene el behaviour para hacer seek al player
-   CREATE_ENTITY_FROM_TEMPLATE _bullet_template_e2
+   CREATE_ENTITY_FROM_TEMPLATE t_bullet_enemy_sp
    ; macro deja posicion en hl
    push hl
    pop ix
@@ -104,13 +104,12 @@ _sys_ai_shootBullet::
    ld e_xpos(ix), b
    ld e_ypos(ix), c
 
-
-   GET_PLAYER_ENTITY iy
-   ld a, e_xpos(iy)
-   ld e_ai_aim_x(ix), a
-
-   ld a, e_ypos(iy)
-   ld e_ai_aim_y(ix), a
+   ; GET_PLAYER_ENTITY iy
+   ; ld a, e_xpos(iy)
+   ; ld e_ai_aim_x(ix), a
+   ;
+   ; ld a, e_ypos(iy)
+   ; ld e_ai_aim_y(ix), a
 
    ret
 
@@ -125,7 +124,7 @@ _sys_ai_spawnEnemy::
    inc (hl)
 
    ;; TODO[Edu]: pasar por paraetro el template para diferentes enemigos
-   ld bc, #_enemy_template_e2
+   ld bc, #t_enemy_seeknpatrol
    call _m_game_createInitTemplate
 
 
@@ -419,43 +418,42 @@ _sys_ai_behaviourBulletSeektoPlayer::
    push bc
    pop ix
 
-   ; GET_PLAYER_ENTITY iy
-   ; CHECK_NO_AIM_XY _sys_ai_aim_to_entity
-   ;
-   ;
-   ; ;; TODO: mejorar porque en algunos casos puede fallar
-   ; ld a, e_ai_aim_x(ix)
-   ; ld d, e_ai_aim_y(ix)
-   ; ; add a, e_ai_aim_y(ix)
-   ; add a
-   ; or a
-   ;
-   ; jr nz, skip_set_coords
-   ;
-   ; ld a, e_xpos(iy)
-   ; ld e_ai_aim_x(ix), a
-   ;
-   ; ld a, e_ypos(iy)
-   ; ld e_ai_aim_y(ix), a
-   ;
-   ; skip_set_coords:
+   GET_PLAYER_ENTITY iy
+   CHECK_NO_AIM_XY _sys_ai_aim_to_entity
 
-   ;; TODO[Edu]: con velociada mayor a veces no llega y se queda
+   ;; TODO: mejorar porque en algunos casos puede fallar
+   ld a, e_ai_aim_x(ix)
+   ld d, e_ai_aim_y(ix)
+   ; add a, e_ai_aim_y(ix)
+   add a
+   or a
+
+   jr nz, skip_set_coords
+
+   ld a, e_xpos(iy)
+   ld e_ai_aim_x(ix), a
+
+   ld a, e_ypos(iy)
+   ld e_ai_aim_y(ix), a
+
+   skip_set_coords:
+
+   ; TODO[Edu]: con velociada mayor a veces no llega y se queda
    ; una entidad sin destruir y ya peta un poco todo
-   ; ld d, #1
-   ; call _sys_ai_seekCoords_x
-   ; call _sys_ai_seekCoords_y
-   ;
-   dec e_aictr(ix)
-   jr z, set_zero_vel
-   ret
-   set_zero_vel:
-      ld e_vx(ix), #0
-      ld e_vy(ix), #0
+   ld d, #1
+   call _sys_ai_seekCoords_x
+   call _sys_ai_seekCoords_y
+
+   ; dec e_aictr(ix)
+   ; jr z, set_zero_vel
+   ; ret
+   ; set_zero_vel:
+   ;    ld e_vx(ix), #0
+   ;    ld e_vy(ix), #0
 
    push ix
    pop hl
-   CHECK_VX_VY_ZERO _m_game_destroyEntity
+   CHECK_VX_VY_ZERO _man_setEntity4Destroy
 
    ;; Compruebo si tiene velocidad
    ;; Se comprueba que la velocidad de la bala no sea 0

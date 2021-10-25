@@ -67,23 +67,22 @@ _m_game_init::
    call  _sys_ai_init
    call  _man_entityInit
 
-   ;CREATE_ENTITY_FROM_TEMPLATE _enemy_template_e
+   ;CREATE_ENTITY_FROM_TEMPLATE t_enemy_patrolr_01
 
    ; CreatePlayer & Save in _m_playerEntity   
-   CREATE_ENTITY_FROM_TEMPLATE _player_template_e
+   CREATE_ENTITY_FROM_TEMPLATE t_player
    ex de,hl
    ld hl, #_m_playerEntity
    ld (hl), d
    inc hl
    ld (hl), e
    ex de,hl
-   ; CREATE_ENTITY_FROM_TEMPLATE _enemy_template_e
-   CREATE_ENTITY_FROM_TEMPLATE _enemy_template_e3
-   CREATE_ENTITY_FROM_TEMPLATE _enemy_template_e3
-   ; CREATE_ENTITY_FROM_TEMPLATE _enemy_template_e3
-   ; CREATE_ENTITY_FROM_TEMPLATE _enemy_template_e3
-   ; CREATE_ENTITY_FROM_TEMPLATE _enemy_template_e2
-   ; CREATE_ENTITY_FROM_TEMPLATE _spawner_template_e
+   ; CREATE_ENTITY_FROM_TEMPLATE t_enemy_patrolr_01
+   CREATE_ENTITY_FROM_TEMPLATE t_enemy_patrol_x_axis
+   ; CREATE_ENTITY_FROM_TEMPLATE t_enemy_patrol_01
+
+   ; CREATE_ENTITY_FROM_TEMPLATE t_enemy_seeknpatrol
+   ; CREATE_ENTITY_FROM_TEMPLATE t_spawner_01
 ret
 
 
@@ -146,7 +145,7 @@ ret
 ;===================================================================================================================================================
 _m_game_createEnemy::
    ;Create Enemy
-   ;ld bc, #_enemy_template_e   
+   ;ld bc, #t_enemy_patrolr_01   
    ;call _m_game_createInitTemplate   
    
    ret
@@ -190,7 +189,7 @@ _m_game_playerShot::
    ret NZ ;; Si ha disparado se sale de la etiqueta
 
 
-   CREATE_ENTITY_FROM_TEMPLATE _bullet_template_e
+   CREATE_ENTITY_FROM_TEMPLATE t_bullet_player
    ;; HL es la primera pos del array de la bala
    ex de, hl   ;; de = hl
    push de     ;; guardamos la primera pos del array de la bala

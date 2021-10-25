@@ -2,12 +2,13 @@
 ; Template declaration
 ;================================================================================
 
-.globl _player_template_e
-.globl _enemy_template_e
-.globl _bullet_template_e
-.globl _bullet_template_e2
-.globl _enemy_template_e
-.globl _enemy_template_e2
-.globl _enemy_template_e3
+.globl t_player
+.globl t_enemy_patrolr_01
+.globl t_bullet_player
+.globl t_bullet_enemy_sp
+.globl t_enemy_patrolr_01
+.globl t_enemy_seeknpatrol
+.globl t_enemy_patrol_01
+.globl t_enemy_patrol_x_axis
 
-.globl _spawner_template_e
+.globl t_spawner_01

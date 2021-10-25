@@ -29,11 +29,13 @@ patrol_03:
    .db #patrol_invalid_move
    .dw #patrol_03
 
-patrol_04:
-   .db 40, 50
+p_move_in_x:
+   .db  50, 50
+   .db  20, 50
    .db #patrol_invalid_move
-   .dw #patrol_04
+   .dw #p_move_in_x
 
+;; moverse alredeodr de una entidad
 patrol_relative_01:
    .db  6, -10
    .db  6, 10

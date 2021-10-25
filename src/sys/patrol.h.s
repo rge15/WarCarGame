@@ -9,7 +9,6 @@
 .globl patrol_01
 .globl patrol_02
 .globl patrol_03
-.globl patrol_04
 
 
 .globl patrol_relative_01
