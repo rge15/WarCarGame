@@ -419,10 +419,7 @@ ret
 playerCollisionBehaviour::
     ld a, #0x04
     and e_type(iy)
-    jr NZ, notPaint
-    ;EN vez de jr usar call nz para ahorrar una etiqueta
-    ;Llamar al método que quita vida al jugador
-    notPaint:
+    call Z, _man_game_decreasePlayerLife
     ret
 
 
@@ -438,7 +435,7 @@ enemyCollisionBehaviour::
     push ix
     pop hl 
     call _m_game_destroyEntity
-    ;TODO : Llamar al método que quita enemigos del game
+    call _man_game_decreaseEnemyCounter
     
     push iy
     pop hl 
@@ -522,6 +519,9 @@ bulletCollisionBehaviour::
     pop hl 
     call _m_game_destroyEntity
     call _m_game_bulletDestroyed
+    ld a, #0x08
+    and e_type(iy)
+    call NZ, _man_game_decreaseEnemyCounter
 
     pop hl
     pop de
