@@ -90,7 +90,7 @@ _sys_ai_updateOneEntity::
 ;===============================================================================
 _sys_ai_shootBullet::
    ;; TODO: es para resetear el valor, ver donde meterlo mejor
-   ld e_aictr(ix), #0x30
+   ; ld e_aictr(ix), #0x30
 
    push bc
 
@@ -287,13 +287,13 @@ _sys_ai_behaviourPatrol::
    call _sys_ai_seekCoords_x
    call _sys_ai_seekCoords_y
 
-   ; dec e_aictr(ix)
-   ; ld b, e_xpos(ix)
-   ; ld c, e_ypos(ix)
-   ;
-   ; push ix
-   ; call z, _sys_ai_shootBullet
-   ; pop ix
+   dec e_aictr(ix)
+   ld b, e_xpos(ix)
+   ld c, e_ypos(ix)
+
+   push ix
+   call z, _sys_ai_shootBullet
+   pop ix
 
    ret
 
@@ -446,6 +446,7 @@ _sys_ai_reset_aictr:
    ld e_aictr(ix), #16
    ret
 
+;; TODO: si pos inicial 1 peta no se
 _sys_ai_behaviourSeekAndPatrol::
    push bc
    pop ix
@@ -453,11 +454,22 @@ _sys_ai_behaviourSeekAndPatrol::
    GET_PLAYER_ENTITY iy
    CHECK_NO_AIM_XY _sys_ai_aim_to_entity
 
+
    dec e_aictr(ix)
    call z, _sys_patrol_set_relative_origin
 
-   CHECK_VX_VY_ZERO _sys_patrol_next_relative
+   ; CHECK_VX_VY_ZERO _sys_patrol_next_relative
 
+   ld a, e_aictr(ix)
+   ld h, #1
+   cp h
+
+   ld b, e_xpos(ix)
+   ld c, e_ypos(ix)
+
+   push ix
+   call z, _sys_ai_shootBullet
+   pop ix
 
    ld d, #1
    call _sys_ai_seekCoords_x

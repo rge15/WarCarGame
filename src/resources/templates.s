@@ -86,8 +86,8 @@ _enemy_template_e2:
 _enemy_template_e3:
    .db #0x10                                 ; type
    .db #0x0b                                 ; cmp
-   .db #0x01                                 ; x
-   .db #0x01                                 ; y
+   .db #40                                 ; x
+   .db #40                                 ; y
    .db #0x06                                 ; width
    .db #0x0C                                 ; heigth
    .db #0x00                                 ; vx
@@ -97,7 +97,7 @@ _enemy_template_e3:
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
    .dw #_sys_ai_behaviourPatrol; ai_behaviour
-   .db #0x22                                 ; ai_counter
+   .db #0x1                                 ; ai_counter
    .dw #0x0                                  ; animator
    .db #0x0A                                 ; anim. counter
    .dw #0x0000                               ; input_behaviour
@@ -105,7 +105,7 @@ _enemy_template_e3:
    .db #0x00                                 ; e_ai_aim_y
    .db #0x00                                 ; e_ai_aux_l
    .db #0x00                                 ; e_ai_aux_h
-   .dw #patrol_03                            ; e_patrol_step
+   .dw #patrol_04                            ; e_patrol_step
 
 ; es como un enemy raealmente
 _spawner_template_e:
