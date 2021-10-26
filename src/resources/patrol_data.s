@@ -62,10 +62,10 @@ patrol_relative_02:
    .dw #patrol_relative_02
 
 patrol_relative_03:
-   .db  0, 12
-   .db  12, 12
-   .db  12, 0
    .db  0, 0
+   .db  0, 12
+   .db  24, 12
+   .db  24, 0
    .db #patrol_invalid_move
    .dw #patrol_relative_03
 

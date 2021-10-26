@@ -17,7 +17,7 @@
 _sys_ai_directionMemory::
     .dw #0x0000
 
-enemy_max_spawn = 4
+enemy_max_spawn = 3
 _sys_ai_enemy_count: .db 0
 
 
@@ -505,6 +505,10 @@ _sys_ai_beh_spawner_commmon::
    push bc
    pop ix
 
+   ;; TODO: menor tiempo de spawn
+   ; ld h, e_orient(ix)
+   ; ld l, e_aictr(ix)
+   ; dec hl
    dec e_aictr(ix)
    ld b, e_xpos(ix)
    ld c, e_ypos(ix)
