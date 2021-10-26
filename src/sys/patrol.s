@@ -23,6 +23,14 @@ patrol_02:
    .db #patrol_invalid_move
    .dw #patrol_02
 
+patrol_04:
+   .db  50, 50
+   .db  90, 50
+   .db  90, 90
+   .db  50, 90
+   .db #patrol_invalid_move
+   .dw #patrol_04
+
 patrol_03:
    .db  50, 80
    .db  20, 80
@@ -30,7 +38,7 @@ patrol_03:
    .dw #patrol_03
 
 patrol_none:
-   .db  50, 60
+   .db  20, 60
    ; .db  20, 80
    .db #patrol_invalid_move
    .dw #patrol_none

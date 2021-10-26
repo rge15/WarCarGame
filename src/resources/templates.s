@@ -153,7 +153,7 @@ t_enemy_testing:
    .dw #0x0000                               ; input_behaviour
    .db #0x00                                 ; e_ai_aim_x
    .db #0x00                                 ; e_ai_aim_y
-   .db #0x00                                 ; e_ai_aux_l
+   .db #0x02                                 ; e_ai_aux_l
    .db #0x00                                 ; e_ai_aux_h
    .dw #patrol_none                            ; e_patrol_step
 
@@ -269,7 +269,7 @@ t_bullet_enemy_l:
    .db #0x06                                 ; heigth
    .db #0x00                                 ; vx
    .db #0x00                                 ; vy
-   .dw #_sprite_bullet01                     ; sprite
+   .dw #_vBullet_1                     ; sprite
    .db #0x00                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
    .dw #0x0000                               ; prevptr
    .db #0x00                                 ; prev. orientation

@@ -8,6 +8,7 @@
 .include "man/game.h.s"
 .include "cpctelera.h.s"
 .include "collision.h.s"
+.include "patrol.h.s"
 .include "assets/maps/map01.h.s"
 .include "resources/macros.s"
 
@@ -36,6 +37,9 @@ _sys_numEntities::
 
 _sys_sizeOfEntity::
     .ds 1    
+_sys_isDestroyedOnCollision::
+   .ds #0x00
+
 ;===================================================================================================================================================
 ; FUNCION _sys_collision_update
 ; Llama a varias etiquetas para updatear las colisiones
@@ -202,6 +206,12 @@ _sys_collision_updateOneEntity::
     ld c, a
     call _sys_checkTilePosition
 
+    ; ld b, #0x01
+    ; ld a, (_sys_isDestroyedOnCollision)
+    ; sub b
+    ;
+    ; jr z, skip_second_collision_check
+
     ;; Chekeamos que el segundo punto no esté en el tile que no toca
     ld a, (#_sys_entityColisionPos2_Y)
     ld b, a
@@ -209,7 +219,11 @@ _sys_collision_updateOneEntity::
     ld c, a
     call _sys_checkTilePosition
 
-ret
+    skip_second_collision_check:
+       ; ld a, #0x00
+       ; ld (_sys_isDestroyedOnCollision), a
+
+   ret
 
 ;===================================================================================================================================================
 ; FUNCION _sys_checkTilePosition
@@ -267,6 +281,7 @@ _sys_checkTilePosition::
     ld  e_vx(ix), #0    ;; Para a la entidad
 
     _is_none_axis:
+
       ld a, #e_type_enemy_bullet
 
       cp e_type(ix)
@@ -279,15 +294,22 @@ _sys_checkTilePosition::
       is_type_enemy_bullet:
          push ix
          pop hl
-         ld  e_vx(ix), #0
-         ld  e_vy(ix), #0
-         ; call _man_setEntity4Destroy
+         ; ld  e_vx(ix), #0
+         ; ld  e_vy(ix), #0
+         ld e_aictr(ix), #1
+
+         ; ld a, #0x01
+         ; ld (#_sys_isDestroyedOnCollision), a
+         ; call _m_game_destroyEntity
+         ; call skip_second_collision_check
+
          ret
       is_type_enemy:
          push ix
          pop hl
          ld  e_vx(ix), #0
          ld  e_vy(ix), #0
+         ; call _sys_patrol_next
          ret
 
    ret

@@ -9,6 +9,7 @@
 .include "sys/physics.h.s"
 .include "sys/patrol.h.s"
 .include "sys/ai.h.s"
+.include "sys/collision.h.s"
 
 ;===================================================================================================================================================
 ; Manager data
@@ -168,7 +169,7 @@ _sys_ai_shootBulletLinear:
 _sys_ai_movida:
    ld d, #1
    call _sys_ai_seekCoords_x
-   ld d, #2
+   ld d, #1
    call _sys_ai_seekCoords_y
 
    ret
@@ -244,10 +245,12 @@ _sys_ai_seekCoords_x::
    set_negative_x:
       NEGATE_NUMBER d
       ld e_vx(ix), a
+      ld e_orient(ix), #2
       ret
 
    set_positive_x:
       ld e_vx(ix), d
+      ld e_orient(ix), #0
       ret
 
    set_zero_x:
@@ -274,10 +277,12 @@ _sys_ai_seekCoords_y::
    set_negative_y:
       NEGATE_NUMBER d
       ld e_vy(ix), a
+      ld e_orient(ix), #3
       ret
 
    set_positive_y:
       ld e_vy(ix), d
+      ld e_orient(ix), #1
       ret
 
    set_zero_y:
@@ -492,7 +497,8 @@ _sys_ai_behaviourBulletLinear::
    has_to_destroy_bullet:
       push ix
       pop hl
-      call _man_setEntity4Destroy
+      ; call _man_setEntity4Destroy
+      call _m_game_destroyEntity
       ; call _sys_ai_reset_bullet_aictr
    ret
 
