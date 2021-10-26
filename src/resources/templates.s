@@ -28,9 +28,10 @@ t_shoot_timer_enemy = 200
 ; tiempo hasta que la bala de un enemy se destruye
 t_bullet_timer_enemy = 140
 
+; tiempo hasta que la bala del player se destruye
 t_bullet_timer_player = 27
 
-player_max_bullets = #3
+player_max_bullets = 3
 
 ;===================================================================================================================================================
 ; Templates
