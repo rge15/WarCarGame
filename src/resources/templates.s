@@ -58,7 +58,7 @@ t_player:
 t_enemy_patrol_relative_01:
    .db #e_type_enemy                                 ; type
    .db #0x2b                                 ; cmp
-   .db #16                                    ; x
+   .db #30                                    ; x
    .db #60                                    ; y
    .db #0x06                                 ; width
    .db #0x0C                                 ; heigth
@@ -79,7 +79,7 @@ t_enemy_patrol_relative_01:
    .db #0x00                                 ; e_ai_aim_y
    ;; poner en e_ai_aux mismo valor que position
    ;; para que funcione patrol relativo
-   .db #16
+   .db #30
    .db #60                                 ; e_ai_aux_h
    .dw #patrol_relative_01                            ; e_patrol_step
 
@@ -179,7 +179,7 @@ t_enemy_patrol_x_shoot_y:
    .dw #0x0000                               ; input_behaviour
    .db #0x00                                 ; e_ai_aim_x
    .db #0x00                                 ; e_ai_aim_y
-   .db #0x00                                 ; e_ai_aux_l
+   .db #0x02                                 ; e_ai_aux_l
    .db #0x00                                 ; e_ai_aux_h
    .dw #patrol_03                            ; e_patrol_step
 
@@ -204,7 +204,7 @@ t_spawner_01:
    .dw #0x0000                               ; input_behaviour
    .db #0x00                                 ; e_ai_aim_x
    .db #0x00                                 ; e_ai_aim_y
-   .db #0x00                                 ; e_ai_aux_l
+   .db #3                                 ; e_ai_aux_l
    .db #0x00                                 ; e_ai_aux_h
    .db #0x00                                 ; e_patrol_step_l
    .db #0x00                                 ; e_patrol_step_h

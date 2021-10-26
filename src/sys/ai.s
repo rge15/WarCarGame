@@ -137,9 +137,9 @@ _sys_ai_shootBulletLinear:
    ;; TODO: calcular margen para no collision
    pop bc
    ; ld a, e_heigth(ix)
-   ld a, #12
-   add a, c
-   ld c, a
+   ; ld a, #12
+   ; add a, c
+   ; ld c, a
 
    ld e_xpos(ix), b
    ld e_ypos(ix), c
@@ -202,6 +202,15 @@ _sys_ai_spawnEnemy::
    ;; TODO[Edu]: segun el template del enemy habria que cambiar
    ; call _sys_ai_updateNextPatrolCoords
 
+   ret
+
+; IX: spawner entity
+_sys_ai_decrement_spawner_hp:
+   ;; TODO: o lo que sae
+   dec e_ai_aux_l(ix)
+   push ix
+   pop hl
+   call z, _man_setEntity4Destroy
    ret
 
 ;===============================================================================

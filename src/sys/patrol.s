@@ -30,7 +30,7 @@ patrol_03:
    .dw #patrol_03
 
 patrol_none:
-   .db  50, 50
+   .db  50, 60
    ; .db  20, 80
    .db #patrol_invalid_move
    .dw #patrol_none
@@ -51,8 +51,8 @@ patrol_relative_01:
    .dw #patrol_relative_01
 
 patrol_relative_02:
-   .db  0, -16
-   .db  0, 16
+   ; .db  0, -16
+   .db  0, 0
    .db #patrol_invalid_move
    .dw #patrol_relative_02
 
