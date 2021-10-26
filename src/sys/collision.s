@@ -134,7 +134,6 @@ _sys_collision_updateMultiple::
     ld a, #0xFF
     ld (0xC000), a
     ;jr _jumpNext
-   call _sys_collision_entity_types
     jr _next_iy
     
     _no_collision:
@@ -145,52 +144,6 @@ _sys_collision_updateMultiple::
     _jumpNext:
         jp _next_ix
 ret
-
-; ix pljo
-; iy bala
-; Comprobrar que pasa segun que tipo de entidades colisionan
-;; TODO: no se puede destruir
-_sys_collision_entity_types:
-   ; ld l, e_type(ix)
-   ; ld h, e_type(iy)
-
-   ld a, e_type(ix)
-   cp #e_type_player
-   jr z, first_is_player
-   cp #e_type_bullet
-   jr z, first_is_player
-   ret
-
-   first_is_player:
-      ld a, e_type(iy)
-      cp #e_type_enemy_bullet
-      jr z, f_player_s_enemy_bullet
-      ret
-
-      f_player_s_enemy_bullet:
-         ld e_xpos(ix), #70
-         ld e_ypos(ix), #70
-         ; push iy
-         ; pop hl
-         ; call _man_setEntity4Destroy
-
-         ; ld e_vx(ix), #0
-         ; ld e_vy(ix), #0
-         ; ld e_vx(iy), #0
-         ; ld e_vy(iy), #0
-
-   first_is_bullet:
-      ld a, e_type(iy)
-      cp #e_type_enemy_bullet
-      jr z, f_bullet_s_enemy_bullet
-      ret
-      f_bullet_s_enemy_bullet:
-         ld e_vx(ix), #0
-         ld e_vy(ix), #0
-         ld e_vx(iy), #0
-         ld e_vy(iy), #0
-
-   ret
 
 ;===================================================================================================================================================
 ; FUNCION _sys_collision_updateMultiple
