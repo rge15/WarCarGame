@@ -8,7 +8,7 @@
 .include "man/HUD.h.s"
 .include "resources/levels.h.s"
 .include "man/interruptions.h.s"
-.include "assets/music/auxSong.h.s"
+.include "assets/music/MainMenu-TheLastFungus.h.s"
 
 
  
