@@ -2,6 +2,7 @@
 
 .include "sys/ai.h.s"
 .include "sys/patrol.h.s"
+.include "resources/patrol_data.h.s"
 .include "animations.h.s"
 .include "resources/sprites.h.s"
 .include "templates.h.s"

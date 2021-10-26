@@ -7,8 +7,6 @@
 .globl _sys_ai_setAiAim
 
 .globl _sys_ai_behaviourEnemy
-.globl _sys_ai_behaviourAutoMoveIn_x
-.globl _sys_ai_behaviourAutoMoveIn_y
 .globl _sys_ai_behaviourPatrol
 .globl _sys_ai_behaviourPatrol_shoot_l
 .globl _sys_ai_behaviourPatrol_shoot_sp

@@ -39,7 +39,6 @@ _sys_ai_init::
 ; HL: direction of new behaviour
 ;===============================================================================
 _sys_ai_changeBevaviour::
-   ld hl, #_sys_ai_behaviourAutoMoveIn_x
    ld e_aibeh1(ix), l
    ld e_aibeh2(ix), h
    ret
@@ -239,11 +238,6 @@ _sys_ai_spawnEnemy_template:
 
    ret
 
-spawner_patrol_01:
-   .dw #t_enemy_testing
-   .dw #t_enemy_patrol_x_shoot_y
-   .dw #t_enemy_testing
-   .dw #t_enemy_patrol_x_shoot_y
 
 _sys_ai_behaviourShield:
    ret
@@ -493,12 +487,6 @@ _sys_ai_behaviourPatrolRelative::
 _sys_ai_behaviourPatrolRelative_shoot:
    call _sys_ai_behaviourPatrolRelative
    call _sys_ai_shoot_condition_l
-   ret
-
-_sys_ai_behaviourAutoMoveIn_x::
-   ret
-
-_sys_ai_behaviourAutoMoveIn_y::
    ret
 
 _sys_ai_behaviourSpawner_template::
