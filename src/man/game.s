@@ -693,23 +693,26 @@ _man_game_updateGameStatus::
    ;\
    pop hl 
 
-   ld a, (ix)
+   ld a, 0(ix)
    ld l, a
    ld a, 1(ix)
    ld h, a
 
-   inc (hl)
-   dec (hl)
+   ld a, (hl)
+
+   inc a
+   dec a
    jr NZ, nextLevel
    
+   auxVictory:
    jp victoryScreen
    nextLevel:
    ld ix, #_m_nextLevel
    ld hl, #_m_gameLevel
-   ld a, 1(ix)
+   ld a, (ix)
    ld (hl), a
    inc hl
-   ld a, (ix)
+   ld a, 1(ix)
    ld (hl), a
    
    jp restartLevel
