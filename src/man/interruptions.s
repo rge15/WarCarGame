@@ -147,9 +147,9 @@ int_handler_5::
 
     ld a, #1
     ld (#current_interruption), a
-	; cpctm_setBorder_asm HW_GREEN
+	cpctm_setBorder_asm HW_GREEN
 	;;Here we play the music, once per frame (25.000Hz)
-	;call cpct_akp_musicPlay_asm
+	call cpct_akp_musicPlay_asm
 
 	;;Here we scan the keyboard to see detect the pressed keys
 	; call cpct_scanKeyboard_if_asm

@@ -8,6 +8,8 @@
 .include "man/HUD.h.s"
 .include "resources/levels.h.s"
 .include "man/interruptions.h.s"
+.include "assets/music/auxSong.h.s"
+
 
  
 .include "sys/render.h.s"
@@ -89,6 +91,10 @@ _m_game_createInitTemplate::
 ;===================================================================================================================================================
 _m_game_init::
    call _sys_init_render
+
+   ld de, #_gameSong
+   call cpct_akp_musicInit_asm
+
    call set_int_handler
 
    ;call  _man_entityInit
@@ -181,9 +187,6 @@ call _m_HUD_renderLifes
 ei
    call _m_HUD_renderScore
    testIr:
-      ld a, (current_interruption)
-      cp #1
-      call z, playMusic
 
       ld a, (current_interruption)
       cp #0
