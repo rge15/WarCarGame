@@ -20,6 +20,7 @@
 .include "resources/entityInfo.s"
 .include "resources/sprites.h.s"
 .include "resources/animations.h.s"
+.include "man/HUD.h.s"
 
 
 ;===================================================================================================================================================
@@ -39,6 +40,12 @@
 ;===================================================================================================================================================
 .globl _m_functionMemory
 .globl _m_signatureMatch
+
+;===================================================================================================================================================
+; Manager data
+;===================================================================================================================================================
+_m_render_tilemap:
+    .ds 2
 
 
 ;===================================================================================================================================================
@@ -63,7 +70,7 @@ _sys_init_render::
     ld de, #16
     call cpct_setPalette_asm
 
-    call _sys_render_renderTileMap  
+    ;call _sys_render_renderTileMap  
     ret
 
 ;===================================================================================================================================================
@@ -150,5 +157,126 @@ _sys_render_renderTileMap::
     ld hl, #0xC000             ; Video mem. to draw tilemap
     ld de, #_tilemap_01        ; Tilemap to be draw
     call cpct_etm_drawTilemap4x8_ag_asm
+
+    ret
+
+
+;===================================================================================================================================================
+; FUNCION _sys_render_renderHUDLifes
+; Función encargada renderizar las vidaz en funcion de su estado
+; HL : Llega el inicio del array de vidas
+;===================================================================================================================================================
+_sys_render_renderHUDLifes::
+    ld a, #0x03
+    renderHUDLife:
+    push af
+    
+    inc (hl)
+    dec (hl)
+    push hl
+    jr Z , setEmptyLife
+    jr NZ , setLife
+    
+    setEmptyLife:
+    ld hl, #_HUDLife_1
+    jp startDraw
+    setLife:
+    ld hl, #_HUDLife_0
+    startDraw:
+    pop de
+    push de
+    push hl
+    ex de, hl
+    inc hl
+    ld e, (hl)
+    inc hl
+    ld d, (hl)
+    inc hl
+    ld hl, #_m_HUD_lifeHeight
+    ld b, (hl)
+    ld hl, #_m_HUD_lifeWidth
+    ld c, (hl)
+    pop hl     
+
+    call cpct_drawSprite_asm
+    pop hl
+    inc hl
+    inc hl
+    inc hl
+    pop af
+    dec a
+    jr NZ, renderHUDLife
+
+
+    ret
+
+_sys_render_renderHUDScore::
+
+    inc a
+    dec a
+    jr Z, value0
+    dec a
+    jr Z, value1
+    dec a
+    jr Z, value2
+    dec a
+    jr Z, value3
+    dec a
+    jr Z, value4
+    dec a
+    jr Z, value5
+    dec a
+    jr Z, value6
+    dec a
+    jr Z, value7
+    dec a
+    jr Z, value8
+    dec a
+    jr Z, value9
+    ; jr NZ, dontRender
+
+    value0:
+    ld hl, #_spriteScore_00
+    jp render
+
+    value1:
+    ld hl, #_spriteScore_01
+    jp render
+
+    value2:
+    ld hl, #_spriteScore_02
+    jp render
+
+    value3:
+    ld hl, #_spriteScore_03
+    jp render
+
+    value4:
+    ld hl, #_spriteScore_04
+    jp render
+
+    value5:
+    ld hl, #_spriteScore_05
+    jp render
+
+    value6:
+    ld hl, #_spriteScore_06
+    jp render
+
+    value7:
+    ld hl, #_spriteScore_07
+    jp render
+
+    value8:
+    ld hl, #_spriteScore_08
+    jp render
+
+    value9:
+    ld hl, #_spriteScore_09
+
+    render:
+    call cpct_drawSprite_asm
+
+    dontRender:
 
     ret

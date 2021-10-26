@@ -1,7 +1,16 @@
 .module Macros
+.include "resources/macros.h.s"
 
-; .include "resources/macros.h.s"
+.macro PREPARE_SCORE_DIGIT_TO_RENDER _vmem 
 
+    and #0x0F
+    ld de, #_vmem
+    ld hl, #_m_HUD_scoreHeight
+    ld b, (hl)
+    ld hl, #_m_HUD_scoreWidth
+    ld c, (hl)
+
+.endm 
 
 ;;Cargar el valor de _m_sizeOfEntity
 .macro LOAD_VARIABLE_IN_REGISTER _var, _register
@@ -11,6 +20,12 @@
 
 ;;Cargar crear entidades con el template indicado
 .macro CREATE_ENTITY_FROM_TEMPLATE _template
+    ld bc, #_template
+    call _m_game_createInitTemplate
+.endm
+
+;;Cargar crear entidades con el template indicado
+.macro CREATE_ENTITY_FROM_REGISTER _template
     ld bc, #_template
     call _m_game_createInitTemplate
 .endm

@@ -131,8 +131,49 @@ _sys_collision_updateMultiple::
     jr c, _no_collision
 
     _collision:
-    ld a, #0xFF
-    ld (0xC000), a
+    ;============
+    ; ix = chequeas con todos
+    ; iy = si colisiona con ix
+    ; para cada tipo definir un comportamiento de colisión con el resto de tipos
+    ; if ix = type a
+    ; ver que type es iy y ejecutar comportamiento
+    ;====ix_entity=========|||===============behaviour iy_entity================================================================================
+    ; (DONE / TODO) e_type_player         = si choca con cualquier cosa que no sea una bala propia, se resta una vida al jugador y punto
+    ; (DONE / TODO) e_type_enemy          = si choca con una bullet_player se destruye así mismo y la bala tambien se destruye
+    ; (DONE / TODO) e_type_enemy_spawner  = si choca con una bullet_player se resta una vida así mismo y la bala tambien se destruye
+    ; (DONE / TODO) e_type_bullet                = si choca con un enemy se destruye así mismo, al enemy tambien se destruye, si es un spawner se le resta una vida al spawner, 
+    ;                                si es una enemyBullet se eliminan las 2
+    ; (DONE) e_type_enemyBullet           = si es una bullet se destruyen los dos y au
+    ;===========================================================================================================================================
+    push de
+    push hl
+
+    ld a, #0x01
+    and e_type(ix)
+    call NZ, playerCollisionBehaviour
+
+    ld a, #0x04
+    and e_type(ix)
+    call NZ, bulletCollisionBehaviour
+
+    ld a, #0x08
+    and e_type(ix)
+    call NZ, enemyCollisionBehaviour
+
+    ld a, #0x10
+    and e_type(ix)
+    call NZ, enemySpawnerCollisionBehaviour
+
+    ld a, #0x20
+    and e_type(ix)
+    call NZ, enemyBulletCollisionBehaviour
+    
+    pop hl
+    pop de
+
+
+    ; ld a, #0xFF
+    ; ld (0xC000), a
     ;jr _jumpNext
     jr _next_iy
     
@@ -401,3 +442,129 @@ _sys_setEntityCollisionPoints::
     _stopCheckingCollisionPoints:
 
 ret
+
+
+;===================================================================================================================================================
+; FUNCION playerCollisionBehaviour
+; Comportamiento de las colisiones del jugador
+; NO llega nada
+;===================================================================================================================================================
+playerCollisionBehaviour::
+    ld a, #0x04
+    and e_type(iy)
+    call Z, _man_game_decreasePlayerLife
+    ret
+
+
+
+;===================================================================================================================================================
+; FUNCION enemyCollisionBehaviour
+; Comportamiento de las colisiones del enemigo
+; NO llega nada
+;===================================================================================================================================================
+enemyCollisionBehaviour::
+    ld a, #0x04
+    and e_type(iy)
+    ret Z
+
+    call destroyPairOfEntities
+
+    call _man_game_decreaseEnemyCounter
+    
+    call _m_game_bulletDestroyed
+
+    ret
+
+
+;===================================================================================================================================================
+; FUNCION destroyPairOfEntities
+; Método encargado las dos entidades que colisionan
+; NO llega nada
+;===================================================================================================================================================
+destroyPairOfEntities::
+    push iy
+    pop hl 
+    call _m_game_destroyEntity
+
+    push ix
+    pop hl 
+    call _m_game_destroyEntity  
+    
+    ret
+
+
+;===================================================================================================================================================
+; FUNCION enemySpawnerCollisionBehaviour
+; Método encargado de las colisiones del enemySpawner
+; NO llega nada
+;===================================================================================================================================================
+enemySpawnerCollisionBehaviour::
+
+    ld a, #0x04
+    and e_type(iy)
+    ret Z
+
+    call destroyPairOfEntities
+    call _m_game_bulletDestroyed
+
+    ret
+
+
+
+; e_type_bullet                = si choca con un enemy se destruye así mismo, al enemy tambien se destruye, si es un spawner se le resta una vida al spawner,
+;                                Y SE BORRA ASÍ MISMO
+;                                si es una enemyBullet se eliminan las 2
+
+;===================================================================================================================================================
+; FUNCION bulletCollisionBehaviour
+; Método encargado de las colisiones del bullet
+; NO llega nada
+;===================================================================================================================================================
+bulletCollisionBehaviour::
+    ld a, #0x08
+    and e_type(iy)
+    jr NZ, destroyEnity
+    ld a, #0x20
+    and e_type(iy)
+    jr NZ, destroyEnity
+    ld a, #0x10
+    and e_type(iy)
+    jr NZ, decreaseLifeSpawner
+
+    ret
+    decreaseLifeSpawner:
+    ;;Llamar método resta via al spawner
+    
+    push ix
+    pop hl 
+    call _m_game_destroyEntity
+    call _m_game_bulletDestroyed
+    
+    ret
+    destroyEnity:
+
+    ld a, #0x08
+    and e_type(iy)
+    call NZ, _man_game_decreaseEnemyCounter
+
+    call destroyPairOfEntities 
+
+    ret
+
+
+
+;===================================================================================================================================================
+; FUNCION enemyBulletCollisionBehaviour
+; Método encargado de las colisiones del enemyBullet
+; NO llega nada
+;===================================================================================================================================================
+enemyBulletCollisionBehaviour::
+    ld a, #0x04
+    and e_type(iy)
+    ret Z
+
+    call _m_game_bulletDestroyed
+
+    call destroyPairOfEntities
+
+    ret

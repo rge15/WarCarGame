@@ -204,6 +204,9 @@ _sys_ai_spawnEnemy::
 
    ret
 
+_sys_ai_behaviourShield:
+   ret
+
 ; IX: spawner entity
 _sys_ai_decrement_spawner_hp:
    ;; TODO: o lo que sae
