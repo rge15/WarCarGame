@@ -213,7 +213,33 @@ t_enemy_patrol_x_shoot_y:
 
 .globl spawner_patrol_01
 ; es como un enemy raealmente
-t_spawner_01:
+t_spawner_template_01:
+   .db #e_type_spawner
+   .db #0x0b                                 ; cmp
+   .db #16                                    ; x
+   .db #50                                    ; y
+   .db #0x06                                 ; width
+   .db #0x0C                                 ; heigth
+   .db #0x00                                 ; vx
+   .db #0x00                                 ; vy
+   .dw #_sprite_player02                      ; sprite
+   .db #0x00                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
+   .db #0x00                                 ; prev. orientation
+   .dw #0x0000                               ; prevptr
+   .dw #_sys_ai_behaviourSpawner_template             ; ai_behaviour
+   .db #0x16                                 ; ai_counter
+   .dw #0x0                                  ; animator
+   .db #0x0A                                 ; anim. counter
+   .dw #0x0000                               ; input_behaviour
+   .db #0x00                                 ; e_ai_aim_x
+   .db #0x00                                 ; e_ai_aim_y
+   .db #3                                 ; e_ai_aux_l
+   .db #0x00                                 ; e_ai_aux_h
+   .dw #t_enemy_testing
+   ; .db #0x00                                 ; e_patrol_step_l
+   ; .db #0x00                                 ; e_patrol_step_h
+
+t_spawner_patrol_01:
    .db #e_type_spawner
    .db #0x0b                                 ; cmp
    .db #16                                    ; x

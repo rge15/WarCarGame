@@ -174,16 +174,15 @@ _sys_ai_movida:
    ret
 
 ;===============================================================================
-; Genera una entidad _bullet_template y le cambia la posicion a la del enemy
+; Genera un patron de entidades que hay en patrol_step
 ; BC: posicion donde debe sale
+; Destroy: IX, IY, HL, BC
 ;; TODO[Edu]: no sale del centro de la entidad
 ;===============================================================================
 _sys_ai_spawnEnemy_patrol::
    push bc
    ld hl, #_sys_ai_enemy_count
    inc (hl)
-
-   ;; TODO[Edu]: pasar por paraetro el template para diferentes enemigos
 
    ;; En el spawner los valores patrol_step son el template de la entidad a spawnear
    ld h, e_patrol_step_h(ix)
@@ -202,28 +201,41 @@ _sys_ai_spawnEnemy_patrol::
 
    pop bc
 
+   ;; posicion del spawner al enemy que spawnea
    ld e_xpos(ix), b
-   ; ld a, c
-   ; add #20
    ld e_ypos(ix), c
 
-   ;; TODO[Edu]: segun el template del enemy habria que cambiar
-   ; call _sys_ai_updateNextPatrolCoords
    push iy
    pop ix
+   call _sys_patrol_next_spawner
 
-   call _sys_patrol_next
+   ret
 
-   ; inc e_patrol_step_h(ix)
-   ; inc e_patrol_step_h(ix)
-   ; ld l, e_patrol_step_l(ix)
+;===============================================================================
+; Genera entidades de un template que esta en patrol_step
+; BC: posicion donde debe sale
+; Destroy: IX, IY, HL, BC
+;; TODO[Edu]: no sale del centro de la entidad
+;===============================================================================
+_sys_ai_spawnEnemy_template:
+   push bc
+   ld hl, #_sys_ai_enemy_count
+   inc (hl)
 
-   ; ld h, e_patrol_step_h(ix)
-   ; ld l, e_patrol_step_l(ix)
-   ; inc hl
-   ; inc hl
-   ; ld e_patrol_step_h(ix), h
-   ; ld e_patrol_step_l(ix), l
+   ;; En el spawner los valores patrol_step son el template de la entidad a spawnear
+   ld b, e_patrol_step_h(ix)
+   ld c, e_patrol_step_l(ix)
+
+   call _m_game_createInitTemplate
+
+   push hl
+   pop ix
+
+   pop bc
+
+   ;; posicion del spawner al enemy que spawnea
+   ld e_xpos(ix), b
+   ld e_ypos(ix), c
 
    ret
 
@@ -483,7 +495,6 @@ _sys_ai_behaviourPatrolRelative_shoot:
    call _sys_ai_shoot_condition_l
    ret
 
-
 _sys_ai_behaviourAutoMoveIn_x::
    ret
 
@@ -492,7 +503,7 @@ _sys_ai_behaviourAutoMoveIn_y::
 
 _sys_ai_behaviourSpawner_template::
    call _sys_ai_beh_spawner_commmon
-   call c, _sys_ai_spawnEnemy_patrol
+   call c, _sys_ai_spawnEnemy_template
    ret
 
 _sys_ai_behaviourSpawner_patrol::

@@ -15,7 +15,7 @@ _level1:
     ; .db #50                                 ; Entity X
     ; .db #50                                 ; Entity Y
     ; .db #0x01
-    .dw #t_spawner_01     ;Entity Template
+    .dw #t_spawner_template_01     ;Entity Template
     .db #20                                 ; Entity X
     .db #60                                 ; Entity Y
     .db #level_separator

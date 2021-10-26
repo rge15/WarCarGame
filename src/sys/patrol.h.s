@@ -20,4 +20,6 @@
 
 .globl _sys_patrol_next_relative
 
+.globl _sys_patrol_next_spawner
+
 patrol_invalid_move = -1

@@ -115,6 +115,16 @@ _sys_patrol_next_relative:
    ld e_ai_aim_y(ix), a
    ret
 
+_sys_patrol_next_spawner:
+   ld h, e_patrol_step_h(ix)
+   ld l, e_patrol_step_l(ix)
+   inc hl
+   inc hl
+   ld e_patrol_step_h(ix), h
+   ld e_patrol_step_l(ix), l
+
+   ret
+
 reset_patrol:
    inc hl
    ld a, (hl)
