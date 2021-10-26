@@ -67,7 +67,7 @@ _m_game_init::
    call  _sys_ai_init
    call  _man_entityInit
 
-   ;CREATE_ENTITY_FROM_TEMPLATE t_enemy_patrolr_01
+   ;CREATE_ENTITY_FROM_TEMPLATE t_enemy_patrol_relative_01
 
    ; CreatePlayer & Save in _m_playerEntity   
    CREATE_ENTITY_FROM_TEMPLATE t_player
@@ -78,10 +78,13 @@ _m_game_init::
    ld (hl), e
    ex de,hl
 
+   ; CREATE_ENTITY_FROM_TEMPLATE t_bullet_enemy_l
+   CREATE_ENTITY_FROM_TEMPLATE t_enemy_testing
+
    ; CREATE_ENTITY_FROM_TEMPLATE t_enemy_patrol_01
    ; CREATE_ENTITY_FROM_TEMPLATE t_enemy_patrol_x_shoot_y
 
-   CREATE_ENTITY_FROM_TEMPLATE t_enemy_patrolr_01
+   ; CREATE_ENTITY_FROM_TEMPLATE t_enemy_patrol_relative_01
 
    ; CREATE_ENTITY_FROM_TEMPLATE t_enemy_seeknpatrol
    ; CREATE_ENTITY_FROM_TEMPLATE t_spawner_01
@@ -147,7 +150,7 @@ ret
 ;===================================================================================================================================================
 _m_game_createEnemy::
    ;Create Enemy
-   ;ld bc, #t_enemy_patrolr_01   
+   ;ld bc, #t_enemy_patrol_relative_01   
    ;call _m_game_createInitTemplate   
    
    ret

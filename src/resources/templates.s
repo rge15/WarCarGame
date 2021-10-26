@@ -55,7 +55,7 @@ t_player:
    .db #0x00                                 ; e_patrol_step_l
    .db #0x00                                 ; e_patrol_step_h
 
-t_enemy_patrolr_01:
+t_enemy_patrol_relative_01:
    .db #e_type_enemy                                 ; type
    .db #0x2b                                 ; cmp
    .db #16                                    ; x
@@ -110,9 +110,10 @@ t_enemy_seeknpatrol:
 t_enemy_patrol_01:
    .db #e_type_enemy                                 ; type
    .db #0x2b                                 ; cmp
-   ; .db #40                                 ; x
-   ; .db #40                                 ; y
-   .dw #patrol_02
+   ; .db (patrol_02)                           ; x
+   ; .db (patrol_02+1)
+   .db #50                                 ; x
+   .db #50                                 ; y
    .db #0x06                                 ; width
    .db #0x0C                                 ; heigth
    .db #0x00                                 ; vx
@@ -131,6 +132,30 @@ t_enemy_patrol_01:
    .db #0x00                                 ; e_ai_aux_l
    .db #0x00                                 ; e_ai_aux_h
    .dw #patrol_02                            ; e_patrol_step
+
+t_enemy_testing:
+   .db #e_type_enemy                                 ; type
+   .db #0x2b                                 ; cmp
+   .db #50                                 ; x
+   .db #50                                 ; y
+   .db #0x06                                 ; width
+   .db #0x0C                                 ; heigth
+   .db #0x00                                 ; vx
+   .db #0x00                                 ; vy
+   .dw #_sprite_enemy01                      ; sprite
+   .db #0x00                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
+   .db #0x00                                 ; prev. orientation
+   .dw #0x0000                               ; prevptr
+   .dw #_sys_ai_behaviourPatrol_shoot_l; ai_behaviour
+   .db #0x1                                 ; ai_counter
+   .dw #0x0                                  ; animator
+   .db #0x0A                                 ; anim. counter
+   .dw #0x0000                               ; input_behaviour
+   .db #0x00                                 ; e_ai_aim_x
+   .db #0x00                                 ; e_ai_aim_y
+   .db #0x00                                 ; e_ai_aux_l
+   .db #0x00                                 ; e_ai_aux_h
+   .dw #patrol_none                            ; e_patrol_step
 
 
 ;; e_ai_aux_l para decir si dispara en x o en y
@@ -211,7 +236,7 @@ t_bullet_player:
 
 ;; la bullet del enemey
 t_bullet_enemy_sp:
-   .db #e_type_bullet                                 ; type
+   .db #e_type_enemy_bullet                                 ; type
    .db #0x2B                                 ; cmp
    .db #0x00                                 ; x
    .db #0x00                                 ; y
@@ -236,10 +261,10 @@ t_bullet_enemy_sp:
    .db #0x00                                 ; e_patrol_step_h
 
 t_bullet_enemy_l:
-   .db #e_type_bullet                                 ; type
+   .db #e_type_enemy_bullet                                 ; type
    .db #0x2B                                 ; cmp
-   .db #0x00                                 ; x
-   .db #0x00                                 ; y
+   .db #50
+   .db #150
    .db #0x03                                 ; width
    .db #0x06                                 ; heigth
    .db #0x00                                 ; vx
