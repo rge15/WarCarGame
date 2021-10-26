@@ -211,6 +211,7 @@ t_enemy_patrol_x_shoot_y:
    .db #0x00                                 ; e_ai_aux_h
    .dw #patrol_03                            ; e_patrol_step
 
+.globl spawner_patrol_01
 ; es como un enemy raealmente
 t_spawner_01:
    .db #e_type_spawner
@@ -225,7 +226,7 @@ t_spawner_01:
    .db #0x00                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
-   .dw #_sys_ai_behaviourSpawner             ; ai_behaviour
+   .dw #_sys_ai_behaviourSpawner_patrol             ; ai_behaviour
    .db #0x16                                 ; ai_counter
    .dw #0x0                                  ; animator
    .db #0x0A                                 ; anim. counter
@@ -234,8 +235,9 @@ t_spawner_01:
    .db #0x00                                 ; e_ai_aim_y
    .db #3                                 ; e_ai_aux_l
    .db #0x00                                 ; e_ai_aux_h
-   .db #0x00                                 ; e_patrol_step_l
-   .db #0x00                                 ; e_patrol_step_h
+   .dw #spawner_patrol_01
+   ; .db #0x00                                 ; e_patrol_step_l
+   ; .db #0x00                                 ; e_patrol_step_h
 
 t_bullet_player:
    .db #e_type_bullet                                 ; type

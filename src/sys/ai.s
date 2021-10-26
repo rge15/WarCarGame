@@ -178,15 +178,24 @@ _sys_ai_movida:
 ; BC: posicion donde debe sale
 ;; TODO[Edu]: no sale del centro de la entidad
 ;===============================================================================
-_sys_ai_spawnEnemy::
+_sys_ai_spawnEnemy_patrol::
    push bc
    ld hl, #_sys_ai_enemy_count
    inc (hl)
 
    ;; TODO[Edu]: pasar por paraetro el template para diferentes enemigos
-   ld bc, #t_enemy_seeknpatrol
-   call _m_game_createInitTemplate
 
+   ;; En el spawner los valores patrol_step son el template de la entidad a spawnear
+   ld h, e_patrol_step_h(ix)
+   ld l, e_patrol_step_l(ix)
+
+   ld c, (hl)
+   inc hl
+   ld b, (hl)
+   push ix
+   pop iy
+
+   call _m_game_createInitTemplate
 
    push hl
    pop ix
@@ -194,15 +203,35 @@ _sys_ai_spawnEnemy::
    pop bc
 
    ld e_xpos(ix), b
-   ld a, c
-   add #20
-   ; ld e_ypos(ix), c
-   ld e_ypos(ix), a
+   ; ld a, c
+   ; add #20
+   ld e_ypos(ix), c
 
    ;; TODO[Edu]: segun el template del enemy habria que cambiar
    ; call _sys_ai_updateNextPatrolCoords
+   push iy
+   pop ix
+
+   call _sys_patrol_next
+
+   ; inc e_patrol_step_h(ix)
+   ; inc e_patrol_step_h(ix)
+   ; ld l, e_patrol_step_l(ix)
+
+   ; ld h, e_patrol_step_h(ix)
+   ; ld l, e_patrol_step_l(ix)
+   ; inc hl
+   ; inc hl
+   ; ld e_patrol_step_h(ix), h
+   ; ld e_patrol_step_l(ix), l
 
    ret
+
+spawner_patrol_01:
+   .dw #t_enemy_testing
+   .dw #t_enemy_patrol_x_shoot_y
+   .dw #t_enemy_testing
+   .dw #t_enemy_patrol_x_shoot_y
 
 _sys_ai_behaviourShield:
    ret
@@ -461,9 +490,19 @@ _sys_ai_behaviourAutoMoveIn_x::
 _sys_ai_behaviourAutoMoveIn_y::
    ret
 
+_sys_ai_behaviourSpawner_template::
+   call _sys_ai_beh_spawner_commmon
+   call c, _sys_ai_spawnEnemy_patrol
+   ret
+
+_sys_ai_behaviourSpawner_patrol::
+   call _sys_ai_beh_spawner_commmon
+   call c, _sys_ai_spawnEnemy_patrol
+   ret
+
 ;; TODO: hacer estructura de datos para generar segun templates con un invalid al finla
 ;; TODO: comprobar que tengas 3 vidas y si tiene 0 4destroy
-_sys_ai_behaviourSpawner::
+_sys_ai_beh_spawner_commmon::
    push bc
    pop ix
 
@@ -478,7 +517,6 @@ _sys_ai_behaviourSpawner::
       ld d, #enemy_max_spawn
       ld a, (_sys_ai_enemy_count)
       cp d
-      call c, _sys_ai_spawnEnemy
    ret
 
 ;===============================================================================
