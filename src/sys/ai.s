@@ -178,9 +178,9 @@ _sys_ai_movida:
 ; Destroy: IX, IY, HL, BC
 ;; TODO[Edu]: no sale del centro de la entidad
 ;===============================================================================
-_sys_ai_spawnEnemy_patrol::
+_sys_ai_spawnEnemy_plist::
    push bc
-   ld hl, #_sys_ai_enemy_count
+   ld hl, #_m_enemyCounter
    inc (hl)
 
    ;; En el spawner los valores patrol_step son el template de la entidad a spawnear
@@ -218,7 +218,7 @@ _sys_ai_spawnEnemy_patrol::
 ;===============================================================================
 _sys_ai_spawnEnemy_template:
    push bc
-   ld hl, #_sys_ai_enemy_count
+   ld hl, #_m_enemyCounter
    inc (hl)
 
    ;; En el spawner los valores patrol_step son el template de la entidad a spawnear
@@ -494,9 +494,9 @@ _sys_ai_behaviourSpawner_template::
    call c, _sys_ai_spawnEnemy_template
    ret
 
-_sys_ai_behaviourSpawner_patrol::
+_sys_ai_behaviourSpawner_plist::
    call _sys_ai_beh_spawner_commmon
-   call c, _sys_ai_spawnEnemy_patrol
+   call c, _sys_ai_spawnEnemy_plist
    ret
 
 ;; TODO: hacer estructura de datos para generar segun templates con un invalid al finla

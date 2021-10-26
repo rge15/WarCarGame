@@ -12,7 +12,7 @@
 .globl t_enemy_testing2
 
 .globl t_spawner_template_01
-.globl t_spawner_patrol_01
+.globl t_spawner_plist_01
 
 .globl t_bullet_player
 .globl t_bullet_enemy_sp

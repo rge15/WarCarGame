@@ -62,7 +62,6 @@ patrol_relative_02:
    .dw #patrol_relative_02
 
 patrol_relative_03:
-   .db  0, 0
    .db  0, 12
    .db  24, 12
    .db  24, 0
@@ -71,10 +70,10 @@ patrol_relative_03:
 
 
 ;===============================================================================
-; Spawner Patrol
+; Spawner Patrol List
 ;===============================================================================
 ; !!!! el tamanyo tiene que ser menor que enemy_max_spawn !!!j
-spawner_patrol_01:
+spawner_plist_01:
    .dw #t_enemy_testing
    .dw #t_enemy_patrol_x_shoot_y
    .dw #t_enemy_testing

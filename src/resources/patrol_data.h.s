@@ -9,4 +9,4 @@
 .globl patrol_relative_02
 .globl patrol_relative_03
 
-.globl spawner_patrol_01
+.globl spawner_plist_01

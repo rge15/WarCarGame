@@ -64,8 +64,8 @@ t_player:
 t_enemy_patrol_relative_01:
    .db #e_type_enemy                                 ; type
    .db #0x2b                                 ; cmp
-   .db #0                                    ; x
-   .db #0                                    ; y
+   .db #40                                    ; x
+   .db #80                                    ; y
    .db #0x06                                 ; width
    .db #0x0C                                 ; heigth
    .db #0x00                                 ; vx
@@ -86,8 +86,8 @@ t_enemy_patrol_relative_01:
    ;; poner en e_ai_aux mismo valor que position
    ;; para que funcione patrol relativo
    .db #40
-   .db #60                                 ; e_ai_aux_h
-   .dw #patrol_relative_03                            ; e_patrol_step
+   .db #80                                 ; e_ai_aux_h
+   .dw #patrol_relative_01                            ; e_patrol_step
 
 t_enemy_seeknpatrol:
    .db #e_type_enemy                                 ; type
@@ -234,13 +234,13 @@ t_spawner_template_01:
    .dw #0x0000                               ; input_behaviour
    .db #0x00                                 ; e_ai_aim_x
    .db #0x00                                 ; e_ai_aim_y
-   .db #3                                 ; e_ai_aux_l
-   .db #0x00                                 ; e_ai_aux_h
+   .db #10                                    ; e_ai_aux_l
+   .db #0x80                                 ; e_ai_aux_h
    .dw #t_enemy_patrol_relative_01
    ; .db #0x00                                 ; e_patrol_step_l
    ; .db #0x00                                 ; e_patrol_step_h
 
-t_spawner_patrol_01:
+t_spawner_plist_01:
    .db #e_type_spawner
    .db #0x0b                                 ; cmp
    .db #16                                    ; x
@@ -253,7 +253,7 @@ t_spawner_patrol_01:
    .db #0x00                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
    .db #0x01                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
-   .dw #_sys_ai_behaviourSpawner_patrol             ; ai_behaviour
+   .dw #_sys_ai_behaviourSpawner_plist             ; ai_behaviour
    .db #0x00                                 ; ai_counter
    .dw #0x0                                  ; animator
    .db #0x0A                                 ; anim. counter
@@ -262,7 +262,7 @@ t_spawner_patrol_01:
    .db #0x00                                 ; e_ai_aim_y
    .db #3                                 ; e_ai_aux_l
    .db #0x00                                 ; e_ai_aux_h
-   .dw #spawner_patrol_01
+   .dw #spawner_plist_01
    ; .db #0x00                                 ; e_patrol_step_l
    ; .db #0x00                                 ; e_patrol_step_h
 

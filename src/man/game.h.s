@@ -17,3 +17,5 @@
 ;================================================================================
 .globl _m_playerShot
 .globl _m_playerEntity
+
+.globl _m_enemyCounter
