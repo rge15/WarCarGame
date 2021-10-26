@@ -7,6 +7,7 @@
 .include "man/entity.h.s"
 .include "man/HUD.h.s"
 .include "resources/levels.h.s"
+.include "man/interruptions.h.s"
 
  
 .include "sys/render.h.s"
@@ -28,9 +29,9 @@
 
 ;;Descripcion : Contador de las interrupciones por la que vamos
 _m_irCtr:
-   .db 6
+   .db 1
 
-;;Descripcion : Saber si el jugador ha disparado ya 
+; ;;Descripcion : Saber si el jugador ha disparado ya 
 _m_playerShot:
    .db #0x00
 
@@ -65,7 +66,7 @@ victory_str:
    .asciz "Has ganao suprimo, dale a enter pa volver a generar endorcinas"
 ;===================================================================================================================================================
 ; FUNCION _m_game_createInitTemplate   
-; Crea la entidad con el template indicado
+; ; Crea la entidad con el template indicado
 ; BC : Valor de template a crear
 ;===================================================================================================================================================
 _m_game_createInitTemplate::
@@ -88,6 +89,8 @@ _m_game_createInitTemplate::
 ;===================================================================================================================================================
 _m_game_init::
    call _sys_init_render
+   call set_int_handler
+
    ;call  _man_entityInit
 
    ;CREATE_ENTITY_FROM_TEMPLATE _enemy_template_e
@@ -132,7 +135,7 @@ waitKeyPressed::
 ; NO llega ningun dato
 ;===================================================================================================================================================
 _m_game_play::
-   call _man_game_setManagerIr
+; call _man_game_setManagerIr
 ;==================
 ;Pantalla inicio
 ;==================
@@ -140,10 +143,10 @@ startGame:
    di
    ;TODO : Hacer una pantalla de inicio bonica y cargarla aquí
    ld hl, #0x0004
-   call cpct_setDrawCharM0_asm
+   ; call cpct_setDrawCharM0_asm
    ld iy, #press_str
    ld hl, #0xC000
-   call cpct_drawStringM0_asm
+   ; call cpct_drawStringM0_asm
    
    ld hl, #Key_Enter
    call waitKeyPressed
@@ -154,7 +157,7 @@ startGame:
 call _man_game_initGameVar
 call _m_HUD_initHUD
 ;reset _man_game_interruptionsReset
-call _man_game_interruptionsReset
+; call _man_game_interruptionsReset
 
 
 ;==================
@@ -166,6 +169,7 @@ call _man_entityInit
 
 ld hl, #_m_enemyCounter
 ld (hl), #0x00 
+
 call _man_game_loadLevel
 
 call _sys_render_renderTileMap
@@ -177,8 +181,12 @@ call _m_HUD_renderLifes
 ei
    call _m_HUD_renderScore
    testIr:
-      ld a, (_m_irCtr)
-      cp #6
+      ld a, (current_interruption)
+      cp #1
+      call z, playMusic
+
+      ld a, (current_interruption)
+      cp #0
       jr nz, testIr
       cpctm_setBorder_asm HW_YELLOW
       call _sys_ai_update
@@ -204,25 +212,25 @@ ei
 
 
       ;/
-      ;|  Codigo completamente auxiliar para checkear el flujo de juego -- START
+      ; ;|  Codigo completamente auxiliar para checkear el flujo de juego -- START
       ;\
-      ld hl, #Key_Enter
-      push hl
-      call cpct_scanKeyboard_f_asm
-      pop hl
-      push hl
-      call cpct_isKeyPressed_asm
-      pop hl
-      jr  z, auxJump
-         call _man_game_decreasePlayerLife
+      ; ld hl, #Key_Enter
+      ; push hl
+      ; call cpct_scanKeyboard_f_asm
+      ; pop hl
+      ; push hl
+      ; call cpct_isKeyPressed_asm
+      ; pop hl
+      ; jr  z, auxJump
+         ; call _man_game_decreasePlayerLife
          ; call _m_HUD_renderScore
 
       auxJump:
       ;/
-      ;|  Codigo completamente auxiliar para checkear el flujo de juego  -- END
+      ; ;|  Codigo completamente auxiliar para checkear el flujo de juego  -- END
       ;\
-      ld a, (_m_irCtr)
-      cp #6
+      ld a, (current_interruption)
+      cp #0
       jr nz, testIr
       halt
       
@@ -231,14 +239,14 @@ ei
    
 
    endGame:
-   di
+   ; di
    ;TODO : Hacer una pantalla de endgame bonica y cargarla aquí
    cpctm_clearScreen_asm 0
    ld hl, #0x0004
-   call cpct_setDrawCharM0_asm
+   ; call cpct_setDrawCharM0_asm
    ld iy, #restart_str
    ld hl, #0xC000
-   call cpct_drawStringM0_asm
+   ; call cpct_drawStringM0_asm
    
    ld hl, #Key_Enter
    call waitKeyPressed
@@ -247,14 +255,14 @@ ei
 
 
    victoryScreen:
-   di
+   ; di
    ;TODO : Hacer una pantalla de victoria bonica y cargarla aquí
    cpctm_clearScreen_asm 0
    ld hl, #0x0004
-   call cpct_setDrawCharM0_asm
+   ; call cpct_setDrawCharM0_asm
    ld iy, #victory_str
    ld hl, #0xC000
-   call cpct_drawStringM0_asm
+   ; call cpct_drawStringM0_asm
    
    
    ld hl, #Key_Enter
@@ -263,6 +271,15 @@ ei
    jp startGame
 
 ret
+
+
+playMusic::
+
+	cpctm_setBorder_asm HW_YELLOW
+
+   ret
+
+
 
 ;===================================================================================================================================================
 ; FUNCION _m_game_createEnemy   
@@ -279,7 +296,7 @@ _m_game_createEnemy::
 
 ;===================================================================================================================================================
 ; FUNCION _m_game_destroyEntity
-; Funcion que destruye la entidad indicada
+; ; Funcion que destruye la entidad indicada
 ; HL : Llega el valor de la entidad
 ;===================================================================================================================================================
 _m_game_destroyEntity::
@@ -289,7 +306,7 @@ _m_game_destroyEntity::
 
 ;===================================================================================================================================================
 ; FUNCION _m_game_bulletDestroyed
-; Funcion que indica al player que su bala ha sido destruida
+; ; Funcion que indica al player que su bala ha sido destruida
 ; HL : Llega el valor de la entidad
 ;===================================================================================================================================================
 _m_game_bulletDestroyed::
@@ -300,12 +317,12 @@ ret
 
 ;===================================================================================================================================================
 ; FUNCION _m_game_playerShot
-; Funcion que dispara si puede
+; ; Funcion que dispara si puede
 ; NO llega nada
 ;===================================================================================================================================================
 _m_game_playerShot::
-   ;; Se comprueba si el jugador ha disparado ya
-   ;; Si el ai_counter del player es != 0 es que está en cooldown (ha disparado)
+   ; ;; Se comprueba si el jugador ha disparado ya
+   ; ;; Si el ai_counter del player es != 0 es que está en cooldown (ha disparado)
    GET_ENTITY_POSITION #_m_playerEntity
    push de
    pop ix
@@ -445,7 +462,7 @@ _m_game_playerShot::
 
    stopCheckOrientation:
 
-   ;; Indicamos que ya ha disparado
+   ; ; ;; Indicamos que ya ha disparado
    GET_ENTITY_POSITION, #_m_playerEntity
    push de
    pop ix
@@ -484,7 +501,7 @@ _man_game_setManagerIr::
    halt
    halt
    call cpct_waitVSYNC_asm
-   di
+   ; di
    ld a, #0xC3
    ld (#0x38), a
    ld hl, #_man_game_ir
@@ -521,7 +538,7 @@ _man_game_ir::
 ; NO llega ningun dato
 ;===================================================================================================================================================
 _man_game_interruptionsReset::
-   di
+   ; di
    ld a, #0x06
    ld (_m_irCtr),a
    ei
@@ -610,7 +627,7 @@ _man_game_loadLevel::
       jp checkNextLevelEntity
 
       playerCreated:
-      ;Aqui guardamos en _m_playerEntity la direccion de memoria del jugador
+      ; ;Aqui guardamos en _m_playerEntity la direccion de memoria del jugador
       push ix
       pop  de
       push hl     
@@ -646,7 +663,7 @@ _man_game_loadLevel::
 _man_game_updateGameStatus::
 
    ; /
-   ; | Se checkea si el jugador ha perdido las 3 vidas
+   ; ; | Se checkea si el jugador ha perdido las 3 vidas
    ; \
    ld hl , #_m_lifePlayer
    inc (hl)
