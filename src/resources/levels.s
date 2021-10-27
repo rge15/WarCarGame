@@ -41,7 +41,7 @@ _level1:
     ; .dw #t_enemy_seeknpatrol
     .dw #t_enemy_testing
     .db #20                   ;Entity X
-    .db #50                   ;Entity Y
+    .db #90                   ;Entity Y
     ;
     ; .db #level_new_entity
     ; .dw #t_enemy_patrol_01

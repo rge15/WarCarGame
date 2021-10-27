@@ -109,6 +109,9 @@ _sys_ai_updateOneEntity::
 
     ret
 
+;;--------------------------------------------------------------------------------
+;; FUNCTIONS OF BEHAVIOURS
+;;--------------------------------------------------------------------------------
 
 ;===============================================================================
 ; El enemigo dispara una bala hacia el jugador, se destruye al llegar
@@ -138,7 +141,73 @@ _sys_ai_shootBulletSeek::
 
    ret
 
+;; Crea la bala, le pone la posicion del enemigo que la dispara
+;; y le pone en ai_aim las coords del player
 _sys_ai_shoot_bullet_l_common:
+   call _sys_ai_reset_shoot_aictr
+   push bc
+
+   CREATE_ENTITY_FROM_TEMPLATE t_bullet_enemy_l
+   push hl
+   pop ix
+
+   inc b
+   inc c
+
+   ;; TODO: calcular margen para centro
+   pop bc
+
+   ld e_xpos(ix), b
+   ld e_ypos(ix), c
+
+   GET_PLAYER_ENTITY iy
+   call _sys_ai_aim_to_entity
+
+   ret
+
+_sys_ai_shoot_bullet_l_x:
+   call _sys_ai_shoot_bullet_l_common
+   ld d, #1
+   call _sys_ai_seekCoords_x
+   ret
+
+_sys_ai_shoot_bullet_l_y:
+   call _sys_ai_shoot_bullet_l_common
+   ld d, #2
+   call _sys_ai_seekCoords_y
+   ret
+
+_sys_ai_shoot_bullet_l_xy:
+   call _sys_ai_shoot_bullet_l_common
+   ld h, e_xpos(ix)
+   ld l, e_ypos(ix)
+
+   ; ld b, e_ai_aim_x(ix)
+   ; ld c, e_ai_aim_y(ix)
+
+   ld a, e_ai_aim_x(ix)
+   add a, h
+   ld h, a
+
+   ld a, e_ai_aim_y(ix)
+   add a, l
+   ld l, a
+
+   ld a, h
+   cp l
+
+   jr c, shoot_on_y_axis
+   jr nc, shoot_on_x_axis
+   ret
+
+   shoot_on_x_axis:
+      ld d, #1
+      call _sys_ai_seekCoords_y
+      ret
+   shoot_on_y_axis:
+      ld d, #1
+      call _sys_ai_seekCoords_x
+
    ret
 
 ;===============================================================================

@@ -62,18 +62,20 @@ _sys_ai_behaviourBulletLinear::
    push bc
    pop ix
 
-   call _sys_ai_check_tile_collision_from_ai
+   ; call _sys_ai_check_tile_collision_from_ai
+   ;; si colisiona
+   ; CHECK_VX_VY_ZERO_JR has_to_destroy_bullet
+
    dec e_aictr(ix)
    jr z, has_to_destroy_bullet
-
-   ; CHECK_VX_VY_ZERO_JR has_to_destroy_bullet
    ret
+
 
    has_to_destroy_bullet:
       push ix
       pop hl
-      call _man_setEntity4Destroy
-      ; call _sys_ai_reset_bullet_aictr
+      call _m_game_destroyEntity
+      ; call _man_setEntity4Destroy
    ret
 
 ;===============================================================================
@@ -138,6 +140,8 @@ _sys_ai_behaviourBulletSeektoPlayer::
 ;; AI MOVE BEHAVIOURS
 ;;--------------------------------------------------------------------------------
 
+_sys_ai_beh_move_none:
+   ret
 
 ;===============================================================================
 ; actualiza _sys_ai_nextPatrolCoords
@@ -157,17 +161,17 @@ _sys_ai_behaviourPatrol::
 
    ret
 
-_sys_ai_behaviourPatrol_shoot_l::
-   call _sys_ai_behaviourPatrol
-   call _sys_ai_shoot_condition_l
-
-   ret
-
-_sys_ai_behaviourPatrol_shoot_sp::
-   call _sys_ai_behaviourPatrol
-   call _sys_ai_shoot_condition_sp
-
-   ret
+; _sys_ai_behaviourPatrol_shoot_l::
+;    call _sys_ai_behaviourPatrol
+;    call _sys_ai_shoot_condition_l
+;
+;    ret
+;
+; _sys_ai_behaviourPatrol_shoot_sp::
+;    call _sys_ai_behaviourPatrol
+;    call _sys_ai_shoot_condition_sp
+;
+;    ret
 
 
 ;===============================================================================
@@ -200,10 +204,10 @@ _sys_ai_behaviourPatrolRelative::
 ; de momoento shoot_linear
 ; Destroy: HL, BC
 ;===============================================================================
-_sys_ai_behaviourPatrolRelative_shoot:
-   call _sys_ai_behaviourPatrolRelative
-   call _sys_ai_shoot_condition_l
-   ret
+; _sys_ai_behaviourPatrolRelative_shoot:
+;    call _sys_ai_behaviourPatrolRelative
+;    call _sys_ai_shoot_condition_l
+;    ret
 
 ;; TODO: si pos inicial 1 peta no se
 ;===============================================================================
@@ -363,7 +367,23 @@ _sys_ai_shoot_condition_sp:
    pop ix
    ret
 
+_sys_ai_beh_shoot_x:
+   call _sys_ai_shoot_condition_common
+   ; push ix
+   call z, _sys_ai_shoot_bullet_l_x
+   ; pop ix
+   ret
 
+_sys_ai_beh_shoot_y:
+   call _sys_ai_shoot_condition_common
+   call z, _sys_ai_shoot_bullet_l_y
+   ret
+
+; no diagonal
+_sys_ai_beh_shoot_xy:
+   call _sys_ai_shoot_condition_common
+   call z, _sys_ai_shoot_bullet_l_xy
+   ret
 
 ;;--------------------------------------------------------------------------------
 ;; PRIVATE FUNCS

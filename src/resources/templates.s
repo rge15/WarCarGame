@@ -175,11 +175,11 @@ t_enemy_testing:
    .dw #0x0000                               ; prevptr
    ; .dw #_sys_ai_behaviourPatrol; ai_behaviour
    .dw #_sys_ai_beh_follow_player_x; ai_behaviour
-   .db #00
+   .db #t_shoot_timer_enemy
    .dw #0x0                                  ; animator
    .db #0x0A                                 ; anim. counter
    ; .dw #_sys_ai_shoot_condition_l                               ; input_behaviour
-   .dw #enemy_no_shoot                               ; input_behaviour
+   .dw #_sys_ai_beh_shoot_xy                               ; input_behaviour
    .db #0x00                                 ; e_ai_aim_x
    .db #0x00                                 ; e_ai_aim_y
    .db #test_time_fo                                 ; e_ai_aux_l
@@ -199,7 +199,7 @@ t_enemy_testing2:
    .db #0x00                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
-   .dw #_sys_ai_behaviourPatrol_shoot_l; ai_behaviour
+   .dw #_sys_ai_behaviourPatrol             ; ai_behaviour
    .db #0x1                                 ; ai_counter
    .dw #0x0                                  ; animator
    .db #0x0A                                 ; anim. counter
@@ -224,7 +224,7 @@ t_enemy_patrol_x_shoot_y:
    .db #0x00                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
-   .dw #_sys_ai_behaviourPatrol_shoot_l; ai_behaviour
+   .dw #_sys_ai_behaviourPatrol              ; ai_behaviour
    .db #t_shoot_timer_enemy                                 ; ai_counter
    .dw #0x0                                  ; animator
    .db #0x0A                                 ; anim. counter
@@ -531,7 +531,7 @@ t_enemy_01_L03:
    .db #0x00                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
-   .dw #_sys_ai_behaviourPatrol_shoot_l              ; ai_behaviour
+   .dw #_sys_ai_behaviourPatrol             ; ai_behaviour
    .db #t_shoot_timer_enemy                                 ; ai_counter
    .dw #0x0                                  ; animator
    .db #0x0A                                 ; anim. counter
@@ -555,7 +555,7 @@ t_enemy_02_L03:
    .db #0x00                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
-   .dw #_sys_ai_behaviourPatrol_shoot_l              ; ai_behaviour
+   .dw #_sys_ai_behaviourPatrol              ; ai_behaviour
    .db #t_shoot_timer_enemy                                 ; ai_counter
    .dw #0x0                                  ; animator
    .db #0x0A                                 ; anim. counter
