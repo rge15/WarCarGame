@@ -20,7 +20,7 @@
 .include "resources/templates.h.s"
 .include "resources/sprites.h.s"
 .include "game.h.s"
-.include "assets/tilemaps.h.s"
+.include "resources/tilemaps.h.s"
 
 
 ;===================================================================================================================================================
@@ -164,7 +164,6 @@ call _man_game_interruptionsReset
 restartLevel:
 di
 SET_TILESET _tileset_0
-
 call _man_entityInit
 ld hl, #_m_enemyCounter
 ld (hl), #0x00 

@@ -6,6 +6,7 @@
 .include "cpct_globals.h.s"
 .include "man/entity.h.s"
 .include "man/game.h.s"
+.include "sys/render.h.s"
 .include "cpctelera.h.s"
 .include "collision.h.s"
 .include "assets/maps/map01.h.s"
@@ -286,7 +287,14 @@ _sys_checkTilePosition::
     srl a ;; |
 
     add_hl_a    ;; HL = ty * tw + tx
-    ld  de, #_tilemap_01
+    push hl
+
+    ld hl, #_m_render_tilemap
+    ld e, (hl)
+    inc hl
+    ld d, (hl)
+
+    pop hl
     add hl, de
 
     ;; HL = tilemap + ty * tw + tx
