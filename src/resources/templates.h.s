@@ -32,4 +32,5 @@
 .globl t_enemy_01_L03
 .globl t_enemy_02_L03
 
-.globl test_time_fo
+.globl t_follow_timer
+; .globl test_time_fo2

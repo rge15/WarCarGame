@@ -8,17 +8,13 @@
 
 
 .globl _sys_ai_decrement_spawner_hp
-.globl _sys_ai_shoot_condition_l
 
 .globl _sys_ai_shoot_bullet_l_x
 .globl _sys_ai_shoot_bullet_l_y
-.globl _sys_ai_shoot_bullet_l_xy
+.globl _sys_ai_shoot_bullet_l_xy_rand
 
-.globl _sys_ai_shootBulletLinear
+; .globl _sys_ai_shootBulletLinear
 .globl _sys_ai_shootBulletSeek
-
-.globl _sys_ai_beh_follow_player_x
-.globl _sys_ai_beh_follow_player_y
 
 
 .globl _sys_ai_seekCoords_x
@@ -32,8 +28,13 @@
 .globl _sys_ai_reset_shoot_aictr
 .globl _sys_ai_aim_to_entity
 
+
+.globl _sys_ai_random_0_1
+
 ;================================================================================
 ; Manger Data
 ;================================================================================
 .globl _sys_ai_directionMemory
 .globl enemy_max_spawn
+
+

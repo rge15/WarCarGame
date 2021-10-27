@@ -177,98 +177,30 @@ _sys_ai_shoot_bullet_l_y:
    call _sys_ai_seekCoords_y
    ret
 
-_sys_ai_shoot_bullet_l_xy:
+_sys_ai_shoot_bullet_l_xy_rand:
    call _sys_ai_shoot_bullet_l_common
    ld h, e_xpos(ix)
    ld l, e_ypos(ix)
 
-   ; ld b, e_ai_aim_x(ix)
-   ; ld c, e_ai_aim_y(ix)
+   call _sys_ai_random_0_1
+   dec a
 
-   ld a, e_ai_aim_x(ix)
-   add a, h
-   ld h, a
-
-   ld a, e_ai_aim_y(ix)
-   add a, l
-   ld l, a
-
-   ld a, h
-   cp l
-
-   jr c, shoot_on_y_axis
-   jr nc, shoot_on_x_axis
+   jr z, shoot_on_y_axis
+   jr shoot_on_x_axis
    ret
 
    shoot_on_x_axis:
       ld d, #1
-      call _sys_ai_seekCoords_y
+      call _sys_ai_seekCoords_x
       ret
    shoot_on_y_axis:
       ld d, #1
-      call _sys_ai_seekCoords_x
+      call _sys_ai_seekCoords_y
 
    ret
 
 ;===============================================================================
 ; Esta bala muere cuando aictr llega a 0
-; valores de e_ai_aux_l:
-; 0: disapar x
-; 1: dispara y
-; TODO: hacer una tercera opcion para calcular solo
-; Destroy: BC, DE, HL, IX, IY
-;===============================================================================
-_sys_ai_shootBulletLinear:
-   ; viene con IX de entidad que dispara
-   call _sys_ai_reset_shoot_aictr
-   ;; TODO: pasarlo a prev orient
-   ld e, e_ai_aux_l(ix)
-   push de
-
-   push bc
-
-   CREATE_ENTITY_FROM_TEMPLATE t_bullet_enemy_l
-   ; macro deja posicion en hl
-   push hl
-   pop ix
-
-   inc b
-   inc c
-
-   ;; TODO: calcular margen para centro
-   pop bc
-
-   ld e_xpos(ix), b
-   ld e_ypos(ix), c
-
-   GET_PLAYER_ENTITY iy
-   call _sys_ai_aim_to_entity
-
-   pop de
-   ld d, #1
-
-   ;; comprobar si es 2
-   ld a, #2
-   cp e
-   call z, _sys_ai_movida
-
-   ;; comprobar si es 0 o 1
-   dec e
-
-   jr z, shoot_linear_b_x
-   call _sys_ai_seekCoords_y
-   ret
-   shoot_linear_b_x:
-      call _sys_ai_seekCoords_x
-   ret
-
-_sys_ai_movida:
-   ld d, #1
-   call _sys_ai_seekCoords_x
-   ld d, #2
-   call _sys_ai_seekCoords_y
-
-   ret
 
 ;===============================================================================
 ; Genera un patron de entidades que hay en patrol_step
@@ -456,5 +388,22 @@ _sys_ai_seekCoords_y::
 ;;--------------------------------------------------------------------------------
 ;; Shoot Conditions
 ;;--------------------------------------------------------------------------------
+
+
+
+;; Destroy: L
+;; Return: A 1 or 0
+_sys_ai_random_0_1:
+   ld a, r
+   ld l, a
+   ld a, #62
+   cp l
+   jr c, prandom_zero
+   ld a, #0
+   ret
+   prandom_zero:
+      ld a, #1
+   ret
+
 
 

@@ -154,25 +154,13 @@ _sys_ai_behaviourPatrol::
    CHECK_VX_VY_ZERO _sys_patrol_next
 
    ld d, #1
-   call _sys_ai_seekCoords_x
+   ; el orden importa para la colision no se
    call _sys_ai_seekCoords_y
+   call _sys_ai_seekCoords_x
 
    call _sys_ai_check_tile_collision_from_ai
 
    ret
-
-; _sys_ai_behaviourPatrol_shoot_l::
-;    call _sys_ai_behaviourPatrol
-;    call _sys_ai_shoot_condition_l
-;
-;    ret
-;
-; _sys_ai_behaviourPatrol_shoot_sp::
-;    call _sys_ai_behaviourPatrol
-;    call _sys_ai_shoot_condition_sp
-;
-;    ret
-
 
 ;===============================================================================
 ; Patron con posiones relativas a xy, actualiza _sys_ai_nextPatrolCoords
@@ -191,10 +179,12 @@ _sys_ai_behaviourPatrolRelative::
 
    CHECK_VX_VY_ZERO _sys_patrol_next_relative
 
-   ld d, #1
-   call _sys_ai_seekCoords_x
    ld d, #2
    call _sys_ai_seekCoords_y
+   ld d, #1
+   call _sys_ai_seekCoords_x
+
+   call _sys_ai_check_tile_collision_from_ai
 
    ret
 
@@ -225,17 +215,6 @@ _sys_ai_behaviourSeekAndPatrol::
 
    CHECK_VX_VY_ZERO _sys_patrol_next_relative
 
-   ; ld a, e_aictr(ix)
-   ; ld h, #1
-   ; cp h
-   ;
-   ; ld b, e_xpos(ix)
-   ; ld c, e_ypos(ix)
-   ;
-   ; push ix
-   ; call z, _sys_ai_shootBullet
-   ; pop ix
-
    ld d, #1
    call _sys_ai_seekCoords_x
    call _sys_ai_check_tile_collision_from_ai
@@ -260,6 +239,28 @@ _sys_ai_beh_follow_player_y:
    call z, do_follow_player_y
    ret
 
+_sys_ai_beh_follow_player_xy_rand:
+   call _sys_ai_beh_follow_player
+   ; dec e_ai_aux_l(ix)
+   jr z, xy_rand_go
+   ret
+   xy_rand_go:
+      call _sys_ai_random_0_1
+      dec a
+      jr z, xy_rand_go_x
+      jr xy_rand_go_y
+      ret
+      xy_rand_go_x:
+         call do_follow_player_x
+         ret
+      xy_rand_go_y:
+         call do_follow_player_y
+         ret
+      ; jp z, do_follow_player_x
+      ; jp nz, do_follow_player_y
+      ; ld e_ai_aux_l(ix), #test_time_fo2
+      ret
+
 ; deja en z la condicion
 _sys_ai_beh_follow_player:
    push bc
@@ -270,14 +271,14 @@ _sys_ai_beh_follow_player:
    ret
 
 do_follow_player_x:
-   ld e_ai_aux_l(ix), #test_time_fo
+   ld e_ai_aux_l(ix), #t_follow_timer
    ld d, #1
    call _sys_ai_seekCoords_x
    call _sys_ai_check_tile_collision_from_ai
    ret
 
 do_follow_player_y:
-   ld e_ai_aux_l(ix), #test_time_fo
+   ld e_ai_aux_l(ix), #t_follow_timer
    ld d, #2
    call _sys_ai_seekCoords_y
    call _sys_ai_check_tile_collision_from_ai
@@ -344,21 +345,10 @@ _sys_ai_shoot_condition_common:
    ret
 
 ;===============================================================================
-; dispara bala tipo Linear
-; Destroy: BC
-;===============================================================================
-_sys_ai_shoot_condition_l:
-   call _sys_ai_shoot_condition_common
-
-   push ix
-   call z, _sys_ai_shootBulletLinear
-   pop ix
-   ret
-
-;===============================================================================
 ; dispara bala tipo SeektoPlayer
 ; Destroy: BC
 ;===============================================================================
+;; TODO: revisar !!
 _sys_ai_shoot_condition_sp:
    call _sys_ai_shoot_condition_common
 
@@ -366,6 +356,8 @@ _sys_ai_shoot_condition_sp:
    call z, _sys_ai_shootBulletSeek
    pop ix
    ret
+
+
 
 _sys_ai_beh_shoot_x:
    call _sys_ai_shoot_condition_common
@@ -379,10 +371,10 @@ _sys_ai_beh_shoot_y:
    call z, _sys_ai_shoot_bullet_l_y
    ret
 
-; no diagonal
-_sys_ai_beh_shoot_xy:
+; no diagonal x y un poco cuando quiere
+_sys_ai_beh_shoot_xy_rand:
    call _sys_ai_shoot_condition_common
-   call z, _sys_ai_shoot_bullet_l_xy
+   call z, _sys_ai_shoot_bullet_l_xy_rand
    ret
 
 ;;--------------------------------------------------------------------------------

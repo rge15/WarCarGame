@@ -20,6 +20,8 @@ t_bullet_timer_player = 27
 
 player_max_bullets = 3
 
+t_follow_timer = 20
+
 ; tres tiros
 t_spawner_max_hp = 3
 
@@ -108,7 +110,7 @@ t_enemy_patrol_relative_02:
    .dw #patrol_relative_01
    ; .dw #patrol_relative_x_24
 
-test_time_fo = 20
+; test_time_fo2 = 40
 t_enemy_seeknpatrol:
    .db #e_type_enemy                                 ; type
    .db #0x2b                                 ; cmp
@@ -129,7 +131,7 @@ t_enemy_seeknpatrol:
    .dw #0x0000                               ; input_behaviour
    .db #0                                 ; e_ai_aim_x
    .db #0                                 ; e_ai_aim_y
-   .db #test_time_fo                                 ; e_ai_aux_l
+   .db #t_follow_timer                                 ; e_ai_aux_l
    .db #0                                 ; e_ai_aux_h
    .dw #patrol_relative_02
 
@@ -174,15 +176,15 @@ t_enemy_testing:
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
    ; .dw #_sys_ai_behaviourPatrol; ai_behaviour
-   .dw #_sys_ai_beh_follow_player_x; ai_behaviour
+   .dw #_sys_ai_beh_follow_player_xy_rand; ai_behaviour
    .db #t_shoot_timer_enemy
    .dw #0x0                                  ; animator
    .db #0x0A                                 ; anim. counter
    ; .dw #_sys_ai_shoot_condition_l                               ; input_behaviour
-   .dw #_sys_ai_beh_shoot_xy                               ; input_behaviour
+   .dw #_sys_ai_beh_shoot_x                              ; input_behaviour
    .db #0x00                                 ; e_ai_aim_x
    .db #0x00                                 ; e_ai_aim_y
-   .db #test_time_fo                                 ; e_ai_aux_l
+   .db #t_follow_timer                                 ; e_ai_aux_l
    .db #0x00                                 ; e_ai_aux_h
    .dw #patrol_x_50_20                            ; e_patrol_step
 
