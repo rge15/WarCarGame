@@ -3,7 +3,7 @@
 .globl _sys_ai_behaviourBulletLinear
 .globl _sys_ai_behaviourBulletSeektoPlayer
 
-.globl _sys_ai_beh_move_none
+.globl enemy_no_move
 
 .globl _sys_ai_behaviourPatrol
 ; .globl _sys_ai_behaviourPatrol_shoot_l

@@ -25,6 +25,8 @@ t_follow_timer = 20
 ; tres tiros
 t_spawner_max_hp = 3
 
+enemy_no_shoot = 0x0000
+
 ;===================================================================================================================================================
 ; Templates
 ;===================================================================================================================================================
@@ -76,11 +78,12 @@ t_enemy_patrol_relative_01:
    .db #0x00                                 ; e_ai_aim_y
    ;; poner en e_ai_aux mismo valor que position
    ;; para que funcione patrol relativo
-   .db #44
-   .db #100                                 ; e_ai_aux_h
+   .db #45
+   .db #90                                 ; e_ai_aux_h
    .dw #patrol_relative_03
    ; .dw #patrol_relative_x_24
 
+;; simula un escudo !! poner en ai_aux coordenadas iniciales
 t_enemy_patrol_relative_02:
    .db #e_type_enemy                                 ; type
    .db #0x2b                                 ; cmp
@@ -105,8 +108,8 @@ t_enemy_patrol_relative_02:
    .db #0x00                                 ; e_ai_aim_y
    ;; poner en e_ai_aux mismo valor que position
    ;; para que funcione patrol relativo
-   .db #40
-   .db #80                                 ; e_ai_aux_h
+   .db #55
+   .db #90                                 ; e_ai_aux_h
    .dw #patrol_relative_01
    ; .dw #patrol_relative_x_24
 
@@ -138,8 +141,6 @@ t_enemy_seeknpatrol:
 t_enemy_patrol_01:
    .db #e_type_enemy                                 ; type
    .db #0x2b                                 ; cmp
-   ; .db (patrol_02)                           ; x
-   ; .db (patrol_02+1)
    .db #50                                 ; x
    .db #50                                 ; y
    .db #0x06                                 ; width
@@ -161,7 +162,6 @@ t_enemy_patrol_01:
    .db #0x00                                 ; e_ai_aux_h
    .dw #patrol_02                            ; e_patrol_step
 
-enemy_no_shoot = 0x0000
 t_enemy_testing:
    .db #e_type_enemy                                 ; type
    .db #0x2b                                 ; cmp

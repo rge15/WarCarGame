@@ -80,6 +80,30 @@ _level1:
     .dw #patrol_x_50_20
     .dw #_sys_ai_beh_shoot_y
 
+    .db #level_new_entity
+    .dw #t_spawner_template_02
+    .db #55
+    .db #90
+    .dw #_sys_ai_behaviourSpawner_template
+    .db #00                                 ; e_ai_aux_l
+    .db #00                                 ; e_ai_aux_h
+    ; .dw #t_enemy_testing
+    .dw #t_enemy_patrol_relative_02
+    .dw #enemy_no_shoot
+
+    ;; spaner bichong
+    .db #level_new_entity
+    .dw #t_spawner_template_02
+    .db #55
+    .db #90
+    .dw #_sys_ai_behaviourSpawner_plist
+    .db #00                                 ; e_ai_aux_l
+    .db #00                                 ; e_ai_aux_h
+    ; .dw #t_enemy_testing
+    .dw #spawner_plist_02
+    .dw #enemy_no_shoot
+
+
     .db #level_separator        ;TODO : ESto quitarlo para cargar más niveles
     .db #level_separator
     ; Level 2

@@ -17,3 +17,4 @@
 
 
 .globl spawner_plist_01
+.globl spawner_plist_02
