@@ -146,6 +146,8 @@ man_interruptions_set_next_interruption:
 ret
 
 _man_int_setIntHandler::
+   	ei
+   	im 1
 	call cpct_waitVSYNC_asm
 	halt 
 	halt
@@ -159,4 +161,5 @@ _man_int_setIntHandler::
 	ld (hl), #>_int_handler_1
 	inc hl
 	ld (hl), #0xC9
+	ei
 ret

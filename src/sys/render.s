@@ -55,23 +55,13 @@ _m_render_tileset:
 ; NO llega ningun dato
 ;===================================================================================================================================================
 _sys_init_render::
-    ;;Destroyed : HL 
     ld  c, #0x00
     call  cpct_setVideoMode_asm
-    ;;Destroyed : AF & BC & HL 
-    ; ld hl, #0x1410
-    ; call  cpct_setPALColour_asm
-    ; ;;Destroyed : F & BC & HL  
-
-    ; ld hl, #0x1400
-    ; call  cpct_setPALColour_asm
-    ;;Destroyed : F & BC & HL  
 
     ld hl, #_g_palette
     ld de, #16
     call cpct_setPalette_asm
 
-    ;call _sys_render_renderTileMap  
     ret
 
 ;===================================================================================================================================================

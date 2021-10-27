@@ -30,38 +30,6 @@
 .endm
 
 
-
-;;;;;;;;;;;;;;;;;;;WORK ON PROGRESS ;;;;;;;;;;;;;;;;;;;;;;
-;;Carga en el registro A el campo que quieras de la struct de la entity
-;!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-; IMPORTANTE : NO SE PUEDE UTILIZAR EN EL REGISTRO A NI F
-;!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-.macro LOAD_ENTITY_VARIABLE_IN_REGISTER _entity, _entity_var, _register
-    ; push af
-    ; push bc
-    ; push hl
-    push _entity
-    pop ix
-    ld _register, _entity_var(ix)
-
-    ; ld b,h
-    ; ld c,l
-    ; ld hl, #_macro_addresAux
-    ; ld (hl), c
-    ; inc hl
-    ; ld (hl), b
-
-    ; ld ix, #_macro_addresAux
-    ; ld a, _entity_var(ix)
-    
-    ; pop hl
-    ; pop bc
-
-    ; ld _register, a
-
-    ; pop af
-.endm
-
 ;;Incrementa en 1 la variable indicada de la entidad indicada
 .macro INCREMENT_ENTITY_VARIABLE _entity, _entity_var
     push af
