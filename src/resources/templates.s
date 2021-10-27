@@ -1,6 +1,7 @@
 .module Templates
 
 .include "sys/ai.h.s"
+.include "sys/ai_beh.h.s"
 .include "sys/patrol.h.s"
 .include "resources/patrol_data.h.s"
 .include "animations.h.s"
