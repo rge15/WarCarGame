@@ -33,4 +33,5 @@
 .globl t_enemy_02_L03
 
 .globl t_follow_timer
+.globl enemy_no_shoot
 ; .globl test_time_fo2

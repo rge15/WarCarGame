@@ -2,6 +2,7 @@
 .include "resources/templates.h.s"
 .include "resources/patrol_data.h.s"
 .include "sys/ai.h.s"
+.include "sys/ai_beh.h.s"
 
 
 ; dos seguidos significa fin de levels
@@ -25,28 +26,28 @@ _level1:
     ; .db #60                                 ; Entity Y
 
     ; Level Test
-    .dw #_tilemap_01            ;Tilemap
-    .db #level_new_entity
-    .dw #t_player
-    .db #0x26                   ;Entity X
-    .db #0xB0                   ;Entity Y
-
-    ; ya tiraok
-
+    ; .dw #_tilemap_01            ;Tilemap
     ; .db #level_new_entity
-    ; ; .dw #t_spawner_template_02
-    ; .dw #t_spawner_template_02
-    ; .db #40                   ;Entity X
-    ; .db #80                   ;Entity Y
-
-    .db #level_new_entity
-    .dw #t_enemy_patrol_01
-    ; .dw #t_enemy_seeknpatrol
-    ; .dw #t_enemy_patrol_relative_01
-    ; .dw #t_enemy_testing
-    .db #20                   ;Entity X
-    .db #90                   ;Entity Y
+    ; .dw #t_player
+    ; .db #0x26                   ;Entity X
+    ; .db #0xB0                   ;Entity Y
     ;
+    ; ; ya tiraok
+    ;
+    ; ; .db #level_new_entity
+    ; ; ; .dw #t_spawner_template_02
+    ; ; .dw #t_spawner_template_02
+    ; ; .db #40                   ;Entity X
+    ; ; .db #80                   ;Entity Y
+    ;
+    ; .db #level_new_entity
+    ; .dw #t_enemy_patrol_01
+    ; ; .dw #t_enemy_seeknpatrol
+    ; ; .dw #t_enemy_patrol_relative_01
+    ; ; .dw #t_enemy_testing
+    ; .db #20                   ;Entity X
+    ; .db #90                   ;Entity Y
+    ; ;
     ; .db #level_new_entity
     ; .dw #t_enemy_patrol_01
     ; .db #0x40                   ;Entity X
@@ -57,7 +58,7 @@ _level1:
     ; .db #44
     ; .db #90
 
-    .db #level_separator
+    ; .db #level_separator
 
     ;;;; LEVELS
 
@@ -77,6 +78,8 @@ _level1:
     .db #00                                 ; e_ai_aux_l
     .db #00                                 ; e_ai_aux_h
     .dw #patrol_x_50_20
+    .dw #_sys_ai_beh_shoot_y
+
     .db #level_separator        ;TODO : ESto quitarlo para cargar más niveles
     .db #level_separator
     ; Level 2
