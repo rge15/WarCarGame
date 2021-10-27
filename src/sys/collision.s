@@ -506,7 +506,6 @@ enemySpawnerCollisionBehaviour::
     ret Z
 
     call _sys_ai_decrement_spawner_hp
-    ; call destroyPairOfEntities
     push iy
     pop hl
     call _m_game_destroyEntity

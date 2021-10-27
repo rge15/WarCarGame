@@ -9,6 +9,7 @@
 .include "sys/physics.h.s"
 .include "sys/patrol.h.s"
 .include "sys/ai.h.s"
+.include "resources/sprites.h.s"
 
 ;===================================================================================================================================================
 ; Manager data
@@ -17,7 +18,8 @@
 _sys_ai_directionMemory::
     .dw #0x0000
 
-enemy_max_spawn = 1
+;; TODO: mejorar igual
+enemy_max_spawn = 4
 _sys_ai_enemy_count: .db 0
 
 
@@ -251,11 +253,28 @@ _sys_ai_behaviourShield:
 _sys_ai_decrement_spawner_hp:
    ;; TODO: cargar animacion para dar feedback de menor vida
    dec e_orient(ix)
+
    push ix
    pop hl
-   call z, _sys_ai_spawner_has_to_die
-   ; tambine
-   ; _man_game_decreaseEnemyCounter
+   jr z, _sys_ai_spawner_has_to_die
+
+   ld a, #2
+   cp e_orient(ix)
+   jr z, spawner_has_2_hp
+
+   ld a, #1
+   cp e_orient(ix)
+   jr z, spawner_has_1_hp
+
+   ;; Esto no es muy ECS pero bueno
+   spawner_has_2_hp:
+      ld e_sprite1(ix), #_sprite_enemy01
+      ret
+
+   spawner_has_1_hp:
+      ld e_sprite1(ix), #_sprite_player02
+      ret
+
    ret
 
 _sys_ai_spawner_has_to_die:
@@ -535,7 +554,7 @@ _sys_ai_beh_spawner_commmon::
    ret
    check_if_spawn_enemy:
       ld d, #enemy_max_spawn
-      ld a, (_sys_ai_enemy_count)
+      ld a, (_m_enemyCounter)
       cp d
    ret
 
