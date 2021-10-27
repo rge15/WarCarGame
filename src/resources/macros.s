@@ -165,6 +165,32 @@
 
 .endm
 
+
+
+.macro SET_TILESET _set
+    ld hl, #_set
+    ex de, hl
+
+    ld hl, #_m_render_tileset
+    
+    ld (hl), e
+    inc hl
+    ld (hl), d
+
+.endm
+
+.macro SET_TILEMAP _map
+    ld hl, #_map
+    ex de, hl
+
+    ld hl, #_m_render_tilemap
+    
+    ld (hl), e
+    inc hl
+    ld (hl), d
+
+.endm
+
 ;; Según la orientación del axis del jugador
 ;; devuelve en a (0 = x_axis) o (1 = y_axis)
 .macro CHECK_ORIENTATION_AXIS_PLAYER _orientation

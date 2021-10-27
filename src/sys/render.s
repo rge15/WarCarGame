@@ -26,8 +26,6 @@
 ;===================================================================================================================================================
 ; Assets
 ;===================================================================================================================================================
-.globl _tilemap_01
-.globl _tileset_0
 .globl _g_palette
 
 ;===================================================================================================================================================
@@ -45,6 +43,9 @@
 ; Manager data
 ;===================================================================================================================================================
 _m_render_tilemap:
+    .ds 2
+
+_m_render_tileset:
     .ds 2
 
 
@@ -149,13 +150,21 @@ _sys_render_renderOneEntity::
 ; 
 ;===================================================================================================================================================
 _sys_render_renderTileMap::
-    ld  bc, #0x1914            ; Height & Width of screen in bytes
-    ld  de, #0x14              ; Width of the Tilemap in bytes
-    ld  hl, #_tileset_0        ; Tileset to draw with
+
+    ld  hl, #_m_render_tileset  ; Tileset to draw with
+    ld e, (hl)
+    inc hl
+    ld d, (hl)
+    ex de, hl
+    ld  bc, #0x1914             ; Height & Width of screen in bytes
+    ld  de, #0x14               ; Width of the Tilemap in bytes
     call cpct_etm_setDrawTilemap4x8_ag_asm
-    
+
+    ld  hl, #_m_render_tilemap  ; Tileset to draw with
+    ld e, (hl)
+    inc hl
+    ld d, (hl)
     ld hl, #0xC000             ; Video mem. to draw tilemap
-    ld de, #_tilemap_01        ; Tilemap to be draw
     call cpct_etm_drawTilemap4x8_ag_asm
 
     ret
