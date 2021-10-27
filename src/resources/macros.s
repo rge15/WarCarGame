@@ -95,7 +95,7 @@
 
 ;;Comprueba si la tecla pasada por parametro se está pulsando
 .macro CHECK_KEYBOARD_INPUT_IN_KEY _key
-    call cpct_scanKeyboard_f_asm
+    ; call cpct_scanKeyboard_f_asm
     
     ld hl, #_key
     call cpct_isKeyPressed_asm
