@@ -8,6 +8,7 @@
 .include "man/game.h.s"
 .include "cpctelera.h.s"
 .include "collision.h.s"
+.include "ai.h.s"
 .include "assets/maps/map01.h.s"
 .include "resources/macros.s"
 
@@ -534,6 +535,7 @@ bulletCollisionBehaviour::
     ret
     decreaseLifeSpawner:
     ;;Llamar método resta via al spawner
+       call _sys_ai_decrement_spawner_hp
     
     push ix
     pop hl 

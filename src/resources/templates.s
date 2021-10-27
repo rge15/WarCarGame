@@ -8,21 +8,6 @@
 .include "templates.h.s"
 .include "entityInfo.s"
 
-; hacer un esquema con
-; t_enemy_...
-; t_bullet...
-; t_spawner
-; t_enemy_patrol_bs
-; t_enemy_patrolr_bl
-
-; spawner aictr que sea para hacer un spawn de un t_enemy diferente
-; en el aux del spawner meter un t_enemy tocho
-; en el game meter un couter de current enemies;  
-
-
-; si da tiempo
-; subir la velocidad del siguiente entity a spawnear
-
 ; tiempo hasta que un enemy dispara
 t_shoot_timer_enemy = 100
 
@@ -283,15 +268,15 @@ t_spawner_template_02:
    .db #0x00                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
-   .dw #_sys_ai_behaviourSpawner_template             ; ai_behaviour
+   .dw #_sys_ai_behaviourSpawner_plist             ; ai_behaviour
    .db #0x16                                 ; ai_counter
    .dw #0x0                                  ; animator
    .db #0x0A                                 ; anim. counter
    .dw #0x0000                               ; input_behaviour
    .db #0x00                                 ; e_ai_aim_x
    .db #0x00                                 ; e_ai_aim_y
-   .db #40                                    ; e_ai_aux_l
-   .db #80                                 ; e_ai_aux_h
+   .db #3                                    ; e_ai_aux_l
+   .db #0                                 ; e_ai_aux_h
    .dw #t_enemy_patrol_relative_01
    ; .db #0x00                                 ; e_patrol_step_l
    ; .db #0x00                                 ; e_patrol_step_h

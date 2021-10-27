@@ -22,6 +22,8 @@
 .globl _sys_ai_behaviourBullet
 .globl _sys_ai_behaviourAutoDestroy
 
+.globl _sys_ai_decrement_spawner_hp
+
 
 ;================================================================================
 ; Manger Data

@@ -111,3 +111,7 @@ spawner_plist_01:
    .dw #t_enemy_testing
    .dw #t_enemy_patrol_x_shoot_y
 
+; spawner_plist_02:
+   ; que saque enemigos que se qeuden alredeodr del spawner
+   ; y otros que vayan a hacer un patrol o un seeknpatrol
+
