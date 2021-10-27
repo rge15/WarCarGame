@@ -92,7 +92,7 @@ int_handler_3::
     ld (#current_interruption), a
 	; cpctm_setBorder_asm HW_RED
 	;;Here we scan the keyboard to see detect the pressed keys
-	; call cpct_scanKeyboard_if_asm
+	call cpct_scanKeyboard_if_asm
 
 	;;Here we set the next interruption to jump to the next int_handler
     ld de, #int_handler_4

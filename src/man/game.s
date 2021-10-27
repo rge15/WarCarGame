@@ -8,7 +8,7 @@
 .include "man/HUD.h.s"
 .include "resources/levels.h.s"
 .include "man/interruptions.h.s"
-.include "assets/music/MainMenu-TheLastFungus.h.s"
+.include "assets/music/ArcadeGameSong.h.s"
 
 
  
@@ -92,7 +92,7 @@ _m_game_createInitTemplate::
 _m_game_init::
    call _sys_init_render
 
-   ld de, #_gameSong
+   ld de, #_GameSong
    call cpct_akp_musicInit_asm
 
    call set_int_handler
