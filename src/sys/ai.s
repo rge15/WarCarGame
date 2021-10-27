@@ -120,6 +120,7 @@ _sys_ai_shootBulletSeek::
 _sys_ai_shootBulletLinear:
    ; viene con IX de entidad que dispara
    call _sys_ai_reset_shoot_aictr
+   ;; TODO: pasarlo a prev orient
    ld e, e_ai_aux_l(ix)
    push de
 

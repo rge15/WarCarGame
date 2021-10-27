@@ -90,6 +90,35 @@ t_enemy_patrol_relative_01:
    .dw #patrol_relative_03
    ; .dw #patrol_relative_x_24
 
+t_enemy_patrol_relative_02:
+   .db #e_type_enemy                                 ; type
+   .db #0x2b                                 ; cmp
+   .db #100                                    ; x
+   .db #100                                    ; y
+   .db #0x06                                 ; width
+   .db #0x0C                                 ; heigth
+   .db #0x00                                 ; vx
+   .db #0x00                                 ; vy
+   .dw #_sprite_enemy01                      ; sprite
+   .db #0x00                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
+   .db #0x00                                 ; prev. orientation
+   .dw #0x0000                               ; prevptr
+   .dw #_sys_ai_behaviourPatrolRelative        ; ai_behaviour
+   .db #1
+   ; .dw #_sys_ai_behaviourPatrolRelative        ; ai_behaviour
+   ; .db #1
+   .dw #0x0                                  ; animator
+   .db #0x0A                                 ; anim. counter
+   .dw #0x0000                               ; input_behaviour
+   .db #0x00                                 ; e_ai_aim_x
+   .db #0x00                                 ; e_ai_aim_y
+   ;; poner en e_ai_aux mismo valor que position
+   ;; para que funcione patrol relativo
+   .db #40
+   .db #80                                 ; e_ai_aux_h
+   .dw #patrol_relative_01
+   ; .dw #patrol_relative_x_24
+
 t_enemy_seeknpatrol:
    .db #e_type_enemy                                 ; type
    .db #0x2b                                 ; cmp
@@ -216,6 +245,32 @@ t_enemy_patrol_x_shoot_y:
 ; es como un enemy raealmente
 ; template porque genera entidades de un template !!
 t_spawner_template_01:
+   .db #e_type_spawner
+   .db #0x0b                                 ; cmp
+   .db #0                                    ; x
+   .db #0                                    ; y
+   .db #0x06                                 ; width
+   .db #0x0C                                 ; heigth
+   .db #0x00                                 ; vx
+   .db #0x00                                 ; vy
+   .dw #_sprite_player02                      ; sprite
+   .db #0x00                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
+   .db #0x00                                 ; prev. orientation
+   .dw #0x0000                               ; prevptr
+   .dw #_sys_ai_behaviourSpawner_template             ; ai_behaviour
+   .db #0x16                                 ; ai_counter
+   .dw #0x0                                  ; animator
+   .db #0x0A                                 ; anim. counter
+   .dw #0x0000                               ; input_behaviour
+   .db #0x00                                 ; e_ai_aim_x
+   .db #0x00                                 ; e_ai_aim_y
+   .db #40                                    ; e_ai_aux_l
+   .db #80                                 ; e_ai_aux_h
+   .dw #t_enemy_patrol_relative_02
+   ; .db #0x00                                 ; e_patrol_step_l
+   ; .db #0x00                                 ; e_patrol_step_h
+
+t_spawner_template_02:
    .db #e_type_spawner
    .db #0x0b                                 ; cmp
    .db #0                                    ; x
