@@ -159,6 +159,7 @@ t_enemy_patrol_01:
    .db #0x00                                 ; e_ai_aux_h
    .dw #patrol_02                            ; e_patrol_step
 
+enemy_no_shoot = 0x0000
 t_enemy_testing:
    .db #e_type_enemy                                 ; type
    .db #0x2b                                 ; cmp
@@ -172,15 +173,16 @@ t_enemy_testing:
    .db #0x00                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
-   .dw #_sys_ai_behaviourPatrol; ai_behaviour
-   .db #0x10                                 ; ai_counter
+   ; .dw #_sys_ai_behaviourPatrol; ai_behaviour
+   .dw #_sys_ai_beh_follow_player_x; ai_behaviour
+   .db #00
    .dw #0x0                                  ; animator
    .db #0x0A                                 ; anim. counter
-   .dw #_sys_ai_shoot_condition_l                               ; input_behaviour
-   ; .dw #0x0000                               ; input_behaviour
+   ; .dw #_sys_ai_shoot_condition_l                               ; input_behaviour
+   .dw #enemy_no_shoot                               ; input_behaviour
    .db #0x00                                 ; e_ai_aim_x
    .db #0x00                                 ; e_ai_aim_y
-   .db #0x00                                 ; e_ai_aux_l
+   .db #test_time_fo                                 ; e_ai_aux_l
    .db #0x00                                 ; e_ai_aux_h
    .dw #patrol_x_50_20                            ; e_patrol_step
 

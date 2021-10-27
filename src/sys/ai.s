@@ -388,38 +388,4 @@ _sys_ai_seekCoords_y::
 ;; Shoot Conditions
 ;;--------------------------------------------------------------------------------
 
-;===============================================================================
-; dec e_aictr y si es cero llama a un shoot
-; Destroy: BC
-;===============================================================================
-_sys_ai_shoot_condition_common:
-   dec e_aictr(ix)
-   ld b, e_xpos(ix)
-   ld c, e_ypos(ix)
-   ret
-
-;===============================================================================
-; dispara bala tipo Linear
-; Destroy: BC
-;===============================================================================
-_sys_ai_shoot_condition_l:
-   call _sys_ai_shoot_condition_common
-
-   push ix
-   call z, _sys_ai_shootBulletLinear
-   pop ix
-   ret
-
-;===============================================================================
-; dispara bala tipo SeektoPlayer
-; Destroy: BC
-;===============================================================================
-_sys_ai_shoot_condition_sp:
-   call _sys_ai_shoot_condition_common
-
-   push ix
-   call z, _sys_ai_shootBulletSeek
-   pop ix
-   ret
-
 

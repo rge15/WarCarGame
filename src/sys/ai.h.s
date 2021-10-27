@@ -10,6 +10,9 @@
 .globl _sys_ai_decrement_spawner_hp
 .globl _sys_ai_shoot_condition_l
 
+.globl _sys_ai_shootBulletLinear
+.globl _sys_ai_shootBulletSeek
+
 .globl _sys_ai_beh_follow_player_x
 .globl _sys_ai_beh_follow_player_y
 
