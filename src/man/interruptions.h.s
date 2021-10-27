@@ -1,12 +1,11 @@
 ;;====================================================================
 ;; PUBLIC INCLUDES
 ;;====================================================================
-.globl set_int_handler
+.globl _man_int_setIntHandler
 .globl man_interruptions_set_next_interruption
 
 
 ;;====================================================================
 ;; PUBLIC VARIABLES
 ;;====================================================================
-.globl current_interruption
-.globl int_handler_6
+.globl _man_int_current

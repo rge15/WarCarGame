@@ -59,15 +59,15 @@ _m_nextLevel:
 _m_enemyCounter:
    .ds 1
 
-;;Descripcion : Texto que sale en la pantalla de inicio
-press_str:
-   .asciz "PRESS ENTER"
+; ;;Descripcion : Texto que sale en la pantalla de inicio
+; press_str:
+   ; .asciz "PRESS ENTER"
 
-restart_str:
-   .asciz "PRESS ENTER TO RESTART GAME"
+; restart_str:
+   ; .asciz "PRESS ENTER TO RESTART GAME"
 
-victory_str:
-   .asciz "Has ganao suprimo, dale a enter pa volver a generar endorcinas"
+; victory_str:
+   ; .asciz "Has ganao suprimo, dale a enter pa volver a generar endorcinas"
 ;===================================================================================================================================================
 ; FUNCION _m_game_createInitTemplate   
 ; ; Crea la entidad con el template indicado
@@ -97,38 +97,22 @@ _m_game_init::
    ld de, #_GameSong
    call cpct_akp_musicInit_asm
 
-   call set_int_handler
-
-   ;call  _man_entityInit
-
-   ;CREATE_ENTITY_FROM_TEMPLATE _enemy_template_e
-
-   ; CreatePlayer & Save in _m_playerEntity   
-   ; CREATE_ENTITY_FROM_TEMPLATE _player_template_e
-   ; ex de,hl
-   ; ld hl, #_m_playerEntity
-   ; ld (hl), d
-   ; inc hl
-   ; ld (hl), e
-   ; ex de,hl
+   call _man_int_setIntHandler
    
    ret
 
-
-
+;===================================================================================================================================================
+; FUNCION waitKeyPressed
+; Funcion encargada de esperar a que se pulse de forma única la tecla pasada por registro
+; HL = Tecla para pulsar
+;===================================================================================================================================================
 waitKeyPressed::
-   ; push hl
-   ; call cpct_scanKeyboard_f_asm
-   ; pop hl
    push hl
    call cpct_isKeyPressed_asm
    pop hl
    jr  nz, waitKeyPressed
 
    loopWaitKey:
-      ; push hl
-      ; call cpct_scanKeyboard_f_asm
-      ; pop hl
       push hl
       call cpct_isKeyPressed_asm
       pop hl
@@ -136,46 +120,17 @@ waitKeyPressed::
    
    ret
 
-waitKeyPressedWithNoScan::
-   ; push hl
-   ; call cpct_scanKeyboard_f_asm
-   ; pop hl
-   push hl
-   call cpct_isKeyPressed_asm
-   pop hl
-   jr  nz, waitKeyPressedWithNoScan
-
-   loopWaitKey2:
-      ; push hl
-      ; call cpct_scanKeyboard_f_asm
-      ; pop hl
-      push hl
-      call cpct_isKeyPressed_asm
-      pop hl
-      jr  z, loopWaitKey2
-   
-   ret
-
-
-
 ;===================================================================================================================================================
 ; FUNCION _m_game_play   
 ; Bucle del juego
 ; NO llega ningun dato
 ;===================================================================================================================================================
 _m_game_play::
-; call _man_game_setManagerIr
 ;==================
 ;Pantalla inicio
 ;==================
 startGame:
-   ; di
    ;TODO : Hacer una pantalla de inicio bonica y cargarla aquí
-   ld hl, #0x0004
-   ; call cpct_setDrawCharM0_asm
-   ld iy, #press_str
-   ld hl, #0xC000
-   ; call cpct_drawStringM0_asm
    
    ld hl, #Key_Enter
    call waitKeyPressed
@@ -185,8 +140,6 @@ startGame:
 ;Set de variables de juego (Num Vidas / Num Nivel / Num Enemy / Puntuacion)
 call _man_game_initGameVar
 call _m_HUD_initHUD
-;reset _man_game_interruptionsReset
-; call _man_game_interruptionsReset
 
 
 ;==================
@@ -211,7 +164,7 @@ ei
    call _m_HUD_renderScore
    testIr:
 
-      ld a, (current_interruption)
+      ld a, (_man_int_current)
       cp #0
       jr nz, testIr
       cpctm_setBorder_asm HW_YELLOW
@@ -233,29 +186,8 @@ ei
       call _man_game_updateGameStatus
       cpctm_setBorder_asm HW_BLACK
 
-
-
-
-
-      ;/
-      ; ;|  Codigo completamente auxiliar para checkear el flujo de juego -- START
-      ;\
-      ; ld hl, #Key_Enter
-      ; push hl
-      ; call cpct_scanKeyboard_f_asm
-      ; pop hl
-      ; push hl
-      ; call cpct_isKeyPressed_asm
-      ; pop hl
-      ; jr  z, auxJump
-         ; call _man_game_decreasePlayerLife
-         ; call _m_HUD_renderScore
-
-      auxJump:
-      ;/
-      ; ;|  Codigo completamente auxiliar para checkear el flujo de juego  -- END
-      ;\
-      ld a, (current_interruption)
+      
+      ld a, (_man_int_current)
       cp #0
       jr nz, testIr
       halt
@@ -265,14 +197,8 @@ ei
    
 
    endGame:
-   ; di
    ;TODO : Hacer una pantalla de endgame bonica y cargarla aquí
    cpctm_clearScreen_asm 0
-   ld hl, #0x0004
-   ; call cpct_setDrawCharM0_asm
-   ld iy, #restart_str
-   ld hl, #0xC000
-   ; call cpct_drawStringM0_asm
    
    ld hl, #Key_Enter
    call waitKeyPressed
@@ -281,15 +207,8 @@ ei
 
 
    victoryScreen:
-   ; di
    ;TODO : Hacer una pantalla de victoria bonica y cargarla aquí
    cpctm_clearScreen_asm 0
-   ld hl, #0x0004
-   ; call cpct_setDrawCharM0_asm
-   ld iy, #victory_str
-   ld hl, #0xC000
-   ; call cpct_drawStringM0_asm
-   
    
    ld hl, #Key_Enter
    call waitKeyPressed
@@ -299,30 +218,9 @@ ei
 ret
 
 
-playMusic::
-
-	cpctm_setBorder_asm HW_YELLOW
-
-   ret
-
-
-
-;===================================================================================================================================================
-; FUNCION _m_game_createEnemy   
-; Crea un enemigo
-; NO llega ningun dato
-;===================================================================================================================================================
-_m_game_createEnemy::
-   ;Create Enemy
-   ;ld bc, #_enemy_template_e   
-   ;call _m_game_createInitTemplate   
-   
-   ret
-
-
 ;===================================================================================================================================================
 ; FUNCION _m_game_destroyEntity
-; ; Funcion que destruye la entidad indicada
+; Funcion que destruye la entidad indicada
 ; HL : Llega el valor de la entidad
 ;===================================================================================================================================================
 _m_game_destroyEntity::
@@ -339,7 +237,6 @@ _m_game_bulletDestroyed::
    ld hl, #_m_playerShot
    ld (hl), #0x00
 ret
-
 
 ;===================================================================================================================================================
 ; FUNCION _m_game_playerShot
@@ -513,63 +410,6 @@ _wait::
    ret
 
 
-
-
-;===================================================================================================================================================
-; FUNCION _man_game_setManagerIr   
-; Función encargada de setear la llamada de las interrupciones
-; NO llega ningun dato
-;===================================================================================================================================================
-_man_game_setManagerIr::
-   ei
-   im 1
-   call cpct_waitVSYNC_asm
-   halt
-   halt
-   call cpct_waitVSYNC_asm
-   ; di
-   ld a, #0xC3
-   ld (#0x38), a
-   ld hl, #_man_game_ir
-   ld (#0x39), hl
-   ei
-   ret
-
-;===================================================================================================================================================
-; FUNCION _man_game_ir   
-; Función a la que llaman las interrpciones
-; Encargada de controlar en que interrupcion nos encontramos
-; NO llega ningun dato
-;===================================================================================================================================================
-_man_game_ir::
-   ; cpctm_setBorder_asm HW_BLACK
-   push af
-
-   ld a, (_m_irCtr)
-   dec a
-   jr NZ, notReset
-      ld a, #6
-   notReset:
-   ld (_m_irCtr),a
-
-   pop af
-
-   ei
-   reti
-
-
-;===================================================================================================================================================
-; FUNCION _man_game_interruptionsReset   
-; Función encargada de resetear el contador de interrupciones
-; NO llega ningun dato
-;===================================================================================================================================================
-_man_game_interruptionsReset::
-   ; di
-   ld a, #0x06
-   ld (_m_irCtr),a
-   ei
-   ret
-
 ;===================================================================================================================================================
 ; FUNCION _man_game_initGameVar   
 ; Función encargada de iniciar/resetear los valores del juego
@@ -580,14 +420,14 @@ _man_game_initGameVar::
    ld hl, #_m_lifePlayer
    ld (hl), #0x03
 
-   ld hl, #_m_gameLevel ;TODO : Pegarle un vistazo por si se reinicia desde el nivel 1 si se muere el jugador
+   ld hl, #_m_gameLevel 
    ld de, #_level1
    ld (hl), e
    inc hl
    ld (hl), d
 
    ld hl, #_m_enemyCounter
-   ld (hl), #0x00          ;!!!!! TODO : Esto empezará en 0 no en 1
+   ld (hl), #0x00
 
    ret
 
@@ -725,10 +565,9 @@ _man_game_updateGameStatus::
    dec a
    jr NZ, nextLevel
    
-   auxVictory:
    jp victoryScreen
    nextLevel:
-
+   ;TODO : Meter aquñi el sprite de " Ready?" 
    ld ix, #_m_nextLevel
    ld hl, #_m_gameLevel
    ld a, (ix)
@@ -745,7 +584,7 @@ _man_game_updateGameStatus::
    call cpct_drawSprite_asm
 
    ld hl, #Key_Enter
-   call waitKeyPressedWithNoScan
+   call waitKeyPressed
    
    jp restartLevel
 
