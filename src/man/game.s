@@ -6,9 +6,10 @@
 .include "cpct_globals.h.s"
 .include "man/entity.h.s"
 .include "man/HUD.h.s"
+.include "resources/sprites.h.s"
 .include "resources/levels.h.s"
 .include "man/interruptions.h.s"
-.include "assets/music/MainMenu-TheLastFungus.h.s"
+.include "assets/music/ArcadeGameSong.h.s"
 
 
  
@@ -92,7 +93,7 @@ _m_game_createInitTemplate::
 _m_game_init::
    call _sys_init_render
 
-   ld de, #_gameSong
+   ld de, #_GameSong
    call cpct_akp_musicInit_asm
 
    call set_int_handler
@@ -115,18 +116,18 @@ _m_game_init::
 
 
 waitKeyPressed::
-   push hl
-   call cpct_scanKeyboard_f_asm
-   pop hl
+   ; push hl
+   ; call cpct_scanKeyboard_f_asm
+   ; pop hl
    push hl
    call cpct_isKeyPressed_asm
    pop hl
    jr  nz, waitKeyPressed
 
    loopWaitKey:
-      push hl
-      call cpct_scanKeyboard_f_asm
-      pop hl
+      ; push hl
+      ; call cpct_scanKeyboard_f_asm
+      ; pop hl
       push hl
       call cpct_isKeyPressed_asm
       pop hl
@@ -146,7 +147,7 @@ _m_game_play::
 ;Pantalla inicio
 ;==================
 startGame:
-   di
+   ; di
    ;TODO : Hacer una pantalla de inicio bonica y cargarla aquí
    ld hl, #0x0004
    ; call cpct_setDrawCharM0_asm
@@ -170,7 +171,7 @@ call _m_HUD_initHUD
 ;Carga de Nivel
 ;==================
 restartLevel:
-di
+; di
 call _man_entityInit
 
 ld hl, #_m_enemyCounter
@@ -705,6 +706,17 @@ _man_game_updateGameStatus::
    auxVictory:
    jp victoryScreen
    nextLevel:
+
+   ; ld de, #0xDAD0
+   ; ld  c, #0x06
+   ; ld  b, #0x16
+   ; ld hl, #_tanque_0
+
+   ; call cpct_drawSprite_asm
+
+   ; ld hl, #Key_Enter
+   ; call waitKeyPressed
+
    ld ix, #_m_nextLevel
    ld hl, #_m_gameLevel
    ld a, (ix)
@@ -721,7 +733,7 @@ _man_game_updateGameStatus::
 
 
 ;===================================================================================================================================================
-; FUNCION _man_game_updateGameStatus   
+; FUNCION _man_game_decreasePlayerLife   
 ; Función encargada de decrementar la vida del jugador
 ; NO llega ningun dato
 ;===================================================================================================================================================
