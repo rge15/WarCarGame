@@ -22,33 +22,34 @@ _level1:
     ; .db #60                                 ; Entity Y
 
     ; Level Test
-    ; .dw #_tilemap_01            ;Tilemap
-    ; .db #level_new_entity
-    ; .dw #t_player
-    ; .db #0x26                   ;Entity X
-    ; .db #0xB0                   ;Entity Y
-    ;
-    ; .db #level_new_entity
+    .dw #_tilemap_01            ;Tilemap
+    .db #level_new_entity
+    .dw #t_player
+    .db #0x26                   ;Entity X
+    .db #0xB0                   ;Entity Y
+
+    .db #level_new_entity
     ; .dw #t_spawner_template_02
-    ; .db #40                   ;Entity X
-    ; .db #80                   ;Entity Y
+    .dw #t_spawner_template_02
+    .db #40                   ;Entity X
+    .db #80                   ;Entity Y
 
     ; .db #level_new_entity
     ; .dw #t_enemy_patrol_relative_02
     ; .db #40                   ;Entity X
     ; .db #80                   ;Entity Y
-
+    ;
     ; .db #level_new_entity
     ; .dw #t_enemy_patrol_01
     ; .db #0x40                   ;Entity X
     ; .db #0x80                   ;Entity Y
-
+    ;
     ; .db #level_new_entity
     ; .dw #t_enemy_patrol_relative_01
     ; .db #44
     ; .db #90
 
-    ; .db #level_separator
+    .db #level_separator
 
     ;;;; LEVELS
 

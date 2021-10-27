@@ -505,11 +505,14 @@ enemySpawnerCollisionBehaviour::
     and e_type(iy)
     ret Z
 
-    call destroyPairOfEntities
+    call _sys_ai_decrement_spawner_hp
+    ; call destroyPairOfEntities
+    push iy
+    pop hl
+    call _m_game_destroyEntity
     call _m_game_bulletDestroyed
 
     ret
-
 
 
 ; e_type_bullet                = si choca con un enemy se destruye así mismo, al enemy tambien se destruye, si es un spawner se le resta una vida al spawner,

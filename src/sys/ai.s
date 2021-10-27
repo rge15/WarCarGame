@@ -17,7 +17,7 @@
 _sys_ai_directionMemory::
     .dw #0x0000
 
-enemy_max_spawn = 3
+enemy_max_spawn = 1
 _sys_ai_enemy_count: .db 0
 
 
@@ -244,13 +244,23 @@ _sys_ai_spawnEnemy_template:
 _sys_ai_behaviourShield:
    ret
 
+;===============================================================================
+; Usamos orient para hp spawner ya que nunca se va a mover
 ; IX: spawner entity
+;===============================================================================
 _sys_ai_decrement_spawner_hp:
-   ;; TODO: o lo que sae
-   dec e_ai_aux_l(ix)
+   ;; TODO: cargar animacion para dar feedback de menor vida
+   dec e_orient(ix)
    push ix
    pop hl
-   call z, _man_setEntity4Destroy
+   call z, _sys_ai_spawner_has_to_die
+   ; tambine
+   ; _man_game_decreaseEnemyCounter
+   ret
+
+_sys_ai_spawner_has_to_die:
+   call _m_game_destroyEntity
+   call _man_game_decreaseEnemyCounter
    ret
 
 ;===============================================================================
