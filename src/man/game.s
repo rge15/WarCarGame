@@ -134,6 +134,27 @@ waitKeyPressed::
    
    ret
 
+waitKeyPressedWithNoScan::
+   ; push hl
+   ; call cpct_scanKeyboard_f_asm
+   ; pop hl
+   push hl
+   call cpct_isKeyPressed_asm
+   pop hl
+   jr  nz, waitKeyPressedWithNoScan
+
+   loopWaitKey2:
+      ; push hl
+      ; call cpct_scanKeyboard_f_asm
+      ; pop hl
+      push hl
+      call cpct_isKeyPressed_asm
+      pop hl
+      jr  z, loopWaitKey2
+   
+   ret
+
+
 
 ;===================================================================================================================================================
 ; FUNCION _m_game_play   
@@ -146,7 +167,7 @@ _m_game_play::
 ;Pantalla inicio
 ;==================
 startGame:
-   di
+   ; di
    ;TODO : Hacer una pantalla de inicio bonica y cargarla aquí
    ld hl, #0x0004
    ; call cpct_setDrawCharM0_asm
@@ -705,6 +726,10 @@ _man_game_updateGameStatus::
    auxVictory:
    jp victoryScreen
    nextLevel:
+   
+   ; di
+
+
    ld ix, #_m_nextLevel
    ld hl, #_m_gameLevel
    ld a, (ix)
@@ -712,6 +737,19 @@ _man_game_updateGameStatus::
    inc hl
    ld a, 1(ix)
    ld (hl), a
+
+   ld hl, #_tanque_0
+   ld c , #0x06
+   ld b , #0x16
+   ld de, #0xDAF0
+
+   call cpct_drawSprite_asm
+
+   ld hl, #Key_Enter
+   call waitKeyPressedWithNoScan
+
+
+   
    
    jp restartLevel
 
