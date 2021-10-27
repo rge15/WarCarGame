@@ -1,5 +1,8 @@
 .include "resources/tilemaps.h.s"
 .include "resources/templates.h.s"
+.include "resources/patrol_data.h.s"
+.include "sys/ai.h.s"
+
 
 ; dos seguidos significa fin de levels
 level_separator  = 0x00
@@ -62,10 +65,14 @@ _level1:
     .db #0xB0                   ;Entity Y
 
     .db #level_new_entity
-    .dw #t_enemy_01_L01
+    .dw #t_enemy_patrol_01
     .db #20
     .db #50
-
+    .dw #_sys_ai_behaviourPatrol 
+    .db #00                                 ; e_ai_aux_l
+    .db #00                                 ; e_ai_aux_h
+    .dw #patrol_x_50_20
+    .db #level_separator        ;TODO : ESto quitarlo para cargar más niveles
     .db #level_separator
     ; Level 2
 
