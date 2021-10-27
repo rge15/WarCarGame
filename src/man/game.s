@@ -637,7 +637,6 @@ _man_game_loadLevel::
       ld e_aibeh1(ix), a
       inc hl
       ld a, (hl)
-      ld a, (hl)
       ld e_aibeh2(ix), a
       inc hl
       ld a, (hl)
@@ -651,6 +650,12 @@ _man_game_loadLevel::
       inc hl
       ld a, (hl)
       ld e_patrol_step_h(ix), a
+      inc hl
+      ld a, (hl)
+      ld e_inputbeh1(ix), a
+      inc hl
+      ld a, (hl)
+      ld e_inputbeh2(ix), a
 
       jp checkNextLevelEntity
 
