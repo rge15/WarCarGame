@@ -10,6 +10,7 @@
 .include "sys/patrol.h.s"
 .include "sys/ai.h.s"
 .include "resources/sprites.h.s"
+.include "collision.h.s"
 
 ;===================================================================================================================================================
 ; Manager data
@@ -75,10 +76,36 @@ _sys_ai_updateOneEntity::
     ld d, e_aibeh2(ix)
     ld e, e_aibeh1(ix)
 
+    ; ex de, hl
     ld (#_sys_ai_directionMemory), de
-
     ld hl, (#_sys_ai_directionMemory)
+
+    ld de, #ai_back_from_jp
+    push de
     jp (hl)    
+
+    ai_back_from_jp:
+
+   ;; TODO: lasdsos 0000
+   ld e, e_inputbeh1(ix)
+   ld d, e_inputbeh2(ix)
+
+   ld (#_sys_ai_directionMemory), de
+   ld hl, (#_sys_ai_directionMemory)
+
+   ld a, d
+   or a
+   jr nz, low_no_zero_zero
+   jr low_is_zero_zero
+   low_no_zero_zero:
+      ld a, e
+      or a
+      jr nz, exe_shoot_beh
+   low_is_zero_zero:
+   ret
+
+   exe_shoot_beh:
+      jp (hl)
 
     ret
 
@@ -111,6 +138,9 @@ _sys_ai_shootBulletSeek::
 
    ret
 
+_sys_ai_shoot_bullet_l_common:
+   ret
+
 ;===============================================================================
 ; Esta bala muere cuando aictr llega a 0
 ; valores de e_ai_aux_l:
@@ -136,12 +166,8 @@ _sys_ai_shootBulletLinear:
    inc b
    inc c
 
-   ;; TODO: calcular margen para no collision
+   ;; TODO: calcular margen para centro
    pop bc
-   ; ld a, e_heigth(ix)
-   ; ld a, #12
-   ; add a, c
-   ; ld c, a
 
    ld e_xpos(ix), b
    ld e_ypos(ix), c
@@ -475,6 +501,8 @@ _sys_ai_behaviourPatrol::
    call _sys_ai_seekCoords_x
    call _sys_ai_seekCoords_y
 
+   call _sys_ai_check_tile_collision_from_ai
+
    ret
 
 _sys_ai_behaviourPatrol_shoot_l::
@@ -565,8 +593,11 @@ _sys_ai_behaviourBulletLinear::
    push bc
    pop ix
 
+   call _sys_ai_check_tile_collision_from_ai
    dec e_aictr(ix)
    jr z, has_to_destroy_bullet
+
+   ; CHECK_VX_VY_ZERO_JR has_to_destroy_bullet
    ret
 
    has_to_destroy_bullet:
@@ -601,8 +632,9 @@ _sys_ai_behaviourBulletSeektoPlayer::
    ; TODO[Edu]: con velociada mayor a veces no llega y se queda
    ; una entidad sin destruir y ya peta un poco todo
    ld d, #1
-   call _sys_ai_seekCoords_x
    call _sys_ai_seekCoords_y
+
+   call _sys_ai_check_tile_collision_from_ai
 
    ; dec e_aictr(ix)
    ; jr z, set_zero_vel
@@ -664,7 +696,6 @@ _sys_ai_behaviourSeekAndPatrol::
    GET_PLAYER_ENTITY iy
    CHECK_NO_AIM_XY _sys_ai_aim_to_entity
 
-
    dec e_aictr(ix)
    call z, _sys_patrol_set_relative_origin
 
@@ -683,39 +714,53 @@ _sys_ai_behaviourSeekAndPatrol::
 
    ld d, #1
    call _sys_ai_seekCoords_x
+   call _sys_ai_check_tile_collision_from_ai
    ld d, #2
    call _sys_ai_seekCoords_y
 
+   call _sys_ai_check_tile_collision_from_ai
+
    ret
 
-;===================================================================================================================================================
-; FUNCION _sys_ai_behaviourAutoDestroy
-; Destruye la entidad pasado el tiempo del contador de la IA
-; HL : Entidad a updatear
-;===================================================================================================================================================
+_sys_ai_beh_follow_player_x:
+   call _sys_ai_beh_follow_player
+   call z, do_follow_player_x
+   ret
 
-;!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-;Esto lo dejo aquí pero dudo que lo usemos
-;!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+_sys_ai_beh_follow_player_y:
+   call _sys_ai_beh_follow_player
+   call z, do_follow_player_y
+   ret
 
-_sys_ai_behaviourAutoDestroy::
-    ld a,#0x0C
-    searchAICounter:
-        inc hl
-        dec a
-        jr NZ, searchAICounter
+; deja en z la condicion
+_sys_ai_beh_follow_player:
+   push bc
+   pop ix
+   GET_PLAYER_ENTITY iy
+   call _sys_ai_aim_to_entity
+   dec e_ai_aux_l(ix)
+   ret
 
-    dec (hl)
-    jr NZ, dontDestroy
+do_follow_player_x:
+   ld e_ai_aux_l(ix), #test_time_fo
+   ld d, #1
+   call _sys_ai_seekCoords_x
+   call _sys_ai_check_tile_collision_from_ai
+   ret
 
-    ld a,#0x0C
-    searchType:
-        dec hl
-        dec a
-        jr NZ, searchType
+do_follow_player_y:
+   ld e_ai_aux_l(ix), #test_time_fo
+   ld d, #2
+   call _sys_ai_seekCoords_y
+   call _sys_ai_check_tile_collision_from_ai
+   ret
 
-    call _m_game_destroyEntity
+; IX: entidad
+_sys_ai_check_tile_collision_from_ai:
+   push ix
+   pop hl
+   ;; haciendo un buen uso de nuestro maravilloso ECS
+   ;; porque sino en la siguiente itereacion se mete en el tilemap
+   call _sys_collision_updateOneEntity
+   ret
 
-    dontDestroy:
-
-    ret

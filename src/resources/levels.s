@@ -28,16 +28,20 @@ _level1:
     .db #0x26                   ;Entity X
     .db #0xB0                   ;Entity Y
 
-    .db #level_new_entity
-    ; .dw #t_spawner_template_02
-    .dw #t_spawner_template_02
-    .db #40                   ;Entity X
-    .db #80                   ;Entity Y
+    ; ya tiraok
 
     ; .db #level_new_entity
-    ; .dw #t_enemy_patrol_relative_02
+    ; ; .dw #t_spawner_template_02
+    ; .dw #t_spawner_template_02
     ; .db #40                   ;Entity X
     ; .db #80                   ;Entity Y
+
+    .db #level_new_entity
+    ; .dw #t_enemy_patrol_01
+    ; .dw #t_enemy_seeknpatrol
+    .dw #t_enemy_testing
+    .db #20                   ;Entity X
+    .db #48                   ;Entity Y
     ;
     ; .db #level_new_entity
     ; .dw #t_enemy_patrol_01

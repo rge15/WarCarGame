@@ -20,9 +20,13 @@
 .globl _sys_ai_behaviourBulletLinear
 
 .globl _sys_ai_behaviourBullet
-.globl _sys_ai_behaviourAutoDestroy
+
 
 .globl _sys_ai_decrement_spawner_hp
+.globl _sys_ai_shoot_condition_l
+
+.globl _sys_ai_beh_follow_player_x
+.globl _sys_ai_beh_follow_player_y
 
 
 ;================================================================================
