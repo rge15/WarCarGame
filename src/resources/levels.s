@@ -21,7 +21,33 @@ _level1:
     ; .db #30                                 ; Entity X
     ; .db #60                                 ; Entity Y
 
+    ; Level Test
+    ; .dw #_tilemap_01            ;Tilemap
+    ; .db #level_new_entity
+    ; .dw #t_player
+    ; .db #0x26                   ;Entity X
+    ; .db #0xB0                   ;Entity Y
+    ;
+    ; .db #level_new_entity
+    ; .dw #t_spawner_template_01
+    ; .db #0x40                   ;Entity X
+    ; .db #0x80                   ;Entity Y
+
+    ; .db #level_new_entity
+    ; .dw #t_enemy_patrol_01
+    ; .db #0x40                   ;Entity X
+    ; .db #0x80                   ;Entity Y
+
+    ; .db #level_new_entity
+    ; .dw #t_enemy_patrol_relative_01
+    ; .db #44
+    ; .db #90
+
+
+    ;;;; LEVELS
     ; .db #level_separator
+
+    ; Level 1
 
     .dw #_tilemap_01            ;Tilemap
     .db #level_new_entity
@@ -29,17 +55,49 @@ _level1:
     .db #0x26                   ;Entity X
     .db #0xB0                   ;Entity Y
 
-    ; enemies
-    ; .db #level_new_entity
-    ; .dw #t_spawner_template_01
-    ; .db #0x40                   ;Entity X
-    ; .db #0x80                   ;Entity Y
-
     .db #level_new_entity
-    .dw #t_enemy_patrol_relative_01
-    .db #0x40                   ;Entity X
-    .db #0x80                   ;Entity Y
-
+    .dw #t_enemy_01_L01
+    .db #20
+    .db #50
 
     .db #level_separator
+    ; Level 2
+
+    .dw #_tilemap_01            ;Tilemap
+    .db #level_new_entity
+    .dw #t_player
+    .db #0x26                   ;Entity X
+    .db #0xB0                   ;Entity Y
+
+    .db #level_new_entity
+    .dw #t_enemy_01_L02
+    .db #18
+    .db #78
+
+    .db #level_new_entity
+    .dw #t_enemy_02_L02
+    .db #50
+    .db #78
+
+    .db #level_separator
+    ; Level 3
+
+    .dw #_tilemap_01
+    .db #level_new_entity
+    .dw #t_player
+    .db #0x26                   ;Entity X
+    .db #0xB0                   ;Entity Y
+
+    .db #level_new_entity
+    .dw #t_enemy_01_L03
+    .db #20
+    .db #50
+
+    .db #level_new_entity
+    .dw #t_enemy_02_L03
+    .db #10
+    .db #50
+
+    .db #level_separator
+    ; Game END
     .db #level_separator

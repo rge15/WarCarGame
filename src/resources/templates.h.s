@@ -1,6 +1,10 @@
 ;================================================================================
 ; Template declaration
 ;================================================================================
+.globl t_shoot_timer_enemy
+.globl t_bullet_timer_enemy
+.globl player_max_bullets
+
 
 .globl t_player
 
@@ -18,7 +22,10 @@
 .globl t_bullet_enemy_sp
 .globl t_bullet_enemy_l
 
-.globl t_shoot_timer_enemy
-.globl t_bullet_timer_enemy
 
-.globl player_max_bullets
+.globl t_enemy_01_L01
+.globl t_enemy_01_L02
+.globl t_enemy_02_L02
+.globl t_enemy_01_L03
+.globl t_enemy_02_L03
+.globl t_enemy_02_L02

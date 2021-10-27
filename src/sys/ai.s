@@ -235,6 +235,7 @@ _sys_ai_spawnEnemy_template:
    ;; posicion del spawner al enemy que spawnea
    ld e_xpos(ix), b
    ld e_ypos(ix), c
+   ; call _sys_patrol_set_relative_origin
 
    ret
 
@@ -264,6 +265,7 @@ _sys_ai_setAiAim::
 
 ; poner en el counter el valor que pasa hasta disparar una baga 
 
+
 ;===============================================================================
 ; Seek a unas coordenadas segun e_ai_aim_x, usando CP(con unsigned en principio)
 ; IX: entidad que va a hacer el seek
@@ -282,10 +284,12 @@ _sys_ai_seekCoords_x::
    set_negative_x:
       NEGATE_NUMBER d
       ld e_vx(ix), a
+      ld e_orient(ix), #2
       ret
 
    set_positive_x:
       ld e_vx(ix), d
+      ld e_orient(ix), #0
       ret
 
    set_zero_x:
@@ -312,10 +316,12 @@ _sys_ai_seekCoords_y::
    set_negative_y:
       NEGATE_NUMBER d
       ld e_vy(ix), a
+      ld e_orient(ix), #3
       ret
 
    set_positive_y:
       ld e_vy(ix), d
+      ld e_orient(ix), #1
       ret
 
    set_zero_y:
