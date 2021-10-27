@@ -629,6 +629,34 @@ _man_game_loadLevel::
       ld hl, #_m_enemyCounter
       inc (hl)
       pop  hl
+      ;/=======================
+      ;| Al ser enemy tiene más datos que cargar
+      ;\=======================
+      inc hl
+      ld a, (hl)
+      ld e_aibeh1(ix), a
+      inc hl
+      ld a, (hl)
+      ld e_aibeh2(ix), a
+      inc hl
+      ld a, (hl)
+      ld e_ai_aux_l(ix), a
+      inc hl
+      ld a, (hl)
+      ld e_ai_aux_h(ix), a
+      inc hl
+      ld a, (hl)
+      ld e_patrol_step_l(ix), a
+      inc hl
+      ld a, (hl)
+      ld e_patrol_step_h(ix), a
+      inc hl
+      ld a, (hl)
+      ld e_inputbeh1(ix), a
+      inc hl
+      ld a, (hl)
+      ld e_inputbeh2(ix), a
+
       jp checkNextLevelEntity
 
       playerCreated:
