@@ -69,25 +69,28 @@ t_player:
    .db #0x00                                 ; e_patrol_step_l
    .db #0x00                                 ; e_patrol_step_h
 
+; w 12 ;6
+; h 16 ;16
 t_enemy_basic:
    .db #e_type_enemy                         ; type
    .db #0x2b                                 ; cmp
    .db #0                                    ; x
    .db #0                                    ; y
-   .db #0x06                                 ; width
-   .db #0x0C                                 ; heigth
+   .db #6                                   ; width
+   .db #16                                   ; heigth
    .db #0                                    ; vx
    .db #0                                    ; vy
-   .dw #_sprite_enemy01                      ; sprite
+   ; .dw #_sprite_enemy01                      ; sprite
+   .dw #_ovni_green_0                      ; sprite
    .db #0x00                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
-   .dw #0                                    ; ai_behaviour
+   .dw #enemy_no_move                                    ; ai_behaviour
    .db #t_shoot_timer_enemy
    .dw #_sys_ai_behaviourPatrolRelative      ; ai_behaviour
    .dw #0x0                                  ; animator
    .db #0x0                                  ; anim. counter
-   .dw #0x0000                               ; input_behaviour
+   .dw #enemy_no_shoot                               ; input_behaviour
    .db #0x00                                 ; e_ai_aim_x
    .db #0x00                                 ; e_ai_aim_y
    .db #0                                    ; e_ai_aux_l
@@ -99,11 +102,11 @@ t_enemy_seeknpatrol:
    .db #0x2b                                 ; cmp
    .db #00                                 ; x
    .db #00                                 ; y
-   .db #0x06                                 ; width
-   .db #0x0C                                 ; heigth
+   .db #6                                   ; width
+   .db #16                                   ; heigth
    .db #0x00                                 ; vx
    .db #0x00                                 ; vy
-   .dw #_sprite_enemy01                      ; sprite
+   .dw #_ovni_red_0                      ; sprite
    .db #0x00                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
@@ -303,16 +306,18 @@ t_spawner_template_01:
    ; .db #0x00                                 ; e_patrol_step_l
    ; .db #0x00                                 ; e_patrol_step_h
 
+; 36 18
+; 16 16
 t_spawner_template_02:
    .db #e_type_spawner
    .db #0x0b                                 ; cmp
    .db #0                                    ; x
    .db #0                                    ; y
-   .db #0x06                                 ; width
-   .db #0x0C                                 ; heigth
+   .db #6                                   ; width
+   .db #16                                   ; heigth
    .db #0x00                                 ; vx
    .db #0x00                                 ; vy
-   .dw #_sprite_player02                      ; sprite
+   .dw #_ovni_portal_0                      ; sprite
    .db #t_spawner_max_hp                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
@@ -386,11 +391,11 @@ t_bullet_enemy_sp:
    .db #0x2B                                 ; cmp
    .db #0x00                                 ; x
    .db #0x00                                 ; y
-   .db #0x04                                 ; width
-   .db #0x04                                 ; heigth
+   .db #02                                 ; width
+   .db #06                                 ; heigth
    .db #0x01                                 ; vx
    .db #0x01                                 ; vy
-   .dw #_sprite_bullet01                     ; sprite
+   .dw #_ovni_bullet_0                     ; sprite
    .db #0x00                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
    .dw #0x0000                               ; prevptr
    .db #0x00                                 ; prev. orientation
@@ -411,11 +416,11 @@ t_bullet_enemy_l:
    .db #0x2B                                 ; cmp
    .db #50
    .db #150
-   .db #0x03                                 ; width
-   .db #0x06                                 ; heigth
+   .db #02                                 ; width
+   .db #06                                 ; heigth
    .db #0x00                                 ; vx
    .db #0x00                                 ; vy
-   .dw #_sprite_bullet01                     ; sprite
+   .dw #_ovni_bullet_0                     ; sprite
    .db #0x00                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
    .dw #0x0000                               ; prevptr
    .db #0x00                                 ; prev. orientation
@@ -436,11 +441,11 @@ t_bullet_enemy_l_f:
    .db #0x2B                                 ; cmp
    .db #50
    .db #150
-   .db #0x03                                 ; width
-   .db #0x06                                 ; heigth
+   .db #02                                 ; width
+   .db #06                                 ; heigth
    .db #0x00                                 ; vx
    .db #0x00                                 ; vy
-   .dw #_sprite_bullet01                     ; sprite
+   .dw #_ovni_bullet_0                     ; sprite
    .db #0x00                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
    .dw #0x0000                               ; prevptr
    .db #0x00                                 ; prev. orientation

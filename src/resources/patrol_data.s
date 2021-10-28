@@ -51,6 +51,41 @@ patrol_y_50_120:
    .db #patrol_invalid_move
    .dw #patrol_y_50_120
 
+
+; m for max
+patrol_all_game_zone_00:
+   .db   4, 48
+   .db  70, 48
+   .db  70, 176
+   .db   4, 176
+   .db #patrol_invalid_move
+   .dw #patrol_all_game_zone_00
+
+patrol_all_game_zone_0m:
+   .db  70, 48
+   .db  70, 176
+   .db   4, 176
+   .db   4, 48
+   .db #patrol_invalid_move
+   .dw #patrol_all_game_zone_0m
+
+patrol_all_game_zone_mm:
+   .db  70, 176
+   .db   4, 176
+   .db   4, 48
+   .db  70, 48
+   .db #patrol_invalid_move
+   .dw #patrol_all_game_zone_mm
+
+patrol_all_game_zone_m0:
+   .db   4, 176
+   .db   4, 48
+   .db  70, 48
+   .db  70, 176
+   .db #patrol_invalid_move
+   .dw #patrol_all_game_zone_m0
+
+
 ;===============================================================================
 ; Relative Patrol
 ;===============================================================================

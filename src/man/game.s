@@ -97,7 +97,9 @@ _m_game_createInitTemplate::
 _m_game_init::
    call  _sys_init_render
 
-   ld de, #_GameSong
+   ;; TODO: me salia undefined
+   ; ld de, #_GameSong
+   ld de, #_gameSong
    call cpct_akp_musicInit_asm
 
    call _man_int_setIntHandler

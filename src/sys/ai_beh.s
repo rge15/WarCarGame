@@ -130,9 +130,10 @@ _sys_ai_behaviourPatrol::
 
    CHECK_VX_VY_ZERO _sys_patrol_next
 
-   ld d, #1
+   ld d, #2
    ; el orden importa para la colision no se
    call _sys_ai_seekCoords_y
+   ld d, #1
    call _sys_ai_seekCoords_x
 
    call _sys_ai_check_tile_collision_from_ai
@@ -361,6 +362,7 @@ _sys_ai_beh_shoot_xy_rand_f:
    call z, _sys_ai_shoot_bullet_l_xy_rand_f
    ret
 
+; si esta justo en frente dispara en axis
 _sys_ai_beh_shoot_d:
    call _sys_ai_shoot_condition_common
    call z, _sys_ai_shoot_bullet_l_d

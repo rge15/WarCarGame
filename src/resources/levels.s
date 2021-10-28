@@ -41,23 +41,39 @@ _level1:
 
     ;;;; LEVELS
 
+    ; Esquinas:
+    ;   4, 48
+    ;  70, 48
+    ;   4, 176
+    ;  70, 176
+
     ; Level 1
 
-    .dw #_tilemap_02            ;Tilemap
+    .dw #_tilemap_01            ;Tilemap
     .db #level_new_entity
     .dw #t_player
-    .db #0x26                   ;Entity X
-    .db #0xB0                   ;Entity Y
+    .db #42                   ;Entity X
+    .db #176                   ;Entity Y
 
     ; .db #level_new_entity
     ; .dw #t_enemy_basic
-    ; .db #58
-    ; .db #80
+    ; .db #4
+    ; .db #176
+    ; .dw #_sys_ai_behaviourPatrol
+    ; .db #4                                 ; e_ai_aux_l
+    ; .db #48                                 ; e_ai_aux_h
+    ; .dw #patrol_all_game_zone_m0
+    ; .dw #_sys_ai_beh_shoot_d
+
+    ; .db #level_new_entity
+    ; .dw #t_bullet_enemy_l
+    ; .db #50
+    ; .db #50
     ; .dw #enemy_no_move
-    ; .db #00                                 ; e_ai_aux_l
-    ; .db #00                                 ; e_ai_aux_h
-    ; .dw #patrol_x_50_20
-    ; .dw #_sys_ai_beh_shoot_x_f
+    ; .db #4                                 ; e_ai_aux_l
+    ; .db #48                                 ; e_ai_aux_h
+    ; .dw #patrol_all_game_zone
+    ; .dw #enemy_no_move
     ;
     ; .db #level_new_entity
     ; .dw #t_enemy_basic
@@ -82,18 +98,18 @@ _level1:
     ; .dw #_sys_ai_beh_shoot_x_f
 
     ;; Esquema patrol relative
-    .db #level_new_entity
-    .dw #t_enemy_patrol_01
-    .db #40
-    .db #90
-    .dw #_sys_ai_behaviourPatrolRelative
-    .db #40
-    .db #90                                 ; e_ai_aux_h
-    .dw #patrol_relative_x_12
-    .dw #_sys_ai_beh_shoot_seekplayer
-
+    ; .db #level_new_entity
+    ; .dw #t_enemy_patrol_01
+    ; .db #40
+    ; .db #90
+    ; .dw #_sys_ai_behaviourPatrolRelative
+    ; .db #40
+    ; .db #90                                 ; e_ai_aux_h
+    ; .dw #patrol_relative_x_12
+    ; .dw #_sys_ai_beh_shoot_seekplayer
+    ;
     ;; Esquema spawner
-    ;; TODO: hacer templates para los enemigos a spawnear
+    ; TODO: hacer templates para los enemigos a spawnear
     ; .db #level_new_entity
     ; .dw #t_spawner_template_02
     ; .db #55
@@ -101,12 +117,12 @@ _level1:
     ; .dw #_sys_ai_behaviourSpawner_template
     ; .db #00                                 ; e_ai_aux_l
     ; .db #00                                 ; e_ai_aux_h
-    ; .dw #t_enemy_patrol_relative_02
+    ; .dw #t_enemy_patrol_01
     ; .dw #enemy_no_shoot
-
+    ;
     ; Esquema seeknpatrol
     ; .db #level_new_entity
-    ; .dw #t_enemy_basic
+    ; .dw #t_enemy_seeknpatrol
     ; .db #45
     ; .db #60
     ; .dw #_sys_ai_behaviourSeekAndPatrol

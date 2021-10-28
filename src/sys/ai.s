@@ -351,11 +351,15 @@ _sys_ai_decrement_spawner_hp:
 
    ;; Esto no es muy ECS pero bueno
    spawner_has_2_hp:
-      ld e_sprite1(ix), #_sprite_enemy01
+      ld hl, #_ovni_portal_1
+      ld e_sprite1(ix), l
+      ld e_sprite2(ix), h
       ret
 
    spawner_has_1_hp:
-      ld e_sprite1(ix), #_sprite_player02
+      ld hl, #_ovni_portal_2
+      ld e_sprite1(ix), l
+      ld e_sprite2(ix), h
       ret
 
    ret
