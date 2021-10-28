@@ -7,6 +7,7 @@
 .globl _m_game_destroyEntity
 .globl _m_game_bulletDestroyed
 .globl _m_game_playerShot
+.globl _m_game_StartMenu
 .globl _man_game_decreaseEnemyCounter
 .globl _man_game_decreasePlayerLife
 .globl _wait

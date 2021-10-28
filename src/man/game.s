@@ -137,6 +137,7 @@ startGame:
 
    call _sys_render_renderTileMap
 
+   call _m_game_StartMenu
 
    ld hl, #Key_Enter
    call waitKeyPressed
@@ -626,3 +627,156 @@ _man_game_decreaseEnemyCounter::
    call _m_HUD_addPoints
    call _m_HUD_renderScore
    ret
+
+;===================================================================================================================================================
+; FUNCION _m_game_StartMenu   
+; Funcion que manda a renderizar la pantalla de inicio del juego
+; NO llega ningun dato
+;===================================================================================================================================================
+_m_game_StartMenu::
+   
+   ;; Menu Text
+   ld de, #0xC000
+   ld c, #0x09    ;; X
+   ld b, #0x18    ;; Y
+   call cpct_getScreenPtr_asm
+   ld c, #0x3E    ;; Width
+   ld b, #0x16    ;; Height
+   ld de, #_GameText
+   call _renderMenuItems
+
+;; ==================================
+
+   ;; Coud_1
+   ld de, #0xC000
+   ld c, #0x49    ;; X
+   ld b, #0x15    ;; Y
+   call cpct_getScreenPtr_asm
+   ld c, #0x07    ;; Width
+   ld b, #0x1E    ;; Height
+   ld de, #_cloud_1
+   call _renderMenuItems
+
+   ;; Coud_2
+   ld de, #0xC000
+   ld c, #0x02    ;; X
+   ld b, #0x48    ;; Y
+   call cpct_getScreenPtr_asm
+   ld c, #0x11    ;; Width
+   ld b, #0x1E    ;; Height
+   ld de, #_cloud_2
+   call _renderMenuItems
+
+   ;; Coud_3
+   ld de, #0xC000
+   ld c, #0x24    ;; X
+   ld b, #0x69    ;; Y
+   call cpct_getScreenPtr_asm
+   ld c, #0x08    ;; Width
+   ld b, #0x0E    ;; Height
+   ld de, #_cloud_3
+   call _renderMenuItems
+
+;; ==================================
+
+   ;; Ovni_1
+   ld de, #0xC000
+   ld c, #0x24    ;; X
+   ld b, #0x45    ;; Y
+   call cpct_getScreenPtr_asm
+   ld c, #0x07    ;; Width
+   ld b, #0x0E    ;; Height
+   ld de, #_ovni_1
+   call _renderMenuItems
+
+   ;; Ovni_2
+   ld de, #0xC000
+   ld c, #0x30    ;; X
+   ld b, #0x4A    ;; Y
+   call cpct_getScreenPtr_asm
+   ld c, #0x0F    ;; Width
+   ld b, #0x22    ;; Height
+   ld de, #_ovni_2
+   call _renderMenuItems
+
+   ;; Ovni_3
+   ld de, #0xC000
+   ld c, #0x41    ;; X
+   ld b, #0x48    ;; Y
+   call cpct_getScreenPtr_asm
+   ld c, #0x05    ;; Width
+   ld b, #0x0A    ;; Height
+   ld de, #_ovni_3
+   call _renderMenuItems
+
+
+;; ==================================
+
+   ;; EnterText
+   ld de, #0xC000
+   ld c, #0x0B    ;; X
+   ld b, #0x7D    ;; Y
+   call cpct_getScreenPtr_asm
+   ld c, #0x3A    ;; Width
+   ld b, #0x10    ;; Height
+   ld de, #_pressEnterText
+   call _renderMenuItems
+
+
+;; ==================================
+
+   ;; TankMenu
+   ld de, #0xC000
+   ld c, #0x0A    ;; X
+   ld b, #0x97    ;; Y
+   call cpct_getScreenPtr_asm
+   ld c, #0x11    ;; Width
+   ld b, #0x24    ;; Height
+   ld de, #_tankMenu
+   call _renderMenuItems
+
+;; ==================================
+
+   ;; Railroad
+   ld de, #0xC000
+   ld c, #0x21    ;; X
+   ld b, #0xB4    ;; Y
+   call cpct_getScreenPtr_asm
+   ld c, #0x14    ;; Width
+   ld b, #0x12    ;; Height
+   ld de, #_railRoad
+   call _renderMenuItems
+
+;; ==================================
+
+   ;; Cactus_1
+   ld de, #0xC000
+   ld c, #0x30    ;; X
+   ld b, #0x91    ;; Y
+   call cpct_getScreenPtr_asm
+   ld c, #0x08    ;; Width
+   ld b, #0x1E    ;; Height
+   ld de, #_cactus_1
+   call _renderMenuItems
+
+   ;; Cactus_2
+   ld de, #0xC000
+   ld c, #0x3C    ;; X
+   ld b, #0xA3   ;; Y
+   call cpct_getScreenPtr_asm
+   ld c, #0x08    ;; Width
+   ld b, #0x20    ;; Height
+   ld de, #_cactus_2
+   call _renderMenuItems
+
+   ;; Cactus_3
+   ld de, #0xC000
+   ld c, #0x46    ;; X
+   ld b, #0x8D    ;; Y
+   call cpct_getScreenPtr_asm
+   ld c, #0x08    ;; Width
+   ld b, #0x20    ;; Height
+   ld de, #_cactus_3
+   call _renderMenuItems
+
+ret

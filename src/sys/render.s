@@ -280,3 +280,17 @@ _sys_render_renderHUDScore::
     dontRender:
 
     ret
+
+;===================================================================================================================================================
+; FUNCION _m_game_StartMenu   
+; Funcion que renderiza los items de los menus que le llegan
+;       - HL: Puntero a dirección de memoria de pantalla
+;       - DE: El sprite a dinujar
+;       - B: Width
+;       - C: Height
+;===================================================================================================================================================
+_renderMenuItems::
+    ex de, hl
+    call cpct_drawSprite_asm
+
+ret
