@@ -20,6 +20,7 @@
 .include "resources/templates.h.s"
 .include "resources/sprites.h.s"
 .include "game.h.s"
+.include "resources/tilemaps.h.s"
 
 
 ;===================================================================================================================================================
@@ -162,8 +163,8 @@ call _man_game_interruptionsReset
 ;==================
 restartLevel:
 di
+SET_TILESET _tileset_00
 call _man_entityInit
-
 ld hl, #_m_enemyCounter
 ld (hl), #0x00 
 call _man_game_loadLevel
@@ -671,23 +672,26 @@ _man_game_updateGameStatus::
    ;\
    pop hl 
 
-   ld a, (ix)
+   ld a, 0(ix)
    ld l, a
    ld a, 1(ix)
    ld h, a
 
-   inc (hl)
-   dec (hl)
+   ld a, (hl)
+
+   inc a
+   dec a
    jr NZ, nextLevel
    
+   auxVictory:
    jp victoryScreen
    nextLevel:
    ld ix, #_m_nextLevel
    ld hl, #_m_gameLevel
-   ld a, 1(ix)
+   ld a, (ix)
    ld (hl), a
    inc hl
-   ld a, (ix)
+   ld a, 1(ix)
    ld (hl), a
    
    jp restartLevel
