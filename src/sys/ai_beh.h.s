@@ -21,6 +21,7 @@
 ; .globl _sys_ai_beh_follow_player_xy_rand
 
 
+.globl _sys_ai_beh_shoot_seekplayer
 
 .globl _sys_ai_beh_shoot_x
 .globl _sys_ai_beh_shoot_y

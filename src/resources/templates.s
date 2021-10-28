@@ -403,8 +403,8 @@ t_bullet_enemy_sp:
    .dw #0x0000                               ; input_behaviour
    .db #0x00                                 ; e_ai_aim_x
    .db #0x00                                 ; e_ai_aim_y
-   .db #0x00                                 ; e_ai_aux_l
-   .db #0x00                                 ; e_ai_aux_h
+   .db #t_bullet_vel_x                                  ; e_ai_aux_l
+   .db #t_bullet_vel_y                                 ; e_ai_aux_h
    .db #0x00                                 ; e_patrol_step_l
    .db #0x00                                 ; e_patrol_step_h
 

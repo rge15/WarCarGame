@@ -26,8 +26,6 @@
 .globl _sys_ai_seekCoords_x
 .globl _sys_ai_seekCoords_y
 
-.globl _sys_ai_shoot_condition_sp
-
 .globl _sys_ai_spawnEnemy_template
 .globl _sys_ai_spawnEnemy_plist
 

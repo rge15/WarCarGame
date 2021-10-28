@@ -91,8 +91,7 @@ _sys_ai_behaviourBulletSeektoPlayer::
    ;; TODO: mejorar porque en algunos casos puede fallar
    ld a, e_ai_aim_x(ix)
    ld d, e_ai_aim_y(ix)
-   ; add a, e_ai_aim_y(ix)
-   add a
+   add a, d
    or a
 
    jr nz, skip_set_coords
@@ -103,24 +102,16 @@ _sys_ai_behaviourBulletSeektoPlayer::
    ; TODO[Edu]: con velociada mayor a veces no llega y se queda
    ; una entidad sin destruir y ya peta un poco todo
    ld d, #1
+   ; ld d, e_ai_aux_l(ix)
    call _sys_ai_seekCoords_y
+   ; ld d, e_ai_aux_h(ix)
    call _sys_ai_seekCoords_x
-
-   ; call _sys_ai_check_tile_collision_from_ai
-
-   ; dec e_aictr(ix)
-   ; jr z, set_zero_vel
-   ; ret
-   ; set_zero_vel:
-   ;    ld e_vx(ix), #0
-   ;    ld e_vy(ix), #0
 
    push ix
    pop hl
    CHECK_VX_VY_ZERO _man_setEntity4Destroy
 
    ret
-
 
 ;;--------------------------------------------------------------------------------
 ;; AI MOVE BEHAVIOURS
@@ -327,15 +318,14 @@ _sys_ai_shoot_condition_common:
 ; dispara bala tipo SeektoPlayer
 ; Destroy: BC
 ;===============================================================================
-;; TODO: revisar !!
-_sys_ai_shoot_condition_sp:
+; _sys_ai_shoot_condition_sp:
+_sys_ai_beh_shoot_seekplayer:
    call _sys_ai_shoot_condition_common
 
    push ix
    call z, _sys_ai_shootBulletSeek
    pop ix
    ret
-
 
 
 _sys_ai_beh_shoot_x:
