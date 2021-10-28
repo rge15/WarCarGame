@@ -6,10 +6,7 @@
 .globl enemy_no_move
 
 .globl _sys_ai_behaviourPatrol
-; .globl _sys_ai_behaviourPatrol_shoot_l
-; .globl _sys_ai_behaviourPatrol_shoot_sp
 .globl _sys_ai_behaviourPatrolRelative
-; .globl _sys_ai_behaviourPatrolRelative_shoot
 .globl _sys_ai_behaviourSeekAndPatrol
 
 .globl _sys_ai_behaviourSpawner_plist
@@ -18,7 +15,6 @@
 
 .globl _sys_ai_beh_follow_player_x
 .globl _sys_ai_beh_follow_player_y
-; .globl _sys_ai_beh_follow_player_xy_rand
 
 
 .globl _sys_ai_beh_shoot_seekplayer

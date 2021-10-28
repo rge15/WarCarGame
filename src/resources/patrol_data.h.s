@@ -15,8 +15,10 @@
 .globl patrol_relative_02
 .globl patrol_relative_03
 .globl patrol_seeknpatrol_01
+.globl patrol_seeknpatrol_02
 .globl patrol_relative_none
 
+.globl patrol_relative_x_36
 .globl patrol_relative_x_24
 .globl patrol_relative_y_24
 .globl patrol_relative_x_12

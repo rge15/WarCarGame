@@ -117,6 +117,12 @@ patrol_seeknpatrol_01:
    .db #patrol_invalid_move
    .dw #patrol_seeknpatrol_01
 
+patrol_seeknpatrol_02:
+   .db  0, 0
+   .db  -16, 0
+   .db #patrol_invalid_move
+   .dw #patrol_seeknpatrol_02
+
 patrol_relative_03:
    .db  0, 0
    .db  0, 12
@@ -148,6 +154,12 @@ patrol_relative_x_24:
    .db  24, 0
    .db #patrol_invalid_move
    .dw #patrol_relative_x_24
+
+patrol_relative_x_36:
+   .db  0, 0
+   .db  36, 0
+   .db #patrol_invalid_move
+   .dw #patrol_relative_x_36
 
 patrol_relative_y_24:
    .db  0, 0
