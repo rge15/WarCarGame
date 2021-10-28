@@ -71,6 +71,8 @@ _m_enemyCounter:
 
 player_shoot_cooldown_l = 0x10
 player_shoot_cooldown_h = 0x40
+player_bullet_vel_x = #1
+player_bullet_vel_y = #2
 ;===================================================================================================================================================
 ; FUNCION _m_game_createInitTemplate   
 ; ; Crea la entidad con el template indicado
@@ -329,7 +331,7 @@ _m_game_playerShot::
    jp stopCheckOrientation
 
    righOrientation:
-      ld e_vx(ix), #0x01
+      ld e_vx(ix), #player_bullet_vel_x
       ld e_orient(ix), #0x00
       ld a, e_ypos(ix)
       add a, #0x06
@@ -340,7 +342,7 @@ _m_game_playerShot::
       jp stopCheckOrientation
 
    downOrientation:
-      ld e_vy(ix), #0x02
+      ld e_vy(ix), #player_bullet_vel_y
       ld e_orient(ix), #0x01
 
       ld e_width(ix),  #0x02
@@ -359,7 +361,9 @@ _m_game_playerShot::
       jp stopCheckOrientation
 
    leftOrientation:
-      ld e_vx(ix), #0xFF
+      ld d, #player_bullet_vel_x
+      NEGATE_NUMBER d
+      ld e_vx(ix), a
       ld e_orient(ix), #0x02
 
       ld a, e_ypos(ix)
@@ -376,7 +380,9 @@ _m_game_playerShot::
       jp stopCheckOrientation
 
    upOrientation:
-      ld e_vy(ix), #0xFE
+      ld d, #player_bullet_vel_y
+      NEGATE_NUMBER d
+      ld e_vy(ix), a
       ld e_orient(ix), #0x03
 
       ld e_width(ix),  #0x02
