@@ -43,7 +43,7 @@ _level1:
 
     ; Level 1
 
-    .dw #_tilemap_01            ;Tilemap
+    .dw #_tilemap_02            ;Tilemap
     .db #level_new_entity
     .dw #t_player
     .db #0x26                   ;Entity X
