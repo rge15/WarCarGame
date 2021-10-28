@@ -27,7 +27,7 @@
 ; Assets
 ;===================================================================================================================================================
 .globl _tilemap_01
-.globl _tileset_0
+.globl _tileset_00
 .globl _g_palette
 
 ;===================================================================================================================================================
@@ -151,7 +151,7 @@ _sys_render_renderOneEntity::
 _sys_render_renderTileMap::
     ld  bc, #0x1914            ; Height & Width of screen in bytes
     ld  de, #0x14              ; Width of the Tilemap in bytes
-    ld  hl, #_tileset_0        ; Tileset to draw with
+    ld  hl, #_tileset_00        ; Tileset to draw with
     call cpct_etm_setDrawTilemap4x8_ag_asm
     
     ld hl, #0xC000             ; Video mem. to draw tilemap

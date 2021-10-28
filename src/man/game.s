@@ -145,7 +145,7 @@ startGame:
    ld hl, #0xC000
    call cpct_drawStringM0_asm
    
-   ld hl, #Key_Enter
+   ld hl, #Key_Return
    call waitKeyPressed
 
    cpctm_clearScreen_asm 0
@@ -206,7 +206,7 @@ ei
       ;/
       ;|  Codigo completamente auxiliar para checkear el flujo de juego -- START
       ;\
-      ld hl, #Key_Enter
+      ld hl, #Key_Return
       push hl
       call cpct_scanKeyboard_f_asm
       pop hl
@@ -240,7 +240,7 @@ ei
    ld hl, #0xC000
    call cpct_drawStringM0_asm
    
-   ld hl, #Key_Enter
+   ld hl, #Key_Return
    call waitKeyPressed
    cpctm_clearScreen_asm 0
    jp startGame
@@ -257,7 +257,7 @@ ei
    call cpct_drawStringM0_asm
    
    
-   ld hl, #Key_Enter
+   ld hl, #Key_Return
    call waitKeyPressed
    cpctm_clearScreen_asm 0
    jp startGame
