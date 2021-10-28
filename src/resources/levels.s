@@ -78,7 +78,29 @@ _level1:
     .db #00                                 ; e_ai_aux_l
     .db #00                                 ; e_ai_aux_h
     .dw #patrol_x_50_20
-    .dw #_sys_ai_beh_shoot_y_f
+    .dw #_sys_ai_beh_shoot_y
+
+    ;; Esquema behaviour follow
+    .db #level_new_entity
+    .dw #t_enemy_patrol_01
+    .db #45
+    .db #60
+    .dw #_sys_ai_beh_follow_player_x
+    .db #t_follow_timer_f
+    .db #t_follow_timer_f
+    .dw #patrol_x_50_20
+    .dw #_sys_ai_beh_shoot_y
+
+    ;; Esquema patrol relative
+    ; .db #level_new_entity
+    ; .dw #t_enemy_patrol_01
+    ; .db #50
+    ; .db #90
+    ; .dw #_sys_ai_behaviourPatrolRelative
+    ; .db #50
+    ; .db #90                                 ; e_ai_aux_h
+    ; .dw #patrol_relative_x_12
+    ; .dw #_sys_ai_beh_shoot_y_f
 
     ; .db #level_new_entity
     ; .dw #t_spawner_template_02

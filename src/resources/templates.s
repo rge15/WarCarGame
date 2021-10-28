@@ -24,6 +24,7 @@ player_max_bullets = 3
 
 ; behaviours tipo follow in axis
 t_follow_timer = 20
+t_follow_timer_f = 1
 
 ; vidas de spaner
 t_spawner_max_hp = 3

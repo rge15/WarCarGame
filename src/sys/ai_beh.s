@@ -173,7 +173,7 @@ _sys_ai_behaviourPatrolRelative::
    ;; TODO: ver como poner el origen solo una vez 
    push ix
    pop iy
-   dec e_aictr(ix)
+   ; dec e_aictr(ix)
    ; call z, _sys_patrol_set_relative_origin
    ; ld e_aictr(ix), #2
 
@@ -187,17 +187,6 @@ _sys_ai_behaviourPatrolRelative::
    call _sys_ai_check_tile_collision_from_ai
 
    ret
-
-;; TODO: tipo de shoot_linear y posicion relativa comparten aictr !!
-;===============================================================================
-; actualiza _sys_ai_nextPatrolCoords
-; de momoento shoot_linear
-; Destroy: HL, BC
-;===============================================================================
-; _sys_ai_behaviourPatrolRelative_shoot:
-;    call _sys_ai_behaviourPatrolRelative
-;    call _sys_ai_shoot_condition_l
-;    ret
 
 ;; TODO: si pos inicial 1 peta no se
 ;===============================================================================
@@ -272,14 +261,16 @@ _sys_ai_beh_follow_player:
    ret
 
 do_follow_player_x:
-   ld e_ai_aux_l(ix), #t_follow_timer
+   ld a, e_ai_aux_h(ix)
+   ld e_ai_aux_l(ix), a
    ld d, #1
    call _sys_ai_seekCoords_x
    call _sys_ai_check_tile_collision_from_ai
    ret
 
 do_follow_player_y:
-   ld e_ai_aux_l(ix), #t_follow_timer
+   ld a, e_ai_aux_h(ix)
+   ld e_ai_aux_l(ix), a
    ld d, #2
    call _sys_ai_seekCoords_y
    call _sys_ai_check_tile_collision_from_ai

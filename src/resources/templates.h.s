@@ -34,6 +34,7 @@
 .globl t_enemy_02_L03
 
 .globl t_follow_timer
+.globl t_follow_timer_f
 .globl enemy_no_shoot
 
 .globl t_bullet_vel_x
