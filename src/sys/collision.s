@@ -56,13 +56,11 @@ _sys_collision_update::
 ; NO llega ningun dato
 ;===================================================================================================================================================
 _sys_checkColissionBwEntities::
-    call _man_getEntityArray ;; Devuelve en hl
+    ld hl, #_m_entities
     ld (#_sys_entityArray), hl
-    call _man_getNumEntities ;; Devuelve en hl
-    ld a, (hl)
+    ld a, (#_m_numEntities)
     ld (#_sys_numEntities), a
-    call _man_getSizeOfEntity ;; Devuelve en hl
-    ld a, (hl)
+    ld a, (#_m_sizeOfEntity)
     ld (#_sys_sizeOfEntity), a
     call _sys_collision_updateMultiple
 ret
@@ -116,7 +114,7 @@ _sys_collision_updateMultiple::
 
     ;; Se pasa a la siguiente entidad para iy
     _next_iy:
-    INCREMENT_REGISTER de, (#_sys_sizeOfEntity)
+    INCREMENT_REGISTER_DE (#_sys_sizeOfEntity)
 
     ld a, (de)
     inc a

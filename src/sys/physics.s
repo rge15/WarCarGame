@@ -21,53 +21,6 @@ _sys_physics_update::
     call _man_entityForAllMatching
     ret
 
-;===================================================================================================================================================
-; FUNCION _sys_physics_checkKeyboard
-; Cambia el valor de la velocidad en x si se pulsa la tecla : O o P
-; Y manda la orden de disparar si pulsa Espacio
-; HL : LA entidad a updatear
-;===================================================================================================================================================
-;;_sys_physics_checkKeyboard::
-;;    inc hl
-;;    inc hl
-;;    inc hl
-;;    inc hl
-;;    inc hl
-;;    inc hl
-;;    push hl
-;;
-;;    call cpct_scanKeyboard_f_asm
-;;    
-;;    ld hl, #0x0404  ;;Key O
-;;    call cpct_isKeyPressed_asm
-;;    jr NZ, leftPressed
-;;
-;;    ld hl, #0x0803 ;;Key P
-;;    call cpct_isKeyPressed_asm
-;;    jr NZ, rightPressed
-;;
-;;    pop hl
-;;    ld (hl), #0x00
-;;
-;;    jp stopCheckMovement
-;;    leftPressed:
-;;        pop hl
-;;        ld (hl), #0xFF
-;;        jp stopCheckMovement
-;;    rightPressed:
-;;        pop hl
-;;        ld (hl), #0x01
-;;
-;;    stopCheckMovement:
-;;
-;;    ld hl, #0x8005 ;;Key SpaceBar
-;;    call cpct_isKeyPressed_asm
-;;    jr Z, dontShoot
-;;    call _m_game_playerShot
-;;
-;;    dontShoot:
-;;    ret
-
 
 ;===================================================================================================================================================
 ; FUNCION _sys_physics_updateOneEntity

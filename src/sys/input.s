@@ -43,7 +43,7 @@ _sys_input_updateOneEntity::
     push hl
     pop ix
 
-    call cpct_scanKeyboard_f_asm
+    ; call cpct_scanKeyboard_f_asm ;;;;IMPORTANTE ESTO SE TIENE QUE QUDAR COMENTADO NO DESCOMENTAR (Preguntar a Rodro)
     
     ld hl, #0x0807  ;;Key W
     call cpct_isKeyPressed_asm
