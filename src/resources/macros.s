@@ -31,38 +31,6 @@
 .endm
 
 
-
-;;;;;;;;;;;;;;;;;;;WORK ON PROGRESS ;;;;;;;;;;;;;;;;;;;;;;
-;;Carga en el registro A el campo que quieras de la struct de la entity
-;!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-; IMPORTANTE : NO SE PUEDE UTILIZAR EN EL REGISTRO A NI F
-;!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-.macro LOAD_ENTITY_VARIABLE_IN_REGISTER _entity, _entity_var, _register
-    ; push af
-    ; push bc
-    ; push hl
-    push _entity
-    pop ix
-    ld _register, _entity_var(ix)
-
-    ; ld b,h
-    ; ld c,l
-    ; ld hl, #_macro_addresAux
-    ; ld (hl), c
-    ; inc hl
-    ; ld (hl), b
-
-    ; ld ix, #_macro_addresAux
-    ; ld a, _entity_var(ix)
-    
-    ; pop hl
-    ; pop bc
-
-    ; ld _register, a
-
-    ; pop af
-.endm
-
 ;;Incrementa en 1 la variable indicada de la entidad indicada
 .macro INCREMENT_ENTITY_VARIABLE _entity, _entity_var
     push af
@@ -86,17 +54,21 @@
 .endm
 
 ;; Aumenta el registro X veces
-.macro INCREMENT_REGISTER _register, _numLoops
+;;IMportante no se puede incrementar HL ni BC
+.macro INCREMENT_REGISTER_DE _numLoops
+    ; push bc
     ld a, _numLoops
-    _loopIncrement:
-        inc _register
-        dec a
-        jr nz, _loopIncrement
+    ld c, a
+    ld b, #0
+    ex de, hl
+    add hl, bc
+    ex de, hl
+    ; pop bc
 .endm
 
 ;;Comprueba si la tecla pasada por parametro se está pulsando
 .macro CHECK_KEYBOARD_INPUT_IN_KEY _key
-    call cpct_scanKeyboard_f_asm
+    ; call cpct_scanKeyboard_f_asm
     
     ld hl, #_key
     call cpct_isKeyPressed_asm
@@ -275,6 +247,32 @@
     ld d, #0x00
 
     _done_check_x_orientation:
+
+.endm
+
+
+
+.macro SET_TILESET _set
+    ld hl, #_set
+    ex de, hl
+
+    ld hl, #_m_render_tileset
+    
+    ld (hl), e
+    inc hl
+    ld (hl), d
+
+.endm
+
+.macro SET_TILEMAP _map
+    ld hl, #_map
+    ex de, hl
+
+    ld hl, #_m_render_tilemap
+    
+    ld (hl), e
+    inc hl
+    ld (hl), d
 
 .endm
 

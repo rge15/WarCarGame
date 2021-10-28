@@ -22,7 +22,7 @@ e_cmp_animated = 0x10
 e_cmp_collider = 0x20
 
 ;===================================================================================================================================================
-; Entity variables    TODO : MIrar como puedo hacer defines para poder llamar al macro LOAD_ENTITY_VARIABLE_IN_REGISTER
+; Entity variables    
 ;===================================================================================================================================================
 e_type      =  0
 e_cmp       =  1

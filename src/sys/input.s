@@ -43,8 +43,6 @@ _sys_input_updateOneEntity::
     push hl
     pop ix
 
-    call cpct_scanKeyboard_f_asm
-
     ld hl, #0x8005  ;;Key Space
     call cpct_isKeyPressed_asm
     jr NZ, spacePressed

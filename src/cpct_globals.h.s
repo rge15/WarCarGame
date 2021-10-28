@@ -11,6 +11,9 @@
 .globl cpct_memcpy_asm
 .globl cpct_setDrawCharM0_asm
 .globl cpct_drawStringM0_asm
+.globl cpct_scanKeyboard_if_asm
+.globl cpct_akp_musicInit_asm
+.globl cpct_akp_musicPlay_asm
 
 
 

@@ -148,12 +148,10 @@ ret
 ; HL : La entidad para ser destruida
 ;===================================================================================================================================================
 _man_entityDestroy::
-    ; push hl
-    ld de, (#_m_next_free_entity)
-    ex de, hl
     ;; HL = _m_next_free_entity
     ;; DE = entity to destroy
-
+    ld de, (#_m_next_free_entity)
+    ex de, hl
 
     ;; Buscamos la ultima entidad
     ld  a, (#_m_sizeOfEntity)
@@ -162,7 +160,6 @@ _man_entityDestroy::
         dec a
         jr NZ, setLast
     ;; de = e && hl = last
-
 
     ;;Comprobamos que la ultima entidad libre y la entidad a destruir no sea la misma
     ;;if( e != last)
@@ -236,7 +233,6 @@ _man_entitiesUpdate::
 
         _next_entity:
             add hl, bc
-            ; jr continue
         continue:
             ld a, #0x80
             inc (hl)
@@ -250,13 +246,19 @@ _man_entitiesUpdate::
 ; Devuelve en a si hay espacio libre en las entidades para poder generar
 ; NO llega ningun dato 
 ;===================================================================================================================================================
-_man_entity_freeSpace::
-        ld hl, #_m_numEntities
-        ld a, (#_m_numEntities)
-        sub (hl)
-    ret
+; _man_entity_freeSpace::
+        ; ld hl, #_m_numEntities
+        ; ld a, (#_m_numEntities)
+        ; sub (hl)
+    ; ret
 
 
+
+;===================================================================================================================================================
+; FUNCION _man_entityUpdate
+; Encargado de updatear las entidades y al jugador
+; NO llega ningun dato 
+;===================================================================================================================================================
 _man_entityUpdate::
     call _man_entitiesUpdate
     call _man_playerUpdate
@@ -301,41 +303,32 @@ _man_playerUpdate::
         ld e_anim2(ix), h
         ld e_anim1(ix), l
         ld hl, #_tanque_0
-        ld e_sprite2(ix), h
-        ld e_sprite1(ix), l
-        ld e_animctr(ix), #0x0A
-        jp endUpdater
+        jp setSprite
     setYUpAxis:    
         ld hl, #_man_anim_player_y_up
         ld e_anim2(ix), h
         ld e_anim1(ix), l
         ld hl, #_tanque_1
-        ld e_sprite2(ix), h
-        ld e_sprite1(ix), l
-        ld e_animctr(ix), #0x0A
-        jp endUpdater
+        jp setSprite
 
     setXLeftAxis:
         ld hl, #_man_anim_player_x_left
         ld e_anim2(ix), h
         ld e_anim1(ix), l
         ld hl, #_tanque_4
-        ld e_sprite2(ix), h
-        ld e_sprite1(ix), l
-        ld e_animctr(ix), #0x0A
-        jp endUpdater
+        jp setSprite
+
     setYDownAxis:    
         ld hl, #_man_anim_player_y_down
         ld e_anim2(ix), h
         ld e_anim1(ix), l
         ld hl, #_tanque_5
-        ld e_sprite2(ix), h
-        ld e_sprite1(ix), l
-        ld e_animctr(ix), #0x0A
-        jp endUpdater
+    
+    setSprite:
+    ld e_sprite2(ix), h
+    ld e_sprite1(ix), l
+    ld e_animctr(ix), #0x0A
 
-
-    endUpdater:
     ret
 
 
