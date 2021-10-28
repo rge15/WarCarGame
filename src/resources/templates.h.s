@@ -8,6 +8,7 @@
 
 .globl t_player
 
+.globl t_enemy_basic
 .globl t_enemy_patrol_relative_01
 .globl t_enemy_patrol_relative_02
 .globl t_enemy_seeknpatrol

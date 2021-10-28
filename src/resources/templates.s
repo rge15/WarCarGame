@@ -13,9 +13,9 @@
 t_shoot_timer_enemy = 100
 
 ; tiempo hasta que la bala de un enemy se destruye
-t_bullet_timer_enemy = 140
+t_bullet_timer_enemy = 70
 ; fast
-t_bullet_timer_enemy_f = 70
+t_bullet_timer_enemy_f = 25
 
 ; tiempo hasta que la bala del player se destruye
 t_bullet_timer_player = 27
@@ -68,6 +68,31 @@ t_player:
    .db #0x00                                 ; e_ai_aux_h
    .db #0x00                                 ; e_patrol_step_l
    .db #0x00                                 ; e_patrol_step_h
+
+t_enemy_basic:
+   .db #e_type_enemy                         ; type
+   .db #0x2b                                 ; cmp
+   .db #0                                    ; x
+   .db #0                                    ; y
+   .db #0x06                                 ; width
+   .db #0x0C                                 ; heigth
+   .db #0                                    ; vx
+   .db #0                                    ; vy
+   .dw #_sprite_enemy01                      ; sprite
+   .db #0x00                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
+   .db #0x00                                 ; prev. orientation
+   .dw #0x0000                               ; prevptr
+   .dw #0                                    ; ai_behaviour
+   .db #t_shoot_timer_enemy
+   .dw #_sys_ai_behaviourPatrolRelative      ; ai_behaviour
+   .dw #0x0                                  ; animator
+   .db #0x0                                  ; anim. counter
+   .dw #0x0000                               ; input_behaviour
+   .db #0x00                                 ; e_ai_aim_x
+   .db #0x00                                 ; e_ai_aim_y
+   .db #0                                    ; e_ai_aux_l
+   .db #0                                    ; e_ai_aux_h
+   .dw #0                                    ; patrol_step
 
 t_enemy_patrol_relative_01:
    .db #e_type_enemy                                 ; type
@@ -143,14 +168,14 @@ t_enemy_seeknpatrol:
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
    .dw #_sys_ai_behaviourSeekAndPatrol              ; ai_behaviour
-   .db #0x1                                 ; ai_counter
+   .db #t_shoot_timer_enemy                                 ; ai_counter
    .dw #0x0                                  ; animator
    .db #0x0A                                 ; anim. counter
    .dw #0x0000                               ; input_behaviour
    .db #0                                 ; e_ai_aim_x
    .db #0                                 ; e_ai_aim_y
    .db #t_follow_timer                                 ; e_ai_aux_l
-   .db #0                                 ; e_ai_aux_h
+   .db #30                                 ; e_ai_aux_h
    .dw #patrol_relative_02
 
 t_enemy_patrol_01:

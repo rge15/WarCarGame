@@ -200,7 +200,7 @@ _sys_ai_behaviourSeekAndPatrol::
    GET_PLAYER_ENTITY iy
    CHECK_NO_AIM_XY _sys_ai_aim_to_entity
 
-   dec e_aictr(ix)
+   dec e_ai_aux_l(ix)
    call z, _sys_patrol_set_relative_origin
 
    CHECK_VX_VY_ZERO _sys_patrol_next_relative

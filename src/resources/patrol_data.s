@@ -65,10 +65,16 @@ patrol_relative_01:
    .dw #patrol_relative_01
 
 patrol_relative_02:
-   ; .db  0, -16
+   .db  0, -16
    .db  0, 0
    .db #patrol_invalid_move
    .dw #patrol_relative_02
+
+patrol_seeknpatrol_01:
+   .db  0, -16
+   .db  0, 0
+   .db #patrol_invalid_move
+   .dw #patrol_seeknpatrol_01
 
 patrol_relative_03:
    .db  0, 0

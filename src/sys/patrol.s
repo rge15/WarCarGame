@@ -82,6 +82,7 @@ reset_patrol:
 
    ret
 
+.globl t_bullet_timer_enemy
 ;===============================================================================
 ; Meter en ai_aux la posicion del jugador al hacer el call
 ; Destroy: BC
@@ -97,7 +98,8 @@ _sys_patrol_set_relative_origin:
    ld e_ai_aux_l(ix), h
 
    ;; TODO: donde va aaa
-   ld e_aictr(ix), #16
+   ld a, e_ai_aux_h(ix)
+   ld e_ai_aux_l(ix), a
 
    ret
 
