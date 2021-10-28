@@ -85,6 +85,10 @@ patrol_relative_03:
    .dw #patrol_relative_03
 
 
+patrol_relative_none:
+   .db  0, 0
+   .db #patrol_invalid_move
+   .dw #patrol_relative_none
 
 patrol_relative_x_12:
    .db  0, 0

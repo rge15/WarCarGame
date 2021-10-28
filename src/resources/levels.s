@@ -50,21 +50,31 @@ _level1:
     .db #0xB0                   ;Entity Y
 
     .db #level_new_entity
-    .dw #t_enemy_patrol_01
-    .db #20
-    .db #50
-    .dw #_sys_ai_behaviourPatrol 
+    .dw #t_enemy_basic
+    .db #58
+    .db #80
+    .dw #enemy_no_move
     .db #00                                 ; e_ai_aux_l
     .db #00                                 ; e_ai_aux_h
     .dw #patrol_x_50_20
-    .dw #_sys_ai_beh_shoot_y
+    .dw #_sys_ai_beh_shoot_d
+    ;
+    ; .db #level_new_entity
+    ; .dw #t_enemy_basic
+    ; .db #20
+    ; .db #50
+    ; .dw #_sys_ai_behaviourPatrol 
+    ; .db #00                                 ; e_ai_aux_l
+    ; .db #00                                 ; e_ai_aux_h
+    ; ; .dw #patrol_x_50_20 ;; pstrol_step
+    ; .dw #_sys_ai_beh_shoot_x
 
     ;; Esquema behaviour follow
     ; .db #level_new_entity
     ; .dw #t_enemy_basic
     ; .db #45
     ; .db #60
-    ; .dw #_sys_ai_beh_follow_player_x
+    ; .dw #_sys_ai_beh_follow_player_y
     ; ;; si es un timer realmente puede ser cualquier valor
     ; .db #t_follow_timer
     ; .db #t_follow_timer
@@ -74,13 +84,13 @@ _level1:
     ;; Esquema patrol relative
     ; .db #level_new_entity
     ; .dw #t_enemy_patrol_01
-    ; .db #50
+    ; .db #40
     ; .db #90
     ; .dw #_sys_ai_behaviourPatrolRelative
-    ; .db #50
+    ; .db #40
     ; .db #90                                 ; e_ai_aux_h
-    ; .dw #patrol_relative_x_12
-    ; .dw #_sys_ai_beh_shoot_y_f
+    ; .dw #patrol_relative_01
+    ; .dw #_sys_ai_beh_shoot_x
 
     ;; Esquema spawner
     ;; TODO: hacer templates para los enemigos a spawnear
@@ -102,8 +112,9 @@ _level1:
     ; .dw #_sys_ai_behaviourSeekAndPatrol
     ; .db #t_follow_timer
     ; .db #t_follow_timer
+    ; ; .dw #patrol_relative_none
     ; .dw #patrol_seeknpatrol_01
-    ; .dw #_sys_ai_beh_shoot_x
+    ; .dw #_sys_ai_beh_shoot_xy_rand
 
 
     .db #level_separator        ;TODO : ESto quitarlo para cargar más niveles

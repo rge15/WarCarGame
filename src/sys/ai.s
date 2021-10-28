@@ -208,8 +208,6 @@ _sys_ai_shoot_bullet_l_y_f:
 
 _sys_ai_shoot_bullet_l_xy_rand:
    call _sys_ai_shoot_bullet_l_common
-   ld h, e_xpos(ix)
-   ld l, e_ypos(ix)
 
    call _sys_ai_random_0_1
    dec a
@@ -226,6 +224,35 @@ _sys_ai_shoot_bullet_l_xy_rand:
       ld d, e_ai_aux_h(ix)
       call _sys_ai_seekCoords_y
 
+   ret
+
+;; fast version
+_sys_ai_shoot_bullet_l_xy_rand_f:
+   call _sys_ai_shoot_bullet_l_common_f
+
+   call _sys_ai_random_0_1
+   dec a
+
+   jr z, shoot_on_y_axis_f
+   jr shoot_on_x_axis_f
+   ret
+
+   shoot_on_x_axis_f:
+      ld d, e_ai_aux_l(ix)
+      call _sys_ai_seekCoords_x
+      ret
+   shoot_on_y_axis_f:
+      ld d, e_ai_aux_h(ix)
+      call _sys_ai_seekCoords_y
+
+   ret
+
+_sys_ai_shoot_bullet_l_d:
+   call _sys_ai_shoot_bullet_l_common
+   ld d, e_ai_aux_l(ix)
+   call _sys_ai_seekCoords_x
+   ld d, e_ai_aux_h(ix)
+   call _sys_ai_seekCoords_y
    ret
 
 ;===============================================================================

@@ -104,8 +104,9 @@ _sys_ai_behaviourBulletSeektoPlayer::
    ; una entidad sin destruir y ya peta un poco todo
    ld d, #1
    call _sys_ai_seekCoords_y
+   call _sys_ai_seekCoords_x
 
-   call _sys_ai_check_tile_collision_from_ai
+   ; call _sys_ai_check_tile_collision_from_ai
 
    ; dec e_aictr(ix)
    ; jr z, set_zero_vel
@@ -117,21 +118,6 @@ _sys_ai_behaviourBulletSeektoPlayer::
    push ix
    pop hl
    CHECK_VX_VY_ZERO _man_setEntity4Destroy
-
-   ;; Compruebo si tiene velocidad
-   ;; Se comprueba que la velocidad de la bala no sea 0
-   ;; En caso de que lo sea, sea manda a destruir
-   ; CHECK_HAS_MOVEMENT e_vx(ix), e_vy(ix)
-   ; ld a, #0x01
-   ; sub b
-   ; jr z, destroyBullet2 ;; Si no tiene vel. se destruye
-   ; ret
-   ; destroyBullet2:
-   ;    push hl
-   ;    call _m_game_bulletDestroyed
-   ;    pop hl
-   ;    call _m_game_destroyEntity
-   ;
 
    ret
 
@@ -229,27 +215,27 @@ _sys_ai_beh_follow_player_y:
    call z, do_follow_player_y
    ret
 
-_sys_ai_beh_follow_player_xy_rand:
-   call _sys_ai_beh_follow_player
-   ; dec e_ai_aux_l(ix)
-   jr z, xy_rand_go
-   ret
-   xy_rand_go:
-      call _sys_ai_random_0_1
-      dec a
-      jr z, xy_rand_go_x
-      jr xy_rand_go_y
-      ret
-      xy_rand_go_x:
-         call do_follow_player_x
-         ret
-      xy_rand_go_y:
-         call do_follow_player_y
-         ret
-      ; jp z, do_follow_player_x
-      ; jp nz, do_follow_player_y
-      ; ld e_ai_aux_l(ix), #test_time_fo2
-      ret
+; _sys_ai_beh_follow_player_xy_rand:
+;    call _sys_ai_beh_follow_player
+;    ; dec e_ai_aux_l(ix)
+;    jr z, xy_rand_go
+;    ret
+;    xy_rand_go:
+;       call _sys_ai_random_0_1
+;       dec a
+;       jr z, xy_rand_go_x
+;       jr xy_rand_go_y
+;       ret
+;       xy_rand_go_x:
+;          call do_follow_player_x
+;          ret
+;       xy_rand_go_y:
+;          call do_follow_player_y
+;          ret
+;       ; jp z, do_follow_player_x
+;       ; jp nz, do_follow_player_y
+;       ; ld e_ai_aux_l(ix), #test_time_fo2
+;       ret
 
 ; deja en z la condicion
 _sys_ai_beh_follow_player:
@@ -275,6 +261,7 @@ do_follow_player_y:
    call _sys_ai_seekCoords_y
    call _sys_ai_check_tile_collision_from_ai
    ret
+
 
 ; IX: entidad
 _sys_ai_check_tile_collision_from_ai:
@@ -379,6 +366,16 @@ _sys_ai_beh_shoot_xy_rand:
    call z, _sys_ai_shoot_bullet_l_xy_rand
    ret
 
+_sys_ai_beh_shoot_xy_rand_f:
+   call _sys_ai_shoot_condition_common
+   call z, _sys_ai_shoot_bullet_l_xy_rand_f
+   ret
+
+_sys_ai_beh_shoot_d:
+   call _sys_ai_shoot_condition_common
+   call z, _sys_ai_shoot_bullet_l_d
+   ret
+
 ;;--------------------------------------------------------------------------------
 ;; PRIVATE FUNCS
 ;;--------------------------------------------------------------------------------
@@ -398,6 +395,9 @@ _sys_ai_aim_to_entity:
 
 _sys_ai_reset_shoot_aictr:
    ld e_aictr(ix), #t_shoot_timer_enemy
+   ;; TODO: puede ser un poco loco
+   ; ld a, r
+   ; ld e_aictr(ix), a
    ret
 
 _sys_ai_reset_bullet_aictr:

@@ -196,8 +196,6 @@ ei
       call _sys_ai_update
       cpctm_setBorder_asm HW_GREEN
       call _sys_render_update
-      cpctm_setBorder_asm HW_WHITE
-      call _man_entityUpdate
       cpctm_setBorder_asm HW_GREEN
       call _sys_physics_update
       cpctm_setBorder_asm HW_RED
@@ -206,6 +204,8 @@ ei
       call _sys_animator_update
       cpctm_setBorder_asm HW_BLACK
       call _sys_collision_update
+      cpctm_setBorder_asm HW_WHITE
+      call _man_entityUpdate
 
       cpctm_setBorder_asm HW_YELLOW
       call _man_game_updateGameStatus

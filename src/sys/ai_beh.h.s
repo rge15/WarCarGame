@@ -18,7 +18,7 @@
 
 .globl _sys_ai_beh_follow_player_x
 .globl _sys_ai_beh_follow_player_y
-.globl _sys_ai_beh_follow_player_xy_rand
+; .globl _sys_ai_beh_follow_player_xy_rand
 
 
 
@@ -28,3 +28,6 @@
 
 .globl _sys_ai_beh_shoot_x_f
 .globl _sys_ai_beh_shoot_y_f
+.globl _sys_ai_beh_shoot_xy_rand_f
+
+.globl _sys_ai_beh_shoot_d

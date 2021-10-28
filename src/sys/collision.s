@@ -324,9 +324,10 @@ _sys_checkTilePosition::
          ; ld  e_vx(ix), #0
          ; ld  e_vy(ix), #0
          ; no se xq antes sin esto funcionaba pero ok supongo
-         ld e_aictr(ix), #1
+         ; ld e_aictr(ix), #1
+         ; dec e_aictr(ix)
+         call z, _m_game_destroyEntity
 
-         ; call _man_setEntity4Destroy
          ret
       is_type_enemy:
          push ix

@@ -216,7 +216,7 @@ t_enemy_testing:
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
    ; .dw #_sys_ai_behaviourPatrol; ai_behaviour
-   .dw #_sys_ai_beh_follow_player_xy_rand; ai_behaviour
+   .dw #_sys_ai_beh_follow_player_x
    .db #t_shoot_timer_enemy
    .dw #0x0                                  ; animator
    .db #0x0A                                 ; anim. counter
