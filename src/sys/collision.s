@@ -97,10 +97,9 @@ _sys_collision_updateMultiple::
     _next_ix:
         ;; NO PONGO EL MACRO PORQUE NO ME DEJA EL DESGRACIADO
         ld a, (#_sys_sizeOfEntity)
-        _loop:
-            inc hl
-            dec a
-            jr nz, _loop
+        ld e, a
+        ld d, #0
+        add hl, de
 
     push hl
     pop ix
@@ -129,21 +128,6 @@ _sys_collision_updateMultiple::
     call _sys_collisionEntity_check
     jr c, _no_collision
 
-    _collision:
-    ;============
-    ; ix = chequeas con todos
-    ; iy = si colisiona con ix
-    ; para cada tipo definir un comportamiento de colisión con el resto de tipos
-    ; if ix = type a
-    ; ver que type es iy y ejecutar comportamiento
-    ;====ix_entity=========|||===============behaviour iy_entity================================================================================
-    ; (DONE / TODO) e_type_player         = si choca con cualquier cosa que no sea una bala propia, se resta una vida al jugador y punto
-    ; (DONE / TODO) e_type_enemy          = si choca con una bullet_player se destruye así mismo y la bala tambien se destruye
-    ; (DONE / TODO) e_type_enemy_spawner  = si choca con una bullet_player se resta una vida así mismo y la bala tambien se destruye
-    ; (DONE / TODO) e_type_bullet                = si choca con un enemy se destruye así mismo, al enemy tambien se destruye, si es un spawner se le resta una vida al spawner, 
-    ;                                si es una enemyBullet se eliminan las 2
-    ; (DONE) e_type_enemyBullet           = si es una bullet se destruyen los dos y au
-    ;===========================================================================================================================================
     push de
     push hl
 
@@ -170,10 +154,6 @@ _sys_collision_updateMultiple::
     pop hl
     pop de
 
-
-    ; ld a, #0xFF
-    ; ld (0xC000), a
-    ;jr _jumpNext
     jr _next_iy
     
     _no_collision:
