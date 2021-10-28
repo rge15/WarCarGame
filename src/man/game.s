@@ -132,6 +132,12 @@ _m_game_play::
 startGame:
    ;TODO : Hacer una pantalla de inicio bonica y cargarla aquí
    
+   SET_TILESET _tileset_0
+   SET_TILEMAP _tilemap_01
+
+   call _sys_render_renderTileMap
+
+
    ld hl, #Key_Enter
    call waitKeyPressed
 

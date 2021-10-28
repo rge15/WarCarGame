@@ -53,12 +53,22 @@
 .endm
 
 ;; Aumenta el registro X veces
-.macro INCREMENT_REGISTER _register, _numLoops
+;;IMportante no se puede incrementar HL ni BC
+.macro INCREMENT_REGISTER_DE _numLoops
+    push hl
+    push bc
     ld a, _numLoops
-    _loopIncrement:
-        inc _register
-        dec a
-        jr nz, _loopIncrement
+    ld c, a
+    ld b, #0
+    ; _loopIncrement:
+        ; inc _register
+        ; dec a
+        ; jr nz, _loopIncrement
+    ex de, hl
+    add hl, bc
+    ex de, hl
+    pop bc
+    pop hl
 .endm
 
 ;;Comprueba si la tecla pasada por parametro se está pulsando
