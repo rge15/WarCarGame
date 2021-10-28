@@ -32,27 +32,6 @@ _level1:
     ; .db #0x26                   ;Entity X
     ; .db #0xB0                   ;Entity Y
     ;
-    ; ; ya tiraok
-    ;
-    ; ; .db #level_new_entity
-    ; ; ; .dw #t_spawner_template_02
-    ; ; .dw #t_spawner_template_02
-    ; ; .db #40                   ;Entity X
-    ; ; .db #80                   ;Entity Y
-    ;
-    ; .db #level_new_entity
-    ; .dw #t_enemy_patrol_01
-    ; ; .dw #t_enemy_seeknpatrol
-    ; ; .dw #t_enemy_patrol_relative_01
-    ; ; .dw #t_enemy_testing
-    ; .db #20                   ;Entity X
-    ; .db #90                   ;Entity Y
-    ; ;
-    ; .db #level_new_entity
-    ; .dw #t_enemy_patrol_01
-    ; .db #0x40                   ;Entity X
-    ; .db #0x80                   ;Entity Y
-    ;
     ; .db #level_new_entity
     ; .dw #t_enemy_patrol_relative_01
     ; .db #44
@@ -86,8 +65,9 @@ _level1:
     ; .db #45
     ; .db #60
     ; .dw #_sys_ai_beh_follow_player_x
-    ; .db #t_follow_timer_f
-    ; .db #t_follow_timer_f
+    ; ;; si es un timer realmente puede ser cualquier valor
+    ; .db #t_follow_timer
+    ; .db #t_follow_timer
     ; .dw #patrol_x_50_20
     ; .dw #_sys_ai_beh_shoot_y_f
 
@@ -102,7 +82,8 @@ _level1:
     ; .dw #patrol_relative_x_12
     ; .dw #_sys_ai_beh_shoot_y_f
 
-    ;; TODO: Esquema spaner
+    ;; Esquema spawner
+    ;; TODO: hacer templates para los enemigos a spawnear
     ; .db #level_new_entity
     ; .dw #t_spawner_template_02
     ; .db #55
@@ -110,20 +91,19 @@ _level1:
     ; .dw #_sys_ai_behaviourSpawner_template
     ; .db #00                                 ; e_ai_aux_l
     ; .db #00                                 ; e_ai_aux_h
-    ; ; .dw #t_enemy_testing
     ; .dw #t_enemy_patrol_relative_02
     ; .dw #enemy_no_shoot
 
     ; Esquema seeknpatrol
-    .db #level_new_entity
-    .dw #t_enemy_basic
-    .db #45
-    .db #60
-    .dw #_sys_ai_behaviourSeekAndPatrol
-    .db #t_follow_timer
-    .db #t_follow_timer
-    .dw #patrol_seeknpatrol_01
-    .dw #_sys_ai_beh_shoot_x
+    ; .db #level_new_entity
+    ; .dw #t_enemy_basic
+    ; .db #45
+    ; .db #60
+    ; .dw #_sys_ai_behaviourSeekAndPatrol
+    ; .db #t_follow_timer
+    ; .db #t_follow_timer
+    ; .dw #patrol_seeknpatrol_01
+    ; .dw #_sys_ai_beh_shoot_x
 
 
     .db #level_separator        ;TODO : ESto quitarlo para cargar más niveles
