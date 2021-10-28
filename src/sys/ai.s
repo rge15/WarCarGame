@@ -86,7 +86,6 @@ _sys_ai_updateOneEntity::
 
     ai_back_from_jp:
 
-   ;; TODO: lasdsos 0000
    ld e, e_inputbeh1(ix)
    ld d, e_inputbeh2(ix)
 
@@ -125,25 +124,37 @@ _sys_ai_shootBulletSeek::
    push bc
 
    CREATE_ENTITY_FROM_TEMPLATE t_bullet_enemy_sp
-   ; macro deja posicion en hl
    push hl
    pop ix
 
    pop bc
-   ld e_xpos(ix), b
-   ld e_ypos(ix), c
+   call shoot_from_enemy_center
 
    GET_PLAYER_ENTITY iy
    call _sys_ai_aim_to_entity
 
-   ; call _sys_ai_seekCoords_x
-   ; call _sys_ai_seekCoords_y
 
    ret
 
-_sys_ai_shoot_b_position_y_aim:
+shoot_from_enemy_center:
+   ; ld a, e_width(ix)
+   ld a, #2
+   add a, b
+   ld b, a
+
+   ; ld a, e_heigth(ix)
+   ld a, #4
+   add a, c
+   ld c, a
+
    ld e_xpos(ix), b
    ld e_ypos(ix), c
+   ret
+
+; w 6
+; h 16
+_sys_ai_shoot_b_position_y_aim:
+   call shoot_from_enemy_center
 
    GET_PLAYER_ENTITY iy
    call _sys_ai_aim_to_entity

@@ -55,15 +55,15 @@ _level1:
     .db #42                   ;Entity X
     .db #176                   ;Entity Y
 
-    ; .db #level_new_entity
-    ; .dw #t_enemy_basic
-    ; .db #4
-    ; .db #176
-    ; .dw #_sys_ai_behaviourPatrol
-    ; .db #4                                 ; e_ai_aux_l
-    ; .db #48                                 ; e_ai_aux_h
-    ; .dw #patrol_all_game_zone_m0
-    ; .dw #_sys_ai_beh_shoot_d
+    .db #level_new_entity
+    .dw #t_enemy_basic
+    .db #24
+    .db #156
+    .dw #enemy_no_move
+    .db #4                                 ; e_ai_aux_l
+    .db #48                                 ; e_ai_aux_h
+    .dw #patrol_all_game_zone_m0
+    .dw #_sys_ai_beh_shoot_seekplayer
 
     ; .db #level_new_entity
     ; .dw #t_bullet_enemy_l

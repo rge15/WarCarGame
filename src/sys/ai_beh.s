@@ -88,7 +88,7 @@ _sys_ai_behaviourBulletSeektoPlayer::
    GET_PLAYER_ENTITY iy
    CHECK_NO_AIM_XY _sys_ai_aim_to_entity
 
-   ;; TODO: mejorar porque en algunos casos puede fallar
+   ; mira la verdad no se como esto funciona
    ld a, e_ai_aim_x(ix)
    ld d, e_ai_aim_y(ix)
    add a, d
@@ -99,12 +99,9 @@ _sys_ai_behaviourBulletSeektoPlayer::
    call _sys_ai_aim_to_entity
    skip_set_coords:
 
-   ; TODO[Edu]: con velociada mayor a veces no llega y se queda
-   ; una entidad sin destruir y ya peta un poco todo
-   ld d, #1
-   ; ld d, e_ai_aux_l(ix)
+   ld d, #2
    call _sys_ai_seekCoords_y
-   ; ld d, e_ai_aux_h(ix)
+   ld d, #1
    call _sys_ai_seekCoords_x
 
    push ix
