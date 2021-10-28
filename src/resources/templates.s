@@ -14,16 +14,30 @@ t_shoot_timer_enemy = 100
 
 ; tiempo hasta que la bala de un enemy se destruye
 t_bullet_timer_enemy = 140
+; fast
+t_bullet_timer_enemy_f = 70
 
 ; tiempo hasta que la bala del player se destruye
 t_bullet_timer_player = 27
 
 player_max_bullets = 3
 
+; behaviours tipo follow in axis
 t_follow_timer = 20
 
-; tres tiros
+; vidas de spaner
 t_spawner_max_hp = 3
+
+; ai_aux_l
+t_bullet_vel_x = 1
+; ai_aux_h
+t_bullet_vel_y = 2
+
+; ai_aux_l
+t_bullet_vel_x_f = 2
+; ai_aux_h
+t_bullet_vel_y_f = 4
+
 
 enemy_no_shoot = 0x0000
 
@@ -388,13 +402,12 @@ t_bullet_enemy_l:
    .dw #0x0000                               ; input_behaviour
    .db #0x00                                 ; e_ai_aim_x
    .db #0x00                                 ; e_ai_aim_y
-   .db #0x7                                 ; e_ai_aux_l
-   .db #0x00                                 ; e_ai_aux_h
+   .db #t_bullet_vel_x                                  ; e_ai_aux_l
+   .db #t_bullet_vel_y                                 ; e_ai_aux_h
    .db #0x00                                 ; e_patrol_step_l
    .db #0x00                                 ; e_patrol_step_h
 
-
-t_shield:
+t_bullet_enemy_l_f:
    .db #e_type_enemy_bullet                                 ; type
    .db #0x2B                                 ; cmp
    .db #50
@@ -407,18 +420,17 @@ t_shield:
    .db #0x00                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
    .dw #0x0000                               ; prevptr
    .db #0x00                                 ; prev. orientation
-   .dw #0; ai_behaviour
-   .db #t_bullet_timer_enemy                 ; ai_counter   ;; Contador de la bala
+   .dw #_sys_ai_behaviourBulletLinear; ai_behaviour
+   .db #t_bullet_timer_enemy_f                 ; ai_counter   ;; Contador de la bala
    .dw #0x00                                 ; animator
    .db #0x00                                 ; anim. counter
    .dw #0x0000                               ; input_behaviour
    .db #0x00                                 ; e_ai_aim_x
    .db #0x00                                 ; e_ai_aim_y
-   .db #0x7                                 ; e_ai_aux_l
-   .db #0x00                                 ; e_ai_aux_h
+   .db #t_bullet_vel_x_f                                  ; e_ai_aux_l
+   .db #t_bullet_vel_y_f                                 ; e_ai_aux_h
    .db #0x00                                 ; e_patrol_step_l
    .db #0x00                                 ; e_patrol_step_h
-
 
 ;===============================================================================
 ; IN GAME ENEMIES DO NOT TOUCH

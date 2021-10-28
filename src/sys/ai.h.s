@@ -13,6 +13,9 @@
 .globl _sys_ai_shoot_bullet_l_y
 .globl _sys_ai_shoot_bullet_l_xy_rand
 
+.globl _sys_ai_shoot_bullet_l_x_f
+.globl _sys_ai_shoot_bullet_l_y_f
+
 ; .globl _sys_ai_shootBulletLinear
 .globl _sys_ai_shootBulletSeek
 

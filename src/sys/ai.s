@@ -141,6 +141,15 @@ _sys_ai_shootBulletSeek::
 
    ret
 
+_sys_ai_shoot_b_position_y_aim:
+   ld e_xpos(ix), b
+   ld e_ypos(ix), c
+
+   GET_PLAYER_ENTITY iy
+   call _sys_ai_aim_to_entity
+
+   ret
+
 ;; Crea la bala, le pone la posicion del enemigo que la dispara
 ;; y le pone en ai_aim las coords del player
 _sys_ai_shoot_bullet_l_common:
@@ -151,29 +160,49 @@ _sys_ai_shoot_bullet_l_common:
    push hl
    pop ix
 
-   inc b
-   inc c
-
-   ;; TODO: calcular margen para centro
    pop bc
 
-   ld e_xpos(ix), b
-   ld e_ypos(ix), c
+   call _sys_ai_shoot_b_position_y_aim
+   ret
 
-   GET_PLAYER_ENTITY iy
-   call _sys_ai_aim_to_entity
+;; fast version
+_sys_ai_shoot_bullet_l_common_f:
+   call _sys_ai_reset_shoot_aictr
+   push bc
+
+   CREATE_ENTITY_FROM_TEMPLATE t_bullet_enemy_l_f
+   push hl
+   pop ix
+
+   pop bc
+
+   call _sys_ai_shoot_b_position_y_aim
 
    ret
 
 _sys_ai_shoot_bullet_l_x:
    call _sys_ai_shoot_bullet_l_common
-   ld d, #1
+   ld d, e_ai_aux_l(ix)
+   call _sys_ai_seekCoords_x
+   ret
+
+;; fast version
+_sys_ai_shoot_bullet_l_x_f:
+   call _sys_ai_shoot_bullet_l_common_f
+   ld d, e_ai_aux_l(ix)
    call _sys_ai_seekCoords_x
    ret
 
 _sys_ai_shoot_bullet_l_y:
    call _sys_ai_shoot_bullet_l_common
-   ld d, #2
+   ld d, e_ai_aux_h(ix)
+   call _sys_ai_seekCoords_y
+   ret
+
+;; fast version
+_sys_ai_shoot_bullet_l_y_f:
+   call _sys_ai_shoot_bullet_l_common_f
+   ld d, e_ai_aux_h(ix)
    call _sys_ai_seekCoords_y
    ret
 
@@ -190,11 +219,11 @@ _sys_ai_shoot_bullet_l_xy_rand:
    ret
 
    shoot_on_x_axis:
-      ld d, #1
+      ld d, e_ai_aux_l(ix)
       call _sys_ai_seekCoords_x
       ret
    shoot_on_y_axis:
-      ld d, #1
+      ld d, e_ai_aux_h(ix)
       call _sys_ai_seekCoords_y
 
    ret
@@ -385,11 +414,8 @@ _sys_ai_seekCoords_y::
       ld e_vy(ix), #0
       ret
 
-;;--------------------------------------------------------------------------------
-;; Shoot Conditions
-;;--------------------------------------------------------------------------------
 
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Destroy: L
 ;; Return: A 1 or 0

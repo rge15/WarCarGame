@@ -23,6 +23,7 @@
 .globl t_bullet_player
 .globl t_bullet_enemy_sp
 .globl t_bullet_enemy_l
+.globl t_bullet_enemy_l_f
 
 
 .globl t_enemy_01_L01
@@ -34,4 +35,11 @@
 
 .globl t_follow_timer
 .globl enemy_no_shoot
+
+.globl t_bullet_vel_x
+.globl t_bullet_vel_y
+
+.globl t_bullet_vel_x_f
+.globl t_bullet_vel_y_f
+
 ; .globl test_time_fo2

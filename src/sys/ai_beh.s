@@ -202,6 +202,7 @@ _sys_ai_behaviourPatrolRelative::
 ;; TODO: si pos inicial 1 peta no se
 ;===============================================================================
 ; Sigue al jugador cambiando y se para a hacer un patron
+; Usa el aictr
 ;===============================================================================
 _sys_ai_behaviourSeekAndPatrol::
    push bc
@@ -361,14 +362,24 @@ _sys_ai_shoot_condition_sp:
 
 _sys_ai_beh_shoot_x:
    call _sys_ai_shoot_condition_common
-   ; push ix
    call z, _sys_ai_shoot_bullet_l_x
-   ; pop ix
+   ret
+
+;; fast version
+_sys_ai_beh_shoot_x_f:
+   call _sys_ai_shoot_condition_common
+   call z, _sys_ai_shoot_bullet_l_x_f
    ret
 
 _sys_ai_beh_shoot_y:
    call _sys_ai_shoot_condition_common
    call z, _sys_ai_shoot_bullet_l_y
+   ret
+
+;; fast version
+_sys_ai_beh_shoot_y_f:
+   call _sys_ai_shoot_condition_common
+   call z, _sys_ai_shoot_bullet_l_y_f
    ret
 
 ; no diagonal x y un poco cuando quiere

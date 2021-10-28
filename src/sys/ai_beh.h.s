@@ -25,3 +25,6 @@
 .globl _sys_ai_beh_shoot_x
 .globl _sys_ai_beh_shoot_y
 .globl _sys_ai_beh_shoot_xy_rand
+
+.globl _sys_ai_beh_shoot_x_f
+.globl _sys_ai_beh_shoot_y_f
