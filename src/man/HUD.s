@@ -15,23 +15,23 @@
 ;===================================================================================================================================================
 _m_HUD_life:
     .db #0x01
-    .dw #0xF075    ;Life 1
+    .dw #0xE880   ;Life 1
     .db #0x01
-    .dw #0xF082     ;Life 2
+    .dw #0xE889     ;Life 2
     .db #0x01
-    .dw #0xF08F     ;Life 3
+    .dw #0xE892     ;Life 3
 
 ;;Descripcion : Width de cada vida en pantalla
 _m_HUD_lifeWidth:
-    .db #0x0A
+    .db #0x06
 
 ;;Descripcion : Height de cada vida en pantalla
 _m_HUD_lifeHeight:
-    .db #0x15
+    .db #0x10
 
 ;;Descripcion : Width de cada digito de la puntuacion en pantalla
 _m_HUD_scoreWidth:
-    .db #0x03
+    .db #0x04
 
 ;;Descripcion : Height de cada digito de la puntuacion en pantalla
 _m_HUD_scoreHeight:
@@ -119,7 +119,7 @@ _m_HUD_renderScore::
     rra
     rra
     rra
-    PREPARE_SCORE_DIGIT_TO_RENDER 0xD0A6
+    PREPARE_SCORE_DIGIT_TO_RENDER 0xC0A8
     ; and #0x0F
     ; ld de, #0xD000
     ; ld hl, #_m_HUD_scoreHeight
@@ -132,7 +132,7 @@ _m_HUD_renderScore::
     ld hl , #_m_playerScore
     ld a, (hl)
     
-    PREPARE_SCORE_DIGIT_TO_RENDER 0xD0AA
+    PREPARE_SCORE_DIGIT_TO_RENDER 0xC0AC
     ; and #0x0F
     ; ld de, #0xD0B2
     ; ld hl, #_m_HUD_scoreHeight
@@ -149,7 +149,7 @@ _m_HUD_renderScore::
     rra
     rra
     rra
-    PREPARE_SCORE_DIGIT_TO_RENDER 0xD0AE
+    PREPARE_SCORE_DIGIT_TO_RENDER 0xC0B0
     ; and #0x0F
     ; ld de, #0xD0B4
     ; ld hl, #_m_HUD_scoreHeight
@@ -167,7 +167,7 @@ _m_HUD_renderScore::
     ; rra
     ; rra
     ; rra
-    PREPARE_SCORE_DIGIT_TO_RENDER 0xD0B2
+    PREPARE_SCORE_DIGIT_TO_RENDER 0xC0B4
     ; and #0x0F
     ; ld de, #0xD0B6
     ; ld hl, #_m_HUD_scoreHeight
@@ -178,7 +178,7 @@ _m_HUD_renderScore::
     call _sys_render_renderHUDScore
 
     ld a, #0x00
-    PREPARE_SCORE_DIGIT_TO_RENDER 0xD0B6
+    PREPARE_SCORE_DIGIT_TO_RENDER 0xC0B8
     ; and #0x0F
     ; ld de, #0xD0B6
     ; ld hl, #_m_HUD_scoreHeight
@@ -189,7 +189,7 @@ _m_HUD_renderScore::
     call _sys_render_renderHUDScore
 
     ld a, #0x00
-    PREPARE_SCORE_DIGIT_TO_RENDER 0xD0BA
+    PREPARE_SCORE_DIGIT_TO_RENDER 0xC0BC
     ; and #0x0F
     ; ld de, #0xD0B6
     ; ld hl, #_m_HUD_scoreHeight

@@ -155,11 +155,10 @@ _sys_collision_updateMultiple::
     pop hl
     pop de
 
+
     jr _next_iy
     
     _no_collision:
-    ld a, #0x00
-    ld (0xC000), a
     jr _next_iy
 
     _jumpNext:
@@ -278,7 +277,9 @@ _sys_checkTilePosition::
     ;; HL = tilemap + ty * tw + tx
     ;; Ya tenemos a hl apuntando al byte que queríamos
     ld  a, (hl) ;; A ld a, #0x03
-    and #0b11111110
+    and #0b1100000 
+       ;;0b1100000 = 96d  - 60x = No me deja moverme en absoluto
+       ;;0b1110000 = 112d - 70x = Borr
 
       ret nz
     ;; COLISION DETECTADA

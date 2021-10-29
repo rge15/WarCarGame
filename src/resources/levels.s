@@ -275,7 +275,8 @@ _level1:
    ;================================================================================
 
    ; 4 zonas de gamezone
-   .dw #_tilemap_04            ;Tilemap
+   .dw #_tilemap_01            ;Tilemap
+   ; .dw #_tilemap_04            ;Tilemap
    .db #level_new_entity
    .dw #t_player
    .db #36                   ;Entity X
@@ -326,7 +327,8 @@ _level1:
    ;================================================================================
    ; Level SUS
    ;================================================================================
-   .dw #_tilemap_0sus            ;Tilemap
+   .dw #_tilemap_01            ;Tilemap
+   ; .dw #_tilemap_0sus            ;Tilemap
    .db #level_new_entity
    .dw #t_player
    .db #26                   ;Entity X
