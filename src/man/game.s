@@ -69,6 +69,8 @@ _m_enemyCounter:
 ; victory_str:
 ;    .asciz "Has ganao suprimo, dale a enter pa volver a generar endorcinas"
 
+_m_current_level_counter:: .db #1
+
 player_shoot_cooldown_l = 0x10
 player_shoot_cooldown_h = 0x40
 player_bullet_vel_x = #1
@@ -154,6 +156,7 @@ startGame:
 ;Set de variables de juego (Num Vidas / Num Nivel / Num Enemy / Puntuacion)
 call _man_game_initGameVar
 call _m_HUD_initHUD
+call _m_game_restart_level_counter
 
 
 ;==================
@@ -629,6 +632,7 @@ _man_game_updateGameStatus::
    
    jp victoryScreen
    nextLevel:
+   call _m_game_inc_level_counter
    ;TODO : Meter aquñi el sprite de " Ready?" 
    ld ix, #_m_nextLevel
    ld hl, #_m_gameLevel
@@ -835,3 +839,15 @@ _m_game_StartMenu::
    call _renderMenuItems
 
 ret
+
+;; Destroy HL
+_m_game_restart_level_counter:
+   ld hl, #_m_current_level_counter
+   ld (hl), #1
+   ret
+
+;; Destroy HL
+_m_game_inc_level_counter:
+   ld hl, #_m_current_level_counter
+   inc (hl)
+   ret
