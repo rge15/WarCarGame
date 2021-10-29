@@ -47,3 +47,5 @@
 .globl _cactus_1
 .globl _cactus_2
 .globl _cactus_3
+
+.globl _nextStage

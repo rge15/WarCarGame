@@ -139,7 +139,7 @@ startGame:
 
    call _m_game_StartMenu
 
-   ld hl, #Key_Enter
+   ld hl, #Key_Return
    call waitKeyPressed
 
    cpctm_clearScreen_asm 0
@@ -206,6 +206,8 @@ ei
    endGame:
    ;TODO : Hacer una pantalla de endgame bonica y cargarla aquí
    cpctm_clearScreen_asm 0
+
+   LOAD_PNG_TO_SCREEN #0x09, #0x40, #0x3E, #0x16, #_nextStage
    
    ld hl, #Key_Return
    call waitKeyPressed
@@ -216,6 +218,8 @@ ei
    victoryScreen:
    ;TODO : Hacer una pantalla de victoria bonica y cargarla aquí
    cpctm_clearScreen_asm 0
+
+   LOAD_PNG_TO_SCREEN #0x09, #0x18, #0x3E, #0x16, #_nextStage
    
    ld hl, #Key_Return
    call waitKeyPressed
@@ -575,22 +579,19 @@ _man_game_updateGameStatus::
    jp victoryScreen
    nextLevel:
    ;TODO : Meter aquñi el sprite de " Ready?" 
+
    ld ix, #_m_nextLevel
    ld hl, #_m_gameLevel
-   ld a, (ix)
+   ld a, (ix)  
    ld (hl), a
    inc hl
    ld a, 1(ix)
    ld (hl), a
 
-   ld hl, #_tanque_0
-   ld c , #0x06
-   ld b , #0x16
-   ld de, #0xDAF0
+   ;; Dibujamos el sprite para pasar de lvl
+   LOAD_PNG_TO_SCREEN #0x09, #0x48, #0x3E, #0x16, #_nextStage
 
-   call cpct_drawSprite_asm
-
-   ld hl, #Key_Enter
+   ld hl, #Key_Return
    call waitKeyPressed
    
    jp restartLevel
@@ -634,149 +635,58 @@ _man_game_decreaseEnemyCounter::
 ; NO llega ningun dato
 ;===================================================================================================================================================
 _m_game_StartMenu::
-   
+
    ;; Menu Text
-   ld de, #0xC000
-   ld c, #0x09    ;; X
-   ld b, #0x18    ;; Y
-   call cpct_getScreenPtr_asm
-   ld c, #0x3E    ;; Width
-   ld b, #0x16    ;; Height
-   ld de, #_GameText
-   call _renderMenuItems
+   LOAD_PNG_TO_SCREEN #0x09, #0x18, #0x3E, #0x16, #_GameText
 
 ;; ==================================
 
-   ;; Coud_1
-   ld de, #0xC000
-   ld c, #0x49    ;; X
-   ld b, #0x15    ;; Y
-   call cpct_getScreenPtr_asm
-   ld c, #0x07    ;; Width
-   ld b, #0x1E    ;; Height
-   ld de, #_cloud_1
-   call _renderMenuItems
+   ;; Cloud_1
+   LOAD_PNG_TO_SCREEN #0x49, #0x15, #0x07, #0x1E, #_cloud_1
 
-   ;; Coud_2
-   ld de, #0xC000
-   ld c, #0x02    ;; X
-   ld b, #0x48    ;; Y
-   call cpct_getScreenPtr_asm
-   ld c, #0x11    ;; Width
-   ld b, #0x1E    ;; Height
-   ld de, #_cloud_2
-   call _renderMenuItems
+   ;; Cloud_2
+   LOAD_PNG_TO_SCREEN #0x02, #0x48, #0x11, #0x1E, #_cloud_2
 
-   ;; Coud_3
-   ld de, #0xC000
-   ld c, #0x24    ;; X
-   ld b, #0x69    ;; Y
-   call cpct_getScreenPtr_asm
-   ld c, #0x08    ;; Width
-   ld b, #0x0E    ;; Height
-   ld de, #_cloud_3
-   call _renderMenuItems
+   ;; Cloud_3
+   LOAD_PNG_TO_SCREEN #0x24, #0x69, #0x08, #0x0E, #_cloud_3
 
 ;; ==================================
 
    ;; Ovni_1
-   ld de, #0xC000
-   ld c, #0x24    ;; X
-   ld b, #0x45    ;; Y
-   call cpct_getScreenPtr_asm
-   ld c, #0x07    ;; Width
-   ld b, #0x0E    ;; Height
-   ld de, #_ovni_1
-   call _renderMenuItems
+   LOAD_PNG_TO_SCREEN #0x24, #0x45, #0x07, #0x0E, #_ovni_1
 
    ;; Ovni_2
-   ld de, #0xC000
-   ld c, #0x30    ;; X
-   ld b, #0x4A    ;; Y
-   call cpct_getScreenPtr_asm
-   ld c, #0x0F    ;; Width
-   ld b, #0x22    ;; Height
-   ld de, #_ovni_2
-   call _renderMenuItems
+   LOAD_PNG_TO_SCREEN #0x30, #0x4A, #0x0F, #0x22, #_ovni_2
 
    ;; Ovni_3
-   ld de, #0xC000
-   ld c, #0x41    ;; X
-   ld b, #0x48    ;; Y
-   call cpct_getScreenPtr_asm
-   ld c, #0x05    ;; Width
-   ld b, #0x0A    ;; Height
-   ld de, #_ovni_3
-   call _renderMenuItems
+   LOAD_PNG_TO_SCREEN #0x41, #0x48, #0x05, #0x0A, #_ovni_3
 
 
 ;; ==================================
 
    ;; EnterText
-   ld de, #0xC000
-   ld c, #0x0B    ;; X
-   ld b, #0x7D    ;; Y
-   call cpct_getScreenPtr_asm
-   ld c, #0x3A    ;; Width
-   ld b, #0x10    ;; Height
-   ld de, #_pressEnterText
-   call _renderMenuItems
+   LOAD_PNG_TO_SCREEN #0x0B, #0x7D, #0x3A, #0x10, #_pressEnterText
 
 
 ;; ==================================
 
    ;; TankMenu
-   ld de, #0xC000
-   ld c, #0x0A    ;; X
-   ld b, #0x97    ;; Y
-   call cpct_getScreenPtr_asm
-   ld c, #0x11    ;; Width
-   ld b, #0x24    ;; Height
-   ld de, #_tankMenu
-   call _renderMenuItems
+   LOAD_PNG_TO_SCREEN #0x0A, #0x97, #0x11, #0x24, #_tankMenu
 
 ;; ==================================
 
    ;; Railroad
-   ld de, #0xC000
-   ld c, #0x21    ;; X
-   ld b, #0xB4    ;; Y
-   call cpct_getScreenPtr_asm
-   ld c, #0x14    ;; Width
-   ld b, #0x12    ;; Height
-   ld de, #_railRoad
-   call _renderMenuItems
+   LOAD_PNG_TO_SCREEN #0x21, #0xB4, #0x14, #0x12, #_railRoad
 
 ;; ==================================
 
    ;; Cactus_1
-   ld de, #0xC000
-   ld c, #0x30    ;; X
-   ld b, #0x91    ;; Y
-   call cpct_getScreenPtr_asm
-   ld c, #0x08    ;; Width
-   ld b, #0x1E    ;; Height
-   ld de, #_cactus_1
-   call _renderMenuItems
+   LOAD_PNG_TO_SCREEN #0x30, #0x91, #0x08, #0x1E, #_cactus_1
 
    ;; Cactus_2
-   ld de, #0xC000
-   ld c, #0x3C    ;; X
-   ld b, #0xA3   ;; Y
-   call cpct_getScreenPtr_asm
-   ld c, #0x08    ;; Width
-   ld b, #0x20    ;; Height
-   ld de, #_cactus_2
-   call _renderMenuItems
+   LOAD_PNG_TO_SCREEN #0x3C, #0xA3, #0x08, #0x20, #_cactus_2
 
    ;; Cactus_3
-   ld de, #0xC000
-   ld c, #0x46    ;; X
-   ld b, #0x8D    ;; Y
-   call cpct_getScreenPtr_asm
-   ld c, #0x08    ;; Width
-   ld b, #0x20    ;; Height
-   ld de, #_cactus_3
-   call _renderMenuItems
+   LOAD_PNG_TO_SCREEN #0x46, #0x8D, #0x08, #0x20, #_cactus_3
 
 ret

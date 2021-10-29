@@ -245,3 +245,15 @@
    inc hl
    ld e, (hl)
 .endm
+
+
+.macro LOAD_PNG_TO_SCREEN _xpng _ypng _wpng _hpng _mempng
+   ld de, #0xC000
+   ld c, _xpng    ;; X
+   ld b, _ypng   ;; Y
+   call cpct_getScreenPtr_asm
+   ld c, _wpng    ;; Width
+   ld b, _hpng    ;; Height
+   ld de, #_mempng
+   call _renderMenuItems
+.endm
