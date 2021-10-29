@@ -260,7 +260,7 @@ _level1:
    ; .dw #_sys_ai_beh_shoot_y
    ;
    ; .db #level_new_entity
-   ; .dw #t_enemy_basic_green
+   ; .dw #t_enemy_basic_purple
    ; .db #68
    ; .db #56
    ; .dw #_sys_ai_beh_follow_player_y
@@ -268,8 +268,78 @@ _level1:
    ; .db #t_follow_timer
    ; .dw #patrol_03
    ; .dw #enemy_no_shoot
+
+   ; .db #level_separator
+   ;================================================================================
+   ; Level 5
+   ;================================================================================
+   ; .dw #_tilemap_05            ;Tilemap
+   ; .db #level_new_entity
+   ; .dw #t_player
+   ; .db #36                   ;Entity X
+   ; .db #152                   ;Entity Y
+   ;
+   ; .db #level_new_entity
+   ; .dw #t_enemy_basic_purple
+   ; .db #4
+   ; .db #48
+   ; .dw #_sys_ai_beh_follow_player_y
+   ; .db #1
+   ; .db #1
+   ; .dw #patrol_03
+   ; .dw #_sys_ai_beh_shoot_x
+   ;
+   ; .db #level_new_entity
+   ; .dw #t_enemy_basic_purple
+   ; .db #70
+   ; .db #176
+   ; .dw #_sys_ai_beh_follow_player_y
+   ; .db #1
+   ; .db #1
+   ; .dw #patrol_03
+   ; .dw #_sys_ai_beh_shoot_x
+   ;
+   ; .db #level_new_entity
+   ; .dw #t_enemy_basic_purple
+   ; .db #36
+   ; .db #48
+   ; .dw #_sys_ai_beh_follow_player_x
+   ; .db #16
+   ; .db #16
+   ; .dw #0
+   ; .dw #_sys_ai_beh_shoot_y
    ;
    ; .db #level_separator
+   ;================================================================================
+   ; Level 6
+   ;================================================================================
+   .dw #_tilemap_06            ;Tilemap
+   .db #level_new_entity
+   .dw #t_player
+   .db #36
+   .db #176
+
+   .db #level_new_entity
+   .dw #t_enemy_basic_red
+   .db #12
+   .db #64
+   .dw #_sys_ai_behaviourSeekAndPatrol
+   .db #25
+   .db #25
+   .dw #patrol_seeknpatrol_01
+   .dw #enemy_no_shoot
+
+   .db #level_new_entity
+   .dw #t_enemy_basic_blue
+   .db #64
+   .db #56
+   .dw #_sys_ai_behaviourPatrol
+   .db #0
+   .db #0
+   .dw #patrol_06
+   .dw #_sys_ai_beh_shoot_xy_rand
+
+   .db #level_separator
    ;================================================================================
    ; Level mas adelantes esmuy chungo
    ;================================================================================
