@@ -162,29 +162,34 @@ call _m_HUD_initHUD
 restartLevel:
 di
 SET_TILESET _tileset_00
-call _man_entityInit
 ld hl, #_m_enemyCounter
-ld (hl), #0x00 
+ld (hl), #0x00
+
+call _man_entityInit
 
 call _man_game_loadLevel
 
 call _sys_render_renderTileMap
 call _m_HUD_renderLifes
 
+call _m_HUD_renderScore
+
 ;==================
 ;Inicio Juego
 ;==================
 ei
-   call _m_HUD_renderScore
+
+   call _man_int_setIntHandler
+
    testIr:
 
       ld a, (_man_int_current)
       cp #0
       jr nz, testIr
-      cpctm_setBorder_asm HW_YELLOW
-      call _sys_ai_update
       cpctm_setBorder_asm HW_GREEN
       call _sys_render_update
+      cpctm_setBorder_asm HW_WHITE
+      call _man_entityUpdate
       cpctm_setBorder_asm HW_GREEN
       call _sys_physics_update
       cpctm_setBorder_asm HW_RED
@@ -193,8 +198,9 @@ ei
       call _sys_animator_update
       cpctm_setBorder_asm HW_BLACK
       call _sys_collision_update
-      cpctm_setBorder_asm HW_WHITE
-      call _man_entityUpdate
+      cpctm_setBorder_asm HW_YELLOW
+      call _sys_ai_update
+
 
       cpctm_setBorder_asm HW_YELLOW
       call _man_game_updateGameStatus
@@ -214,7 +220,7 @@ ei
    ;TODO : Hacer una pantalla de endgame bonica y cargarla aquí
    cpctm_clearScreen_asm 0
    
-   ld hl, #Key_Return
+   ld hl, #Key_Enter
    call waitKeyPressed
    cpctm_clearScreen_asm 0
    jp startGame
@@ -224,7 +230,7 @@ ei
    ;TODO : Hacer una pantalla de victoria bonica y cargarla aquí
    cpctm_clearScreen_asm 0
    
-   ld hl, #Key_Return
+   ld hl, #Key_Enter
    call waitKeyPressed
    cpctm_clearScreen_asm 0
    jp startGame

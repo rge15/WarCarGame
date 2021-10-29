@@ -88,11 +88,18 @@ _sys_render_renderOneEntity::
     ;; Si es una entidad marcada para destruir no se renderiza
     push hl
     push hl
-    ;; Conseguimos la direccion de memoria donde dibujar con las pos de la entity
-    ld de, #0xC000
 
     push hl
     pop ix
+    ;Aqui vemos si hay q borrar el prevptr
+    ld a, #0x20
+    and e_type(ix)
+    call NZ, _sys_render_erasePrevPtr
+
+    ;; Conseguimos la direccion de memoria donde dibujar con las pos de la entity
+    ld de, #0xC000
+
+    
     ld  c, e_xpos(ix) 
     ld  b, e_ypos(ix) 
 
@@ -100,6 +107,16 @@ _sys_render_renderOneEntity::
 
     ex de,hl
 
+    ; Aqui guardamos el prevptr
+    ld a, #0x20
+    and e_type(ix)
+    jp Z, dontSavePrevPtr
+    SavePrevPtr:
+
+    ld e_prevptr1(ix),d
+    ld e_prevptr2(ix),e
+
+    dontSavePrevPtr:
     pop hl
 
     ld a, (hl)
@@ -127,12 +144,34 @@ _sys_render_renderOneEntity::
         ld  a, #0x3F
 
         call cpct_drawSolidBox_asm
+
+        jp endRender
+
     endRender:
 
     pop hl
 
     ret
 
+_sys_render_erasePrevPtr::
+        ld  d, e_prevptr1(ix)
+        ld  e, e_prevptr2(ix)
+        dec de
+        inc de
+        ret Z
+        ld  c, e_width(ix) 
+        ld  b, e_heigth(ix)
+        ld  a, #0x3F
+
+        call cpct_drawSolidBox_asm
+    ret
+
+_sys_render_savePrevPtr::
+
+    ld e_prevptr1(ix),d
+    ld e_prevptr2(ix),e
+
+    ret
 
 ;===================================================================================================================================================
 ; FUNCION _sys_render_renderTileMap

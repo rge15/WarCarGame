@@ -52,7 +52,7 @@ _man_entityInit::
     ld  A,  #0x00
     ld  (_m_emptyMemCheck), a
     ld  (_m_numEntities), a
-    ld  BC, #0x0070
+    ld  BC, #0x01C0
     call    cpct_memset_asm
     
     ld  hl, #_m_entities

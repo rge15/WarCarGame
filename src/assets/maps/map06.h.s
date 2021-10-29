@@ -1,5 +1,5 @@
 ;;
-;; File assets/maps/map02.tmx converted to csv using cpct_tmx2data [Fri Oct 29 15:20:56 2021]
+;; File assets/maps/map06.tmx converted to csv using cpct_tmx2data [Fri Oct 29 15:20:57 2021]
 ;;   * Visible Layers:  1
 ;;   * Layer Width:     20
 ;;   * Layer Height:    25
@@ -8,11 +8,11 @@
 ;;   * Total Bytes:     500 (500 x 1, bytes per layer times layers)
 ;;
 ;;#### Width and height constants ####
-_tilemap_02_W = 20
-_tilemap_02_H = 25
+_tilemap_06_W = 20
+_tilemap_06_H = 25
 
 ;;#### Converted layer tilemaps ####
 ;;   Visible layers: 1
 ;;
-.globl _tilemap_02
-_tilemap_02_SIZE = 500
+.globl _tilemap_06
+_tilemap_06_SIZE = 500
