@@ -2,6 +2,10 @@
 .globl patrol_01
 .globl patrol_02
 .globl patrol_03
+.globl patrol_04
+.globl patrol_05
+.globl patrol_06
+
 .globl patrol_none
 .globl patrol_x_50_20
 .globl patrol_y_50_120

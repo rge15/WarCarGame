@@ -55,3 +55,14 @@
 ; .dw #_sys_ai_beh_shoot_xy_rand
 
 
+; ;; spaner bichong
+; .db #level_new_entity
+; .dw #t_spawner_from_template_02
+; .db #55
+; .db #90
+; .dw #_sys_ai_behaviourSpawner_plist
+; .db #00                                 ; e_ai_aux_l
+; .db #00                                 ; e_ai_aux_h
+; ; .dw #t_enemy_testing
+; .dw #spawner_plist_02
+; .dw #enemy_no_shoot

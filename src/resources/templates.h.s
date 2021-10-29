@@ -26,15 +26,17 @@
 .globl t_enemy_basic_purple
 .globl t_enemy_basic_red
 
+.globl t_enemy_patrol_game_zone
+
 .globl t_enemy_patrol_relative_01
 .globl t_enemy_patrol_relative_02
 .globl t_enemy_seeknpatrol
 .globl t_enemy_patrol_01
 .globl t_enemy_patrol_x_shoot_y
 
-.globl t_spawner_template_01
-.globl t_spawner_template_02
-.globl t_spawner_plist_01
+.globl t_spawner_from_template_01
+.globl t_spawner_from_template_02
+.globl t_spawner_from_plist_01
 
 
 .globl t_bullet_vel_x

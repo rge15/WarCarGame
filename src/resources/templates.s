@@ -87,7 +87,6 @@ t_enemy_basic_green:
    .dw #0x0000                               ; prevptr
    .dw #enemy_no_move                                    ; ai_behaviour
    .db #t_shoot_timer_enemy
-   .dw #_sys_ai_behaviourPatrol      ; ai_behaviour
    .dw #0x0                                  ; animator
    .db #0x0                                  ; anim. counter
    .dw #enemy_no_shoot                               ; input_behaviour
@@ -113,7 +112,6 @@ t_enemy_basic_blue:
    .dw #0x0000                               ; prevptr
    .dw #enemy_no_move                                    ; ai_behaviour
    .db #t_shoot_timer_enemy
-   .dw #_sys_ai_behaviourPatrolRelative      ; ai_behaviour
    .dw #0x0                                  ; animator
    .db #0x0                                  ; anim. counter
    .dw #enemy_no_shoot                               ; input_behaviour
@@ -138,7 +136,6 @@ t_enemy_basic_purple:
    .dw #0x0000                               ; prevptr
    .dw #enemy_no_move                                    ; ai_behaviour
    .db #t_shoot_timer_enemy
-   .dw #_sys_ai_behaviourPatrolRelative      ; ai_behaviour
    .dw #0x0                                  ; animator
    .db #0x0                                  ; anim. counter
    .dw #enemy_no_shoot                               ; input_behaviour
@@ -163,7 +160,6 @@ t_enemy_basic_red:
    .dw #0x0000                               ; prevptr
    .dw #enemy_no_move                                    ; ai_behaviour
    .db #t_shoot_timer_enemy
-   .dw #_sys_ai_behaviourSeekAndPatrol      ; ai_behaviour
    .dw #0x0                                  ; animator
    .db #0x0                                  ; anim. counter
    .dw #enemy_no_shoot                               ; input_behaviour
@@ -172,6 +168,30 @@ t_enemy_basic_red:
    .db #0                                    ; e_ai_aux_l
    .db #0                                    ; e_ai_aux_h
    .dw #patrol_seeknpatrol_01                                    ; patrol_step
+
+t_enemy_patrol_game_zone:
+   .db #e_type_enemy                         ; type
+   .db #0x2b                                 ; cmp
+   .db #0                                    ; x
+   .db #0                                    ; y
+   .db #6                                   ; width
+   .db #16                                   ; heigth
+   .db #0                                    ; vx
+   .db #0                                    ; vy
+   .dw #_ovni_purple_0                      ; sprite
+   .db #0x00                                 ; orientation
+   .db #0x00                                 ; prev. orientation
+   .dw #0x0000                               ; prevptr
+   .dw #_sys_ai_behaviourPatrol      ; ai_behaviour
+   .db #t_shoot_timer_enemy
+   .dw #0x0                                  ; animator
+   .db #0x0                                  ; anim. counter
+   .dw #_sys_ai_beh_shoot_xy_rand                               ; input_behaviour
+   .db #0x00                                 ; e_ai_aim_x
+   .db #0x00                                 ; e_ai_aim_y
+   .db #0                                    ; e_ai_aux_l
+   .db #0                                    ; e_ai_aux_h
+   .dw #patrol_all_game_zone_0m                                    ; patrol_step
 
 t_enemy_seeknpatrol:
    .db #e_type_enemy                                 ; type
@@ -313,16 +333,16 @@ t_enemy_patrol_x_shoot_y:
 
 ; es como un enemy raealmente
 ; template porque genera entidades de un template !!
-t_spawner_template_01:
+t_spawner_from_template_01:
    .db #e_type_spawner
    .db #0x0b                                 ; cmp
    .db #0                                    ; x
    .db #0                                    ; y
-   .db #0x06                                 ; width
-   .db #0x0C                                 ; heigth
+   .db #6                                 ; width
+   .db #16                                 ; heigth
    .db #0x00                                 ; vx
    .db #0x00                                 ; vy
-   .dw #_sprite_player02                      ; sprite
+   .dw #_ovni_portal_0                      ; sprite
    .db #t_spawner_max_hp                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
@@ -336,12 +356,10 @@ t_spawner_template_01:
    .db #40                                    ; e_ai_aux_l
    .db #80                                 ; e_ai_aux_h
    .dw #t_enemy_patrol_relative_02
-   ; .db #0x00                                 ; e_patrol_step_l
-   ; .db #0x00                                 ; e_patrol_step_h
 
 ; 36 18
 ; 16 16
-t_spawner_template_02:
+t_spawner_from_template_02:
    .db #e_type_spawner
    .db #0x0b                                 ; cmp
    .db #0                                    ; x
@@ -367,16 +385,16 @@ t_spawner_template_02:
    ; .db #0x00                                 ; e_patrol_step_l
    ; .db #0x00                                 ; e_patrol_step_h
 
-t_spawner_plist_01:
+t_spawner_from_plist_01:
    .db #e_type_spawner
    .db #0x0b                                 ; cmp
    .db #16                                    ; x
    .db #50                                    ; y
-   .db #0x06                                 ; width
-   .db #0x0C                                 ; heigth
+   .db #6                                 ; width
+   .db #16                                 ; heigth
    .db #0x00                                 ; vx
    .db #0x00                                 ; vy
-   .dw #_sprite_player02                      ; sprite
+   .dw #_ovni_portal_0                      ; sprite
    .db #0x00                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
    .db #0x01                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
