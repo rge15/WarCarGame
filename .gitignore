@@ -3,3 +3,5 @@
 *.sna
 obj
 .vscode
+src/assets/sprites/*
+src/assets/maps/*
