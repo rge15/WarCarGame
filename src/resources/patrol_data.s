@@ -66,6 +66,11 @@ patrol_07:
    .db #patrol_invalid_move
    .dw #patrol_07
 
+patrol_08:
+   .db  28, 80
+   .db  52, 80
+   .db #patrol_invalid_move
+   .dw #patrol_08
 
 patrol_none:
    .db  50, 60

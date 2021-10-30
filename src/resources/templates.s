@@ -417,7 +417,7 @@ t_es_01:
    .db #16                                   ; heigth
    .db #0                                    ; vx
    .db #0                                    ; vy
-   .dw #_ovni_green_0                      ; sprite
+   .dw #_ovni_blue_0                      ; sprite
    .db #0x00                                 ; orientation
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
