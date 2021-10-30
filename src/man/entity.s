@@ -136,6 +136,7 @@ _man_entityForAllMatching::
 ; HL : La entidad para ser marcada
 ;===================================================================================================================================================
 _man_setEntity4Destroy::
+   ; ld (hl), #e_type_dead
     ld a, #0x80
     or (hl)
     ld (hl),a

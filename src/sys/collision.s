@@ -459,6 +459,11 @@ enemyCollisionBehaviour::
     and e_type(iy)
     ret Z
 
+    ;; TODO: esto es una cochinada !! >:(
+    ld a, #0x84
+    and e_type(iy)
+    ret z
+
     call destroyPairOfEntities
 
     call _man_game_decreaseEnemyCounter
