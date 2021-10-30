@@ -47,6 +47,8 @@ _man_anim_enemy_green:
     .dw #_ovni_green_0
     .db #0x0A
     .dw #_ovni_green_1
+    .db #0x0A
+    .dw #_ovni_green_2
     .db #0
     .dw #_man_anim_enemy_green
 
@@ -55,6 +57,8 @@ _man_anim_enemy_blue:
     .dw #_ovni_blue_0
     .db #0x0A
     .dw #_ovni_blue_1
+    .db #0x0A
+    .dw #_ovni_blue_2
     .db #0
     .dw #_man_anim_enemy_blue
 
@@ -63,6 +67,8 @@ _man_anim_enemy_purple:
     .dw #_ovni_purple_0
     .db #0x0A
     .dw #_ovni_purple_1
+    .db #0x0A
+    .dw #_ovni_purple_2
     .db #0
     .dw #_man_anim_enemy_purple
 
@@ -71,6 +77,8 @@ _man_anim_enemy_red:
     .dw #_ovni_red_0
     .db #0x0A
     .dw #_ovni_red_1
+    .db #0x0A
+    .dw #_ovni_red_2
     .db #0
     .dw #_man_anim_enemy_red
 

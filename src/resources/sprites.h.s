@@ -37,12 +37,16 @@
 
 .globl _ovni_green_0
 .globl _ovni_green_1
+.globl _ovni_green_2
 .globl _ovni_blue_0
 .globl _ovni_blue_1
+.globl _ovni_blue_2
 .globl _ovni_purple_0
 .globl _ovni_purple_1
+.globl _ovni_purple_2
 .globl _ovni_red_0
 .globl _ovni_red_1
+.globl _ovni_red_2
 
 .globl _ovni_portal_0
 .globl _ovni_portal_1
