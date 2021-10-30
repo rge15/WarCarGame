@@ -297,25 +297,31 @@ _sys_checkTilePosition::
 
     _is_none_axis:
       ld a, #e_type_enemy_bullet
-
       cp e_type(ix)
       jr z, is_type_enemy_bullet
 
       ld a, #e_type_enemy
       cp e_type(ix)
       jr z, is_type_enemy
+      ret
 
       is_type_enemy_bullet:
          push ix
          pop hl
+         ;; mandamos la bala a una zona del tile que siempr es amarilla 
+         ; porque las diagonales no se borran es como la peor solucion pero mira que
+         ; bien funcioona ole ole oleee
+         ld e_xpos(ix), #8
+         ld e_ypos(ix), #8
+
          ; ld  e_vx(ix), #0
          ; ld  e_vy(ix), #0
          ; no se xq antes sin esto funcionaba pero ok supongo
          ; ld e_aictr(ix), #1
          ; dec e_aictr(ix)
          call z, _m_game_destroyEntity
-
          ret
+
       is_type_enemy:
          push ix
          pop hl

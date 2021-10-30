@@ -16,7 +16,7 @@ _level1:
    ; TEST LEVEL
    ;================================================================================
 
-   .dw #_tilemap_09            ;Tilemap
+   .dw #_tilemap_01            ;Tilemap
    .db #level_new_entity
    .dw #t_player
    .db #4                   ;Entity X
@@ -30,27 +30,27 @@ _level1:
    .db #4                                 ; e_ai_aux_l
    .db #48                                 ; e_ai_aux_h
    .dw #patrol_all_game_zone_m0
-   .dw #_sys_ai_beh_shoot_y
+   .dw #_sys_ai_beh_shoot_d
 
-   .db #level_new_entity
-   .dw #t_enemy_basic_purple
-   .db #32
-   .db #162
-   .dw #enemy_no_move
-   .db #4                                 ; e_ai_aux_l
-   .db #48                                 ; e_ai_aux_h
-   .dw #patrol_all_game_zone_m0
-   .dw #_sys_ai_beh_shoot_y
-
-   .db #level_new_entity
-   .dw #t_enemy_basic_green
-   .db #40
-   .db #162
-   .dw #enemy_no_move
-   .db #4                                 ; e_ai_aux_l
-   .db #48                                 ; e_ai_aux_h
-   .dw #patrol_all_game_zone_m0
-   .dw #_sys_ai_beh_shoot_y
+   ; .db #level_new_entity
+   ; .dw #t_enemy_basic_purple
+   ; .db #32
+   ; .db #162
+   ; .dw #enemy_no_move
+   ; .db #4                                 ; e_ai_aux_l
+   ; .db #48                                 ; e_ai_aux_h
+   ; .dw #patrol_all_game_zone_m0
+   ; .dw #_sys_ai_beh_shoot_y
+   ;
+   ; .db #level_new_entity
+   ; .dw #t_enemy_basic_green
+   ; .db #40
+   ; .db #162
+   ; .dw #enemy_no_move
+   ; .db #4                                 ; e_ai_aux_l
+   ; .db #48                                 ; e_ai_aux_h
+   ; .dw #patrol_all_game_zone_m0
+   ; .dw #_sys_ai_beh_shoot_y
 
    .db #level_separator
    ;================================================================================
