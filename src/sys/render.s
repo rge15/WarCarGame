@@ -111,7 +111,6 @@ _sys_render_renderOneEntity::
     ld a, #0x20
     and e_type(ix)
     jp Z, dontSavePrevPtr
-    SavePrevPtr:
 
     ld e_prevptr1(ix),d
     ld e_prevptr2(ix),e

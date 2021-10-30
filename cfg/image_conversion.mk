@@ -74,25 +74,30 @@ $(eval $(call IMG2SP, CONVERT         , assets/ovniPortal.png , 12, 16, ovni_por
 $(eval $(call IMG2SP, CONVERT         , assets/ovniBullet.png , 4, 4, ovni_bullet,,))
 
 ## ========== MENÚ PRINCIPAL ========== 
-$(eval $(call IMG2SP, SET_FOLDER      , src/assets/sprites               ))
-$(eval $(call IMG2SP, SET_IMG_FORMAT  , sprites            )) #	{ sprites, zgtiles, screen }
-$(eval $(call IMG2SP, CONVERT         , assets/png/GameText.png , 124, 22, GameText,,))
+# $(eval $(call IMG2SP, SET_FOLDER      , src/assets/sprites               ))
+# $(eval $(call IMG2SP, SET_IMG_FORMAT  , sprites            )) #	{ sprites, zgtiles, screen }
 
-$(eval $(call IMG2SP, CONVERT         , assets/png/cloud_1.png , 14, 30, cloud_1,,))
-$(eval $(call IMG2SP, CONVERT         , assets/png/cloud_2.png , 34, 30, cloud_2,,))
-$(eval $(call IMG2SP, CONVERT         , assets/png/cloud_3.png , 16, 14, cloud_3,,))
+# $(eval $(call IMG2SP, CONVERT         , assets/png/cloud_1.png , 14, 30, cloud_1,,))
+# $(eval $(call IMG2SP, CONVERT         , assets/png/cloud_2.png , 34, 30, cloud_2,,))
+# $(eval $(call IMG2SP, CONVERT         , assets/png/cloud_3.png , 16, 14, cloud_3,,))
 
-$(eval $(call IMG2SP, CONVERT         , assets/png/ovni_1.png , 14, 14, ovni_1,,))
-$(eval $(call IMG2SP, CONVERT         , assets/png/ovni_2.png , 30, 34, ovni_2,,))
-$(eval $(call IMG2SP, CONVERT         , assets/png/ovni_3.png , 10, 10, ovni_3,,))
+# $(eval $(call IMG2SP, CONVERT         , assets/png/ovni_1.png , 14, 14, ovni_1,,))
+# $(eval $(call IMG2SP, CONVERT         , assets/png/ovni_2.png , 30, 34, ovni_2,,))
+# $(eval $(call IMG2SP, CONVERT         , assets/png/ovni_3.png , 10, 10, ovni_3,,))
 
-$(eval $(call IMG2SP, CONVERT         , assets/png/tankMenu.png , 34, 36, tankMenu,,))
-$(eval $(call IMG2SP, CONVERT         , assets/png/pressEnterText.png , 116, 16, pressEnterText,,))
-$(eval $(call IMG2SP, CONVERT         , assets/png/railRoad.png , 40, 18, railRoad,,))
+# $(eval $(call IMG2SP, CONVERT         , assets/png/tankMenu.png , 34, 36, tankMenu,,))
+# $(eval $(call IMG2SP, CONVERT         , assets/png/pressEnterText.png , 116, 16, pressEnterText,,))
+# $(eval $(call IMG2SP, CONVERT         , assets/png/railRoad.png , 40, 18, railRoad,,))
 
-$(eval $(call IMG2SP, CONVERT         , assets/png/cactus_1.png , 16, 30, cactus_1,,))
-$(eval $(call IMG2SP, CONVERT         , assets/png/cactus_2.png , 16, 32, cactus_2,,))
-$(eval $(call IMG2SP, CONVERT         , assets/png/cactus_3.png , 16, 32, cactus_3,,))
+# $(eval $(call IMG2SP, CONVERT         , assets/png/cactus_1.png , 16, 30, cactus_1,,))
+# $(eval $(call IMG2SP, CONVERT         , assets/png/cactus_2.png , 16, 32, cactus_2,,))
+# $(eval $(call IMG2SP, CONVERT         , assets/png/cactus_3.png , 16, 32, cactus_3,,))
+
+$(eval $(call IMG2SP, SET_IMG_FORMAT  , screen  ))
+$(eval $(call IMG2SP, SET_OUTPUT      , bin ))
+
+$(eval $(call IMG2SP, CONVERT         , assets/png/MenuPrincipal.png , 160, 200, MenuPrincipal,,))
+$(eval $(call IMG2SP, CONVERT         , assets/png/GameEnd.png , 160, 200, GameEnd,,))
 
 
 ##

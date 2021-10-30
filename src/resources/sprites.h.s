@@ -52,16 +52,17 @@
 .globl _ovni_bullet_1
 
 
-.globl _GameText
-.globl _cloud_1
-.globl _cloud_2
-.globl _cloud_3
-.globl _ovni_1
-.globl _ovni_2
-.globl _ovni_3
-.globl _tankMenu
-.globl _pressEnterText
-.globl _railRoad
-.globl _cactus_1
-.globl _cactus_2
-.globl _cactus_3
+; .globl _GameText
+; .globl _cloud_1
+; .globl _cloud_2
+; .globl _cloud_3
+; .globl _ovni_1
+; .globl _ovni_2
+; .globl _ovni_3
+; .globl _tankMenu
+; .globl _pressEnterText
+; .globl _railRoad
+; .globl _cactus_1
+; .globl _cactus_2
+; .globl _cactus_3
+
