@@ -204,6 +204,17 @@ _sys_collision_updateOneEntity::
     push hl
     pop ix
 
+    ld a, e_vx(ix)
+    dec a
+    inc a
+    jp NZ , checkColl
+
+    ld a, e_vy(ix)
+    dec a
+    inc a
+    ret Z
+
+    checkColl:
 
     ld d, h ;; | Guardamos hl en de 
     ld e, l ;; |
