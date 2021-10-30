@@ -46,6 +46,7 @@ $(eval $(call TMX2DATA, CONVERT, assets/maps/map04.tmx, tilemap_04 ))
 $(eval $(call TMX2DATA, CONVERT, assets/maps/map05.tmx, tilemap_05 ))
 $(eval $(call TMX2DATA, CONVERT, assets/maps/map06.tmx, tilemap_06 ))
 $(eval $(call TMX2DATA, CONVERT, assets/maps/map07.tmx, tilemap_07 ))
+$(eval $(call TMX2DATA, CONVERT, assets/maps/map08.tmx, tilemap_08 ))
 
 $(eval $(call TMX2DATA, CONVERT, assets/maps/map00.tmx, tilemap_00 )) 
 # $(eval $(call TMX2DATA, CONVERT, assets/maps/map01.tmx, tilemap_01 )) 

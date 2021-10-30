@@ -23,8 +23,9 @@
 .globl patrol_seeknpatrol_02
 .globl patrol_relative_none
 
-.globl patrol_relative_x_36
+.globl patrol_relative_x_16
 .globl patrol_relative_x_24
+.globl patrol_relative_x_36
 
 .globl patrol_relative_y_32
 .globl patrol_relative_y_48

@@ -177,6 +177,12 @@ patrol_relative_x_12:
    .db #patrol_invalid_move
    .dw #patrol_relative_x_12
 
+patrol_relative_x_16:
+   .db  0, 0
+   .db  16, 0
+   .db #patrol_invalid_move
+   .dw #patrol_relative_x_16
+
 patrol_relative_x_24:
    .db  0, 0
    .db  24, 0

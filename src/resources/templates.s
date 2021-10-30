@@ -158,7 +158,7 @@ t_enemy_basic_red:
    .dw #0x0000                               ; prevptr
    .dw #enemy_no_move                                    ; ai_behaviour
    .db #t_shoot_timer_enemy
-   .dw #_man_anim_enemy_purple                                  ; animator
+   .dw #_man_anim_enemy_red                                  ; animator
    .db #0x01                                  ; anim. counter
    .dw #enemy_no_shoot                               ; input_behaviour
    .db #0x00                                 ; e_ai_aim_x
