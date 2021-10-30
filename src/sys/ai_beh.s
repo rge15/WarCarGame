@@ -383,10 +383,18 @@ _sys_ai_aim_to_entity:
    ret
 
 _sys_ai_reset_shoot_aictr:
-   ld e_aictr(ix), #t_shoot_timer_enemy
    ;; TODO: puede ser un poco loco
-   ; ld a, r
-   ; ld e_aictr(ix), a
+   ; 127 max
+   ld a, r
+   ld l, #75
+   cp l
+   ; a < n
+   jr c, set_global
+
+   ld e_aictr(ix), a
+   ret
+   set_global:
+      ld e_aictr(ix), #t_shoot_timer_enemy
    ret
 
 _sys_ai_reset_bullet_aictr:

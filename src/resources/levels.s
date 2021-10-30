@@ -268,7 +268,7 @@ _level1:
    ; .db #t_follow_timer
    ; .dw #patrol_03
    ; .dw #enemy_no_shoot
-
+   ;
    ; .db #level_separator
    ;================================================================================
    ; Level 5
@@ -432,7 +432,7 @@ _level1:
 
    .db #level_separator
    ;================================================================================
-   ; Level 9 es jodido igual mas adelante
+   ; Level 10 es jodido igual mas adelante
    ;================================================================================
    .dw #_tilemap_05            ;Tilemap
    .db #level_new_entity
