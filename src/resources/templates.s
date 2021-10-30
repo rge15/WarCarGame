@@ -357,7 +357,7 @@ t_bullet_enemy_sp:
 
 t_bullet_enemy_l:
    .db #e_type_enemy_bullet                                 ; type
-   .db #0x2B                                 ; cmp
+   .db #0x3B                                 ; cmp
    .db #50
    .db #150
    .db #02                                 ; width
@@ -382,7 +382,7 @@ t_bullet_enemy_l:
 
 t_bullet_enemy_l_f:
    .db #e_type_enemy_bullet                                 ; type
-   .db #0x2B                                 ; cmp
+   .db #0x3B                                 ; cmp
    .db #50
    .db #150
    .db #02                                 ; width
