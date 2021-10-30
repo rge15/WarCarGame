@@ -208,7 +208,7 @@ t_enemy_patrol_game_zone:
    .db #t_shoot_timer_enemy
    .dw #0x0                                  ; animator
    .db #0x0                                  ; anim. counter
-   .dw #_sys_ai_beh_shoot_xy_rand                               ; input_behaviour
+   .dw #_sys_ai_beh_shoot_seekplayer                               ; input_behaviour
    .db #0x00                                 ; e_ai_aim_x
    .db #0x00                                 ; e_ai_aim_y
    .db #0                                    ; e_ai_aux_l
@@ -432,6 +432,54 @@ t_es_01:
    .db #0                                    ; e_ai_aux_h
    .dw #patrol_07                                    ; patrol_step
 
+t_es_02:
+   .db #e_type_enemy                         ; type
+   .db #0x2b                                 ; cmp
+   .db #0                                    ; x
+   .db #0                                    ; y
+   .db #6                                   ; width
+   .db #16                                   ; heigth
+   .db #0                                    ; vx
+   .db #0                                    ; vy
+   .dw #_ovni_purple_0                      ; sprite
+   .db #0x00                                 ; orientation
+   .db #0x00                                 ; prev. orientation
+   .dw #0x0000                               ; prevptr
+   .dw #_sys_ai_beh_follow_player_y
+   .db #t_shoot_timer_enemy
+   .dw #0x0                                  ; animator
+   .db #0x0                                  ; anim. counter
+   .dw #_sys_ai_beh_shoot_x_f                               ; input_behaviour
+   .db #0x00                                 ; e_ai_aim_x
+   .db #0x00                                 ; e_ai_aim_y
+   .db #20                                    ; e_ai_aux_l
+   .db #20                                    ; e_ai_aux_h
+   .dw #patrol_07                                    ; patrol_step
+
+t_es_03:
+   .db #e_type_enemy                         ; type
+   .db #0x2b                                 ; cmp
+   .db #0                                    ; x
+   .db #0                                    ; y
+   .db #6                                   ; width
+   .db #16                                   ; heigth
+   .db #0                                    ; vx
+   .db #0                                    ; vy
+   .dw #_ovni_green_0                      ; sprite
+   .db #0x00                                 ; orientation
+   .db #0x00                                 ; prev. orientation
+   .dw #0x0000                               ; prevptr
+   .dw #_sys_ai_behaviourPatrolRelative
+   .db #t_shoot_timer_enemy
+   .dw #0x0                                  ; animator
+   .db #0x0                                  ; anim. counter
+   .dw #enemy_no_shoot                               ; input_behaviour
+   .db #0x00                                 ; e_ai_aim_x
+   .db #0x00                                 ; e_ai_aim_y
+   .db #54                                    ; e_ai_aux_l
+   .db #80                                    ; e_ai_aux_h
+   .dw #patrol_relative_around_01                                    ; patrol_step
+
 ;================================================================================
 ; TESTING
 ;================================================================================
@@ -537,10 +585,9 @@ t_enemy_patrol_relative_02:
    .db #0x00                                 ; e_ai_aim_y
    ;; poner en e_ai_aux mismo valor que position
    ;; para que funcione patrol relativo
-   .db #55
-   .db #90                                 ; e_ai_aux_h
-   .dw #patrol_relative_01
-   ; .dw #patrol_relative_x_24
+   .db #62
+   .db #64                                 ; e_ai_aux_h
+   .dw #patrol_relative_around_01
 
 
 t_enemy_patrol_01:

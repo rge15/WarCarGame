@@ -72,6 +72,11 @@ patrol_08:
    .db #patrol_invalid_move
    .dw #patrol_08
 
+patrol_09:
+   ; .db 
+   .db #patrol_invalid_move
+   .dw #patrol_09
+
 patrol_none:
    .db  50, 60
    ; .db  20, 80
@@ -130,19 +135,14 @@ patrol_all_game_zone_m0:
 ;===============================================================================
 
 ;; moverse alredeodr de una entidad
-patrol_relative_01:
-   .db  6, -10
-   .db  6, 10
-   .db  -6, 10
-   .db  -6, -10
+patrol_relative_around_01:
+   .db  6, -16
+   .db  6, 16
+   .db  -6, 16
+   .db  -6, -16
    .db #patrol_invalid_move
-   .dw #patrol_relative_01
+   .dw #patrol_relative_around_01
 
-patrol_relative_02:
-   .db  0, -16
-   .db  0, 0
-   .db #patrol_invalid_move
-   .dw #patrol_relative_02
 
 patrol_seeknpatrol_01:
    .db  0, -16
@@ -156,6 +156,7 @@ patrol_seeknpatrol_02:
    .db #patrol_invalid_move
    .dw #patrol_seeknpatrol_02
 
+; ????
 patrol_relative_03:
    .db  0, 0
    .db  0, 12
@@ -164,11 +165,11 @@ patrol_relative_03:
    .db #patrol_invalid_move
    .dw #patrol_relative_03
 
-
 patrol_relative_none:
    .db  0, 0
    .db #patrol_invalid_move
    .dw #patrol_relative_none
+
 
 patrol_relative_x_12:
    .db  0, 0
@@ -211,17 +212,29 @@ patrol_relative_y_64:
 ;===============================================================================
 ; !!!! el tamanyo tiene que ser menor que enemy_max_spawn !!!j
 spawner_plist_01:
-   .dw #t_enemy_testing
-   .dw #t_enemy_patrol_x_shoot_y
-   .dw #t_enemy_testing
-   .dw #t_enemy_patrol_x_shoot_y
+   .dw #t_es_01
+   .dw #t_es_01
+   .dw #t_es_02
+   .dw #t_es_01
+   .dw #t_es_01
+   ;; TODO: arreglar resest parol spawner !!
+   .db #patrol_invalid_move
+   .dw #spawner_plist_01
+
+
+spawner_plist_02:
+   .dw #t_es_03
+   .dw #t_enemy_patrol_game_zone
+   .dw #t_es_03
+   .dw #t_enemy_patrol_game_zone
+   .dw #t_enemy_patrol_game_zone
+   .dw #t_es_03
 
 ; que saque enemigos que se qeuden alredeodr del spawner
 ; y otros que vayan a hacer un patrol o un seeknpatrol
-spawner_plist_02:
+spawner_plist_03:
    .dw #t_enemy_patrol_game_zone
    .dw #t_enemy_patrol_game_zone
    .dw #t_enemy_seeknpatrol
    .dw #t_enemy_patrol_game_zone
    ; .dw #t_enemy_patrol_x_shoot_y
-

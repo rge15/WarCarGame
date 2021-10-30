@@ -60,11 +60,26 @@ _sys_patrol_next_relative:
 _sys_patrol_next_spawner:
    ld h, e_patrol_step_h(ix)
    ld l, e_patrol_step_l(ix)
+
+   ld a, (hl)
+   cp #patrol_invalid_move
+   jp z, reset_patrol_spawner
+
    inc hl
    inc hl
    ld e_patrol_step_h(ix), h
    ld e_patrol_step_l(ix), l
 
+   ret
+
+reset_patrol_spawner:
+   inc hl
+   ld a, (hl)
+   inc hl
+   ld h, (hl)
+
+   ld e_patrol_step_l(ix), a
+   ld e_patrol_step_h(ix), h
    ret
 
 reset_patrol:
