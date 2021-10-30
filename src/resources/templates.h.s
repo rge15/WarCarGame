@@ -45,5 +45,8 @@
 .globl t_bullet_vel_x_f
 .globl t_bullet_vel_y_f
 
+
+.globl t_es_01
+
 .globl t_enemy_testing
 .globl t_enemy_testing2

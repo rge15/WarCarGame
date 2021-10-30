@@ -57,6 +57,15 @@ patrol_06:
    .db #patrol_invalid_move
    .dw #patrol_06
 
+patrol_07:
+   .db  28, 80
+   .db  28, 48
+   .db  70, 48
+   .db  70, 128
+   .db  46, 128
+   .db #patrol_invalid_move
+   .dw #patrol_07
+
 
 patrol_none:
    .db  50, 60
@@ -162,12 +171,6 @@ patrol_relative_x_12:
    .db #patrol_invalid_move
    .dw #patrol_relative_x_12
 
-patrol_relative_y_12:
-   .db  0, 0
-   .db  0, 12
-   .db #patrol_invalid_move
-   .dw #patrol_relative_y_12
-
 patrol_relative_x_24:
    .db  0, 0
    .db  24, 0
@@ -180,12 +183,24 @@ patrol_relative_x_36:
    .db #patrol_invalid_move
    .dw #patrol_relative_x_36
 
-patrol_relative_y_24:
-   .db  0, 0
-   .db  0, 24
-   .db #patrol_invalid_move
-   .dw #patrol_relative_y_24
 
+patrol_relative_y_32:
+   .db  0, 0
+   .db  0, 32
+   .db #patrol_invalid_move
+   .dw #patrol_relative_y_32
+
+patrol_relative_y_48:
+   .db  0, 0
+   .db  0, 48
+   .db #patrol_invalid_move
+   .dw #patrol_relative_y_48
+
+patrol_relative_y_64:
+   .db  0, 0
+   .db  0, 64
+   .db #patrol_invalid_move
+   .dw #patrol_relative_y_64
 ;===============================================================================
 ; Spawner Patrol List
 ;===============================================================================

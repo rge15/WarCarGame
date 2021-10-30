@@ -313,6 +313,47 @@ _level1:
    ;================================================================================
    ; Level 6
    ;================================================================================
+   .dw #_tilemap_03            ;Tilemap
+   .db #level_new_entity
+   .dw #t_player
+   .db #36
+   .db #176
+
+   .db #level_new_entity
+   .dw #t_spawner_from_template_01
+   .db #4
+   .db #48
+   .dw #_sys_ai_behaviourSpawner_template
+   .db #00                                 ; e_ai_aux_l
+   .db #00                                 ; e_ai_aux_h
+   .dw #t_es_01
+   .dw #enemy_no_shoot
+
+   ; .db #level_new_entity
+   ; .dw #t_enemy_basic_blue
+   ; .db #4
+   ; .db #48
+   ; .dw #_sys_ai_behaviourPatrol
+   ; .db #0
+   ; .db #0
+   ; .dw #patrol_07
+   ; .dw #_sys_ai_beh_shoot_xy_rand
+
+   .db #level_new_entity
+   .dw #t_enemy_basic_blue
+   .db #4
+   .db #80
+   .dw #_sys_ai_behaviourPatrolRelative
+   .db #4
+   .db #80
+   .dw #patrol_relative_y_48
+   .dw #_sys_ai_beh_shoot_x_f
+
+
+   .db #level_separator
+   ;================================================================================
+   ; Level 7
+   ;================================================================================
    .dw #_tilemap_06            ;Tilemap
    .db #level_new_entity
    .dw #t_player

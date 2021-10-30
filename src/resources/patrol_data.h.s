@@ -5,6 +5,7 @@
 .globl patrol_04
 .globl patrol_05
 .globl patrol_06
+.globl patrol_07
 
 .globl patrol_none
 .globl patrol_x_50_20
@@ -24,9 +25,10 @@
 
 .globl patrol_relative_x_36
 .globl patrol_relative_x_24
-.globl patrol_relative_y_24
-.globl patrol_relative_x_12
-.globl patrol_relative_y_12
+
+.globl patrol_relative_y_32
+.globl patrol_relative_y_48
+.globl patrol_relative_y_64
 
 
 .globl spawner_plist_01

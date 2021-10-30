@@ -71,7 +71,6 @@ t_player:
 
 ; w 12 ;6
 ; h 16 ;16
-; Green: patrol
 t_enemy_basic_green:
    .db #e_type_enemy                         ; type
    .db #0x2b                                 ; cmp
@@ -96,7 +95,6 @@ t_enemy_basic_green:
    .db #0                                    ; e_ai_aux_h
    .dw #0                                    ; patrol_step
 
-; Blue: patrol fast shoot
 t_enemy_basic_blue:
    .db #e_type_enemy                         ; type
    .db #0x2b                                 ; cmp
@@ -169,30 +167,6 @@ t_enemy_basic_red:
    .db #0                                    ; e_ai_aux_h
    .dw #patrol_seeknpatrol_01                                    ; patrol_step
 
-t_enemy_patrol_game_zone:
-   .db #e_type_enemy                         ; type
-   .db #0x2b                                 ; cmp
-   .db #0                                    ; x
-   .db #0                                    ; y
-   .db #6                                   ; width
-   .db #16                                   ; heigth
-   .db #0                                    ; vx
-   .db #0                                    ; vy
-   .dw #_ovni_purple_0                      ; sprite
-   .db #0x00                                 ; orientation
-   .db #0x00                                 ; prev. orientation
-   .dw #0x0000                               ; prevptr
-   .dw #_sys_ai_behaviourPatrol      ; ai_behaviour
-   .db #t_shoot_timer_enemy
-   .dw #0x0                                  ; animator
-   .db #0x0                                  ; anim. counter
-   .dw #_sys_ai_beh_shoot_xy_rand                               ; input_behaviour
-   .db #0x00                                 ; e_ai_aim_x
-   .db #0x00                                 ; e_ai_aim_y
-   .db #0                                    ; e_ai_aux_l
-   .db #0                                    ; e_ai_aux_h
-   .dw #patrol_all_game_zone_0m                                    ; patrol_step
-
 t_enemy_seeknpatrol:
    .db #e_type_enemy                                 ; type
    .db #0x2b                                 ; cmp
@@ -217,115 +191,30 @@ t_enemy_seeknpatrol:
    .db #t_follow_timer                                 ; e_ai_aux_h
    .dw #patrol_seeknpatrol_01
 
-t_enemy_patrol_relative_01:
-   .db #e_type_enemy                                 ; type
+t_enemy_patrol_game_zone:
+   .db #e_type_enemy                         ; type
    .db #0x2b                                 ; cmp
-   .db #100                                    ; x
-   .db #100                                    ; y
-   .db #0x06                                 ; width
-   .db #0x0C                                 ; heigth
-   .db #0x00                                 ; vx
-   .db #0x00                                 ; vy
-   .dw #_sprite_enemy01                      ; sprite
-   .db #0x00                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
+   .db #0                                    ; x
+   .db #0                                    ; y
+   .db #6                                   ; width
+   .db #16                                   ; heigth
+   .db #0                                    ; vx
+   .db #0                                    ; vy
+   .dw #_ovni_purple_0                      ; sprite
+   .db #0x00                                 ; orientation
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
-   .dw #_sys_ai_behaviourPatrolRelative        ; ai_behaviour
-   .db #1
-   ; .dw #_sys_ai_behaviourPatrolRelative        ; ai_behaviour
-   ; .db #1
+   .dw #_sys_ai_behaviourPatrol      ; ai_behaviour
+   .db #t_shoot_timer_enemy
    .dw #0x0                                  ; animator
-   .db #0x0A                                 ; anim. counter
-   .dw #0x0000                               ; input_behaviour
+   .db #0x0                                  ; anim. counter
+   .dw #_sys_ai_beh_shoot_xy_rand                               ; input_behaviour
    .db #0x00                                 ; e_ai_aim_x
    .db #0x00                                 ; e_ai_aim_y
-   ;; poner en e_ai_aux mismo valor que position
-   ;; para que funcione patrol relativo
-   .db #45
-   .db #90                                 ; e_ai_aux_h
-   .dw #patrol_relative_03
-   ; .dw #patrol_relative_x_24
+   .db #0                                    ; e_ai_aux_l
+   .db #0                                    ; e_ai_aux_h
+   .dw #patrol_all_game_zone_0m                                    ; patrol_step
 
-;; simula un escudo !! poner en ai_aux coordenadas iniciales
-t_enemy_patrol_relative_02:
-   .db #e_type_enemy                                 ; type
-   .db #0x2b                                 ; cmp
-   .db #100                                    ; x
-   .db #100                                    ; y
-   .db #0x06                                 ; width
-   .db #0x0C                                 ; heigth
-   .db #0x00                                 ; vx
-   .db #0x00                                 ; vy
-   .dw #_sprite_enemy01                      ; sprite
-   .db #0x00                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
-   .db #0x00                                 ; prev. orientation
-   .dw #0x0000                               ; prevptr
-   .dw #_sys_ai_behaviourPatrolRelative        ; ai_behaviour
-   .db #1
-   ; .dw #_sys_ai_behaviourPatrolRelative        ; ai_behaviour
-   ; .db #1
-   .dw #0x0                                  ; animator
-   .db #0x0A                                 ; anim. counter
-   .dw #0x0000                               ; input_behaviour
-   .db #0x00                                 ; e_ai_aim_x
-   .db #0x00                                 ; e_ai_aim_y
-   ;; poner en e_ai_aux mismo valor que position
-   ;; para que funcione patrol relativo
-   .db #55
-   .db #90                                 ; e_ai_aux_h
-   .dw #patrol_relative_01
-   ; .dw #patrol_relative_x_24
-
-
-t_enemy_patrol_01:
-   .db #e_type_enemy                                 ; type
-   .db #0x2b                                 ; cmp
-   .db #50                                 ; x
-   .db #50                                 ; y
-   .db #0x06                                 ; width
-   .db #0x0C                                 ; heigth
-   .db #0x00                                 ; vx
-   .db #0x00                                 ; vy
-   .dw #_sprite_enemy01                      ; sprite
-   .db #0x00                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
-   .db #0x00                                 ; prev. orientation
-   .dw #0x0000                               ; prevptr
-   .dw #_sys_ai_behaviourPatrol; ai_behaviour
-   .db #0x1                                 ; ai_counter
-   .dw #0x0                                  ; animator
-   .db #0x0A                                 ; anim. counter
-   .dw #0x0000                               ; input_behaviour
-   .db #0x00                                 ; e_ai_aim_x
-   .db #0x00                                 ; e_ai_aim_y
-   .db #0x00                                 ; e_ai_aux_l
-   .db #0x00                                 ; e_ai_aux_h
-   .dw #patrol_02                            ; e_patrol_step
-
-
-;; e_ai_aux_l para decir si dispara en x o en y
-t_enemy_patrol_x_shoot_y:
-   .db #e_type_enemy                                 ; type
-   .db #0x2b                                 ; cmp
-   .db #40                                 ; x
-   .db #40                                 ; y
-   .db #0x06                                 ; width
-   .db #0x0C                                 ; heigth
-   .db #0x00                                 ; vx
-   .db #0x00                                 ; vy
-   .dw #_sprite_enemy01                      ; sprite
-   .db #0x00                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
-   .db #0x00                                 ; prev. orientation
-   .dw #0x0000                               ; prevptr
-   .dw #_sys_ai_behaviourPatrol              ; ai_behaviour
-   .db #t_shoot_timer_enemy                                 ; ai_counter
-   .dw #0x0                                  ; animator
-   .db #0x0A                                 ; anim. counter
-   .dw #0x0000                               ; input_behaviour
-   .db #0x00                                 ; e_ai_aim_x
-   .db #0x00                                 ; e_ai_aim_y
-   .db #0x02                                 ; e_ai_aux_l
-   .db #0x00                                 ; e_ai_aux_h
-   .dw #patrol_03                            ; e_patrol_step
 
 ;================================================================================
 ; SPAWNER
@@ -516,6 +405,32 @@ t_bullet_enemy_l_f:
    .db #0x00                                 ; e_patrol_step_l
    .db #0x00                                 ; e_patrol_step_h
 
+;================================================================================
+; ENEMY TEMPLATES FOR SPAWNER
+;================================================================================
+t_es_01:
+   .db #e_type_enemy                         ; type
+   .db #0x2b                                 ; cmp
+   .db #0                                    ; x
+   .db #0                                    ; y
+   .db #6                                   ; width
+   .db #16                                   ; heigth
+   .db #0                                    ; vx
+   .db #0                                    ; vy
+   .dw #_ovni_green_0                      ; sprite
+   .db #0x00                                 ; orientation
+   .db #0x00                                 ; prev. orientation
+   .dw #0x0000                               ; prevptr
+   .dw #_sys_ai_behaviourPatrol
+   .db #t_shoot_timer_enemy
+   .dw #0x0                                  ; animator
+   .db #0x0                                  ; anim. counter
+   .dw #_sys_ai_beh_shoot_xy_rand                               ; input_behaviour
+   .db #0x00                                 ; e_ai_aim_x
+   .db #0x00                                 ; e_ai_aim_y
+   .db #0                                    ; e_ai_aux_l
+   .db #0                                    ; e_ai_aux_h
+   .dw #patrol_07                                    ; patrol_step
 
 ;================================================================================
 ; TESTING
@@ -567,3 +482,113 @@ t_enemy_testing2:
    .db #0x00                                 ; e_ai_aux_l
    .db #0x00                                 ; e_ai_aux_h
    .dw #patrol_x_50_20                            ; e_patrol_step
+
+t_enemy_patrol_relative_01:
+   .db #e_type_enemy                                 ; type
+   .db #0x2b                                 ; cmp
+   .db #100                                    ; x
+   .db #100                                    ; y
+   .db #0x06                                 ; width
+   .db #0x0C                                 ; heigth
+   .db #0x00                                 ; vx
+   .db #0x00                                 ; vy
+   .dw #_sprite_enemy01                      ; sprite
+   .db #0x00                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
+   .db #0x00                                 ; prev. orientation
+   .dw #0x0000                               ; prevptr
+   .dw #_sys_ai_behaviourPatrolRelative        ; ai_behaviour
+   .db #1
+   ; .dw #_sys_ai_behaviourPatrolRelative        ; ai_behaviour
+   ; .db #1
+   .dw #0x0                                  ; animator
+   .db #0x0A                                 ; anim. counter
+   .dw #0x0000                               ; input_behaviour
+   .db #0x00                                 ; e_ai_aim_x
+   .db #0x00                                 ; e_ai_aim_y
+   ;; poner en e_ai_aux mismo valor que position
+   ;; para que funcione patrol relativo
+   .db #45
+   .db #90                                 ; e_ai_aux_h
+   .dw #patrol_relative_03
+   ; .dw #patrol_relative_x_24
+
+;; simula un escudo !! poner en ai_aux coordenadas iniciales
+t_enemy_patrol_relative_02:
+   .db #e_type_enemy                                 ; type
+   .db #0x2b                                 ; cmp
+   .db #100                                    ; x
+   .db #100                                    ; y
+   .db #0x06                                 ; width
+   .db #0x0C                                 ; heigth
+   .db #0x00                                 ; vx
+   .db #0x00                                 ; vy
+   .dw #_sprite_enemy01                      ; sprite
+   .db #0x00                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
+   .db #0x00                                 ; prev. orientation
+   .dw #0x0000                               ; prevptr
+   .dw #_sys_ai_behaviourPatrolRelative        ; ai_behaviour
+   .db #1
+   ; .dw #_sys_ai_behaviourPatrolRelative        ; ai_behaviour
+   ; .db #1
+   .dw #0x0                                  ; animator
+   .db #0x0A                                 ; anim. counter
+   .dw #0x0000                               ; input_behaviour
+   .db #0x00                                 ; e_ai_aim_x
+   .db #0x00                                 ; e_ai_aim_y
+   ;; poner en e_ai_aux mismo valor que position
+   ;; para que funcione patrol relativo
+   .db #55
+   .db #90                                 ; e_ai_aux_h
+   .dw #patrol_relative_01
+   ; .dw #patrol_relative_x_24
+
+
+t_enemy_patrol_01:
+   .db #e_type_enemy                                 ; type
+   .db #0x2b                                 ; cmp
+   .db #50                                 ; x
+   .db #50                                 ; y
+   .db #0x06                                 ; width
+   .db #0x0C                                 ; heigth
+   .db #0x00                                 ; vx
+   .db #0x00                                 ; vy
+   .dw #_sprite_enemy01                      ; sprite
+   .db #0x00                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
+   .db #0x00                                 ; prev. orientation
+   .dw #0x0000                               ; prevptr
+   .dw #_sys_ai_behaviourPatrol; ai_behaviour
+   .db #0x1                                 ; ai_counter
+   .dw #0x0                                  ; animator
+   .db #0x0A                                 ; anim. counter
+   .dw #0x0000                               ; input_behaviour
+   .db #0x00                                 ; e_ai_aim_x
+   .db #0x00                                 ; e_ai_aim_y
+   .db #0x00                                 ; e_ai_aux_l
+   .db #0x00                                 ; e_ai_aux_h
+   .dw #patrol_02                            ; e_patrol_step
+
+
+;; e_ai_aux_l para decir si dispara en x o en y
+t_enemy_patrol_x_shoot_y:
+   .db #e_type_enemy                                 ; type
+   .db #0x2b                                 ; cmp
+   .db #40                                 ; x
+   .db #40                                 ; y
+   .db #0x06                                 ; width
+   .db #0x0C                                 ; heigth
+   .db #0x00                                 ; vx
+   .db #0x00                                 ; vy
+   .dw #_sprite_enemy01                      ; sprite
+   .db #0x00                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
+   .db #0x00                                 ; prev. orientation
+   .dw #0x0000                               ; prevptr
+   .dw #_sys_ai_behaviourPatrol              ; ai_behaviour
+   .db #t_shoot_timer_enemy                                 ; ai_counter
+   .dw #0x0                                  ; animator
+   .db #0x0A                                 ; anim. counter
+   .dw #0x0000                               ; input_behaviour
+   .db #0x00                                 ; e_ai_aim_x
+   .db #0x00                                 ; e_ai_aim_y
+   .db #0x02                                 ; e_ai_aux_l
+   .db #0x00                                 ; e_ai_aux_h
+   .dw #patrol_03                            ; e_patrol_step
