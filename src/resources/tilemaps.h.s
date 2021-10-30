@@ -11,6 +11,7 @@
 .globl _tilemap_06
 .globl _tilemap_07
 .globl _tilemap_08
+.globl _tilemap_09
 
 ; .globl _tilemap_0sus
 

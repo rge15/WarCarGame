@@ -386,7 +386,7 @@ _sys_ai_reset_shoot_aictr:
    ;; TODO: puede ser un poco loco
    ; 127 max
    ld a, r
-   ld l, #75
+   ld l, #70
    cp l
    ; a < n
    jr c, set_global
