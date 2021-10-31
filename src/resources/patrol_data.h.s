@@ -14,6 +14,7 @@
 
 .globl patrol_all_game_zone_00
 .globl patrol_all_game_zone_0m
+.globl patrol_all_game_zone_0m_i
 .globl patrol_all_game_zone_mm
 .globl patrol_all_game_zone_m0
 

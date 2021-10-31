@@ -27,6 +27,7 @@
 .globl t_enemy_basic_red
 
 .globl t_enemy_patrol_game_zone
+.globl t_enemy_patrol_game_zone_i
 
 .globl t_enemy_patrol_relative_01
 .globl t_enemy_patrol_relative_02

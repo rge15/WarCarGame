@@ -437,33 +437,33 @@ _level1:
    ;================================================================================
    ; Level 10
    ;================================================================================
-   .dw #_tilemap_02            ;Tilemap
-   .db #level_new_entity
-   .dw #t_player
-   .db #10
-   .db #56
-
-   .db #level_new_entity
-   .dw #t_spawner_from_plist_01
-   .db #70
-   .db #176
-   .dw #_sys_ai_behaviourSpawner_plist
-   .db #00                                 ; e_ai_aux_l
-   .db #00                                 ; e_ai_aux_h
-   .dw #spawner_plist_01
-   .dw #enemy_no_shoot
-
-   .db #level_new_entity
-   .dw #t_enemy_basic_purple
-   .db #12
-   .db #168
-   .dw #_sys_ai_beh_follow_player_x
-   .db #16
-   .db #16
-   .dw #0
-   .dw #_sys_ai_beh_shoot_y
-
-   .db #level_separator
+   ; .dw #_tilemap_02            ;Tilemap
+   ; .db #level_new_entity
+   ; .dw #t_player
+   ; .db #10
+   ; .db #56
+   ;
+   ; .db #level_new_entity
+   ; .dw #t_spawner_from_plist_01
+   ; .db #70
+   ; .db #176
+   ; .dw #_sys_ai_behaviourSpawner_plist
+   ; .db #00                                 ; e_ai_aux_l
+   ; .db #00                                 ; e_ai_aux_h
+   ; .dw #spawner_plist_01
+   ; .dw #enemy_no_shoot
+   ;
+   ; .db #level_new_entity
+   ; .dw #t_enemy_basic_purple
+   ; .db #12
+   ; .db #168
+   ; .dw #_sys_ai_beh_follow_player_x
+   ; .db #16
+   ; .db #16
+   ; .dw #0
+   ; .dw #_sys_ai_beh_shoot_y
+   ;
+   ; .db #level_separator
    ;================================================================================
    ; Level 11
    ;================================================================================
@@ -495,7 +495,47 @@ _level1:
    ;
    ; .db #level_separator
    ;================================================================================
-   ; Level 12 es jodido igual mas adelante
+   ; Level 12
+   ;================================================================================
+   .dw #_tilemap_04            ;Tilemap
+   .db #level_new_entity
+   .dw #t_player
+   .db #70
+   .db #176
+
+   .db #level_new_entity
+   .dw #t_spawner_from_template_01
+   .db #4
+   .db #48
+   .dw #_sys_ai_behaviourSpawner_plist
+   .db #00                                 ; e_ai_aux_l
+   .db #00                                 ; e_ai_aux_h
+   .dw #spawner_plist_03
+   .dw #enemy_no_shoot
+
+   .db #level_new_entity
+   .dw #t_enemy_basic_purple
+   .db #12
+   .db #96
+   .dw #_sys_ai_beh_follow_player_y
+   .db #t_follow_timer                                 ; e_ai_aux_l
+   .db #t_follow_timer                                 ; e_ai_aux_h
+   .dw #0
+   .dw #_sys_ai_beh_shoot_x
+
+   .db #level_new_entity
+   .dw #t_enemy_basic_green
+   .db #20
+   .db #64
+   .dw #_sys_ai_behaviourPatrolRelative
+   .db #20                                 ; e_ai_aux_l
+   .db #64                                 ; e_ai_aux_h
+   .dw #patrol_relative_x_36
+   .dw #enemy_no_shoot
+
+   .db #level_separator
+   ;================================================================================
+   ; Level 13 es jodido igual mas adelante
    ;================================================================================
    ; .dw #_tilemap_05            ;Tilemap
    ; .db #level_new_entity
@@ -535,7 +575,7 @@ _level1:
    ;
    ; .db #level_separator
    ;================================================================================
-   ; 12 Level mas adelantes esmuy chungo
+   ; 13 Level mas adelantes esmuy chungo
    ;================================================================================
 
    ; 4 zonas de gamezone

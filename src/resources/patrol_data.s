@@ -113,6 +113,15 @@ patrol_all_game_zone_0m:
    .db #patrol_invalid_move
    .dw #patrol_all_game_zone_0m
 
+; i: inverted
+patrol_all_game_zone_0m_i:
+   .db   4, 48
+   .db   4, 176
+   .db  70, 176
+   .db  70, 48
+   .db #patrol_invalid_move
+   .dw #patrol_all_game_zone_0m_i
+
 patrol_all_game_zone_mm:
    .db  70, 176
    .db   4, 176
@@ -233,24 +242,14 @@ spawner_plist_02:
    .dw #t_es_01
    .dw #t_es_02
    .dw #t_es_02
-   ; .dw #t_es_02
-   ; .dw #t_es_01
-   ; .dw #t_es_01
+   .dw #0x0000
    .db #patrol_invalid_move
-
-; spawner_plist_02:
-;    .dw #t_es_03
-;    .dw #t_enemy_patrol_game_zone
-;    .dw #t_es_03
-;    .dw #t_enemy_patrol_game_zone
-;    .dw #t_enemy_patrol_game_zone
-;    .dw #t_es_03
 
 ; que saque enemigos que se qeuden alredeodr del spawner
 ; y otros que vayan a hacer un patrol o un seeknpatrol
 spawner_plist_03:
    .dw #t_enemy_patrol_game_zone
-   .dw #t_enemy_patrol_game_zone
+   .dw #t_enemy_patrol_game_zone_i
    .dw #t_enemy_seeknpatrol
-   .dw #t_enemy_patrol_game_zone
-   ; .dw #t_enemy_patrol_x_shoot_y
+   .dw #0x0000
+   .dw #patrol_invalid_move
