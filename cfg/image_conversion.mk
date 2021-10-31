@@ -84,7 +84,10 @@ $(eval $(call IMG2SP, CONVERT         , assets/png/cactus_2.png , 16, 32, cactus
 $(eval $(call IMG2SP, CONVERT         , assets/png/cactus_3.png , 16, 32, cactus_3,,))
 
 ## ========== NEXT STAGE ========== 
-$(eval $(call IMG2SP, CONVERT         , assets/png/nextStage.png , 124, 22, nextStage,,))
+$(eval $(call IMG2SP, CONVERT         , assets/png/nextStage.png , 124, 44, nextStage,,))
+
+## ========== END STAGE ========== 
+#$(eval $(call IMG2SP, CONVERT         , assets/png/endGameScreen.png , 160, 200, endGameScreen,,))
 
 ##
 ## OLD MACROS (For compatibility)

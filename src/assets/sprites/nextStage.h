@@ -4,7 +4,7 @@
 
 #include <types.h>
 #define NEXTSTAGE_W 62
-#define NEXTSTAGE_H 22
-extern const u8 nextStage[62 * 22];
+#define NEXTSTAGE_H 44
+extern const u8 nextStage[62 * 44];
 
 #endif

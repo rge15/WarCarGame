@@ -207,7 +207,7 @@ ei
    ;TODO : Hacer una pantalla de endgame bonica y cargarla aquí
    cpctm_clearScreen_asm 0
 
-   LOAD_PNG_TO_SCREEN #0x09, #0x40, #0x3E, #0x16, #_nextStage
+   ;LOAD_PNG_TO_SCREEN #0x09, #0x48, #0x50 , #0xC8, #_endGameScreen
    
    ld hl, #Key_Return
    call waitKeyPressed
@@ -589,7 +589,7 @@ _man_game_updateGameStatus::
    ld (hl), a
 
    ;; Dibujamos el sprite para pasar de lvl
-   LOAD_PNG_TO_SCREEN #0x09, #0x48, #0x3E, #0x16, #_nextStage
+   LOAD_PNG_TO_SCREEN #0x09, #0x48, #0x3E, #0x2C, #_nextStage
 
    ld hl, #Key_Return
    call waitKeyPressed
