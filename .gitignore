@@ -5,4 +5,5 @@ obj
 .vscode
 src/assets/sprites/*
 src/assets/maps/*
+src/assets/music/*
 src/g_palette.*
