@@ -236,7 +236,7 @@ t_spawner_from_template_01:
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
    .dw #_sys_ai_behaviourSpawner_template             ; ai_behaviour
-   .db #0x16                                 ; ai_counter
+   .db #0x32                                 ; ai_counter
    .dw #0x0                                  ; animator
    .db #0x0A                                 ; anim. counter
    .dw #0x0000                               ; input_behaviour
@@ -471,7 +471,7 @@ t_es_03:
    .dw #0x0000                               ; prevptr
    .dw #_sys_ai_behaviourPatrolRelative
    .db #t_shoot_timer_enemy
-   .dw #0x0                                  ; animator
+   .dw #_man_anim_enemy_green                                  ; animator
    .db #0x0                                  ; anim. counter
    .dw #enemy_no_shoot                               ; input_behaviour
    .db #0x00                                 ; e_ai_aim_x

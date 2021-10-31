@@ -34,12 +34,14 @@ _level1:
 
    ; .db #level_new_entity
    ; .dw #t_spawner_from_template_01
-   ; .db #4
-   ; .db #176
-   ; .dw #_sys_ai_behaviourSpawner_template
+   ; .db #54
+   ; .db #80
+   ; ; .dw #_sys_ai_behaviourSpawner_template
+   ; .dw #_sys_ai_behaviourSpawner_plist
    ; .db #00                                 ; e_ai_aux_l
    ; .db #00                                 ; e_ai_aux_h
-   ; .dw #t_es_01
+   ; ; .dw #t_es_01
+   ; .dw #spawner_plist_02
    ; .dw #enemy_no_shoot
 
 

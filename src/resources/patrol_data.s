@@ -217,25 +217,37 @@ patrol_relative_y_64:
 ; Spawner Patrol List
 ;===============================================================================
 ; !!!! el tamanyo tiene que ser menor que enemy_max_spawn !!!j
+; igora el ultimo!
 spawner_plist_01:
-   .dw #t_es_01
-   ; .dw #t_es_01
+   .dw #0x0000
    .dw #t_es_02
    .dw #t_es_01
+   ; .dw #t_es_02
+   ; .dw #t_es_02
+   ; .dw #t_es_01
    ; .dw #t_es_02
    ; .dw #t_es_01
    ; .dw #t_es_01
    .db #patrol_invalid_move
-   .dw #spawner_plist_01
 
-
+; pasa del primero
 spawner_plist_02:
-   .dw #t_es_03
-   .dw #t_enemy_patrol_game_zone
-   .dw #t_es_03
-   .dw #t_enemy_patrol_game_zone
-   .dw #t_enemy_patrol_game_zone
-   .dw #t_es_03
+   ; .dw #t_es_01
+   .dw #t_es_01
+   .dw #t_es_02
+   .dw #t_es_02
+   ; .dw #t_es_02
+   ; .dw #t_es_01
+   ; .dw #t_es_01
+   .db #patrol_invalid_move
+
+; spawner_plist_02:
+;    .dw #t_es_03
+;    .dw #t_enemy_patrol_game_zone
+;    .dw #t_es_03
+;    .dw #t_enemy_patrol_game_zone
+;    .dw #t_enemy_patrol_game_zone
+;    .dw #t_es_03
 
 ; que saque enemigos que se qeuden alredeodr del spawner
 ; y otros que vayan a hacer un patrol o un seeknpatrol

@@ -63,14 +63,20 @@ _sys_patrol_next_spawner:
    ld h, e_patrol_step_h(ix)
    ld l, e_patrol_step_l(ix)
 
-   ld a, (hl)
-   cp #patrol_invalid_move
-   call z, stop_spawning
-
    inc hl
    inc hl
    ld e_patrol_step_h(ix), h
    ld e_patrol_step_l(ix), l
+
+   ret
+
+check_next_step:
+   ld h, e_patrol_step_h(ix)
+   ld l, e_patrol_step_l(ix)
+   inc hl
+   inc hl
+   ld a, (hl)
+   cp #patrol_invalid_move
 
    ret
 
@@ -114,6 +120,8 @@ stop_spawning:
    ; un inc primero
    ld hl, #_m_enemyCounter
    dec (hl)
+   ld a, #0
+   or a
 
    ret
 
