@@ -14,6 +14,7 @@
 .globl cpct_scanKeyboard_if_asm
 .globl cpct_akp_musicInit_asm
 .globl cpct_akp_musicPlay_asm
+.globl cpct_zx7b_decrunch_s_asm
 
 
 

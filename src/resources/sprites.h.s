@@ -33,19 +33,22 @@
 .globl _spriteScore_09
 
 .globl _sprite_bullet01
+.globl _sprite_enemy01
 
-.globl _GameText
-.globl _cloud_1
-.globl _cloud_2
-.globl _cloud_3
-.globl _ovni_1
-.globl _ovni_2
-.globl _ovni_3
-.globl _tankMenu
-.globl _pressEnterText
-.globl _railRoad
-.globl _cactus_1
-.globl _cactus_2
-.globl _cactus_3
+.globl _ovni_green_0
+.globl _ovni_green_1
+.globl _ovni_blue_0
+.globl _ovni_blue_1
+.globl _ovni_purple_0
+.globl _ovni_purple_1
+.globl _ovni_red_0
+.globl _ovni_red_1
+
+.globl _ovni_portal_0
+.globl _ovni_portal_1
+.globl _ovni_portal_2
+
+.globl _ovni_bullet_0
+.globl _ovni_bullet_1
 
 .globl _nextStage

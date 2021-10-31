@@ -1,4 +1,5 @@
 .module Macros
+.include "resources/macros.h.s"
 
 .macro PREPARE_SCORE_DIGIT_TO_RENDER _vmem 
 
@@ -55,20 +56,14 @@
 ;; Aumenta el registro X veces
 ;;IMportante no se puede incrementar HL ni BC
 .macro INCREMENT_REGISTER_DE _numLoops
-    push hl
-    push bc
+    ; push bc
     ld a, _numLoops
     ld c, a
     ld b, #0
-    ; _loopIncrement:
-        ; inc _register
-        ; dec a
-        ; jr nz, _loopIncrement
     ex de, hl
     add hl, bc
     ex de, hl
-    pop bc
-    pop hl
+    ; pop bc
 .endm
 
 ;;Comprueba si la tecla pasada por parametro se está pulsando
@@ -78,6 +73,118 @@
     ld hl, #_key
     call cpct_isKeyPressed_asm
 .endm 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Pre requirements
+;;  -
+;; Objetive: Calculate the given number negated
+;; Return: Return the number negated in the _register
+;; Modifies: a
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+.macro NEGATE_NUMBER _register
+   ld a, _register
+   xor #0xFF
+   add a, #0x01
+
+.endm
+
+
+;===============================================================================
+; Comprobrar los dos af despues de salir de seekCoords_x y seekCoords_y
+; Salta ret si no es el caso !!!
+; Parameters:
+;  - HL: af register
+;  - BC: previous af register
+;  - DE: paramter for _call_on_succes that goes on HL
+;===============================================================================
+.macro X_AND_Y_ON_ZERO_AFTER_SEEK _call_on_succes
+   ld a, #0x40
+   and l
+   ld l, a
+
+   ld a, #0x40
+   and c
+   ld c, a
+
+   ld a, l
+   cp c
+   jr z, same_values_in_f
+   ret
+
+   same_values_in_f:
+      ld a, #0x40
+      cp c
+
+      ex de, hl
+      call z, _call_on_succes
+.endm
+
+;; TODO[Edu]: meter velocidades tambien
+
+.macro SEEK_COORDS_X_Y_SAVING_FLAGS
+   call _sys_ai_seekCoords_x
+   push af
+   call _sys_ai_seekCoords_y
+   push af
+   pop hl
+   pop bc
+.endm
+
+;===============================================================================
+; Comprobrar si entidad esta parada
+; Salta ret si no es el caso !!!
+; Usar al final de un label
+;===============================================================================
+.macro CHECK_VX_VY_ZERO _call_on_succes
+   ld a, e_vx(ix)
+   or a
+   jr z, . + 3
+   jr . + 9
+   ;; . + 3
+      ld a, e_vy(ix)
+      or a
+      call z, _call_on_succes
+   ;; . + 9
+
+.endm
+
+.macro CHECK_VX_VY_ZERO_JR _jr_on_succes
+   ld a, e_vx(ix)
+   or a
+   jr z, . + 3
+   jr . + 9
+   ;; . + 3
+      ld a, e_vy(ix)
+      or a
+      jr z, _jr_on_succes
+   ;; . + 9
+
+.endm
+
+.macro CHECK_NO_AIM_XY _call_on_succes2
+   ld a, e_ai_aim_x(ix)
+   or a
+   jr z, . + 3
+   jr . + 9
+   ;; . + 3
+      ld a, e_ai_aim_y(ix)
+      or a
+      call z, _call_on_succes2
+   ;; . + 9
+.endm
+
+;===============================================================================
+; Comprobrar si entidad esta parada
+; Destroy: BC, HL
+;===============================================================================
+.macro GET_PLAYER_ENTITY _register
+   ld hl, #_m_playerEntity
+   ld b, (hl)
+   inc hl
+   ld c, (hl)
+   push bc
+   pop _register
+.endm
 
 ;; Según la orientación de la entidad devuelve el bounding box
 ;; de arriba o abajo

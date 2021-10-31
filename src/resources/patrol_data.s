@@ -1,0 +1,207 @@
+.module Patrol_Data
+
+.include "sys/patrol.h.s"
+.include "resources/patrol_data.h.s"
+.include "resources/templates.h.s"
+
+;===============================================================================
+; Regular Patrol
+;===============================================================================
+
+; CENTRO: 36, 104
+; !! se puede hacer que un patrol redirija  a otro !!
+; Esquinas MAX:
+;   4, 48
+;  70, 48
+;   4, 176
+;  70, 176
+
+
+patrol_01:
+   .db  8, 56
+   .db  36, 56
+   .db #patrol_invalid_move
+   .dw #patrol_01
+
+patrol_02:
+   .db  64, 56
+   .db  64, 168
+   .db  32, 168
+   .db  64, 168
+   .db #patrol_invalid_move
+   .dw #patrol_02
+
+patrol_03:
+   .db  8, 56
+   .db  8, 120
+   .db #patrol_invalid_move
+   .dw #patrol_03
+
+patrol_04:
+   .db  20, 56
+   .db  20, 156
+   .db #patrol_invalid_move
+   .dw #patrol_04
+
+patrol_05:
+   .db  20, 64
+   .db  20, 164
+   .db #patrol_invalid_move
+   .dw #patrol_05
+
+patrol_06:
+   .db  40, 56
+   .db  72, 56
+   .db  72, 88
+   .db  64, 88
+   .db #patrol_invalid_move
+   .dw #patrol_06
+
+
+patrol_none:
+   .db  50, 60
+   ; .db  20, 80
+   .db #patrol_invalid_move
+   .dw #patrol_none
+
+patrol_x_50_20:
+   .db  50, 50
+   .db  20, 50
+   .db #patrol_invalid_move
+   .dw #patrol_x_50_20
+
+patrol_y_50_120:
+   .db  10, 50
+   .db  10, 120
+   .db #patrol_invalid_move
+   .dw #patrol_y_50_120
+
+
+; m for max
+patrol_all_game_zone_00:
+   .db   4, 48
+   .db  70, 48
+   .db  70, 176
+   .db   4, 176
+   .db #patrol_invalid_move
+   .dw #patrol_all_game_zone_00
+
+patrol_all_game_zone_0m:
+   .db  70, 48
+   .db  70, 176
+   .db   4, 176
+   .db   4, 48
+   .db #patrol_invalid_move
+   .dw #patrol_all_game_zone_0m
+
+patrol_all_game_zone_mm:
+   .db  70, 176
+   .db   4, 176
+   .db   4, 48
+   .db  70, 48
+   .db #patrol_invalid_move
+   .dw #patrol_all_game_zone_mm
+
+patrol_all_game_zone_m0:
+   .db   4, 176
+   .db   4, 48
+   .db  70, 48
+   .db  70, 176
+   .db #patrol_invalid_move
+   .dw #patrol_all_game_zone_m0
+
+
+;===============================================================================
+; Relative Patrol
+;===============================================================================
+
+;; moverse alredeodr de una entidad
+patrol_relative_01:
+   .db  6, -10
+   .db  6, 10
+   .db  -6, 10
+   .db  -6, -10
+   .db #patrol_invalid_move
+   .dw #patrol_relative_01
+
+patrol_relative_02:
+   .db  0, -16
+   .db  0, 0
+   .db #patrol_invalid_move
+   .dw #patrol_relative_02
+
+patrol_seeknpatrol_01:
+   .db  0, -16
+   .db  0, 0
+   .db #patrol_invalid_move
+   .dw #patrol_seeknpatrol_01
+
+patrol_seeknpatrol_02:
+   .db  0, 0
+   .db  -16, 0
+   .db #patrol_invalid_move
+   .dw #patrol_seeknpatrol_02
+
+patrol_relative_03:
+   .db  0, 0
+   .db  0, 12
+   .db  24, 12
+   .db  24, 0
+   .db #patrol_invalid_move
+   .dw #patrol_relative_03
+
+
+patrol_relative_none:
+   .db  0, 0
+   .db #patrol_invalid_move
+   .dw #patrol_relative_none
+
+patrol_relative_x_12:
+   .db  0, 0
+   .db  12, 0
+   .db #patrol_invalid_move
+   .dw #patrol_relative_x_12
+
+patrol_relative_y_12:
+   .db  0, 0
+   .db  0, 12
+   .db #patrol_invalid_move
+   .dw #patrol_relative_y_12
+
+patrol_relative_x_24:
+   .db  0, 0
+   .db  24, 0
+   .db #patrol_invalid_move
+   .dw #patrol_relative_x_24
+
+patrol_relative_x_36:
+   .db  0, 0
+   .db  36, 0
+   .db #patrol_invalid_move
+   .dw #patrol_relative_x_36
+
+patrol_relative_y_24:
+   .db  0, 0
+   .db  0, 24
+   .db #patrol_invalid_move
+   .dw #patrol_relative_y_24
+
+;===============================================================================
+; Spawner Patrol List
+;===============================================================================
+; !!!! el tamanyo tiene que ser menor que enemy_max_spawn !!!j
+spawner_plist_01:
+   .dw #t_enemy_testing
+   .dw #t_enemy_patrol_x_shoot_y
+   .dw #t_enemy_testing
+   .dw #t_enemy_patrol_x_shoot_y
+
+; que saque enemigos que se qeuden alredeodr del spawner
+; y otros que vayan a hacer un patrol o un seeknpatrol
+spawner_plist_02:
+   .dw #t_enemy_patrol_game_zone
+   .dw #t_enemy_patrol_game_zone
+   .dw #t_enemy_seeknpatrol
+   .dw #t_enemy_patrol_game_zone
+   ; .dw #t_enemy_patrol_x_shoot_y
+

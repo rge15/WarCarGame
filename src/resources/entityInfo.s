@@ -2,24 +2,24 @@
 ;===================================================================================================================================================
 ; Entity types   
 ;===================================================================================================================================================
-; #define e_type_invalid        0x00
-; #define e_type_player         0x01
-; #define e_type_default        0x02 
-; #define e_type_bullet         0x04 
-; #define e_type_enemy          0x08
-; #define e_type_enemySpawner   0x10
-; #define e_type_enemyBullet    0x20
-; #define e_type_dead           0x80
+e_type_invalid       = 0x00
+e_type_player        = 0x01
+e_type_default       = 0x02
+e_type_bullet        = 0x04
+e_type_enemy         = 0x08
+e_type_spawner       = 0x10
+e_type_enemy_bullet  = 0x20
+e_type_dead          = 0x80
 
 ;===================================================================================================================================================
 ; Component types   
 ;===================================================================================================================================================
-; #define e_cmp_render   0x01
-; #define e_cmp_movable  0x02
-; #define e_cmp_input    0x04
-; #define e_cmp_ai       0x08
-; #define e_cmp_animated 0x10
-; #define e_cmp_collider 0x20
+e_cmp_render   = 0x01
+e_cmp_movable  = 0x02
+e_cmp_input    = 0x04
+e_cmp_ai       = 0x08
+e_cmp_animated = 0x10
+e_cmp_collider = 0x20
 
 ;===================================================================================================================================================
 ; Entity variables    
@@ -35,17 +35,27 @@ e_vy        =  7
 e_sprite1   =  8
 e_sprite2   =  9
 e_orient    = 10
+
 e_prorient  = 11
 e_prevptr1  = 12
 e_prevptr2  = 13
 e_aibeh1    = 14
 e_aibeh2    = 15
-e_anctr     = 16
+e_aictr     = 16
 e_anim1     = 17
 e_anim2     = 18
 e_animctr   = 19
 e_inputbeh1 = 20
 e_inputbeh2 = 21
+
+e_ai_aim_x  = 22
+e_ai_aim_y  = 23
+;; se usa segun el comportamiento
+e_ai_aux_l = 24
+e_ai_aux_h = 25
+
+e_patrol_step_l = 26
+e_patrol_step_h = 27
 
 
 

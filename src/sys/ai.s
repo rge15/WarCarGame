@@ -5,18 +5,47 @@
 .include "man/game.h.s"
 .include "resources/entityInfo.s"
 .include "resources/templates.h.s"
-.include "sys/physics.h.s"
-.include "sys/ai.h.s"
 .include "resources/macros.s"
+.include "sys/physics.h.s"
+.include "sys/patrol.h.s"
+.include "sys/ai.h.s"
+.include "resources/sprites.h.s"
+.include "collision.h.s"
 
 ;===================================================================================================================================================
 ; Manager data
 ;===================================================================================================================================================
-_sys_ai_behaviourMemory::
-    .ds 2
 
 _sys_ai_directionMemory::
     .dw #0x0000
+
+;; TODO: mejorar igual
+enemy_max_spawn = 4
+_sys_ai_enemy_count: .db 0
+
+
+;;--------------------------------------------------------------------------------
+;; AI FUNCTIONS
+;;--------------------------------------------------------------------------------
+
+_sys_ai_init::
+   ; ld hl, #_sys_ai_patrol_pos
+   ; ld (_sys_ai_nextPatrolCoords), hl
+   ;
+   ; ld hl, #_sys_ai_patrol_count
+   ; ld (hl), #0
+   ret
+
+
+;===============================================================================
+; Actualiza ai_beh
+; HL: direction of new behaviour
+;===============================================================================
+_sys_ai_changeBevaviour::
+   ld e_aibeh1(ix), l
+   ld e_aibeh2(ix), h
+   ret
+
 
 ;===================================================================================================================================================
 ; FUNCION _sys_ai_update
@@ -47,138 +76,402 @@ _sys_ai_updateOneEntity::
     ld d, e_aibeh2(ix)
     ld e, e_aibeh1(ix)
 
+    ; ex de, hl
     ld (#_sys_ai_directionMemory), de
-
     ld hl, (#_sys_ai_directionMemory)
+
+    ld de, #ai_back_from_jp
+    push de
     jp (hl)    
 
-    ret
+    ai_back_from_jp:
 
+   ld e, e_inputbeh1(ix)
+   ld d, e_inputbeh2(ix)
 
-;===================================================================================================================================================
-; FUNCION _sys_ai_behaviourBullet
-; Updatea el contador de existencia de la bala y la destruye si hace falta
-; BC : Entidad a updatear
-;===================================================================================================================================================
-_sys_ai_behaviourBullet::    
-    ld h, b
-    ld l, c
-    push hl
-    pop ix
+   ld (#_sys_ai_directionMemory), de
+   ld hl, (#_sys_ai_directionMemory)
 
-    ;; Compruebo si tiene velocidad
-    ;; Se comprueba que la velocidad de la bala no sea 0
-    ;; En caso de que lo sea, sea manda a destruir
-    CHECK_HAS_MOVEMENT e_vx(ix), e_vy(ix)
-    ld a, #0x01
-    sub b
-    jr z, destroyBullet ;; Si no tiene vel. se destruye
+   ld a, d
+   or a
+   jr nz, low_no_zero_zero
+   jr low_is_zero_zero
+   low_no_zero_zero:
+      ld a, e
+      or a
+      jr nz, exe_shoot_beh
+   low_is_zero_zero:
+   ret
 
-    ;; Se comprueba que el contador de mov. restantes de las
-    ;; balas sea 0. En ese caso se manda a destruir
-    ld a, e_anctr(ix)
-    dec a
-    jr z, destroyBullet ;; Si es 0 se destruye la bala
-
-    jp stopUpdateBullet
-
-    destroyBullet:
-        ;; Volvemos a indicar que no tiene balas y re-seteamos el contador
-        push hl
-        call _m_game_bulletDestroyed
-        pop hl
-        call _m_game_destroyEntity
-
-
-    stopUpdateBullet:
-    ld e_anctr(ix), a
-ret
-
-
-;===================================================================================================================================================
-; FUNCION _sys_ai_behaviourEnemy
-; Comportamiento de la MotherShip
-; 1º Intenta crear un enemigo hijo
-; 2º Se mueve de derecha a izquierda hasta los bordes
-; HL : Entidad a updatear
-;===================================================================================================================================================
-_sys_ai_behaviourEnemy::
-
-    ;; TODO : IA del enemigo
-    call _sys_ai_behaviourLeftRight
+   exe_shoot_beh:
+      jp (hl)
 
     ret
 
+;;--------------------------------------------------------------------------------
+;; FUNCTIONS OF BEHAVIOURS
+;;--------------------------------------------------------------------------------
+
+;===============================================================================
+; El enemigo dispara una bala hacia el jugador, se destruye al llegar
+; Genera una entidad _bullet_template y le cambia la posicion a la del enemy
+; BC: posicon desde dodne sale
+;; TODO[Edu]: no sale del centro de la entidad
+;===============================================================================
+_sys_ai_shootBulletSeek::
+   call _sys_ai_reset_shoot_aictr
+
+   push bc
+
+   CREATE_ENTITY_FROM_TEMPLATE t_bullet_enemy_sp
+   push hl
+   pop ix
+
+   pop bc
+   call shoot_from_enemy_center
+
+   GET_PLAYER_ENTITY iy
+   call _sys_ai_aim_to_entity
+
+
+   ret
+
+shoot_from_enemy_center:
+   ; ld a, e_width(ix)
+   ld a, #2
+   add a, b
+   ld b, a
+
+   ; ld a, e_heigth(ix)
+   ld a, #4
+   add a, c
+   ld c, a
+
+   ld e_xpos(ix), b
+   ld e_ypos(ix), c
+   ret
+
+; w 6
+; h 16
+_sys_ai_shoot_b_position_y_aim:
+   call shoot_from_enemy_center
+
+   GET_PLAYER_ENTITY iy
+   call _sys_ai_aim_to_entity
+
+   ret
+
+;; Crea la bala, le pone la posicion del enemigo que la dispara
+;; y le pone en ai_aim las coords del player
+_sys_ai_shoot_bullet_l_common:
+   call _sys_ai_reset_shoot_aictr
+   push bc
+
+   CREATE_ENTITY_FROM_TEMPLATE t_bullet_enemy_l
+   push hl
+   pop ix
+
+   pop bc
+
+   call _sys_ai_shoot_b_position_y_aim
+   ret
+
+;; fast version
+_sys_ai_shoot_bullet_l_common_f:
+   call _sys_ai_reset_shoot_aictr
+   push bc
+
+   CREATE_ENTITY_FROM_TEMPLATE t_bullet_enemy_l_f
+   push hl
+   pop ix
+
+   pop bc
+
+   call _sys_ai_shoot_b_position_y_aim
+
+   ret
+
+_sys_ai_shoot_bullet_l_x:
+   call _sys_ai_shoot_bullet_l_common
+   ld d, e_ai_aux_l(ix)
+   call _sys_ai_seekCoords_x
+   ret
+
+;; fast version
+_sys_ai_shoot_bullet_l_x_f:
+   call _sys_ai_shoot_bullet_l_common_f
+   ld d, e_ai_aux_l(ix)
+   call _sys_ai_seekCoords_x
+   ret
+
+_sys_ai_shoot_bullet_l_y:
+   call _sys_ai_shoot_bullet_l_common
+   ld d, e_ai_aux_h(ix)
+   call _sys_ai_seekCoords_y
+   ret
+
+;; fast version
+_sys_ai_shoot_bullet_l_y_f:
+   call _sys_ai_shoot_bullet_l_common_f
+   ld d, e_ai_aux_h(ix)
+   call _sys_ai_seekCoords_y
+   ret
+
+_sys_ai_shoot_bullet_l_xy_rand:
+   call _sys_ai_shoot_bullet_l_common
+
+   call _sys_ai_random_0_1
+   dec a
+
+   jr z, shoot_on_y_axis
+   jr shoot_on_x_axis
+   ret
+
+   shoot_on_x_axis:
+      ld d, e_ai_aux_l(ix)
+      call _sys_ai_seekCoords_x
+      ret
+   shoot_on_y_axis:
+      ld d, e_ai_aux_h(ix)
+      call _sys_ai_seekCoords_y
+
+   ret
+
+;; fast version
+_sys_ai_shoot_bullet_l_xy_rand_f:
+   call _sys_ai_shoot_bullet_l_common_f
+
+   call _sys_ai_random_0_1
+   dec a
+
+   jr z, shoot_on_y_axis_f
+   jr shoot_on_x_axis_f
+   ret
+
+   shoot_on_x_axis_f:
+      ld d, e_ai_aux_l(ix)
+      call _sys_ai_seekCoords_x
+      ret
+   shoot_on_y_axis_f:
+      ld d, e_ai_aux_h(ix)
+      call _sys_ai_seekCoords_y
+
+   ret
+
+_sys_ai_shoot_bullet_l_d:
+   call _sys_ai_shoot_bullet_l_common
+   ld d, e_ai_aux_l(ix)
+   call _sys_ai_seekCoords_x
+   ld d, e_ai_aux_h(ix)
+   call _sys_ai_seekCoords_y
+   ret
+
+;===============================================================================
+; Esta bala muere cuando aictr llega a 0
+
+;===============================================================================
+; Genera un patron de entidades que hay en patrol_step
+; BC: posicion donde debe sale
+; Destroy: IX, IY, HL, BC
+;; TODO[Edu]: no sale del centro de la entidad
+;===============================================================================
+_sys_ai_spawnEnemy_plist::
+   push bc
+   ld hl, #_m_enemyCounter
+   inc (hl)
+
+   ;; En el spawner los valores patrol_step son el template de la entidad a spawnear
+   ld h, e_patrol_step_h(ix)
+   ld l, e_patrol_step_l(ix)
+
+   ld c, (hl)
+   inc hl
+   ld b, (hl)
+   push ix
+   pop iy
+
+   call _m_game_createInitTemplate
+
+   push hl
+   pop ix
+
+   pop bc
+
+   ;; posicion del spawner al enemy que spawnea
+   ld e_xpos(ix), b
+   ld e_ypos(ix), c
+
+   push iy
+   pop ix
+   call _sys_patrol_next_spawner
+
+   ret
+
+;===============================================================================
+; Genera entidades de un template que esta en patrol_step
+; BC: posicion donde debe sale
+; Destroy: IX, IY, HL, BC
+;; TODO[Edu]: no sale del centro de la entidad
+;===============================================================================
+_sys_ai_spawnEnemy_template:
+   push bc
+   ld hl, #_m_enemyCounter
+   inc (hl)
+
+   ;; En el spawner los valores patrol_step son el template de la entidad a spawnear
+   ld b, e_patrol_step_h(ix)
+   ld c, e_patrol_step_l(ix)
+
+   call _m_game_createInitTemplate
+
+   push hl
+   pop ix
+
+   pop bc
+
+   ;; posicion del spawner al enemy que spawnea
+   ld e_xpos(ix), b
+   ld e_ypos(ix), c
+   ; call _sys_patrol_set_relative_origin
+
+   ret
+
+
+_sys_ai_behaviourShield:
+   ret
+
+;===============================================================================
+; Usamos orient para hp spawner ya que nunca se va a mover
+; IX: spawner entity
+;===============================================================================
+_sys_ai_decrement_spawner_hp:
+   ;; TODO: cargar animacion para dar feedback de menor vida
+   dec e_orient(ix)
+
+   push ix
+   pop hl
+   jr z, _sys_ai_spawner_has_to_die
+
+   ld a, #2
+   cp e_orient(ix)
+   jr z, spawner_has_2_hp
+
+   ld a, #1
+   cp e_orient(ix)
+   jr z, spawner_has_1_hp
+
+   ;; Esto no es muy ECS pero bueno
+   spawner_has_2_hp:
+      ld hl, #_ovni_portal_1
+      ld e_sprite1(ix), l
+      ld e_sprite2(ix), h
+      ret
+
+   spawner_has_1_hp:
+      ld hl, #_ovni_portal_2
+      ld e_sprite1(ix), l
+      ld e_sprite2(ix), h
+      ret
+
+   ret
+
+_sys_ai_spawner_has_to_die:
+   call _m_game_destroyEntity
+   call _man_game_decreaseEnemyCounter
+   ret
+
+;===============================================================================
+; actualizar ai_aim a nueva posicion y guardar en ai_last_aim la de antes del cambio
+; IX: entidad que va a hacer el seek
+; HL: coordenadas nuveas
+;===============================================================================
+_sys_ai_setAiAim::
+
+   ld e_ai_aim_x(ix), h
+   ld e_ai_aim_y(ix), l
+   ret
+
+; poner en el counter el valor que pasa hasta disparar una baga 
+
+
+;===============================================================================
+; Seek a unas coordenadas segun e_ai_aim_x, usando CP(con unsigned en principio)
+; IX: entidad que va a hacer el seek
+; D: velocidad
+;===============================================================================
+_sys_ai_seekCoords_x::
+   ld a, e_ai_aim_x(ix)
+
+   ld b, e_xpos(ix)
+   cp b
+   ;; b:actual, a: destino
+   jr z, set_zero_x
+   jr c, set_negative_x
+   jr set_positive_x
+
+   set_negative_x:
+      NEGATE_NUMBER d
+      ld e_vx(ix), a
+      ld e_orient(ix), #2
+      ret
+
+   set_positive_x:
+      ld e_vx(ix), d
+      ld e_orient(ix), #0
+      ret
+
+   set_zero_x:
+      ld e_vx(ix), #0
+      ret
+
+   ret
+
+;===============================================================================
+; Seek a unas coordenadas segun e_ai_aim_y, usando CP(con unsigned en principio)
+; IX: entidad que va a hacer el seek
+; D: velocidad
+;===============================================================================
+_sys_ai_seekCoords_y::
+   ld a, e_ai_aim_y(ix)
+
+   ld b, e_ypos(ix)
+   cp b
+   ;; b:actual, a: destino
+   jr z, set_zero_y
+   jr c, set_negative_y
+   jr set_positive_y
+
+   set_negative_y:
+      NEGATE_NUMBER d
+      ld e_vy(ix), a
+      ld e_orient(ix), #3
+      ret
+
+   set_positive_y:
+      ld e_vy(ix), d
+      ld e_orient(ix), #1
+      ret
+
+   set_zero_y:
+      ld e_vy(ix), #0
+      ret
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Destroy: L
+;; Return: A 1 or 0
+_sys_ai_random_0_1:
+   ld a, r
+   ld l, a
+   ld a, #62
+   cp l
+   jr c, prandom_zero
+   ld a, #0
+   ret
+   prandom_zero:
+      ld a, #1
+   ret
 
 
 
-;===================================================================================================================================================
-; FUNCION _sys_ai_behaviourLeftRight
-; Si llega a alguno de los bordes establece su velocidad en la direccion contraria
-; HL : Entidad a updatear
-;===================================================================================================================================================
-_sys_ai_behaviourLeftRight::
-    ld a, #0x50
-    inc hl
-    inc hl
-    ld b,(hl) ;; b = x
-    inc hl
-    inc hl
-    sub (hl)  ;; a = right bound
-    inc hl
-    inc hl 
-    inc b
-    dec b
-    jr Z, leftPart
-
-    ld c,a
-    ld a,b
-    ld b,c
-
-    sub b
-    jr Z, rightPart
-
-    jp exitUpdate
-    leftPart:
-        ld (hl), #0x01
-        jp exitUpdate
-
-    rightPart:
-        ld (hl), #0xFF
-
-    exitUpdate:
-    ret
-
-
-
-;===================================================================================================================================================
-; FUNCION _sys_ai_behaviourAutoDestroy
-; Destruye la entidad pasado el tiempo del contador de la IA
-; HL : Entidad a updatear
-;===================================================================================================================================================
-
-;!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-;Esto lo dejo aquí pero dudo que lo usemos
-;!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-_sys_ai_behaviourAutoDestroy::
-    ld a,#0x0C
-    searchAICounter:
-        inc hl
-        dec a
-        jr NZ, searchAICounter
-
-    dec (hl)
-    jr NZ, dontDestroy
-
-    ld a,#0x0C
-    searchType:
-        dec hl
-        dec a
-        jr NZ, searchType
-
-    call _m_game_destroyEntity
-
-    dontDestroy:
-
-    ret

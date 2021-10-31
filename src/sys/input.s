@@ -43,8 +43,10 @@ _sys_input_updateOneEntity::
     push hl
     pop ix
 
-    ; call cpct_scanKeyboard_f_asm ;;;;IMPORTANTE ESTO SE TIENE QUE QUDAR COMENTADO NO DESCOMENTAR (Preguntar a Rodro)
-    
+    ld hl, #0x8005  ;;Key Space
+    call cpct_isKeyPressed_asm
+    jr NZ, spacePressed
+
     ld hl, #0x0807  ;;Key W
     call cpct_isKeyPressed_asm
     jr NZ, upPressed
@@ -60,10 +62,6 @@ _sys_input_updateOneEntity::
     ld hl, #0x2007  ;;Key D
     call cpct_isKeyPressed_asm
     jr NZ, rightPressed
-
-    ld hl, #0x8005  ;;Key Space
-    call cpct_isKeyPressed_asm
-    jr NZ, spacePressed
 
     ;EN caso de no pulsar nada se queda quieto
     ld a, #0x00

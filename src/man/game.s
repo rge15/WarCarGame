@@ -10,8 +10,8 @@
 .include "resources/levels.h.s"
 .include "man/interruptions.h.s"
 .include "assets/music/ArcadeGameSong.h.s"
-
-
+.include "assets/compress/screenmenu.h.s"
+.include "assets/compress/screenend.h.s"
  
 .include "sys/render.h.s"
 .include "sys/ai.h.s"
@@ -37,7 +37,7 @@ _m_irCtr:
 
 ; ;;Descripcion : Saber si el jugador ha disparado ya 
 _m_playerShot:
-   .db #0x00
+   .db #0x01
 
 ;;Descripcion : Posición de memoria de la entidad del jugador
 _m_playerEntity:
@@ -67,7 +67,12 @@ _m_enemyCounter:
    ; .asciz "PRESS ENTER TO RESTART GAME"
 
 ; victory_str:
-   ; .asciz "Has ganao suprimo, dale a enter pa volver a generar endorcinas"
+;    .asciz "Has ganao suprimo, dale a enter pa volver a generar endorcinas"
+
+player_shoot_cooldown_l = 0x10
+player_shoot_cooldown_h = 0x40
+player_bullet_vel_x = #1
+player_bullet_vel_y = #2
 ;===================================================================================================================================================
 ; FUNCION _m_game_createInitTemplate   
 ; ; Crea la entidad con el template indicado
@@ -92,8 +97,10 @@ _m_game_createInitTemplate::
 ; NO llega ningun dato
 ;===================================================================================================================================================
 _m_game_init::
-   call _sys_init_render
+   call  _sys_init_render
 
+   ;; TODO: me salia undefined
+   ; ld de, #_GameSong
    ld de, #_gameSong
    call cpct_akp_musicInit_asm
 
@@ -155,39 +162,43 @@ call _m_HUD_initHUD
 restartLevel:
 di
 SET_TILESET _tileset_00
-call _man_entityInit
 ld hl, #_m_enemyCounter
-ld (hl), #0x00 
-
+ld (hl), #0x00
+call _man_entityInit
 call _man_game_loadLevel
-
 call _sys_render_renderTileMap
 call _m_HUD_renderLifes
+
+call _m_HUD_renderScore
 
 ;==================
 ;Inicio Juego
 ;==================
 ei
-   call _m_HUD_renderScore
+
+   call _man_int_setIntHandler
+
    testIr:
 
       ld a, (_man_int_current)
       cp #0
       jr nz, testIr
-      cpctm_setBorder_asm HW_YELLOW
-      call _sys_ai_update
       cpctm_setBorder_asm HW_GREEN
       call _sys_render_update
-      cpctm_setBorder_asm HW_GREEN
-      call _man_entityUpdate
       cpctm_setBorder_asm HW_WHITE
+      call _man_entityUpdate
+      cpctm_setBorder_asm HW_GREEN
       call _sys_physics_update
       cpctm_setBorder_asm HW_RED
       call _sys_input_update
       cpctm_setBorder_asm HW_PINK
       call _sys_animator_update
+      cpctm_setBorder_asm HW_YELLOW
+      call _sys_ai_update
       cpctm_setBorder_asm HW_BLACK
       call _sys_collision_update
+      
+
 
       cpctm_setBorder_asm HW_YELLOW
       call _man_game_updateGameStatus
@@ -205,9 +216,11 @@ ei
 
    endGame:
    ;TODO : Hacer una pantalla de endgame bonica y cargarla aquí
-   cpctm_clearScreen_asm 0
+   ld hl, #_screenend_end
+   ld de, #0xFFFF
+   call cpct_zx7b_decrunch_s_asm
 
-   ;LOAD_PNG_TO_SCREEN #0x09, #0x48, #0x50 , #0xC8, #_endGameScreen
+   ; cpctm_clearScreen_asm 0
    
    ld hl, #Key_Return
    call waitKeyPressed
@@ -260,13 +273,13 @@ _m_game_playerShot::
    GET_ENTITY_POSITION #_m_playerEntity
    push de
    pop ix
-   ld a, e_anctr(ix)
+   ld a, e_aictr(ix)
    ld b, #0x00
    sub b
    ret NZ ;; Si ha disparado se sale de la etiqueta
 
 
-   CREATE_ENTITY_FROM_TEMPLATE _bullet_template_e
+   CREATE_ENTITY_FROM_TEMPLATE t_bullet_player
    ;; HL es la primera pos del array de la bala
    ex de, hl   ;; de = hl
    push de     ;; guardamos la primera pos del array de la bala
@@ -329,7 +342,7 @@ _m_game_playerShot::
    jp stopCheckOrientation
 
    righOrientation:
-      ld e_vx(ix), #0x01
+      ld e_vx(ix), #player_bullet_vel_x
       ld e_orient(ix), #0x00
       ld a, e_ypos(ix)
       add a, #0x06
@@ -340,7 +353,7 @@ _m_game_playerShot::
       jp stopCheckOrientation
 
    downOrientation:
-      ld e_vy(ix), #0x02
+      ld e_vy(ix), #player_bullet_vel_y
       ld e_orient(ix), #0x01
 
       ld e_width(ix),  #0x02
@@ -359,7 +372,9 @@ _m_game_playerShot::
       jp stopCheckOrientation
 
    leftOrientation:
-      ld e_vx(ix), #0xFF
+      ld d, #player_bullet_vel_x
+      NEGATE_NUMBER d
+      ld e_vx(ix), a
       ld e_orient(ix), #0x02
 
       ld a, e_ypos(ix)
@@ -376,7 +391,9 @@ _m_game_playerShot::
       jp stopCheckOrientation
 
    upOrientation:
-      ld e_vy(ix), #0xFE
+      ld d, #player_bullet_vel_y
+      NEGATE_NUMBER d
+      ld e_vy(ix), a
       ld e_orient(ix), #0x03
 
       ld e_width(ix),  #0x02
@@ -400,9 +417,19 @@ _m_game_playerShot::
    GET_ENTITY_POSITION, #_m_playerEntity
    push de
    pop ix
-   ld e_anctr(ix), #0x20 ;; SETEAMOS EL COOLDWON
+   ; contador de balas 
+   dec e_ai_aux_l(ix)
+   jr z, cooldown_high
 
-   ret   
+   ld e_aictr(ix), #player_shoot_cooldown_l
+   ret
+
+   cooldown_high:
+      ld e_aictr(ix), #player_shoot_cooldown_h
+      ld e_ai_aux_l(ix), #player_max_bullets
+
+   ret
+
 
 ;===================================================================================================================================================
 ; FUNCION _wait   
@@ -501,6 +528,34 @@ _man_game_loadLevel::
       ld hl, #_m_enemyCounter
       inc (hl)
       pop  hl
+      ;/=======================
+      ;| Al ser enemy tiene más datos que cargar
+      ;\=======================
+      inc hl
+      ld a, (hl)
+      ld e_aibeh1(ix), a
+      inc hl
+      ld a, (hl)
+      ld e_aibeh2(ix), a
+      inc hl
+      ld a, (hl)
+      ld e_ai_aux_l(ix), a
+      inc hl
+      ld a, (hl)
+      ld e_ai_aux_h(ix), a
+      inc hl
+      ld a, (hl)
+      ld e_patrol_step_l(ix), a
+      inc hl
+      ld a, (hl)
+      ld e_patrol_step_h(ix), a
+      inc hl
+      ld a, (hl)
+      ld e_inputbeh1(ix), a
+      inc hl
+      ld a, (hl)
+      ld e_inputbeh2(ix), a
+
       jp checkNextLevelEntity
 
       playerCreated:
@@ -577,9 +632,8 @@ _man_game_updateGameStatus::
    jr NZ, nextLevel
    
    jp victoryScreen
+   
    nextLevel:
-   ;TODO : Meter aquñi el sprite de " Ready?" 
-
    ld ix, #_m_nextLevel
    ld hl, #_m_gameLevel
    ld a, (ix)  
@@ -633,60 +687,10 @@ _man_game_decreaseEnemyCounter::
 ; FUNCION _m_game_StartMenu   
 ; Funcion que manda a renderizar la pantalla de inicio del juego
 ; NO llega ningun dato
-;===================================================================================================================================================
+; ;===================================================================================================================================================
 _m_game_StartMenu::
 
-   ;; Menu Text
-   LOAD_PNG_TO_SCREEN #0x09, #0x18, #0x3E, #0x16, #_GameText
-
-;; ==================================
-
-   ;; Cloud_1
-   LOAD_PNG_TO_SCREEN #0x49, #0x15, #0x07, #0x1E, #_cloud_1
-
-   ;; Cloud_2
-   LOAD_PNG_TO_SCREEN #0x02, #0x48, #0x11, #0x1E, #_cloud_2
-
-   ;; Cloud_3
-   LOAD_PNG_TO_SCREEN #0x24, #0x69, #0x08, #0x0E, #_cloud_3
-
-;; ==================================
-
-   ;; Ovni_1
-   LOAD_PNG_TO_SCREEN #0x24, #0x45, #0x07, #0x0E, #_ovni_1
-
-   ;; Ovni_2
-   LOAD_PNG_TO_SCREEN #0x30, #0x4A, #0x0F, #0x22, #_ovni_2
-
-   ;; Ovni_3
-   LOAD_PNG_TO_SCREEN #0x41, #0x48, #0x05, #0x0A, #_ovni_3
-
-
-;; ==================================
-
-   ;; EnterText
-   LOAD_PNG_TO_SCREEN #0x0B, #0x7D, #0x3A, #0x10, #_pressEnterText
-
-
-;; ==================================
-
-   ;; TankMenu
-   LOAD_PNG_TO_SCREEN #0x0A, #0x97, #0x11, #0x24, #_tankMenu
-
-;; ==================================
-
-   ;; Railroad
-   LOAD_PNG_TO_SCREEN #0x21, #0xB4, #0x14, #0x12, #_railRoad
-
-;; ==================================
-
-   ;; Cactus_1
-   LOAD_PNG_TO_SCREEN #0x30, #0x91, #0x08, #0x1E, #_cactus_1
-
-   ;; Cactus_2
-   LOAD_PNG_TO_SCREEN #0x3C, #0xA3, #0x08, #0x20, #_cactus_2
-
-   ;; Cactus_3
-   LOAD_PNG_TO_SCREEN #0x46, #0x8D, #0x08, #0x20, #_cactus_3
-
+   ld hl, #_screenmenu_end
+   ld de, #0xFFFF
+   call cpct_zx7b_decrunch_s_asm
 ret

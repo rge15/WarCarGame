@@ -13,8 +13,9 @@
 ; Manager data   
 ;===================================================================================================================================================
 ;; Descripcion : Array de entidades
+;; TODO: recalcular con los cambios de estructura de entity
 _m_entities::
-    .ds 210
+    .ds 448
 
 ;; Descripcion : Memoria vacia al final del array para controlar su final
 _m_emptyMemCheck::
@@ -38,7 +39,7 @@ _m_numEntities::
 
 ;; Descripcion : TAmaño en bytes de 1 entity
 _m_sizeOfEntity::
-    .db #0x16
+    .db #0x1c
 
 
 ;===================================================================================================================================================
@@ -51,7 +52,7 @@ _man_entityInit::
     ld  A,  #0x00
     ld  (_m_emptyMemCheck), a
     ld  (_m_numEntities), a
-    ld  BC, #0x0070
+    ld  BC, #0x01C0
     call    cpct_memset_asm
     
     ld  hl, #_m_entities
@@ -147,7 +148,6 @@ ret
 ; HL : La entidad para ser destruida
 ;===================================================================================================================================================
 _man_entityDestroy::
-
     ;; HL = _m_next_free_entity
     ;; DE = entity to destroy
     ld de, (#_m_next_free_entity)
@@ -347,14 +347,14 @@ _man_playerBulletCooldown::
     pop ix
 
     ;; Comprueba si el player ha disparado
-    ld a, e_anctr(ix)
+    ld a, e_aictr(ix)
     ld b, #0x00
     sub b
     jp z, _stopCheckCooldown ;; Si es 0 (no hay cooldown)
 
-    ld a, e_anctr(ix)
+    ld a, e_aictr(ix)
     dec a
-    ld e_anctr(ix), a
+    ld e_aictr(ix), a
 
     _stopCheckCooldown:
 

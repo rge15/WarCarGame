@@ -9,6 +9,7 @@
 .include "sys/render.h.s"
 .include "cpctelera.h.s"
 .include "collision.h.s"
+.include "ai.h.s"
 .include "assets/maps/map01.h.s"
 .include "resources/macros.s"
 
@@ -97,10 +98,9 @@ _sys_collision_updateMultiple::
     _next_ix:
         ;; NO PONGO EL MACRO PORQUE NO ME DEJA EL DESGRACIADO
         ld a, (#_sys_sizeOfEntity)
-        _loop:
-            inc hl
-            dec a
-            jr nz, _loop
+        ld e, a
+        ld d, #0
+        add hl, de
 
     push hl
     pop ix
@@ -129,21 +129,6 @@ _sys_collision_updateMultiple::
     call _sys_collisionEntity_check
     jr c, _no_collision
 
-    _collision:
-    ;============
-    ; ix = chequeas con todos
-    ; iy = si colisiona con ix
-    ; para cada tipo definir un comportamiento de colisión con el resto de tipos
-    ; if ix = type a
-    ; ver que type es iy y ejecutar comportamiento
-    ;====ix_entity=========|||===============behaviour iy_entity================================================================================
-    ; (DONE / TODO) e_type_player         = si choca con cualquier cosa que no sea una bala propia, se resta una vida al jugador y punto
-    ; (DONE / TODO) e_type_enemy          = si choca con una bullet_player se destruye así mismo y la bala tambien se destruye
-    ; (DONE / TODO) e_type_enemy_spawner  = si choca con una bullet_player se resta una vida así mismo y la bala tambien se destruye
-    ; (DONE / TODO) e_type_bullet                = si choca con un enemy se destruye así mismo, al enemy tambien se destruye, si es un spawner se le resta una vida al spawner, 
-    ;                                si es una enemyBullet se eliminan las 2
-    ; (DONE) e_type_enemyBullet           = si es una bullet se destruyen los dos y au
-    ;===========================================================================================================================================
     push de
     push hl
 
@@ -179,7 +164,6 @@ _sys_collision_updateMultiple::
     _jumpNext:
         jp _next_ix
 ret
-
 
 ;===================================================================================================================================================
 ; FUNCION _sys_collision_updateMultiple
@@ -220,6 +204,17 @@ _sys_collision_updateOneEntity::
     push hl
     pop ix
 
+    ld a, e_vx(ix)
+    dec a
+    inc a
+    jp NZ , checkColl
+
+    ld a, e_vy(ix)
+    dec a
+    inc a
+    ret Z
+
+    checkColl:
 
     ld d, h ;; | Guardamos hl en de 
     ld e, l ;; |
@@ -312,7 +307,34 @@ _sys_checkTilePosition::
     ld  e_vx(ix), #0    ;; Para a la entidad
 
     _is_none_axis:
-ret
+      ld a, #e_type_enemy_bullet
+
+      cp e_type(ix)
+      jr z, is_type_enemy_bullet
+
+      ld a, #e_type_enemy
+      cp e_type(ix)
+      jr z, is_type_enemy
+
+      is_type_enemy_bullet:
+         push ix
+         pop hl
+         ; ld  e_vx(ix), #0
+         ; ld  e_vy(ix), #0
+         ; no se xq antes sin esto funcionaba pero ok supongo
+         ; ld e_aictr(ix), #1
+         ; dec e_aictr(ix)
+         call z, _m_game_destroyEntity
+
+         ret
+      is_type_enemy:
+         push ix
+         pop hl
+         ld  e_vx(ix), #0
+         ld  e_vy(ix), #0
+         ret
+
+   ret
 
 
 ;===================================================================================================================================================
@@ -485,11 +507,13 @@ enemySpawnerCollisionBehaviour::
     and e_type(iy)
     ret Z
 
-    call destroyPairOfEntities
+    call _sys_ai_decrement_spawner_hp
+    push iy
+    pop hl
+    call _m_game_destroyEntity
     call _m_game_bulletDestroyed
 
     ret
-
 
 
 ; e_type_bullet                = si choca con un enemy se destruye así mismo, al enemy tambien se destruye, si es un spawner se le resta una vida al spawner,
@@ -515,6 +539,7 @@ bulletCollisionBehaviour::
     ret
     decreaseLifeSpawner:
     ;;Llamar método resta via al spawner
+       call _sys_ai_decrement_spawner_hp
     
     push ix
     pop hl 
