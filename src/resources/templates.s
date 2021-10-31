@@ -169,7 +169,7 @@ t_enemy_basic_red:
 
 t_enemy_seeknpatrol:
    .db #e_type_enemy                                 ; type
-   .db #0x2b                                 ; cmp
+   .db #0x3b                                 ; cmp
    .db #00                                 ; x
    .db #00                                 ; y
    .db #6                                   ; width
@@ -193,7 +193,7 @@ t_enemy_seeknpatrol:
 
 t_enemy_patrol_game_zone:
    .db #e_type_enemy                         ; type
-   .db #0x2b                                 ; cmp
+   .db #0x3b                                 ; cmp
    .db #0                                    ; x
    .db #0                                    ; y
    .db #6                                   ; width
@@ -319,7 +319,7 @@ t_bullet_player:
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
    .dw #_sys_ai_behaviourBullet              ; ai_behaviour
-   .db #0x01B                                ; ai_counter   ;; Contador de la bala
+   .db #40                                ; ai_counter   ;; Contador de la bala
    .dw #0x00                                 ; animator
    .db #0x00                                 ; anim. counter
    .dw #0x0000                               ; input_behaviour
@@ -410,7 +410,7 @@ t_bullet_enemy_l_f:
 ;================================================================================
 t_es_01:
    .db #e_type_enemy                         ; type
-   .db #0x2b                                 ; cmp
+   .db #0x3b                                 ; cmp
    .db #0                                    ; x
    .db #0                                    ; y
    .db #6                                   ; width
@@ -423,7 +423,7 @@ t_es_01:
    .dw #0x0000                               ; prevptr
    .dw #_sys_ai_behaviourPatrol
    .db #t_shoot_timer_enemy
-   .dw #0x0                                  ; animator
+   .dw #_man_anim_enemy_blue                                  ; animator
    .db #0x0                                  ; anim. counter
    .dw #_sys_ai_beh_shoot_xy_rand                               ; input_behaviour
    .db #0x00                                 ; e_ai_aim_x
@@ -434,7 +434,7 @@ t_es_01:
 
 t_es_02:
    .db #e_type_enemy                         ; type
-   .db #0x2b                                 ; cmp
+   .db #0x3b                                 ; cmp
    .db #0                                    ; x
    .db #0                                    ; y
    .db #6                                   ; width
@@ -458,7 +458,7 @@ t_es_02:
 
 t_es_03:
    .db #e_type_enemy                         ; type
-   .db #0x2b                                 ; cmp
+   .db #0x3b                                 ; cmp
    .db #0                                    ; x
    .db #0                                    ; y
    .db #6                                   ; width

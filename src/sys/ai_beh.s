@@ -116,6 +116,8 @@ _sys_ai_behaviourBulletSeektoPlayer::
 ;;--------------------------------------------------------------------------------
 
 enemy_no_move:
+   push bc
+   pop ix
    ret
 
 ;===============================================================================
@@ -326,6 +328,10 @@ _sys_ai_prepare_ovni_die:
    ld e_anim1(ix), l
    ld e_anim2(ix), h
    ld e_animctr(ix), #3
+
+   ld hl, #_ovni_exp_0
+   ld e_sprite1(ix), l
+   ld e_sprite2(ix), h
 
    ret
 

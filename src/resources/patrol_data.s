@@ -219,13 +219,14 @@ patrol_relative_y_64:
 ; !!!! el tamanyo tiene que ser menor que enemy_max_spawn !!!j
 spawner_plist_01:
    .dw #t_es_01
-   .dw #t_es_01
    .dw #t_es_02
-   .dw #t_es_01
-   .dw #t_es_01
+   ; .dw #t_es_01
+   ; .dw #t_es_02
+   ; .dw #t_es_01
+   ; .dw #t_es_01
    ;; TODO: arreglar resest parol spawner !!
    .db #patrol_invalid_move
-   .dw #spawner_plist_01
+   ; .dw #spawner_plist_01
 
 
 spawner_plist_02:

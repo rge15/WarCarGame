@@ -5,6 +5,7 @@
 .include "sys/patrol.h.s"
 .include "resources/patrol_data.h.s"
 .include "sys/ai.h.s"
+.include "sys/ai_beh.h.s"
 
 ; por parametro el array a las posociones a las que tiene que hacer patrool
 ; beh patrol
@@ -63,7 +64,7 @@ _sys_patrol_next_spawner:
 
    ld a, (hl)
    cp #patrol_invalid_move
-   jp z, reset_patrol_spawner
+   call z, stop_spawning
 
    inc hl
    inc hl
@@ -95,6 +96,11 @@ reset_patrol:
    ld h, e_patrol_step_h(ix)
    ld l, e_patrol_step_l(ix)
 
+   ret
+
+stop_spawning:
+   ld hl, #_sys_ai_behaviourPatrol
+   call _sys_ai_changeBevaviour
    ret
 
 .globl t_bullet_timer_enemy

@@ -534,10 +534,10 @@ enemySpawnerCollisionBehaviour::
 bulletCollisionBehaviour::
     ld a, #0x08
     and e_type(iy)
-    jr NZ, destroyEnityOvni
+    jr NZ, destroyEnity
     ld a, #0x20
     and e_type(iy)
-    jr NZ, destroyEnity
+    jr NZ, destroyEnityOvni
     ld a, #0x10
     and e_type(iy)
     jr NZ, decreaseLifeSpawner
@@ -546,7 +546,7 @@ bulletCollisionBehaviour::
     decreaseLifeSpawner:
     ;;Llamar método resta via al spawner
        call _sys_ai_decrement_spawner_hp
-    
+
     push ix
     pop hl 
     call _m_game_destroyEntity
@@ -561,7 +561,7 @@ bulletCollisionBehaviour::
     destroyEnityOvni:
    ; ld a, #0x08
    ; and e_type(iy)
-    call NZ, _man_game_decreaseEnemyCounter
+    ; call NZ, _man_game_decreaseEnemyCounter
     push iy
     pop ix
     call _sys_ai_prepare_ovni_die
