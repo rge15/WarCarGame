@@ -44,6 +44,9 @@ $(eval $(call PACKZX7B,screenmenu,src/assets/compress/))
 $(eval $(call ADD2PACK,screenend,src/assets/sprites/GameEnd.bin))
 $(eval $(call PACKZX7B,screenend,src/assets/compress/))
 
+$(eval $(call ADD2PACK,screenvictory,src/assets/sprites/victoryScreen.bin))
+$(eval $(call PACKZX7B,screenvictory,src/assets/compress/))
+
 
 
 

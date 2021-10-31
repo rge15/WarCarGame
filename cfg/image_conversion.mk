@@ -84,7 +84,7 @@ $(eval $(call IMG2SP, SET_OUTPUT      , bin ))
 
 $(eval $(call IMG2SP, CONVERT         , assets/png/MenuPrincipal.png , 160, 200, MenuPrincipal,,))
 $(eval $(call IMG2SP, CONVERT         , assets/png/GameEnd.png , 160, 200, GameEnd,,))
-
+$(eval $(call IMG2SP, CONVERT         , assets/png/victoryScreen.png , 160, 200, victoryScreen,,))
 
 
 ##
