@@ -154,6 +154,10 @@ _sys_render_erasePrevPtr::
         ret Z
         ld  d, e_prevptr1(ix)
         ld  e, e_prevptr2(ix)
+        ; dec de
+        ; inc de
+        or e
+        ret Z
         ld  c, e_width(ix) 
         ld  b, e_heigth(ix)
         ld  a, #0x3F

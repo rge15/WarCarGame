@@ -28,3 +28,6 @@
 .globl _sys_ai_beh_shoot_xy_rand_f
 
 .globl _sys_ai_beh_shoot_d
+
+.globl _sys_ai_prepare_ovni_die
+.globl _sys_ai_restore_spawn

@@ -12,6 +12,7 @@
 .include "ai.h.s"
 .include "assets/maps/map01.h.s"
 .include "resources/macros.s"
+.include "sys/ai_beh.h.s"
 
 ;===================================================================================================================================================
 ; Manager data   
@@ -307,32 +308,42 @@ _sys_checkTilePosition::
     ld  e_vx(ix), #0    ;; Para a la entidad
 
     _is_none_axis:
-      ld a, #e_type_enemy_bullet
 
+      ld a, #e_type_bullet
+      cp e_type(ix)
+      jr z, is_type_bullet
+
+      ld a, #e_type_enemy_bullet
       cp e_type(ix)
       jr z, is_type_enemy_bullet
 
       ld a, #e_type_enemy
       cp e_type(ix)
       jr z, is_type_enemy
+      ret
 
       is_type_enemy_bullet:
          push ix
          pop hl
-         ; ld  e_vx(ix), #0
-         ; ld  e_vy(ix), #0
-         ; no se xq antes sin esto funcionaba pero ok supongo
-         ; ld e_aictr(ix), #1
-         ; dec e_aictr(ix)
+         ;; mandamos la bala a una zona del tile que siempr es amarilla 
+         ; porque las diagonales no se borran es como la peor solucion pero mira que
+         ; bien funcioona ole ole oleee
+         ld e_xpos(ix), #8
+         ld e_ypos(ix), #8
          call z, _m_game_destroyEntity
-
          ret
+
       is_type_enemy:
-         push ix
-         pop hl
+         ; push ix
+         ; pop hl
          ld  e_vx(ix), #0
          ld  e_vy(ix), #0
          ret
+
+      is_type_bullet:
+         push ix
+         pop hl
+         call _m_game_destroyEntity
 
    ret
 
@@ -470,9 +481,19 @@ enemyCollisionBehaviour::
     and e_type(iy)
     ret Z
 
-    call destroyPairOfEntities
+    ;; TODO: esto es una cochinada !! >:(
+    ld a, #0x84
+    and e_type(iy)
+    ret z
 
-    call _man_game_decreaseEnemyCounter
+    ; call destroyPairOfEntities
+    call _sys_ai_prepare_ovni_die
+
+    push iy
+    pop hl
+    call _m_game_destroyEntity
+
+    ; call _man_game_decreaseEnemyCounter
     
     call _m_game_bulletDestroyed
 
@@ -526,13 +547,15 @@ enemySpawnerCollisionBehaviour::
 ; NO llega nada
 ;===================================================================================================================================================
 bulletCollisionBehaviour::
-    ld a, #0x08
+    ld a, #e_type_enemy
+    and e_type(iy)
+    jr NZ, destroyEnityOvni
+
+    ld a, #e_type_enemy_bullet
     and e_type(iy)
     jr NZ, destroyEnity
-    ld a, #0x20
-    and e_type(iy)
-    jr NZ, destroyEnity
-    ld a, #0x10
+
+    ld a, #e_type_spawner
     and e_type(iy)
     jr NZ, decreaseLifeSpawner
 
@@ -540,7 +563,7 @@ bulletCollisionBehaviour::
     decreaseLifeSpawner:
     ;;Llamar método resta via al spawner
        call _sys_ai_decrement_spawner_hp
-    
+
     push ix
     pop hl 
     call _m_game_destroyEntity
@@ -549,11 +572,16 @@ bulletCollisionBehaviour::
     ret
     destroyEnity:
 
-    ld a, #0x08
-    and e_type(iy)
-    call NZ, _man_game_decreaseEnemyCounter
-
     call destroyPairOfEntities 
+    ret
+
+    destroyEnityOvni:
+   ; ld a, #0x08
+   ; and e_type(iy)
+    ; call NZ, _man_game_decreaseEnemyCounter
+    push iy
+    pop ix
+    call _sys_ai_prepare_ovni_die
 
     ret
 

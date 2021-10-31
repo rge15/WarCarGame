@@ -69,8 +69,11 @@ _m_enemyCounter:
 ; victory_str:
 ;    .asciz "Has ganao suprimo, dale a enter pa volver a generar endorcinas"
 
-player_shoot_cooldown_l = 0x10
-player_shoot_cooldown_h = 0x40
+_m_current_level_counter:: .db #1
+
+;; TODO: nose poner mejor
+player_shoot_cooldown_l = 12
+player_shoot_cooldown_h = 40
 player_bullet_vel_x = #1
 player_bullet_vel_y = #2
 ;===================================================================================================================================================
@@ -154,6 +157,7 @@ startGame:
 ;Set de variables de juego (Num Vidas / Num Nivel / Num Enemy / Puntuacion)
 call _man_game_initGameVar
 call _m_HUD_initHUD
+call _m_game_restart_level_counter
 
 
 ;==================
@@ -285,17 +289,18 @@ _m_game_playerShot::
    push de     ;; guardamos la primera pos del array de la bala
 
    ;; Sacamos la pos del player en el array de entidades
-   ld hl, #_m_playerEntity
-   ld d, (hl)
-   inc hl
-   ld e, (hl)
-   ;; de ahora es la primera pos. del array del player
-
-   ex de, hl
-   
-   ;; Guardamos en registros los datos del player
-   push hl
-   pop ix
+   GET_PLAYER_ENTITY ix
+   ; ld hl, #_m_playerEntity
+   ; ld d, (hl)
+   ; inc hl
+   ; ld e, (hl)
+   ; ;; de ahora es la primera pos. del array del player
+   ;
+   ; ex de, hl
+   ;
+   ; ;; Guardamos en registros los datos del player
+   ; push hl
+   ; pop ix
 
    ld b, e_xpos(ix) 
    ld c, e_ypos(ix)
@@ -634,6 +639,8 @@ _man_game_updateGameStatus::
    jp victoryScreen
    
    nextLevel:
+   call _m_game_inc_level_counter
+   ;TODO : Meter aquñi el sprite de " Ready?" 
    ld ix, #_m_nextLevel
    ld hl, #_m_gameLevel
    ld a, (ix)  
@@ -694,3 +701,15 @@ _m_game_StartMenu::
    ld de, #0xFFFF
    call cpct_zx7b_decrunch_s_asm
 ret
+
+;; Destroy HL
+_m_game_restart_level_counter:
+   ld hl, #_m_current_level_counter
+   ld (hl), #1
+   ret
+
+;; Destroy HL
+_m_game_inc_level_counter:
+   ld hl, #_m_current_level_counter
+   inc (hl)
+   ret

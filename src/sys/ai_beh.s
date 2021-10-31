@@ -10,6 +10,7 @@
 .include "sys/ai.h.s"
 .include "resources/sprites.h.s"
 .include "collision.h.s"
+.include "resources/animations.h.s"
 
 
 ;;--------------------------------------------------------------------------------
@@ -115,6 +116,8 @@ _sys_ai_behaviourBulletSeektoPlayer::
 ;;--------------------------------------------------------------------------------
 
 enemy_no_move:
+   push bc
+   pop ix
    ret
 
 ;===============================================================================
@@ -285,9 +288,17 @@ _sys_ai_beh_spawner_commmon::
    ; ld h, e_orient(ix)
    ; ld l, e_aictr(ix)
    ; dec hl
-   dec e_aictr(ix)
+   ; ld a, e_aictr(ix)
+   ; ld h, #16
+   ; cp h
+   ; call c, _sys_ai_prepare_spawn
+
+   or #0
+   ; call c, _sys_ai_prepare_spawn
+
    ld b, e_xpos(ix)
    ld c, e_ypos(ix)
+   dec e_aictr(ix)
 
    jr z, check_if_spawn_enemy
    ret
@@ -297,6 +308,40 @@ _sys_ai_beh_spawner_commmon::
       cp d
    ret
 
+_sys_ai_beh_ovni_die:
+   push bc
+   pop ix
+
+   dec e_aictr(ix)
+   jr z, ovni_set_4_destroy
+   ret
+   ovni_set_4_destroy:
+      push ix
+      pop hl
+      call _m_game_destroyEntity
+      call _man_game_decreaseEnemyCounter
+   ret
+
+;; IX: enemy entity
+_sys_ai_prepare_ovni_die:
+   ld e_inputbeh1(ix), #enemy_no_shoot
+
+   ld e_aictr(ix), #10
+   ld hl, #_sys_ai_beh_ovni_die
+   call _sys_ai_changeBevaviour
+   ld e_vx(ix), #0
+   ld e_vy(ix), #0
+
+   ld hl, #_man_anim_exp
+   ld e_anim1(ix), l
+   ld e_anim2(ix), h
+   ld e_animctr(ix), #3
+
+   ld hl, #_ovni_exp_0
+   ld e_sprite1(ix), l
+   ld e_sprite2(ix), h
+
+   ret
 
 ;;--------------------------------------------------------------------------------
 ;; AI SHOOT BEHAVIOURS
@@ -383,10 +428,18 @@ _sys_ai_aim_to_entity:
    ret
 
 _sys_ai_reset_shoot_aictr:
-   ld e_aictr(ix), #t_shoot_timer_enemy
    ;; TODO: puede ser un poco loco
-   ; ld a, r
-   ; ld e_aictr(ix), a
+   ; 127 max
+   ld a, r
+   ld l, #70
+   cp l
+   ; a < n
+   jr c, set_global
+
+   ld e_aictr(ix), a
+   ret
+   set_global:
+      ld e_aictr(ix), #t_shoot_timer_enemy
    ret
 
 _sys_ai_reset_bullet_aictr:

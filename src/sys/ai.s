@@ -276,6 +276,16 @@ _sys_ai_shoot_bullet_l_d:
 ;; TODO[Edu]: no sale del centro de la entidad
 ;===============================================================================
 _sys_ai_spawnEnemy_plist::
+
+   ; si es patrol_invalid_move se sale
+   call check_next_step
+   ret z
+
+   ; dos dec porque en check_next_step se hacen dos inc para comprobar si el
+   ; sigueinte es un patrol_invalid_move
+   dec hl
+   dec hl
+
    push bc
    ld hl, #_m_enemyCounter
    inc (hl)
@@ -303,6 +313,8 @@ _sys_ai_spawnEnemy_plist::
 
    push iy
    pop ix
+   ;; TODO: si pongo esto aqui para hacer spawn mas rapdido peta el stop_spawning ni idea nose
+   ; ld e_aictr(ix), #32
    call _sys_patrol_next_spawner
 
    ret
@@ -473,5 +485,16 @@ _sys_ai_random_0_1:
       ld a, #1
    ret
 
+_sys_ai_prepare_spawn:
+   ld hl, #_ovni_portal_3
+   ld e_sprite1(ix), l
+   ld e_sprite2(ix), h
+   ret
+
+_sys_ai_restore_spawn:
+   ld hl, #_ovni_portal_0
+   ld e_sprite1(ix), l
+   ld e_sprite2(ix), h
+   ret
 
 
