@@ -304,6 +304,8 @@ _sys_ai_spawnEnemy_plist::
    push iy
    pop ix
    call _sys_patrol_next_spawner
+   ;; TODO: si pongo esto aqui para hacer spawn mas rapdido peta el stop_spawning ni idea nose
+   ; ld e_aictr(ix), #32
 
    ret
 

@@ -425,7 +425,7 @@ t_es_01:
    .db #t_shoot_timer_enemy
    .dw #_man_anim_enemy_blue                                  ; animator
    .db #0x0                                  ; anim. counter
-   .dw #_sys_ai_beh_shoot_xy_rand                               ; input_behaviour
+   .dw #enemy_no_shoot                               ; input_behaviour
    .db #0x00                                 ; e_ai_aim_x
    .db #0x00                                 ; e_ai_aim_y
    .db #0                                    ; e_ai_aux_l
@@ -447,9 +447,9 @@ t_es_02:
    .dw #0x0000                               ; prevptr
    .dw #_sys_ai_beh_follow_player_y
    .db #t_shoot_timer_enemy
-   .dw #0x0                                  ; animator
+   .dw #_man_anim_enemy_purple                                  ; animator
    .db #0x0                                  ; anim. counter
-   .dw #_sys_ai_beh_shoot_x_f                               ; input_behaviour
+   .dw #enemy_no_shoot                               ; input_behaviour
    .db #0x00                                 ; e_ai_aim_x
    .db #0x00                                 ; e_ai_aim_y
    .db #20                                    ; e_ai_aux_l
