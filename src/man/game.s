@@ -71,8 +71,9 @@ _m_enemyCounter:
 
 _m_current_level_counter:: .db #1
 
-player_shoot_cooldown_l = 0x10
-player_shoot_cooldown_h = 0x40
+;; TODO: nose poner mejor
+player_shoot_cooldown_l = 12
+player_shoot_cooldown_h = 40
 player_bullet_vel_x = #1
 player_bullet_vel_y = #2
 ;===================================================================================================================================================
