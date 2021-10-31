@@ -284,17 +284,18 @@ _m_game_playerShot::
    push de     ;; guardamos la primera pos del array de la bala
 
    ;; Sacamos la pos del player en el array de entidades
-   ld hl, #_m_playerEntity
-   ld d, (hl)
-   inc hl
-   ld e, (hl)
-   ;; de ahora es la primera pos. del array del player
-
-   ex de, hl
-   
-   ;; Guardamos en registros los datos del player
-   push hl
-   pop ix
+   GET_PLAYER_ENTITY ix
+   ; ld hl, #_m_playerEntity
+   ; ld d, (hl)
+   ; inc hl
+   ; ld e, (hl)
+   ; ;; de ahora es la primera pos. del array del player
+   ;
+   ; ex de, hl
+   ;
+   ; ;; Guardamos en registros los datos del player
+   ; push hl
+   ; pop ix
 
    ld b, e_xpos(ix) 
    ld c, e_ypos(ix)

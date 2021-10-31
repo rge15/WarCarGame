@@ -55,6 +55,7 @@
 .globl _ovni_portal_0
 .globl _ovni_portal_1
 .globl _ovni_portal_2
+.globl _ovni_portal_3
 
 .globl _ovni_bullet_0
 .globl _ovni_bullet_1

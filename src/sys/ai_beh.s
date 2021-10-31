@@ -288,9 +288,17 @@ _sys_ai_beh_spawner_commmon::
    ; ld h, e_orient(ix)
    ; ld l, e_aictr(ix)
    ; dec hl
-   dec e_aictr(ix)
+   ; ld a, e_aictr(ix)
+   ; ld h, #16
+   ; cp h
+   ; call c, _sys_ai_prepare_spawn
+
+   or #0
+   ; call c, _sys_ai_prepare_spawn
+
    ld b, e_xpos(ix)
    ld c, e_ypos(ix)
+   dec e_aictr(ix)
 
    jr z, check_if_spawn_enemy
    ret

@@ -485,5 +485,16 @@ _sys_ai_random_0_1:
       ld a, #1
    ret
 
+_sys_ai_prepare_spawn:
+   ld hl, #_ovni_portal_3
+   ld e_sprite1(ix), l
+   ld e_sprite2(ix), h
+   ret
+
+_sys_ai_restore_spawn:
+   ld hl, #_ovni_portal_0
+   ld e_sprite1(ix), l
+   ld e_sprite2(ix), h
+   ret
 
 

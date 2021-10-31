@@ -43,4 +43,6 @@
 
 
 .globl _sys_ai_changeBevaviour
+.globl _sys_ai_restore_spawn
+.globl _sys_ai_prepare_spawn
 
