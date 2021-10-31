@@ -7,6 +7,7 @@
 .globl patrol_06
 .globl patrol_07
 .globl patrol_08
+.globl patrol_09
 
 .globl patrol_none
 .globl patrol_x_50_20

@@ -72,8 +72,19 @@ patrol_08:
    .db #patrol_invalid_move
    .dw #patrol_08
 
+; estos dos vann junwos
 patrol_09:
-   ; .db 
+   .db  70, 176
+   .db #patrol_invalid_move
+   .dw #patrol_10
+
+patrol_10:
+   ; .db  70, 136
+   .db   12, 88
+   .db   44, 96
+   .db   52, 96
+   .db   52, 56
+   .db   12, 48
    .db #patrol_invalid_move
    .dw #patrol_09
 

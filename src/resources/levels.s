@@ -497,42 +497,83 @@ _level1:
    ;================================================================================
    ; Level 12
    ;================================================================================
-   .dw #_tilemap_04            ;Tilemap
+   ; .dw #_tilemap_04            ;Tilemap
+   ; .db #level_new_entity
+   ; .dw #t_player
+   ; .db #70
+   ; .db #176
+   ;
+   ; .db #level_new_entity
+   ; .dw #t_spawner_from_template_01
+   ; .db #4
+   ; .db #48
+   ; .dw #_sys_ai_behaviourSpawner_plist
+   ; .db #00                                 ; e_ai_aux_l
+   ; .db #00                                 ; e_ai_aux_h
+   ; .dw #spawner_plist_03
+   ; .dw #enemy_no_shoot
+   ;
+   ; .db #level_new_entity
+   ; .dw #t_enemy_basic_purple
+   ; .db #12
+   ; .db #96
+   ; .dw #_sys_ai_beh_follow_player_y
+   ; .db #t_follow_timer                                 ; e_ai_aux_l
+   ; .db #t_follow_timer                                 ; e_ai_aux_h
+   ; .dw #0
+   ; .dw #_sys_ai_beh_shoot_x
+   ;
+   ; .db #level_new_entity
+   ; .dw #t_enemy_basic_green
+   ; .db #20
+   ; .db #64
+   ; .dw #_sys_ai_behaviourPatrolRelative
+   ; .db #20                                 ; e_ai_aux_l
+   ; .db #64                                 ; e_ai_aux_h
+   ; .dw #patrol_relative_x_36
+   ; .dw #enemy_no_shoot
+   ;
+   ; .db #level_separator
+   ;================================================================================
+   ; Level 12b
+   ;================================================================================
+   ;; TODO: aqui puede pasar lo de pasar de level sin matar al spawner
+   .dw #_tilemap_06            ;Tilemap
    .db #level_new_entity
    .dw #t_player
-   .db #70
-   .db #176
+   .db #4
+   .db #48
 
    .db #level_new_entity
    .dw #t_spawner_from_template_01
    .db #4
-   .db #48
-   .dw #_sys_ai_behaviourSpawner_plist
+   .db #174
+   .dw #_sys_ai_behaviourSpawner_template
    .db #00                                 ; e_ai_aux_l
    .db #00                                 ; e_ai_aux_h
-   .dw #spawner_plist_03
+   .dw #t_es_04
    .dw #enemy_no_shoot
 
    .db #level_new_entity
    .dw #t_enemy_basic_purple
-   .db #12
-   .db #96
+   .db #48
+   .db #48
    .dw #_sys_ai_beh_follow_player_y
    .db #t_follow_timer                                 ; e_ai_aux_l
    .db #t_follow_timer                                 ; e_ai_aux_h
    .dw #0
-   .dw #_sys_ai_beh_shoot_x
+   .dw #_sys_ai_beh_shoot_x_f
 
    .db #level_new_entity
    .dw #t_enemy_basic_green
-   .db #20
-   .db #64
+   .db #4
+   .db #136
    .dw #_sys_ai_behaviourPatrolRelative
-   .db #20                                 ; e_ai_aux_l
-   .db #64                                 ; e_ai_aux_h
+   .db #4                                 ; e_ai_aux_l
+   .db #136                                 ; e_ai_aux_h
    .dw #patrol_relative_x_36
    .dw #enemy_no_shoot
-
+   ;
    .db #level_separator
    ;================================================================================
    ; Level 13 es jodido igual mas adelante

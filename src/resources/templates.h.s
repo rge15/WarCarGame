@@ -50,6 +50,7 @@
 .globl t_es_01
 .globl t_es_02
 .globl t_es_03
+.globl t_es_04
 
 .globl t_enemy_testing
 .globl t_enemy_testing2
