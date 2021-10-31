@@ -284,17 +284,17 @@ t_spawner_from_plist_01:
    .db #0x00                                 ; vx
    .db #0x00                                 ; vy
    .dw #_ovni_portal_0                      ; sprite
-   .db #0x00                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
-   .db #0x01                                 ; prev. orientation
+   .db #t_spawner_max_hp                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
+   .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
    .dw #_sys_ai_behaviourSpawner_plist             ; ai_behaviour
-   .db #0x00                                 ; ai_counter
+   .db #0x16                                 ; ai_counter
    .dw #0x0                                  ; animator
    .db #0x0A                                 ; anim. counter
    .dw #0x0000                               ; input_behaviour
    .db #0x00                                 ; e_ai_aim_x
    .db #0x00                                 ; e_ai_aim_y
-   .db #3                                 ; e_ai_aux_l
+   .db #0                                 ; e_ai_aux_l
    .db #0x00                                 ; e_ai_aux_h
    .dw #spawner_plist_01
    ; .db #0x00                                 ; e_patrol_step_l
