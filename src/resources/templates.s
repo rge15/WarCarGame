@@ -15,7 +15,7 @@ t_shoot_timer_enemy = 100
 ; tiempo hasta que la bala de un enemy se destruye
 t_bullet_timer_enemy = 70
 ; fast
-t_bullet_timer_enemy_f = 25
+t_bullet_timer_enemy_f = 16
 
 ; tiempo hasta que la bala del player se destruye
 t_bullet_timer_player = 27
@@ -417,13 +417,13 @@ t_es_01:
    .db #16                                   ; heigth
    .db #0                                    ; vx
    .db #0                                    ; vy
-   .dw #_ovni_blue_0                      ; sprite
+   .dw #_ovni_green_0                      ; sprite
    .db #0x00                                 ; orientation
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
    .dw #_sys_ai_behaviourPatrol
    .db #t_shoot_timer_enemy
-   .dw #_man_anim_enemy_blue                                  ; animator
+   .dw #_man_anim_enemy_green                                  ; animator
    .db #0x0                                  ; anim. counter
    .dw #enemy_no_shoot                               ; input_behaviour
    .db #0x00                                 ; e_ai_aim_x

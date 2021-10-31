@@ -152,7 +152,7 @@ patrol_seeknpatrol_01:
 
 patrol_seeknpatrol_02:
    .db  0, 0
-   .db  -16, 0
+   .db  -12, 0
    .db #patrol_invalid_move
    .dw #patrol_seeknpatrol_02
 
