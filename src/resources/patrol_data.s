@@ -217,16 +217,13 @@ patrol_relative_y_64:
 ; Spawner Patrol List
 ;===============================================================================
 ; !!!! el tamanyo tiene que ser menor que enemy_max_spawn !!!j
-; igora el ultimo!
+; igora el ultimo por eso hay que poner 0000 al final!
+
 spawner_plist_01:
    .dw #t_es_02
    .dw #t_es_01
-   ; .dw #t_es_02
-   ; .dw #t_es_02
-   ; .dw #t_es_01
-   ; .dw #t_es_02
-   ; .dw #t_es_01
-   ; .dw #t_es_01
+   .dw #t_es_01
+   .dw #t_es_01
    .dw #0x0000
    .db #patrol_invalid_move
 

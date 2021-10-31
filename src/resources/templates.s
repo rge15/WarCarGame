@@ -417,7 +417,7 @@ t_es_01:
    .db #16                                   ; heigth
    .db #0                                    ; vx
    .db #0                                    ; vy
-   .dw #_ovni_green_0                      ; sprite
+   .dw #_ovni_blue_0                      ; sprite
    .db #0x00                                 ; orientation
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
@@ -425,7 +425,7 @@ t_es_01:
    .db #t_shoot_timer_enemy
    .dw #_man_anim_enemy_green                                  ; animator
    .db #0x0                                  ; anim. counter
-   .dw #enemy_no_shoot                               ; input_behaviour
+   .dw #_sys_ai_beh_shoot_xy_rand                               ; input_behaviour
    .db #0x00                                 ; e_ai_aim_x
    .db #0x00                                 ; e_ai_aim_y
    .db #0                                    ; e_ai_aux_l

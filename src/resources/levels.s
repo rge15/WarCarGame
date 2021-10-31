@@ -347,127 +347,123 @@ _level1:
    ;================================================================================
    ; Level 7
    ;================================================================================
-   .dw #_tilemap_03            ;Tilemap
-   .db #level_new_entity
-   .dw #t_player
-   .db #36
-   .db #176
-
-   .db #level_new_entity
-   .dw #t_spawner_from_template_01
-   .db #8
-   .db #52
-   .dw #_sys_ai_behaviourSpawner_template
-   .db #00                                 ; e_ai_aux_l
-   .db #00                                 ; e_ai_aux_h
-   .dw #t_es_01
-   .dw #enemy_no_shoot
-
-   .db #level_new_entity
-   .dw #t_enemy_basic_blue
-   .db #4
-   .db #80
-   .dw #_sys_ai_behaviourPatrolRelative
-   .db #4
-   .db #80
-   .dw #patrol_relative_y_48
-   .dw #_sys_ai_beh_shoot_x_f
-
-   .db #level_separator
-   ;================================================================================
-   ; Level 8
-   ;================================================================================
-   .dw #_tilemap_06            ;Tilemap
-   .db #level_new_entity
-   .dw #t_player
-   .db #36
-   .db #176
-
-   .db #level_new_entity
-   .dw #t_enemy_basic_red
-   .db #12
-   .db #64
-   .dw #_sys_ai_behaviourSeekAndPatrol
-   .db #25
-   .db #25
-   .dw #patrol_seeknpatrol_01
-   .dw #enemy_no_shoot
-
-   .db #level_new_entity
-   .dw #t_enemy_basic_blue
-   .db #64
-   .db #56
-   .dw #_sys_ai_behaviourPatrol
-   .db #0
-   .db #0
-   .dw #patrol_06
-   .dw #_sys_ai_beh_shoot_xy_rand
-
-   .db #level_separator
-   ;================================================================================
-   ; Level 9
-   ;================================================================================
-   .dw #_tilemap_0run            ;Tilemap
-   .db #level_new_entity
-   .dw #t_player
-   .db #12
-   .db #104
-
-   .db #level_new_entity
-   .dw #t_enemy_basic_red
-   .db #70
-   .db #176
-   .dw #_sys_ai_behaviourSeekAndPatrol
-   .db #25
-   .db #25
-   .dw #patrol_seeknpatrol_01
-   .dw #enemy_no_shoot
-
-   .db #level_new_entity
-   .dw #t_enemy_basic_red
-   .db #54
-   .db #176
-   .dw #_sys_ai_behaviourSeekAndPatrol
-   .db #25
-   .db #25
-   .dw #patrol_seeknpatrol_02
-   .dw #enemy_no_shoot
-
-   .db #level_separator
-   ;================================================================================
-   ; Level 10
-   ;================================================================================
-   ; ; debug spawner
-   ; .dw #_tilemap_02            ;Tilemap
+   ; .dw #_tilemap_03            ;Tilemap
    ; .db #level_new_entity
    ; .dw #t_player
-   ; .db #10
-   ; .db #56
+   ; .db #36
+   ; .db #176
    ;
    ; .db #level_new_entity
-   ; ; .dw #t_spawner_from_template_01
-   ; .dw #t_spawner_from_plist_01
-   ; .db #70
-   ; .db #176
-   ; ; .dw #_sys_ai_behaviourSpawner_template
-   ; .dw #_sys_ai_behaviourSpawner_plist
+   ; .dw #t_spawner_from_template_01
+   ; .db #8
+   ; .db #52
+   ; .dw #_sys_ai_behaviourSpawner_template
    ; .db #00                                 ; e_ai_aux_l
    ; .db #00                                 ; e_ai_aux_h
-   ; .dw #spawner_plist_01
-   ; ; .dw #t_es_01
+   ; .dw #t_es_01
    ; .dw #enemy_no_shoot
    ;
    ; .db #level_new_entity
-   ; .dw #t_enemy_basic_purple
-   ; .db #12
-   ; .db #168
-   ; .dw #_sys_ai_beh_follow_player_x
-   ; .db #16
-   ; .db #16
-   ; .dw #0
-   ; .dw #_sys_ai_beh_shoot_y
+   ; .dw #t_enemy_basic_blue
+   ; .db #4
+   ; .db #80
+   ; .dw #_sys_ai_behaviourPatrolRelative
+   ; .db #4
+   ; .db #80
+   ; .dw #patrol_relative_y_48
+   ; .dw #_sys_ai_beh_shoot_x_f
    ;
    ; .db #level_separator
+   ;================================================================================
+   ; Level 8
+   ;================================================================================
+   ; .dw #_tilemap_06            ;Tilemap
+   ; .db #level_new_entity
+   ; .dw #t_player
+   ; .db #36
+   ; .db #176
+   ;
+   ; .db #level_new_entity
+   ; .dw #t_enemy_basic_red
+   ; .db #12
+   ; .db #64
+   ; .dw #_sys_ai_behaviourSeekAndPatrol
+   ; .db #25
+   ; .db #25
+   ; .dw #patrol_seeknpatrol_01
+   ; .dw #enemy_no_shoot
+   ;
+   ; .db #level_new_entity
+   ; .dw #t_enemy_basic_blue
+   ; .db #64
+   ; .db #56
+   ; .dw #_sys_ai_behaviourPatrol
+   ; .db #0
+   ; .db #0
+   ; .dw #patrol_06
+   ; .dw #_sys_ai_beh_shoot_xy_rand
+   ;
+   ; .db #level_separator
+   ;================================================================================
+   ; Level 9
+   ;================================================================================
+   ; .dw #_tilemap_0run            ;Tilemap
+   ; .db #level_new_entity
+   ; .dw #t_player
+   ; .db #12
+   ; .db #104
+   ;
+   ; .db #level_new_entity
+   ; .dw #t_enemy_basic_red
+   ; .db #70
+   ; .db #176
+   ; .dw #_sys_ai_behaviourSeekAndPatrol
+   ; .db #25
+   ; .db #25
+   ; .dw #patrol_seeknpatrol_01
+   ; .dw #enemy_no_shoot
+   ;
+   ; .db #level_new_entity
+   ; .dw #t_enemy_basic_red
+   ; .db #54
+   ; .db #176
+   ; .dw #_sys_ai_behaviourSeekAndPatrol
+   ; .db #25
+   ; .db #25
+   ; .dw #patrol_seeknpatrol_02
+   ; .dw #enemy_no_shoot
+   ;
+   ; .db #level_separator
+   ;================================================================================
+   ; Level 10
+   ;================================================================================
+   .dw #_tilemap_02            ;Tilemap
+   .db #level_new_entity
+   .dw #t_player
+   .db #10
+   .db #56
+
+   .db #level_new_entity
+   .dw #t_spawner_from_plist_01
+   .db #70
+   .db #176
+   .dw #_sys_ai_behaviourSpawner_plist
+   .db #00                                 ; e_ai_aux_l
+   .db #00                                 ; e_ai_aux_h
+   .dw #spawner_plist_01
+   .dw #enemy_no_shoot
+
+   .db #level_new_entity
+   .dw #t_enemy_basic_purple
+   .db #12
+   .db #168
+   .dw #_sys_ai_beh_follow_player_x
+   .db #16
+   .db #16
+   .dw #0
+   .dw #_sys_ai_beh_shoot_y
+
+   .db #level_separator
    ;================================================================================
    ; Level 11
    ;================================================================================
