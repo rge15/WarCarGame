@@ -168,7 +168,6 @@ call _man_entityInit
 call _man_game_loadLevel
 call _sys_render_renderTileMap
 call _m_HUD_renderLifes
-
 call _m_HUD_renderScore
 
 ;==================
@@ -343,11 +342,8 @@ _m_game_playerShot::
       ld e_vx(ix), #player_bullet_vel_x
       ld e_orient(ix), #0x00
       ld a, e_ypos(ix)
-      add a, #0x06
+      add a, #0x03
       ld e_ypos(ix), a
-      ld a, e_xpos(ix)
-      add a, #0x02
-      ld e_xpos(ix), a
       jp stopCheckOrientation
 
    downOrientation:
@@ -361,7 +357,7 @@ _m_game_playerShot::
       add a, #0x2
       ld e_ypos(ix), a
       ld a, e_xpos(ix)
-      add a, #0x02
+      add a, #0x01
       ld e_xpos(ix), a
 
       ld hl, #_hBullet_1
@@ -376,7 +372,7 @@ _m_game_playerShot::
       ld e_orient(ix), #0x02
 
       ld a, e_ypos(ix)
-      add a, #0x06
+      add a, #0x03
       ld e_ypos(ix), a
       ld a, e_xpos(ix)
       add a, #0x01
@@ -401,7 +397,7 @@ _m_game_playerShot::
       add a, #0x02
       ld e_ypos(ix), a
       ld a, e_xpos(ix)
-      add a, #0x02
+      add a, #0x01
       ld e_xpos(ix), a
       
       ld hl, #_hBullet_0
