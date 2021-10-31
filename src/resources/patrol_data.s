@@ -219,7 +219,6 @@ patrol_relative_y_64:
 ; !!!! el tamanyo tiene que ser menor que enemy_max_spawn !!!j
 ; igora el ultimo!
 spawner_plist_01:
-   .dw #0x0000
    .dw #t_es_02
    .dw #t_es_01
    ; .dw #t_es_02
@@ -228,6 +227,7 @@ spawner_plist_01:
    ; .dw #t_es_02
    ; .dw #t_es_01
    ; .dw #t_es_01
+   .dw #0x0000
    .db #patrol_invalid_move
 
 ; pasa del primero
