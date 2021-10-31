@@ -536,13 +536,15 @@ enemySpawnerCollisionBehaviour::
 ; NO llega nada
 ;===================================================================================================================================================
 bulletCollisionBehaviour::
-    ld a, #0x08
-    and e_type(iy)
-    jr NZ, destroyEnity
-    ld a, #0x20
+    ld a, #e_type_enemy
     and e_type(iy)
     jr NZ, destroyEnityOvni
-    ld a, #0x10
+
+    ld a, #e_type_enemy_bullet
+    and e_type(iy)
+    jr NZ, destroyEnity
+
+    ld a, #e_type_spawner
     and e_type(iy)
     jr NZ, decreaseLifeSpawner
 
@@ -559,7 +561,7 @@ bulletCollisionBehaviour::
     ret
     destroyEnity:
 
-    ; call destroyPairOfEntities 
+    call destroyPairOfEntities 
     ret
 
     destroyEnityOvni:
