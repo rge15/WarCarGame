@@ -50,8 +50,8 @@ t_player:
    .db #0x37                                 ; cmp
    .db #0x26                                 ; x
    .db #0xa0                                 ; y
-   .db #0x06                                 ; width
-   .db #0x10                                 ; heigth
+   .db #0x04                                 ; width
+   .db #0x0C                                 ; heigth
    .db #0x00                                 ; vx
    .db #0x00                                 ; vy
    .dw #_tanque_0                            ; sprite

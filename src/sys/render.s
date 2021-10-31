@@ -92,7 +92,7 @@ _sys_render_renderOneEntity::
     push hl
     pop ix
     ;Aqui vemos si hay q borrar el prevptr
-    ld a, #0x20
+    ld a, #0x21
     and e_type(ix)
     call NZ, _sys_render_erasePrevPtr
 
@@ -106,11 +106,6 @@ _sys_render_renderOneEntity::
     call cpct_getScreenPtr_asm
 
     ex de,hl
-
-    ; Aqui guardamos el prevptr
-    ld a, #0x20
-    and e_type(ix)
-    jp Z, dontSavePrevPtr
 
     ld e_prevptr1(ix),d
     ld e_prevptr2(ix),e
@@ -153,11 +148,12 @@ _sys_render_renderOneEntity::
     ret
 
 _sys_render_erasePrevPtr::
+        ld  a, e_prevptr1(ix)
+        dec a
+        inc a
+        ret Z
         ld  d, e_prevptr1(ix)
         ld  e, e_prevptr2(ix)
-        dec de
-        inc de
-        ret Z
         ld  c, e_width(ix) 
         ld  b, e_heigth(ix)
         ld  a, #0x3F
@@ -165,12 +161,6 @@ _sys_render_erasePrevPtr::
         call cpct_drawSolidBox_asm
     ret
 
-_sys_render_savePrevPtr::
-
-    ld e_prevptr1(ix),d
-    ld e_prevptr2(ix),e
-
-    ret
 
 ;===================================================================================================================================================
 ; FUNCION _sys_render_renderTileMap
