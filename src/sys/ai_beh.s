@@ -326,7 +326,7 @@ _sys_ai_beh_ovni_die:
 _sys_ai_prepare_ovni_die:
    ld e_inputbeh1(ix), #enemy_no_shoot
 
-   ld e_aictr(ix), #10
+   ld e_aictr(ix), #9
    ld hl, #_sys_ai_beh_ovni_die
    call _sys_ai_changeBevaviour
    ld e_vx(ix), #0
