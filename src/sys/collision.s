@@ -12,6 +12,7 @@
 .include "ai.h.s"
 .include "assets/maps/map01.h.s"
 .include "resources/macros.s"
+.include "sys/ai_beh.h.s"
 
 ;===================================================================================================================================================
 ; Manager data   
@@ -470,9 +471,14 @@ enemyCollisionBehaviour::
     and e_type(iy)
     ret z
 
-    call destroyPairOfEntities
+    ; call destroyPairOfEntities
+    call _sys_ai_prepare_ovni_die
 
-    call _man_game_decreaseEnemyCounter
+    push iy
+    pop hl
+    call _m_game_destroyEntity
+
+    ; call _man_game_decreaseEnemyCounter
     
     call _m_game_bulletDestroyed
 
@@ -528,7 +534,7 @@ enemySpawnerCollisionBehaviour::
 bulletCollisionBehaviour::
     ld a, #0x08
     and e_type(iy)
-    jr NZ, destroyEnity
+    jr NZ, destroyEnityOvni
     ld a, #0x20
     and e_type(iy)
     jr NZ, destroyEnity
@@ -549,11 +555,16 @@ bulletCollisionBehaviour::
     ret
     destroyEnity:
 
-    ld a, #0x08
-    and e_type(iy)
-    call NZ, _man_game_decreaseEnemyCounter
+    ; call destroyPairOfEntities 
+    ret
 
-    call destroyPairOfEntities 
+    destroyEnityOvni:
+   ; ld a, #0x08
+   ; and e_type(iy)
+    call NZ, _man_game_decreaseEnemyCounter
+    push iy
+    pop ix
+    call _sys_ai_prepare_ovni_die
 
     ret
 

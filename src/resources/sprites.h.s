@@ -47,6 +47,10 @@
 .globl _ovni_red_0
 .globl _ovni_red_1
 .globl _ovni_red_2
+.globl _ovni_exp_0
+.globl _ovni_exp_1
+.globl _ovni_exp_2
+.globl _ovni_exp_3
 
 .globl _ovni_portal_0
 .globl _ovni_portal_1

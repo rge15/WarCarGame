@@ -42,3 +42,5 @@
 .globl enemy_max_spawn
 
 
+.globl _sys_ai_changeBevaviour
+

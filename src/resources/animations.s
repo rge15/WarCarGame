@@ -82,6 +82,17 @@ _man_anim_enemy_red:
     .db #0
     .dw #_man_anim_enemy_red
 
+_man_anim_exp:
+    .db #2
+    .dw #_ovni_exp_0
+    .db #2
+    .dw #_ovni_exp_1
+    .db #2
+    .dw #_ovni_exp_2
+    .db #2
+    .dw #_ovni_exp_3
+    .db #0
+    .dw #_man_anim_exp
 
 
 ;===================================================================================================================================================

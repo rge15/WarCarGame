@@ -9,6 +9,7 @@
 .globl _man_anim_enemy_blue
 .globl _man_anim_enemy_purple
 .globl _man_anim_enemy_red
+.globl _man_anim_exp
 .globl _man_anim_enemy_bullet
 
 

@@ -10,6 +10,7 @@
 .include "sys/ai.h.s"
 .include "resources/sprites.h.s"
 .include "collision.h.s"
+.include "resources/animations.h.s"
 
 
 ;;--------------------------------------------------------------------------------
@@ -297,6 +298,36 @@ _sys_ai_beh_spawner_commmon::
       cp d
    ret
 
+_sys_ai_beh_ovni_die:
+   push bc
+   pop ix
+
+   dec e_aictr(ix)
+   jr z, ovni_set_4_destroy
+   ret
+   ovni_set_4_destroy:
+      push ix
+      pop hl
+      call _m_game_destroyEntity
+      call _man_game_decreaseEnemyCounter
+   ret
+
+;; IX: enemy entity
+_sys_ai_prepare_ovni_die:
+   ld e_inputbeh1(ix), #enemy_no_shoot
+
+   ld e_aictr(ix), #10
+   ld hl, #_sys_ai_beh_ovni_die
+   call _sys_ai_changeBevaviour
+   ld e_vx(ix), #0
+   ld e_vy(ix), #0
+
+   ld hl, #_man_anim_exp
+   ld e_anim1(ix), l
+   ld e_anim2(ix), h
+   ld e_animctr(ix), #3
+
+   ret
 
 ;;--------------------------------------------------------------------------------
 ;; AI SHOOT BEHAVIOURS
