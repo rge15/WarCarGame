@@ -8,6 +8,8 @@
 .globl _m_HUD_initHUD
 .globl _m_HUD_addPoints
 .globl _m_HUD_renderHUD
+.globl _m_HUD_resetLevelScore
+.globl _m_HUD_saveScore
 
 
 ;================================================================================

@@ -41,10 +41,38 @@ _m_HUD_scoreHeight:
 _m_playerScore:
    .ds 2
 
+;;Descripcion : Puntuacion jugador
+_m_startLevelPlayerScore:
+   .dw #0x0000
+
 ;===================================================================================================================================================
 ; Functions
 ;===================================================================================================================================================
 
+_m_HUD_saveScore::
+    ld de, #_m_playerScore
+    ld hl, #_m_startLevelPlayerScore
+    ld a, (de)
+    ld (hl),a
+    inc hl
+    inc de
+    ld a, (de)
+    ld (hl),a
+
+
+    ret
+
+_m_HUD_resetLevelScore::
+    ld hl, #_m_playerScore
+    ld de, #_m_startLevelPlayerScore
+    ld a, (de)
+    ld (hl),a
+    inc hl
+    inc de
+    ld a, (de)
+    ld (hl),a
+
+    ret
 
 ;===================================================================================================================================================
 ; FUNCION _m_HUD_initHUD

@@ -595,6 +595,7 @@ _man_game_updateGameStatus::
    inc (hl)
    dec (hl)
    jr NZ, checkEnemy
+   call _m_HUD_resetLevelScore
    pop hl
    jp  endGame
    checkEnemy:
@@ -628,6 +629,7 @@ _man_game_updateGameStatus::
    jp victoryScreen
    nextLevel:
    ;TODO : Meter aquñi el sprite de " Ready?" 
+   call _m_HUD_saveScore
    ld ix, #_m_nextLevel
    ld hl, #_m_gameLevel
    ld a, (ix)
@@ -663,6 +665,7 @@ _man_game_decreasePlayerLife::
    dec (hl)
    call _m_HUD_decreaseLife
    call _m_HUD_renderLifes
+   call _m_HUD_resetLevelScore
    pop hl ;Aqui quitamos lo ultimo de la pila pues no vamos a hacer un ret
    jp restartLevel
 
