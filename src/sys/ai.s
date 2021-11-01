@@ -517,14 +517,18 @@ _sys_ai_reset_shoot_aictr:
    ;; TODO: puede ser un poco loco
    ; 127 max
    ld a, r
-   ld l, #70
+   ld l, #t_shoot_timer_enemy_r_l
    cp l
    ; a < n
-   jr c, set_global
-
+   jr c, set_fixed
+   ld l, #t_shoot_timer_enemy_r_h
+   cp l
+   ; a >= n
+   jr nc, set_fixed
    ld e_aictr(ix), a
    ret
-   set_global:
+
+   set_fixed:
       ld e_aictr(ix), #t_shoot_timer_enemy
    ret
 
