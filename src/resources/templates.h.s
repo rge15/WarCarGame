@@ -54,6 +54,7 @@
 .globl t_es_04
 .globl t_es_05
 .globl t_es_06
+.globl t_es_07
 
 .globl t_enemy_testing
 .globl t_enemy_testing2

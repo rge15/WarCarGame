@@ -273,3 +273,17 @@ spawner_plist_04:
    .dw #t_enemy_seeknpatrol
    .dw #0x0000
    .dw #patrol_invalid_move
+
+spawner_plist_05:
+   .dw #t_es_04
+   .dw #t_es_06
+   .dw #t_es_07
+   .dw #t_es_06
+   .dw #t_es_04
+
+   .dw #t_es_07
+   .dw #t_es_07
+   .dw #t_es_07
+   .dw #t_es_07
+   .dw #0x0000
+   .dw #patrol_invalid_move

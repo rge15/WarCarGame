@@ -10,7 +10,7 @@
 .include "entityInfo.s"
 
 ; tiempo hasta que un enemy dispara
-t_shoot_timer_enemy = 100
+t_shoot_timer_enemy = 90
 
 ; tiempo hasta que la bala de un enemy se destruye
 t_bullet_timer_enemy = 70
@@ -584,6 +584,30 @@ t_es_06:
    .db #16                                   ; heigth
    .db #0                                    ; vx
    .db #0                                    ; vy
+   .dw #_ovni_purple_0                      ; sprite
+   .db #0x00                                 ; orientation
+   .db #0x00                                 ; prev. orientation
+   .dw #0x0000                               ; prevptr
+   .dw #_sys_ai_behaviourPatrolRelative
+   .db #t_shoot_timer_enemy
+   .dw #_man_anim_enemy_purple
+   .db #0x0                                  ; anim. counter
+   .dw #_sys_ai_beh_shoot_seekplayer                               ; input_behaviour
+   .db #0x00                                 ; e_ai_aim_x
+   .db #0x00                                 ; e_ai_aim_y
+   .db #20                                    ; e_ai_aux_l
+   .db #140                                    ; e_ai_aux_h
+   .dw #patrol_relative_x_36                                    ; patrol_step
+
+t_es_07:
+   .db #e_type_enemy                         ; type
+   .db #0x3b                                 ; cmp
+   .db #0                                    ; x
+   .db #0                                    ; y
+   .db #6                                   ; width
+   .db #16                                   ; heigth
+   .db #0                                    ; vx
+   .db #0                                    ; vy
    .dw #_ovni_blue_0                      ; sprite
    .db #0x00                                 ; orientation
    .db #0x00                                 ; prev. orientation
@@ -592,12 +616,12 @@ t_es_06:
    .db #t_shoot_timer_enemy
    .dw #_man_anim_enemy_blue
    .db #0x0                                  ; anim. counter
-   .dw #_sys_ai_beh_shoot_seekplayer                               ; input_behaviour
+   .dw #_sys_ai_beh_shoot_d                               ; input_behaviour
    .db #0x00                                 ; e_ai_aim_x
    .db #0x00                                 ; e_ai_aim_y
-   .db #20                                    ; e_ai_aux_l
-   .db #140                                    ; e_ai_aux_h
-   .dw #patrol_relative_x_36                                    ; patrol_step
+   .db #36                                    ; e_ai_aux_l
+   .db #108                                    ; e_ai_aux_h
+   .dw #patrol_relative_around_01                                    ; patrol_step
 
 ;================================================================================
 ; TESTING
