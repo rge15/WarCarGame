@@ -595,7 +595,7 @@ _man_game_updateGameStatus::
    inc (hl)
    dec (hl)
    jr NZ, checkEnemy
-   call _m_HUD_resetLevelScore
+   ; call _m_HUD_resetLevelScore
    pop hl
    jp  endGame
    checkEnemy:
@@ -663,7 +663,13 @@ _man_game_decreasePlayerLife::
    dec (hl)
    call _m_HUD_decreaseLife
    call _m_HUD_renderLifes
+   ld hl, #_m_lifePlayer
+   ld a,(hl)
+   dec a
+   inc a
+   jr Z, dontResetScore
    call _m_HUD_resetLevelScore
+   dontResetScore:
    pop hl ;Aqui quitamos lo ultimo de la pila pues no vamos a hacer un ret
    jp restartLevel
 
