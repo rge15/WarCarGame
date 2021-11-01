@@ -3,6 +3,7 @@
 ;================================================================================
 .globl _tilemap_00 ;; Menu principal
 .globl _tilemap_01
+.globl _tilemap_01decoration
 .globl _tilemap_02
 .globl _tilemap_03
 .globl _tilemap_03
