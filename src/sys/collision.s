@@ -13,6 +13,7 @@
 .include "assets/maps/map01.h.s"
 .include "resources/macros.s"
 .include "sys/ai_beh.h.s"
+.include "man/HUD.h.s"
 
 ;===================================================================================================================================================
 ; Manager data   
@@ -572,7 +573,13 @@ bulletCollisionBehaviour::
     ret
     destroyEnity:
 
+    ;; TODO: CREO QUE SIEMPRE VA BIEN
     call destroyPairOfEntities 
+
+    ld bc, #0x0001
+    call _m_HUD_addPoints
+    call _m_HUD_renderScore
+
     ret
 
     destroyEnityOvni:
@@ -582,6 +589,12 @@ bulletCollisionBehaviour::
     push iy
     pop ix
     call _sys_ai_prepare_ovni_die
+
+    ld a, #0x20
+    and e_type(iy)
+    jr Z, dontAddPoints
+
+    dontAddPoints:
 
     ret
 
@@ -598,6 +611,9 @@ enemyBulletCollisionBehaviour::
     ret Z
 
     call _m_game_bulletDestroyed
+    ld bc, #0x0001
+    call _m_HUD_addPoints
+    call _m_HUD_renderScore
 
     call destroyPairOfEntities
 
