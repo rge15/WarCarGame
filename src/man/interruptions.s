@@ -99,7 +99,6 @@ _int_handler_5::
 
     ld a, #1
     ld (#_man_int_current), a
-	cpctm_setBorder_asm HW_GREEN
 	call cpct_akp_musicPlay_asm
 
 	call cpct_scanKeyboard_if_asm
