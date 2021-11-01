@@ -2,6 +2,10 @@
 ; Globals
 ;================================================================================
 .globl t_shoot_timer_enemy
+.globl t_shoot_timer_enemy_r_l
+.globl t_shoot_timer_enemy_r_h
+.globl t_shoot_timer_tile_collision
+
 .globl t_bullet_timer_enemy
 .globl player_max_bullets
 
@@ -13,6 +17,7 @@
 
 .globl t_follow_timer
 .globl t_follow_timer_f
+.globl t_spawner_timer
 .globl enemy_no_shoot
 
 ;================================================================================

@@ -10,17 +10,27 @@
 .include "entityInfo.s"
 
 ; tiempo hasta que un enemy dispara
+t_shoot_timer_enemy_s = 48
 t_shoot_timer_enemy = 90
+; r for range
+t_shoot_timer_enemy_r_l = 54
+t_shoot_timer_enemy_r_h = 96
+
+; tiempo de espera hasta disparar despues de bala tile colision
+t_shoot_timer_tile_collision = 4
+
 
 ; tiempo hasta que la bala de un enemy se destruye
-t_bullet_timer_enemy = 70
+t_bullet_timer_enemy = 120
 ; fast
 t_bullet_timer_enemy_f = 16
 
 ; tiempo hasta que la bala del player se destruye
 t_bullet_timer_player = 27
 
-player_max_bullets = 3
+t_spawner_timer = 140
+
+player_max_bullets = 1
 
 ; behaviours tipo follow in axis
 t_follow_timer = 20
@@ -85,7 +95,7 @@ t_enemy_basic_green:
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
    .dw #enemy_no_move                                    ; ai_behaviour
-   .db #t_shoot_timer_enemy
+   .db #t_shoot_timer_enemy_s
    .dw #_man_anim_enemy_green                                  ; animator
    .db #0x01                                  ; anim. counter
    .dw #enemy_no_shoot                               ; input_behaviour
@@ -109,7 +119,7 @@ t_enemy_basic_blue:
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
    .dw #enemy_no_move                                    ; ai_behaviour
-   .db #t_shoot_timer_enemy
+   .db #t_shoot_timer_enemy_s
    .dw #_man_anim_enemy_blue                                  ; animator
    .db #0x01                                  ; anim. counter
    .dw #enemy_no_shoot                               ; input_behaviour
@@ -133,7 +143,7 @@ t_enemy_basic_purple:
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
    .dw #enemy_no_move                                    ; ai_behaviour
-   .db #t_shoot_timer_enemy
+   .db #t_shoot_timer_enemy_s
    .dw #_man_anim_enemy_purple                                  ; animator
    .db #0x01                                  ; anim. counter
    .dw #enemy_no_shoot                               ; input_behaviour
@@ -157,7 +167,7 @@ t_enemy_basic_red:
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
    .dw #enemy_no_move                                    ; ai_behaviour
-   .db #t_shoot_timer_enemy
+   .db #t_shoot_timer_enemy_s
    .dw #_man_anim_enemy_red                                  ; animator
    .db #0x01                                  ; anim. counter
    .dw #enemy_no_shoot                               ; input_behaviour
@@ -181,7 +191,7 @@ t_enemy_seeknpatrol:
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
    .dw #_sys_ai_behaviourSeekAndPatrol              ; ai_behaviour
-   .db #t_shoot_timer_enemy                                 ; ai_counter
+   .db #t_shoot_timer_enemy_s                                 ; ai_counter
    .dw #_man_anim_enemy_red                                  ; animator
    .db #0x0A                                 ; anim. counter
    .dw #0x0000                               ; input_behaviour
@@ -205,7 +215,7 @@ t_enemy_seeknpatrol_02:
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
    .dw #_sys_ai_behaviourSeekAndPatrol              ; ai_behaviour
-   .db #t_shoot_timer_enemy                                 ; ai_counter
+   .db #t_shoot_timer_enemy_s                                 ; ai_counter
    .dw #_man_anim_enemy_red                                  ; animator
    .db #0x0A                                 ; anim. counter
    .dw #0x0000                               ; input_behaviour
@@ -229,7 +239,7 @@ t_enemy_patrol_game_zone:
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
    .dw #_sys_ai_behaviourPatrol      ; ai_behaviour
-   .db #t_shoot_timer_enemy
+   .db #t_shoot_timer_enemy_s
    .dw #_man_anim_enemy_purple                                  ; animator
    .db #0x0                                  ; anim. counter
    .dw #_sys_ai_beh_shoot_seekplayer                               ; input_behaviour
@@ -253,7 +263,7 @@ t_enemy_patrol_game_zone_i:
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
    .dw #_sys_ai_behaviourPatrol      ; ai_behaviour
-   .db #t_shoot_timer_enemy
+   .db #t_shoot_timer_enemy_s
    .dw #_man_anim_enemy_purple                                  ; animator
    .db #0x0                                  ; anim. counter
    .dw #_sys_ai_beh_shoot_seekplayer                               ; input_behaviour
@@ -394,7 +404,8 @@ t_bullet_enemy_sp:
    .db #t_bullet_timer_enemy                 ; ai_counter   ;; Contador de la bala
    .dw #_man_anim_enemy_bullet                                 ; animator
    .db #0x01                                 ; anim. counter
-   .dw #0x0000                               ; input_behaviour
+   ; ! si es 1 es tipo sp
+   .dw #0x0001                               ; input_behaviour
    .db #0x00                                 ; e_ai_aim_x
    .db #0x00                                 ; e_ai_aim_y
    .db #t_bullet_vel_x                                  ; e_ai_aux_l
@@ -469,7 +480,7 @@ t_es_01:
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
    .dw #_sys_ai_behaviourPatrol
-   .db #t_shoot_timer_enemy
+   .db #t_shoot_timer_enemy_s
    .dw #_man_anim_enemy_blue                                  ; animator
    .db #0x0                                  ; anim. counter
    .dw #_sys_ai_beh_shoot_xy_rand                               ; input_behaviour
@@ -493,7 +504,7 @@ t_es_02:
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
    .dw #_sys_ai_beh_follow_player_y
-   .db #t_shoot_timer_enemy
+   .db #t_shoot_timer_enemy_s
    .dw #_man_anim_enemy_purple                                  ; animator
    .db #0x0                                  ; anim. counter
    .dw #enemy_no_shoot                               ; input_behaviour
@@ -517,7 +528,7 @@ t_es_03:
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
    .dw #_sys_ai_behaviourPatrolRelative
-   .db #t_shoot_timer_enemy
+   .db #t_shoot_timer_enemy_s
    .dw #_man_anim_enemy_green                                  ; animator
    .db #0x0                                  ; anim. counter
    .dw #enemy_no_shoot                               ; input_behaviour
@@ -541,7 +552,7 @@ t_es_04:
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
    .dw #_sys_ai_behaviourPatrolRelative
-   .db #t_shoot_timer_enemy
+   .db #t_shoot_timer_enemy_s
    .dw #_man_anim_enemy_blue                  ; animator
    .db #0x0                                  ; anim. counter
    .dw #_sys_ai_beh_shoot_xy_rand                       ; input_behaviour
@@ -565,7 +576,7 @@ t_es_05:
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
    .dw #_sys_ai_beh_follow_player_y
-   .db #t_shoot_timer_enemy
+   .db #t_shoot_timer_enemy_s
    .dw #_man_anim_enemy_purple                                  ; animator
    .db #0x0                                  ; anim. counter
    .dw #_sys_ai_beh_shoot_d                               ; input_behaviour
@@ -589,7 +600,7 @@ t_es_06:
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
    .dw #_sys_ai_behaviourPatrolRelative
-   .db #t_shoot_timer_enemy
+   .db #t_shoot_timer_enemy_s
    .dw #_man_anim_enemy_purple
    .db #0x0                                  ; anim. counter
    .dw #_sys_ai_beh_shoot_seekplayer                               ; input_behaviour
@@ -613,7 +624,7 @@ t_es_07:
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
    .dw #_sys_ai_behaviourPatrolRelative
-   .db #t_shoot_timer_enemy
+   .db #t_shoot_timer_enemy_s
    .dw #_man_anim_enemy_blue
    .db #0x0                                  ; anim. counter
    .dw #_sys_ai_beh_shoot_d                               ; input_behaviour
@@ -640,7 +651,7 @@ t_enemy_testing:
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
    .dw #_sys_ai_beh_follow_player_x
-   .db #t_shoot_timer_enemy
+   .db #t_shoot_timer_enemy_s
    .dw #0x0                                  ; animator
    .db #0x0A                                 ; anim. counter
    .dw #_sys_ai_beh_shoot_x                              ; input_behaviour
@@ -773,7 +784,7 @@ t_enemy_patrol_x_shoot_y:
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
    .dw #_sys_ai_behaviourPatrol              ; ai_behaviour
-   .db #t_shoot_timer_enemy                                 ; ai_counter
+   .db #t_shoot_timer_enemy_s                                 ; ai_counter
    .dw #0x0                                  ; animator
    .db #0x0A                                 ; anim. counter
    .dw #0x0000                               ; input_behaviour

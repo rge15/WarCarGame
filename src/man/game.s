@@ -73,8 +73,9 @@ _m_enemyCounter:
 _m_current_level_counter:: .db #1
 
 ;; TODO: nose poner mejor
-player_shoot_cooldown_l = 12
+player_shoot_cooldown_l = 40
 player_shoot_cooldown_h = 40
+
 player_bullet_vel_x = #1
 player_bullet_vel_y = #2
 ;===================================================================================================================================================
@@ -262,7 +263,6 @@ _m_game_destroyEntity::
 ;===================================================================================================================================================
 ; FUNCION _m_game_bulletDestroyed
 ; ; Funcion que indica al player que su bala ha sido destruida
-; HL : Llega el valor de la entidad
 ;===================================================================================================================================================
 _m_game_bulletDestroyed::
    ld hl, #_m_playerShot
@@ -422,6 +422,7 @@ _m_game_playerShot::
    GET_ENTITY_POSITION, #_m_playerEntity
    push de
    pop ix
+   
    ; contador de balas 
    dec e_ai_aux_l(ix)
    jr z, cooldown_high

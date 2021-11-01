@@ -20,7 +20,7 @@ _sys_ai_directionMemory::
     .dw #0x0000
 
 ;; TODO: mejorar igual
-enemy_max_spawn = 4
+enemy_max_spawn = 3
 _sys_ai_enemy_count: .db 0
 
 
@@ -153,6 +153,7 @@ shoot_from_enemy_center:
 
 ; w 6
 ; h 16
+; en plan y de castellano de tambien nose
 _sys_ai_shoot_b_position_y_aim:
    call shoot_from_enemy_center
 
@@ -164,7 +165,10 @@ _sys_ai_shoot_b_position_y_aim:
 ;; Crea la bala, le pone la posicion del enemigo que la dispara
 ;; y le pone en ai_aim las coords del player
 _sys_ai_shoot_bullet_l_common:
-   call _sys_ai_reset_shoot_aictr
+   push ix
+   pop iy
+
+   ; call _sys_ai_reset_shoot_aictr
    push bc
 
    CREATE_ENTITY_FROM_TEMPLATE t_bullet_enemy_l
@@ -172,6 +176,12 @@ _sys_ai_shoot_bullet_l_common:
    pop ix
 
    pop bc
+
+   ; guardamos en patrol step direction del enemigo que la dispara
+   push iy
+   pop hl
+   ld e_patrol_step_l(ix), l
+   ld e_patrol_step_h(ix), h
 
    call _sys_ai_shoot_b_position_y_aim
    ret
@@ -276,7 +286,7 @@ _sys_ai_shoot_bullet_l_d:
 ;; TODO[Edu]: no sale del centro de la entidad
 ;===============================================================================
 _sys_ai_spawnEnemy_plist::
-
+   call _sys_ai_reset_spawner_aictr
    ; si es patrol_invalid_move se sale
    call check_next_step
    ret z
@@ -326,6 +336,7 @@ _sys_ai_spawnEnemy_plist::
 ;; TODO[Edu]: no sale del centro de la entidad
 ;===============================================================================
 _sys_ai_spawnEnemy_template:
+   call _sys_ai_reset_spawner_aictr
    push bc
    ld hl, #_m_enemyCounter
    inc (hl)
@@ -348,9 +359,6 @@ _sys_ai_spawnEnemy_template:
 
    ret
 
-
-_sys_ai_behaviourShield:
-   ret
 
 ;===============================================================================
 ; Usamos orient para hp spawner ya que nunca se va a mover
@@ -497,4 +505,48 @@ _sys_ai_restore_spawn:
    ld e_sprite2(ix), h
    ret
 
+
+;;--------------------------------------------------------------------------------
+;; PRIVATE FUNCS
+;;--------------------------------------------------------------------------------
+
+;===============================================================================
+; Poner el aim de una entidad en la pos de otro
+; IX: changes aim
+; IY: entity to set as aim
+;===============================================================================
+_sys_ai_aim_to_entity:
+   ld a, e_xpos(iy)
+   ld e_ai_aim_x(ix), a
+
+   ld a, e_ypos(iy)
+   ld e_ai_aim_y(ix), a
+   ret
+
+_sys_ai_reset_shoot_aictr:
+   ;; TODO: puede ser un poco loco
+   ; 127 max
+   ld a, r
+   ld l, #t_shoot_timer_enemy_r_l
+   cp l
+   ; a < n
+   jr c, set_fixed
+   ld l, #t_shoot_timer_enemy_r_h
+   cp l
+   ; a >= n
+   jr nc, set_fixed
+   ld e_aictr(ix), a
+   ret
+
+   set_fixed:
+      ld e_aictr(ix), #t_shoot_timer_enemy
+   ret
+
+_sys_ai_reset_bullet_aictr:
+   ld e_aictr(ix), #t_bullet_timer_enemy
+   ret
+
+_sys_ai_reset_spawner_aictr:
+   ld e_aictr(ix), #t_spawner_timer
+   ret
 
