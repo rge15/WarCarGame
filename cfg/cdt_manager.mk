@@ -24,7 +24,10 @@
 ############################################################################
 
 ## Set the name of your main game file in the CDT here
-$(eval $(call CDTMAN, SET_FILENAME, Game))
+# $(eval $(call CDTMAN, SET_FILENAME, Game))
+$(eval $(call CDTMAN, SET_FILENAME   , Aliens'n Tanks))                      
+$(eval $(call CDTMAN, GEN_MINILOADER , assets/png/ChargeScreen.png))                 
+
 
 ###############################################################################
 ##                    CASSETE FILE MANAGER HELP INDEX                        ##
