@@ -215,6 +215,14 @@ patrol_relative_x_36:
    .db #patrol_invalid_move
    .dw #patrol_relative_x_36
 
+patrol_relative_x_36_around:
+   .db  0, 0
+   .db  36, 0
+   .db  36, 8
+   .db  0, 8
+   .db #patrol_invalid_move
+   .dw #patrol_relative_x_36_around
+
 
 patrol_relative_y_32:
    .db  0, 0
