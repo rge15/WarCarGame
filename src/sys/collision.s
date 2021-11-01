@@ -12,6 +12,7 @@
 .include "ai.h.s"
 .include "assets/maps/map01.h.s"
 .include "resources/macros.s"
+.include "man/HUD.h.s"
 
 ;===================================================================================================================================================
 ; Manager data   
@@ -555,6 +556,16 @@ bulletCollisionBehaviour::
 
     call destroyPairOfEntities 
 
+    ld a, #0x20
+    and e_type(iy)
+    jr Z, dontAddPoints
+
+    ld bc, #0x0001
+    call _m_HUD_addPoints
+    call _m_HUD_renderScore
+
+    dontAddPoints:
+
     ret
 
 
@@ -570,6 +581,9 @@ enemyBulletCollisionBehaviour::
     ret Z
 
     call _m_game_bulletDestroyed
+    ld bc, #0x0001
+    call _m_HUD_addPoints
+    call _m_HUD_renderScore
 
     call destroyPairOfEntities
 

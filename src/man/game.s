@@ -680,6 +680,7 @@ _man_game_decreasePlayerLife::
 _man_game_decreaseEnemyCounter::
    ld hl, #_m_enemyCounter
    dec (hl)
+   ld bc, #0x0002
    call _m_HUD_addPoints
    call _m_HUD_renderScore
    ret

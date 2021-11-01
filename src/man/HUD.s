@@ -262,12 +262,12 @@ _m_HUD_decreaseLife::
 ;===================================================================================================================================================
 ; FUNCION _m_HUD_addPoints
 ; Función encargada de sumar puntos
-; NO llega ningun dato
+; BC : Llegan los puntos a sumar
 ;===================================================================================================================================================
 _m_HUD_addPoints::
     ;Cargamos la primera parte del Score en A 
     ld hl, #_m_playerScore
-    ld bc, #0x0002
+    ; ld bc, #0x0002
     inc hl
     ld a, (hl)
 
