@@ -115,6 +115,10 @@ _m_HUD_initScore::
     ld (hl), #0x00
     inc hl
     ld (hl), #0x00
+    ld hl, #_m_startLevelPlayerScore
+    ld (hl), #0x00
+    inc hl
+    ld (hl), #0x00
 
     ret
 
