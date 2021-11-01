@@ -305,34 +305,34 @@ _level1:
    ;================================================================================
    ; Level 6
    ;================================================================================
-   .dw #_tilemap_01decoration
-   .db #level_new_entity
-   .dw #t_player
-   .db #70
-   .db #176
-
-   .db #level_new_entity
-   .dw #t_enemy_basic_blue
-   .db #4
-   .db #64
-   .dw #_sys_ai_behaviourPatrol
-   .db #0                                 ; e_ai_aux_l
-   .db #0                                 ; e_ai_aux_h
-   .dw #patrol_11
-   .dw #_sys_ai_beh_shoot_d
-
-   .db #level_new_entity
-   .dw #t_spawner_from_template_01
-   .db #38
-   .db #96
-   .dw #_sys_ai_behaviourSpawner_template
-   .db #0                                 ; e_ai_aux_l
-   .db #0                                 ; e_ai_aux_h
-   .dw #t_es_01
-   .dw #enemy_no_shoot
-
-
-   .db #level_separator
+   ; .dw #_tilemap_01decoration
+   ; .db #level_new_entity
+   ; .dw #t_player
+   ; .db #70
+   ; .db #176
+   ;
+   ; .db #level_new_entity
+   ; .dw #t_enemy_basic_blue
+   ; .db #4
+   ; .db #64
+   ; .dw #_sys_ai_behaviourPatrol
+   ; .db #0                                 ; e_ai_aux_l
+   ; .db #0                                 ; e_ai_aux_h
+   ; .dw #patrol_11
+   ; .dw #_sys_ai_beh_shoot_d
+   ;
+   ; .db #level_new_entity
+   ; .dw #t_spawner_from_template_01
+   ; .db #38
+   ; .db #96
+   ; .dw #_sys_ai_behaviourSpawner_template
+   ; .db #0                                 ; e_ai_aux_l
+   ; .db #0                                 ; e_ai_aux_h
+   ; .dw #t_es_01
+   ; .dw #enemy_no_shoot
+   ;
+   ;
+   ; .db #level_separator
    ;================================================================================
    ; Level 7
    ;================================================================================
@@ -458,33 +458,33 @@ _level1:
    ;================================================================================
    ; Level 10
    ;================================================================================
-   .dw #_tilemap_03            ;Tilemap
-   .db #level_new_entity
-   .dw #t_player
-   .db #36
-   .db #176
-
-   .db #level_new_entity
-   .dw #t_spawner_from_template_01
-   .db #8
-   .db #52
-   .dw #_sys_ai_behaviourSpawner_template
-   .db #00                                 ; e_ai_aux_l
-   .db #00                                 ; e_ai_aux_h
-   .dw #t_es_01
-   .dw #enemy_no_shoot
-
-   .db #level_new_entity
-   .dw #t_enemy_basic_blue
-   .db #4
-   .db #80
-   .dw #_sys_ai_behaviourPatrolRelative
-   .db #4
-   .db #80
-   .dw #patrol_relative_y_48
-   .dw #_sys_ai_beh_shoot_x_f
-
-   .db #level_separator
+   ; .dw #_tilemap_03            ;Tilemap
+   ; .db #level_new_entity
+   ; .dw #t_player
+   ; .db #36
+   ; .db #176
+   ;
+   ; .db #level_new_entity
+   ; .dw #t_spawner_from_template_01
+   ; .db #8
+   ; .db #52
+   ; .dw #_sys_ai_behaviourSpawner_template
+   ; .db #00                                 ; e_ai_aux_l
+   ; .db #00                                 ; e_ai_aux_h
+   ; .dw #t_es_01
+   ; .dw #enemy_no_shoot
+   ;
+   ; .db #level_new_entity
+   ; .dw #t_enemy_basic_blue
+   ; .db #4
+   ; .db #80
+   ; .dw #_sys_ai_behaviourPatrolRelative
+   ; .db #4
+   ; .db #80
+   ; .dw #patrol_relative_y_48
+   ; .dw #_sys_ai_beh_shoot_x_f
+   ;
+   ; .db #level_separator
    ;================================================================================
    ; Level 11
    ;================================================================================
@@ -664,16 +664,6 @@ _level1:
    ; .dw #0
    ; .dw #_sys_ai_beh_shoot_x
    ;
-   ; .db #level_new_entity
-   ; .dw #t_enemy_basic_green
-   ; .db #20
-   ; .db #64
-   ; .dw #_sys_ai_behaviourPatrolRelative
-   ; .db #20                                 ; e_ai_aux_l
-   ; .db #64                                 ; e_ai_aux_h
-   ; .dw #patrol_relative_x_36
-   ; .dw #enemy_no_shoot
-   ;
    ; .db #level_separator
    ;================================================================================
    ; Level 17
@@ -719,114 +709,113 @@ _level1:
    ;================================================================================
    ; Level 18 es jodido igual mas adelante
    ;================================================================================
-   .dw #_tilemap_05            ;Tilemap
-   .db #level_new_entity
-   .dw #t_player
-   .db #36
-   .db #176
-
-   .db #level_new_entity
-   .dw #t_enemy_basic_red
-   .db #12
-   .db #64
-   .dw #_sys_ai_behaviourSeekAndPatrol
-   .db #25
-   .db #25
-   .dw #patrol_seeknpatrol_01
-   .dw #enemy_no_shoot
-
-   .db #level_new_entity
-   .dw #t_enemy_basic_purple
-   .db #70
-   .db #48
-   .dw #_sys_ai_behaviourPatrol
-   .db #0
-   .db #0
-   .dw #patrol_all_game_zone_0m
-   .dw #_sys_ai_beh_shoot_seekplayer
-
-   .db #level_new_entity
-   .dw #t_enemy_basic_blue
-   .db #28
-   .db #80
-   .dw #_sys_ai_behaviourPatrol
-   .db #0
-   .db #0
-   .dw #patrol_08
-   .dw #_sys_ai_beh_shoot_d
-
-   .db #level_separator
+   ; .dw #_tilemap_05            ;Tilemap
+   ; .db #level_new_entity
+   ; .dw #t_player
+   ; .db #36
+   ; .db #176
+   ;
+   ; .db #level_new_entity
+   ; .dw #t_enemy_basic_red
+   ; .db #12
+   ; .db #64
+   ; .dw #_sys_ai_behaviourSeekAndPatrol
+   ; .db #25
+   ; .db #25
+   ; .dw #patrol_seeknpatrol_01
+   ; .dw #enemy_no_shoot
+   ;
+   ; .db #level_new_entity
+   ; .dw #t_enemy_basic_purple
+   ; .db #70
+   ; .db #48
+   ; .dw #_sys_ai_behaviourPatrol
+   ; .db #0
+   ; .db #0
+   ; .dw #patrol_all_game_zone_0m
+   ; .dw #_sys_ai_beh_shoot_seekplayer
+   ;
+   ; .db #level_new_entity
+   ; .dw #t_enemy_basic_blue
+   ; .db #28
+   ; .db #80
+   ; .dw #_sys_ai_behaviourPatrol
+   ; .db #0
+   ; .db #0
+   ; .dw #patrol_08
+   ; .dw #_sys_ai_beh_shoot_d
+   ;
+   ; .db #level_separator
    ;================================================================================
    ; 19 tres gamezon
    ;================================================================================
-
-   .dw #_tilemap_04            ;Tilemap
-   .db #level_new_entity
-   .dw #t_player
-   .db #36                   ;Entity X
-   .db #104                   ;Entity Y
-
-   .db #level_new_entity
-   .dw #t_enemy_basic_blue
-   .db #4
-   .db #48
-   .dw #_sys_ai_behaviourPatrol
-   .db #0
-   .db #0
-   .dw #patrol_all_game_zone_00
-   .dw #_sys_ai_beh_shoot_xy_rand
-
-   .db #level_new_entity
-   .dw #t_enemy_basic_blue
-   .db #70
-   .db #48
-   .dw #_sys_ai_behaviourPatrol
-   .db #0
-   .db #0
-   .dw #patrol_all_game_zone_0m
-   .dw #_sys_ai_beh_shoot_seekplayer
-
-   .db #level_new_entity
-   .dw #t_enemy_basic_blue
-   .db #70
-   .db #176
-   .dw #_sys_ai_behaviourPatrol
-   .db #0
-   .db #0
-   .dw #patrol_all_game_zone_mm
-   .dw #_sys_ai_beh_shoot_d
-
-   .db #level_separator
+   ; .dw #_tilemap_04            ;Tilemap
+   ; .db #level_new_entity
+   ; .dw #t_player
+   ; .db #36                   ;Entity X
+   ; .db #104                   ;Entity Y
+   ;
+   ; .db #level_new_entity
+   ; .dw #t_enemy_basic_blue
+   ; .db #4
+   ; .db #48
+   ; .dw #_sys_ai_behaviourPatrol
+   ; .db #0
+   ; .db #0
+   ; .dw #patrol_all_game_zone_00
+   ; .dw #_sys_ai_beh_shoot_xy_rand
+   ;
+   ; .db #level_new_entity
+   ; .dw #t_enemy_basic_blue
+   ; .db #70
+   ; .db #48
+   ; .dw #_sys_ai_behaviourPatrol
+   ; .db #0
+   ; .db #0
+   ; .dw #patrol_all_game_zone_0m
+   ; .dw #_sys_ai_beh_shoot_seekplayer
+   ;
+   ; .db #level_new_entity
+   ; .dw #t_enemy_basic_blue
+   ; .db #70
+   ; .db #176
+   ; .dw #_sys_ai_behaviourPatrol
+   ; .db #0
+   ; .db #0
+   ; .dw #patrol_all_game_zone_mm
+   ; .dw #_sys_ai_beh_shoot_d
+   ;
+   ; .db #level_separator
    ;================================================================================
    ; Level 20 rainbow
    ;================================================================================
-   .dw #_tilemap_09            ;Tilemap
-   .db #level_new_entity
-   .dw #t_player
-   .db #4
-   .db #48
-
-   .db #level_new_entity
-   .dw #t_spawner_from_template_01
-   .db #36
-   .db #108
-   .dw #_sys_ai_behaviourSpawner_plist
-   .db #00                                 ; e_ai_aux_l
-   .db #00                                 ; e_ai_aux_h
-   .dw #spawner_plist_05
-   .dw #enemy_no_shoot
-
-   .db #level_new_entity
-   .dw #t_es_07
-   .db #36
-   .db #108
-   .dw #_sys_ai_behaviourPatrolRelative
-   .db #36                                 ; e_ai_aux_l
-   .db #108                                 ; e_ai_aux_h
-   .dw #patrol_relative_around_01
-   .dw #_sys_ai_beh_shoot_d
-
-   .db #level_separator
+   ; .dw #_tilemap_09            ;Tilemap
+   ; .db #level_new_entity
+   ; .dw #t_player
+   ; .db #4
+   ; .db #48
+   ;
+   ; .db #level_new_entity
+   ; .dw #t_spawner_from_template_01
+   ; .db #36
+   ; .db #108
+   ; .dw #_sys_ai_behaviourSpawner_plist
+   ; .db #00                                 ; e_ai_aux_l
+   ; .db #00                                 ; e_ai_aux_h
+   ; .dw #spawner_plist_05
+   ; .dw #enemy_no_shoot
+   ;
+   ; .db #level_new_entity
+   ; .dw #t_es_07
+   ; .db #36
+   ; .db #108
+   ; .dw #_sys_ai_behaviourPatrolRelative
+   ; .db #36                                 ; e_ai_aux_l
+   ; .db #108                                 ; e_ai_aux_h
+   ; .dw #patrol_relative_around_01
+   ; .dw #_sys_ai_beh_shoot_d
+   ;
+   ; .db #level_separator
    ;================================================================================
    ; Level 21 tres rojos
    ;================================================================================
@@ -867,6 +856,36 @@ _level1:
    ; .dw #enemy_no_shoot
    ;
    ; .db #level_separator
+   ;================================================================================
+   ; Level 22
+   ;================================================================================
+   .dw #_tilemap_05            ;Tilemap
+   .db #level_new_entity
+   .dw #t_player
+   .db #36                   ;Entity X
+   .db #176                   ;Entity Y
+
+   .db #level_new_entity
+   .dw #t_spawner_from_template_01
+   .db #36
+   .db #108
+   .dw #_sys_ai_behaviourSpawner_plist
+   .db #00                                 ; e_ai_aux_l
+   .db #00                                 ; e_ai_aux_h
+   .dw #spawner_plist_06
+   .dw #enemy_no_shoot
+
+   .db #level_new_entity
+   .dw #t_es_07
+   .db #36
+   .db #108
+   .dw #_sys_ai_behaviourPatrolRelative
+   .db #36                                 ; e_ai_aux_l
+   .db #108                                 ; e_ai_aux_h
+   .dw #patrol_relative_around_01
+   .dw #_sys_ai_beh_shoot_d
+
+   .db #level_separator
    ;================================================================================
    ; GAME END
    ;================================================================================

@@ -634,6 +634,30 @@ t_es_07:
    .db #108                                    ; e_ai_aux_h
    .dw #patrol_relative_around_01                                    ; patrol_step
 
+t_es_08:
+   .db #e_type_enemy                                 ; type
+   .db #0x3b                                 ; cmp
+   .db #00                                 ; x
+   .db #00                                 ; y
+   .db #6                                   ; width
+   .db #16                                   ; heigth
+   .db #0x00                                 ; vx
+   .db #0x00                                 ; vy
+   .dw #_ovni_red_0                      ; sprite
+   .db #0x00                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
+   .db #0x00                                 ; prev. orientation
+   .dw #0x0000                               ; prevptr
+   .dw #_sys_ai_behaviourSeekAndPatrol              ; ai_behaviour
+   .db #t_shoot_timer_enemy_s                                 ; ai_counter
+   .dw #_man_anim_enemy_red                                  ; animator
+   .db #0x0A                                 ; anim. counter
+   .dw #_sys_ai_beh_shoot_seekplayer                               ; input_behaviour
+   .db #0                                 ; e_ai_aim_x
+   .db #0                                 ; e_ai_aim_y
+   .db #t_follow_timer                                 ; e_ai_aux_l
+   .db #t_follow_timer                                 ; e_ai_aux_h
+   .dw #patrol_seeknpatrol_03
+
 ;================================================================================
 ; TESTING
 ;================================================================================
