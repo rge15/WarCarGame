@@ -216,6 +216,7 @@ ei
    
 
    endGame:
+
    ;TODO : Hacer una pantalla de endgame bonica y cargarla aquí
    ld hl, #_screenend_end
    ld de, #0xFFFF
@@ -224,6 +225,8 @@ ei
    ld a, #0x00
    call _m_HUD_renderScore
    
+   ; imprimir en algun lado _m_current_level_counter !!
+
    ld hl, #Key_Return
    call waitKeyPressed
    cpctm_clearScreen_asm 0
@@ -641,7 +644,10 @@ _man_game_updateGameStatus::
    jp victoryScreen
    
    nextLevel:
-   call _m_game_inc_level_counter
+   ; call _m_game_inc_level_counter
+   ld hl, #_m_current_level_counter
+   inc (hl)
+
    ;TODO : Meter aquñi el sprite de " Ready?" 
    call _m_HUD_saveScore
    ld ix, #_m_nextLevel
