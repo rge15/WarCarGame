@@ -28,14 +28,6 @@ _sys_ai_behaviourBullet::
     push hl
     pop ix
 
-    ;; Compruebo si tiene velocidad
-    ;; Se comprueba que la velocidad de la bala no sea 0
-    ;; En caso de que lo sea, sea manda a destruir
-    ; CHECK_HAS_MOVEMENT e_vx(ix), e_vy(ix)
-    ld a, #0x01
-    sub b
-    jr z, destroyBullet ;; Si no tiene vel. se destruye
-
     ;; Se comprueba que el contador de mov. restantes de las
     ;; balas sea 0. En ese caso se manda a destruir
     ld a, e_aictr(ix)

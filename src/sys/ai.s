@@ -20,7 +20,7 @@ _sys_ai_directionMemory::
     .dw #0x0000
 
 ;; TODO: mejorar igual
-enemy_max_spawn = 4
+enemy_max_spawn = 3
 _sys_ai_enemy_count: .db 0
 
 
@@ -153,6 +153,7 @@ shoot_from_enemy_center:
 
 ; w 6
 ; h 16
+; en plan y de castellano de tambien nose
 _sys_ai_shoot_b_position_y_aim:
    call shoot_from_enemy_center
 
@@ -164,7 +165,10 @@ _sys_ai_shoot_b_position_y_aim:
 ;; Crea la bala, le pone la posicion del enemigo que la dispara
 ;; y le pone en ai_aim las coords del player
 _sys_ai_shoot_bullet_l_common:
-   call _sys_ai_reset_shoot_aictr
+   push ix
+   pop iy
+
+   ; call _sys_ai_reset_shoot_aictr
    push bc
 
    CREATE_ENTITY_FROM_TEMPLATE t_bullet_enemy_l
@@ -172,6 +176,12 @@ _sys_ai_shoot_bullet_l_common:
    pop ix
 
    pop bc
+
+   ; guardamos en patrol step direction del enemigo que la dispara
+   push iy
+   pop hl
+   ld e_patrol_step_l(ix), l
+   ld e_patrol_step_h(ix), h
 
    call _sys_ai_shoot_b_position_y_aim
    ret

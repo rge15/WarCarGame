@@ -14,6 +14,8 @@
 .include "resources/macros.s"
 .include "sys/ai_beh.h.s"
 .include "man/HUD.h.s"
+.include "resources/templates.h.s"
+.include "sys/ai.h.s"
 
 ;===================================================================================================================================================
 ; Manager data   
@@ -332,6 +334,53 @@ _sys_checkTilePosition::
          ld e_xpos(ix), #8
          ld e_ypos(ix), #8
          call z, _m_game_destroyEntity
+
+         ; porque las tipo sp no colisionan
+         dec e_inputbeh1(ix)
+         ret z
+
+         ; en patrol esta la direction del enemy que la ha disparado
+         ld h, e_patrol_step_h(ix)
+         ld l, e_patrol_step_l(ix)
+         push hl
+         pop iy
+
+         call _sys_ai_random_0_1
+         or a
+         jr z, set_fixed_tile
+
+         ld e_aictr(iy), #8
+         ret
+
+         ;; TODO: a veces salen dos
+         ; ld a, r
+         ; ld l, #4
+         ; cp l
+         ; ; a < n
+         ; jr c, set_fixed_tile
+         ; ld l, #12
+         ; cp l
+         ; ; a >= n
+         ; jr nc, set_fixed_tile
+         ;
+         ; ld e_aictr(ix), a
+         ; ret
+
+         ; ld a, r
+         ;
+         ; ld l, #0
+         ; cp l
+         ; jr z, set_fixed_tile
+         ;
+         ; ld l, #12
+         ; cp l
+         ; jr nc, set_fixed_tile
+         ;
+         ; ld e_aictr(iy), a
+         ; ret
+         set_fixed_tile:
+            ld e_aictr(iy), #t_shoot_timer_tile_collision
+
          ret
 
       is_type_enemy:
@@ -342,9 +391,15 @@ _sys_checkTilePosition::
          ret
 
       is_type_bullet:
+
          push ix
          pop hl
          call _m_game_destroyEntity
+         ; GET_PLAYER_ENTITY iy
+         ; ld e_aictr(iy), #0
+         call reset_player_aictr
+
+         call _m_game_bulletDestroyed
 
    ret
 
@@ -496,6 +551,7 @@ enemyCollisionBehaviour::
 
     ; call _man_game_decreaseEnemyCounter
     
+    call reset_player_aictr
     call _m_game_bulletDestroyed
 
     ret
@@ -534,6 +590,7 @@ enemySpawnerCollisionBehaviour::
     pop hl
     call _m_game_destroyEntity
     call _m_game_bulletDestroyed
+    ; call reset_player_aictr
 
     ret
 
@@ -564,6 +621,7 @@ bulletCollisionBehaviour::
     decreaseLifeSpawner:
     ;;Llamar método resta via al spawner
        call _sys_ai_decrement_spawner_hp
+       call reset_player_aictr
 
     push ix
     pop hl 
@@ -575,6 +633,7 @@ bulletCollisionBehaviour::
 
     ;; TODO: CREO QUE SIEMPRE VA BIEN
     call destroyPairOfEntities 
+    call reset_player_aictr
 
     ld bc, #0x0001
     call _m_HUD_addPoints
@@ -583,6 +642,7 @@ bulletCollisionBehaviour::
     ret
 
     destroyEnityOvni:
+    call reset_player_aictr
    ; ld a, #0x08
    ; and e_type(iy)
     ; call NZ, _man_game_decreaseEnemyCounter
@@ -616,5 +676,15 @@ enemyBulletCollisionBehaviour::
     call _m_HUD_renderScore
 
     call destroyPairOfEntities
+    call reset_player_aictr
 
     ret
+
+; bug:colateral si pulsas seguid
+; el cooldown para poder disprar
+reset_player_aictr:
+   push iy
+   GET_PLAYER_ENTITY iy
+   ld e_aictr(iy), #8
+   pop iy
+   ret

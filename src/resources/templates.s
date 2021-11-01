@@ -16,9 +16,12 @@ t_shoot_timer_enemy = 90
 t_shoot_timer_enemy_r_l = 54
 t_shoot_timer_enemy_r_h = 96
 
+; tiempo de espera hasta disparar despues de bala tile colision
+t_shoot_timer_tile_collision = 4
+
 
 ; tiempo hasta que la bala de un enemy se destruye
-t_bullet_timer_enemy = 70
+t_bullet_timer_enemy = 120
 ; fast
 t_bullet_timer_enemy_f = 16
 
@@ -27,7 +30,7 @@ t_bullet_timer_player = 27
 
 t_spawner_timer = 140
 
-player_max_bullets = 2
+player_max_bullets = 1
 
 ; behaviours tipo follow in axis
 t_follow_timer = 20
@@ -401,7 +404,8 @@ t_bullet_enemy_sp:
    .db #t_bullet_timer_enemy                 ; ai_counter   ;; Contador de la bala
    .dw #_man_anim_enemy_bullet                                 ; animator
    .db #0x01                                 ; anim. counter
-   .dw #0x0000                               ; input_behaviour
+   ; ! si es 1 es tipo sp
+   .dw #0x0001                               ; input_behaviour
    .db #0x00                                 ; e_ai_aim_x
    .db #0x00                                 ; e_ai_aim_y
    .db #t_bullet_vel_x                                  ; e_ai_aux_l
