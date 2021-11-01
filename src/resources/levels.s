@@ -757,37 +757,7 @@ _level1:
 
    .db #level_separator
    ;================================================================================
-   ; Level 19 rainbow
-   ;================================================================================
-   .dw #_tilemap_09            ;Tilemap
-   .db #level_new_entity
-   .dw #t_player
-   .db #4
-   .db #48
-
-   .db #level_new_entity
-   .dw #t_spawner_from_template_01
-   .db #36
-   .db #108
-   .dw #_sys_ai_behaviourSpawner_plist
-   .db #00                                 ; e_ai_aux_l
-   .db #00                                 ; e_ai_aux_h
-   .dw #spawner_plist_05
-   .dw #enemy_no_shoot
-
-   .db #level_new_entity
-   .dw #t_es_07
-   .db #36
-   .db #108
-   .dw #_sys_ai_behaviourPatrolRelative
-   .db #36                                 ; e_ai_aux_l
-   .db #108                                 ; e_ai_aux_h
-   .dw #patrol_relative_around_01
-   .dw #_sys_ai_beh_shoot_d
-
-   .db #level_separator
-   ;================================================================================
-   ; 20 tres gamezon
+   ; 19 tres gamezon
    ;================================================================================
 
    .dw #_tilemap_04            ;Tilemap
@@ -824,6 +794,36 @@ _level1:
    .db #0
    .db #0
    .dw #patrol_all_game_zone_mm
+   .dw #_sys_ai_beh_shoot_d
+
+   .db #level_separator
+   ;================================================================================
+   ; Level 20 rainbow
+   ;================================================================================
+   .dw #_tilemap_09            ;Tilemap
+   .db #level_new_entity
+   .dw #t_player
+   .db #4
+   .db #48
+
+   .db #level_new_entity
+   .dw #t_spawner_from_template_01
+   .db #36
+   .db #108
+   .dw #_sys_ai_behaviourSpawner_plist
+   .db #00                                 ; e_ai_aux_l
+   .db #00                                 ; e_ai_aux_h
+   .dw #spawner_plist_05
+   .dw #enemy_no_shoot
+
+   .db #level_new_entity
+   .dw #t_es_07
+   .db #36
+   .db #108
+   .dw #_sys_ai_behaviourPatrolRelative
+   .db #36                                 ; e_ai_aux_l
+   .db #108                                 ; e_ai_aux_h
+   .dw #patrol_relative_around_01
    .dw #_sys_ai_beh_shoot_d
 
    .db #level_separator
