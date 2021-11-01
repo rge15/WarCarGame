@@ -20,6 +20,8 @@ t_bullet_timer_enemy_f = 16
 ; tiempo hasta que la bala del player se destruye
 t_bullet_timer_player = 27
 
+t_spawner_timer = 140
+
 player_max_bullets = 3
 
 ; behaviours tipo follow in axis

@@ -411,39 +411,3 @@ _sys_ai_beh_shoot_d:
    call z, _sys_ai_shoot_bullet_l_d
    ret
 
-;;--------------------------------------------------------------------------------
-;; PRIVATE FUNCS
-;;--------------------------------------------------------------------------------
-
-;===============================================================================
-; Poner el aim de una entidad en la pos de otro
-; IX: changes aim
-; IY: entity to set as aim
-;===============================================================================
-_sys_ai_aim_to_entity:
-   ld a, e_xpos(iy)
-   ld e_ai_aim_x(ix), a
-
-   ld a, e_ypos(iy)
-   ld e_ai_aim_y(ix), a
-   ret
-
-_sys_ai_reset_shoot_aictr:
-   ;; TODO: puede ser un poco loco
-   ; 127 max
-   ld a, r
-   ld l, #70
-   cp l
-   ; a < n
-   jr c, set_global
-
-   ld e_aictr(ix), a
-   ret
-   set_global:
-      ld e_aictr(ix), #t_shoot_timer_enemy
-   ret
-
-_sys_ai_reset_bullet_aictr:
-   ld e_aictr(ix), #t_bullet_timer_enemy
-   ret
-

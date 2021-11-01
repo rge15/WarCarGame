@@ -276,7 +276,7 @@ _sys_ai_shoot_bullet_l_d:
 ;; TODO[Edu]: no sale del centro de la entidad
 ;===============================================================================
 _sys_ai_spawnEnemy_plist::
-
+   call _sys_ai_reset_spawner_aictr
    ; si es patrol_invalid_move se sale
    call check_next_step
    ret z
@@ -326,6 +326,7 @@ _sys_ai_spawnEnemy_plist::
 ;; TODO[Edu]: no sale del centro de la entidad
 ;===============================================================================
 _sys_ai_spawnEnemy_template:
+   call _sys_ai_reset_spawner_aictr
    push bc
    ld hl, #_m_enemyCounter
    inc (hl)
@@ -348,9 +349,6 @@ _sys_ai_spawnEnemy_template:
 
    ret
 
-
-_sys_ai_behaviourShield:
-   ret
 
 ;===============================================================================
 ; Usamos orient para hp spawner ya que nunca se va a mover
@@ -497,4 +495,44 @@ _sys_ai_restore_spawn:
    ld e_sprite2(ix), h
    ret
 
+
+;;--------------------------------------------------------------------------------
+;; PRIVATE FUNCS
+;;--------------------------------------------------------------------------------
+
+;===============================================================================
+; Poner el aim de una entidad en la pos de otro
+; IX: changes aim
+; IY: entity to set as aim
+;===============================================================================
+_sys_ai_aim_to_entity:
+   ld a, e_xpos(iy)
+   ld e_ai_aim_x(ix), a
+
+   ld a, e_ypos(iy)
+   ld e_ai_aim_y(ix), a
+   ret
+
+_sys_ai_reset_shoot_aictr:
+   ;; TODO: puede ser un poco loco
+   ; 127 max
+   ld a, r
+   ld l, #70
+   cp l
+   ; a < n
+   jr c, set_global
+
+   ld e_aictr(ix), a
+   ret
+   set_global:
+      ld e_aictr(ix), #t_shoot_timer_enemy
+   ret
+
+_sys_ai_reset_bullet_aictr:
+   ld e_aictr(ix), #t_bullet_timer_enemy
+   ret
+
+_sys_ai_reset_spawner_aictr:
+   ld e_aictr(ix), #t_spawner_timer
+   ret
 

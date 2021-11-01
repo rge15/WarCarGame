@@ -13,6 +13,7 @@
 
 .globl t_follow_timer
 .globl t_follow_timer_f
+.globl t_spawner_timer
 .globl enemy_no_shoot
 
 ;================================================================================
