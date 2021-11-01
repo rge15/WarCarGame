@@ -185,85 +185,125 @@ _level1:
    ; Level 3
    ; ================================================================================
    
-   .dw #_tilemap_01            ;Tilemap
-   .db #level_new_entity
-   .dw #t_player
-   .db #38                   ;Entity X
-   .db #176                   ;Entity Y
-
-   .db #level_new_entity
-   .dw #t_enemy_basic_blue
-   .db #8
-   .db #56
-   .dw #_sys_ai_behaviourPatrol
-   .db #0                                 ; e_ai_aux_l
-   .db #0
-   .dw #patrol_03
-   .dw #_sys_ai_beh_shoot_x
-
-   .db #level_new_entity
-   .dw #t_enemy_basic_green
-   .db #20
-   .db #56
-   .dw #_sys_ai_behaviourPatrol
-   .db #0                                 ; e_ai_aux_l
-   .db #0
-   .dw #patrol_05
-   .dw #enemy_no_shoot
-
-   .db #level_new_entity
-   .dw #t_enemy_basic_blue
-   .db #40
-   .db #72
-   .dw #_sys_ai_behaviourPatrolRelative
-   .db #40                                 ; e_ai_aux_l
-   .db #72
-   .dw #patrol_relative_x_24
-   .dw #_sys_ai_beh_shoot_y
-
-   .db #level_separator
+   ; .dw #_tilemap_01            ;Tilemap
+   ; .db #level_new_entity
+   ; .dw #t_player
+   ; .db #38                   ;Entity X
+   ; .db #176                   ;Entity Y
+   ;
+   ; .db #level_new_entity
+   ; .dw #t_enemy_basic_blue
+   ; .db #8
+   ; .db #56
+   ; .dw #_sys_ai_behaviourPatrol
+   ; .db #0                                 ; e_ai_aux_l
+   ; .db #0
+   ; .dw #patrol_03
+   ; .dw #_sys_ai_beh_shoot_x
+   ;
+   ; .db #level_new_entity
+   ; .dw #t_enemy_basic_green
+   ; .db #20
+   ; .db #56
+   ; .dw #_sys_ai_behaviourPatrol
+   ; .db #0                                 ; e_ai_aux_l
+   ; .db #0
+   ; .dw #patrol_05
+   ; .dw #enemy_no_shoot
+   ;
+   ; .db #level_new_entity
+   ; .dw #t_enemy_basic_blue
+   ; .db #40
+   ; .db #72
+   ; .dw #_sys_ai_behaviourPatrolRelative
+   ; .db #40                                 ; e_ai_aux_l
+   ; .db #72
+   ; .dw #patrol_relative_x_24
+   ; .dw #_sys_ai_beh_shoot_y
+   ;
+   ; .db #level_separator
    ;================================================================================
    ; Level 4
    ;================================================================================
-   .dw #_tilemap_10            ;Tilemap
+   ; .dw #_tilemap_10            ;Tilemap
+   ; .db #level_new_entity
+   ; .dw #t_player
+   ; .db #36
+   ; .db #176
+   ;
+   ; .db #level_new_entity
+   ; .dw #t_enemy_basic_blue
+   ; .db #4
+   ; .db #48
+   ; .dw #_sys_ai_behaviourPatrolRelative
+   ; .db #4                                 ; e_ai_aux_l
+   ; .db #48                                 ; e_ai_aux_h
+   ; .dw #patrol_relative_x_36_around
+   ; .dw #_sys_ai_beh_shoot_y
+   ;
+   ; .db #level_new_entity
+   ; .dw #t_enemy_basic_blue
+   ; .db #16
+   ; .db #48
+   ; .dw #_sys_ai_behaviourPatrolRelative
+   ; .db #16                                 ; e_ai_aux_l
+   ; .db #48                                 ; e_ai_aux_h
+   ; .dw #patrol_relative_x_36_around
+   ; .dw #_sys_ai_beh_shoot_seekplayer
+   ;
+   ; .db #level_new_entity
+   ; .dw #t_enemy_basic_blue
+   ; .db #28
+   ; .db #48
+   ; .dw #_sys_ai_behaviourPatrolRelative
+   ; .db #28                                 ; e_ai_aux_l
+   ; .db #48                                 ; e_ai_aux_h
+   ; .dw #patrol_relative_x_36_around
+   ; .dw #_sys_ai_beh_shoot_y
+   ;
+   ; .db #level_separator
+   ;================================================================================
+   ; Level 5
+   ;================================================================================
+   .dw #_tilemap_06            ;Tilemap
    .db #level_new_entity
    .dw #t_player
-   .db #36
+   .db #8
+   .db #56
+
+   .db #level_new_entity
+   .dw #t_enemy_basic_purple
+   .db #70
+   .db #48
+   .dw #_sys_ai_beh_follow_player_y
+   .db #20
+   .db #20                                 ; e_ai_aux_h
+   .dw #0
+   .dw #_sys_ai_beh_shoot_x
+
+   .db #level_new_entity
+   .dw #t_enemy_basic_purple
+   .db #70
    .db #176
-
-   .db #level_new_entity
-   .dw #t_enemy_basic_blue
-   .db #4
-   .db #48
-   .dw #_sys_ai_behaviourPatrolRelative
-   .db #4                                 ; e_ai_aux_l
-   .db #48                                 ; e_ai_aux_h
-   .dw #patrol_relative_x_36_around
+   .dw #_sys_ai_beh_follow_player_x
+   .db #1
+   .db #1                                 ; e_ai_aux_h
+   .dw #0
    .dw #_sys_ai_beh_shoot_y
 
    .db #level_new_entity
-   .dw #t_enemy_basic_blue
-   .db #16
-   .db #48
+   .dw #t_enemy_basic_green
+   .db #32
+   .db #64
    .dw #_sys_ai_behaviourPatrolRelative
-   .db #16                                 ; e_ai_aux_l
-   .db #48                                 ; e_ai_aux_h
-   .dw #patrol_relative_x_36_around
-   .dw #_sys_ai_beh_shoot_seekplayer
-
-   .db #level_new_entity
-   .dw #t_enemy_basic_blue
-   .db #28
-   .db #48
-   .dw #_sys_ai_behaviourPatrolRelative
-   .db #28                                 ; e_ai_aux_l
-   .db #48                                 ; e_ai_aux_h
-   .dw #patrol_relative_x_36_around
-   .dw #_sys_ai_beh_shoot_y
+   .db #32                                 ; e_ai_aux_l
+   .db #64                                 ; e_ai_aux_h
+   .dw #patrol_relative_y_48
+   .dw #enemy_no_shoot
 
    .db #level_separator
    ;================================================================================
-   ; Level 5
+   ; Level 6
    ;================================================================================
 
    ; .dw #_tilemap_08            ;Tilemap
@@ -304,7 +344,7 @@ _level1:
    ;
    ; .db #level_separator
    ;================================================================================
-   ; Level 6
+   ; Level 7
    ;================================================================================
 
    ; .dw #_tilemap_03            ;Tilemap
@@ -345,7 +385,7 @@ _level1:
    ;
    ; .db #level_separator
    ;================================================================================
-   ; Level 7
+   ; Level 8
    ;================================================================================
    ; .dw #_tilemap_05            ;Tilemap
    ; .db #level_new_entity
@@ -385,7 +425,7 @@ _level1:
    ;
    ; .db #level_separator
    ;================================================================================
-   ; Level 8
+   ; Level 9
    ;================================================================================
    ; .dw #_tilemap_03            ;Tilemap
    ; .db #level_new_entity
@@ -415,7 +455,7 @@ _level1:
    ;
    ; .db #level_separator
    ;================================================================================
-   ; Level 9
+   ; Level 10
    ;================================================================================
    ; .dw #_tilemap_06            ;Tilemap
    ; .db #level_new_entity
@@ -445,7 +485,7 @@ _level1:
    ;
    ; .db #level_separator
    ;================================================================================
-   ; Level 10
+   ; Level 11
    ;================================================================================
    ; .dw #_tilemap_0run            ;Tilemap
    ; .db #level_new_entity
@@ -475,7 +515,7 @@ _level1:
    ;
    ; .db #level_separator
    ;================================================================================
-   ; Level 11 SUS
+   ; Level 12 SUS
    ; ================================================================================
    ; .dw #_tilemap_0sus            ;Tilemap
    ; .db #level_new_entity
@@ -505,7 +545,7 @@ _level1:
    ;
    ; .db #level_separator
    ;================================================================================
-   ; Level 12
+   ; Level 13
    ;================================================================================
    ; .dw #_tilemap_02            ;Tilemap
    ; .db #level_new_entity
@@ -535,7 +575,7 @@ _level1:
    ;
    ; .db #level_separator
    ;================================================================================
-   ; Level 13
+   ; Level 14
    ;================================================================================
    ; .dw #_tilemap_07            ;Tilemap
    ; .db #level_new_entity
@@ -565,7 +605,7 @@ _level1:
    ;
    ; .db #level_separator
    ;================================================================================
-   ; Level 14
+   ; Level 15
    ;================================================================================
    ; .dw #_tilemap_04            ;Tilemap
    ; .db #level_new_entity
@@ -605,7 +645,7 @@ _level1:
    ;
    ; .db #level_separator
    ;================================================================================
-   ; Level 15
+   ; Level 16
    ;================================================================================
    ;; TODO: aqui puede pasar lo de pasar de level sin matar al spawner
    ; .dw #_tilemap_06            ;Tilemap
@@ -646,7 +686,7 @@ _level1:
    ; ;
    ; .db #level_separator
    ;================================================================================
-   ; Level 16 es jodido igual mas adelante
+   ; Level 17 es jodido igual mas adelante
    ;================================================================================
    ; .dw #_tilemap_05            ;Tilemap
    ; .db #level_new_entity
@@ -686,7 +726,7 @@ _level1:
    ;
    ; .db #level_separator
    ;================================================================================
-   ; Level 17
+   ; Level 18
    ;================================================================================
    .dw #_tilemap_09            ;Tilemap
    .db #level_new_entity
@@ -716,7 +756,7 @@ _level1:
 
    .db #level_separator
    ;================================================================================
-   ; 18 Level mas adelantes esmuy chungo
+   ; 19 Level mas adelantes esmuy chungo
    ;================================================================================
 
    .dw #_tilemap_04            ;Tilemap
@@ -767,7 +807,7 @@ _level1:
 
    .db #level_separator
    ;================================================================================
-   ; Level 19 tres rojos
+   ; Level 20 tres rojos
    ;================================================================================
    ; .dw #_tilemap_0run            ;Tilemap
    ; .db #level_new_entity
