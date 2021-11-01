@@ -578,6 +578,7 @@ bulletCollisionBehaviour::
 
     ld bc, #0x0001
     call _m_HUD_addPoints
+    ld a, #0x01
     call _m_HUD_renderScore
 
     ret
@@ -613,6 +614,7 @@ enemyBulletCollisionBehaviour::
     call _m_game_bulletDestroyed
     ld bc, #0x0001
     call _m_HUD_addPoints
+    ld a, #0x01
     call _m_HUD_renderScore
 
     call destroyPairOfEntities

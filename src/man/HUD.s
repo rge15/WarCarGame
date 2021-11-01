@@ -37,6 +37,10 @@ _m_HUD_scoreWidth:
 _m_HUD_scoreHeight:
     .db #0x08
 
+;; Descripcion: Posicion en la pantalla donde se va a imprimir la score
+_m_HUD_scorePosition:
+    .dw 1
+
 ;;Descripcion : Puntuacion jugador
 _m_playerScore:
    .ds 2
@@ -122,6 +126,7 @@ _m_HUD_initScore::
 ;===================================================================================================================================================
 _m_HUD_renderHUD::
     call _m_HUD_renderLifes
+    ld a, #0x01
     call _m_HUD_renderScore
     ret
 
@@ -138,35 +143,55 @@ _m_HUD_renderLifes::
 ;===================================================================================================================================================
 ; FUNCION _m_HUD_renderLifes
 ; Función encargada de renderizar las vidas
-; NO llega ningun dato
+;       - a = 1 -> Es para imprimir mid-game
+;       - a = 0 -> Es para imprimir al acabar partida
 ;===================================================================================================================================================
 _m_HUD_renderScore::
+    ;; Comprobamos de donde se llama la función
+    inc a
+    dec a
+    jp nz, _midGamePos
+
+    ld de, #0xC000
+    ld c, #0x1C    ;; X
+    ld b, #0x5C   ;; Y
+    call cpct_getScreenPtr_asm
+    jp _avoidMidGamePos
+
+    _midGamePos:
+    ld hl, #0xC0A8
+
+    _avoidMidGamePos:
+
+    ld (_m_HUD_scorePosition), hl
+
     ld hl , #_m_playerScore
     ld a, (hl)
     rra
     rra
     rra
     rra
-    PREPARE_SCORE_DIGIT_TO_RENDER 0xC0A8
-    ; and #0x0F
-    ; ld de, #0xD000
-    ; ld hl, #_m_HUD_scoreHeight
-    ; ld b, (hl)
-    ; ld hl, #_m_HUD_scoreWidth
-    ; ld c, (hl)
+    PREPARE_SCORE_DIGIT_TO_RENDER (_m_HUD_scorePosition)
+    ld hl, (_m_HUD_scorePosition)
+    inc hl
+    inc hl
+    inc hl
+    inc hl
+    ld (_m_HUD_scorePosition), hl
 
     call _sys_render_renderHUDScore
 
     ld hl , #_m_playerScore
     ld a, (hl)
     
-    PREPARE_SCORE_DIGIT_TO_RENDER 0xC0AC
-    ; and #0x0F
-    ; ld de, #0xD0B2
-    ; ld hl, #_m_HUD_scoreHeight
-    ; ld b, (hl)
-    ; ld hl, #_m_HUD_scoreWidth
-    ; ld c, (hl)
+    PREPARE_SCORE_DIGIT_TO_RENDER (_m_HUD_scorePosition)
+    ld hl, (_m_HUD_scorePosition)
+    inc hl
+    inc hl
+    inc hl
+    inc hl
+    ld (_m_HUD_scorePosition), hl
+    
 
     call _sys_render_renderHUDScore
     
@@ -177,13 +202,13 @@ _m_HUD_renderScore::
     rra
     rra
     rra
-    PREPARE_SCORE_DIGIT_TO_RENDER 0xC0B0
-    ; and #0x0F
-    ; ld de, #0xD0B4
-    ; ld hl, #_m_HUD_scoreHeight
-    ; ld b, (hl)
-    ; ld hl, #_m_HUD_scoreWidth
-    ; ld c, (hl)
+    PREPARE_SCORE_DIGIT_TO_RENDER (_m_HUD_scorePosition)
+    ld hl, (_m_HUD_scorePosition)
+    inc hl
+    inc hl
+    inc hl
+    inc hl
+    ld (_m_HUD_scorePosition), hl
 
     call _sys_render_renderHUDScore
 
@@ -191,39 +216,30 @@ _m_HUD_renderScore::
     ld hl , #_m_playerScore
     inc hl
     ld a, (hl)
-    ; rra
-    ; rra
-    ; rra
-    ; rra
-    PREPARE_SCORE_DIGIT_TO_RENDER 0xC0B4
-    ; and #0x0F
-    ; ld de, #0xD0B6
-    ; ld hl, #_m_HUD_scoreHeight
-    ; ld b, (hl)
-    ; ld hl, #_m_HUD_scoreWidth
-    ; ld c, (hl)
+
+    PREPARE_SCORE_DIGIT_TO_RENDER (_m_HUD_scorePosition)
+    ld hl, (_m_HUD_scorePosition)
+    inc hl
+    inc hl
+    inc hl
+    inc hl
+    ld (_m_HUD_scorePosition), hl
 
     call _sys_render_renderHUDScore
 
     ld a, #0x00
-    PREPARE_SCORE_DIGIT_TO_RENDER 0xC0B8
-    ; and #0x0F
-    ; ld de, #0xD0B6
-    ; ld hl, #_m_HUD_scoreHeight
-    ; ld b, (hl)
-    ; ld hl, #_m_HUD_scoreWidth
-    ; ld c, (hl)
+    PREPARE_SCORE_DIGIT_TO_RENDER (_m_HUD_scorePosition)
+    ld hl, (_m_HUD_scorePosition)
+    inc hl
+    inc hl
+    inc hl
+    inc hl
+    ld (_m_HUD_scorePosition), hl
 
     call _sys_render_renderHUDScore
 
     ld a, #0x00
-    PREPARE_SCORE_DIGIT_TO_RENDER 0xC0BC
-    ; and #0x0F
-    ; ld de, #0xD0B6
-    ; ld hl, #_m_HUD_scoreHeight
-    ; ld b, (hl)
-    ; ld hl, #_m_HUD_scoreWidth
-    ; ld c, (hl)
+    PREPARE_SCORE_DIGIT_TO_RENDER (_m_HUD_scorePosition)
 
     call _sys_render_renderHUDScore
 

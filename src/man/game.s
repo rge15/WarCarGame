@@ -12,6 +12,7 @@
 .include "assets/music/ArcadeGameSong.h.s"
 .include "assets/compress/screenmenu.h.s"
 .include "assets/compress/screenend.h.s"
+.include "assets/compress/screenvictory.h.s"
  
 .include "sys/render.h.s"
 .include "sys/ai.h.s"
@@ -140,12 +141,6 @@ _m_game_play::
 ;Pantalla inicio
 ;==================
 startGame:
-   ;TODO : Hacer una pantalla de inicio bonica y cargarla aquí
-   
-   SET_TILESET _tileset_00
-   SET_TILEMAP _tilemap_00
-
-   call _sys_render_renderTileMap
 
    call _m_game_StartMenu
 
@@ -172,6 +167,8 @@ call _man_entityInit
 call _man_game_loadLevel
 call _sys_render_renderTileMap
 call _m_HUD_renderLifes
+
+ld a, #0x01
 call _m_HUD_renderScore
 
 ;==================
@@ -223,7 +220,8 @@ ei
    ld de, #0xFFFF
    call cpct_zx7b_decrunch_s_asm
 
-   ; cpctm_clearScreen_asm 0
+   ld a, #0x00
+   call _m_HUD_renderScore
    
    ld hl, #Key_Return
    call waitKeyPressed
@@ -235,7 +233,13 @@ ei
    ;TODO : Hacer una pantalla de victoria bonica y cargarla aquí
    cpctm_clearScreen_asm 0
 
-   LOAD_PNG_TO_SCREEN #0x09, #0x18, #0x3E, #0x16, #_nextStage
+   ld hl, #_screenvictory_end
+   ld de, #0xFFFF
+   call cpct_zx7b_decrunch_s_asm
+
+   ld a, #0x00
+   call _m_HUD_renderScore
+
    
    ld hl, #Key_Return
    call waitKeyPressed
@@ -687,6 +691,7 @@ _man_game_decreaseEnemyCounter::
    dec (hl)
    ld bc, #0x0002
    call _m_HUD_addPoints
+   ld a, #0x01
    call _m_HUD_renderScore
    ret
 
