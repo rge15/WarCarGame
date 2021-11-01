@@ -123,33 +123,33 @@ _level1:
    ; Level 1
    ; ================================================================================
    
-   .dw #_tilemap_01            ;Tilemap
-   .db #level_new_entity
-   .dw #t_player
-   .db #38                   ;Entity X
-   .db #176                   ;Entity Y
-
-   .db #level_new_entity
-   .dw #t_enemy_basic_green
-   .db #8
-   .db #56
-   .dw #_sys_ai_behaviourPatrol
-   .db #0                                 ; e_ai_aux_l
-   .db #0
-   .dw #patrol_01
-   .dw #enemy_no_shoot
-
-   .db #level_new_entity
-   .dw #t_enemy_basic_green
-   .db #64
-   .db #56
-   .dw #_sys_ai_behaviourPatrol
-   .db #0                                 ; e_ai_aux_l
-   .db #0
-   .dw #patrol_02
-   .dw #enemy_no_shoot
-
-   .db #level_separator
+   ; .dw #_tilemap_01            ;Tilemap
+   ; .db #level_new_entity
+   ; .dw #t_player
+   ; .db #38                   ;Entity X
+   ; .db #176                   ;Entity Y
+   ;
+   ; .db #level_new_entity
+   ; .dw #t_enemy_basic_green
+   ; .db #8
+   ; .db #56
+   ; .dw #_sys_ai_behaviourPatrol
+   ; .db #0                                 ; e_ai_aux_l
+   ; .db #0
+   ; .dw #patrol_01
+   ; .dw #enemy_no_shoot
+   ;
+   ; .db #level_new_entity
+   ; .dw #t_enemy_basic_green
+   ; .db #64
+   ; .db #56
+   ; .dw #_sys_ai_behaviourPatrol
+   ; .db #0                                 ; e_ai_aux_l
+   ; .db #0
+   ; .dw #patrol_02
+   ; .dw #enemy_no_shoot
+   ;
+   ; .db #level_separator
    ;================================================================================
    ; Level 2
    ;================================================================================
@@ -435,7 +435,37 @@ _level1:
    ;
    ; .db #level_separator
    ;================================================================================
-   ; Level 10
+   ; Level 10 SUS
+   ; ================================================================================
+   .dw #_tilemap_0sus            ;Tilemap
+   .db #level_new_entity
+   .dw #t_player
+   .db #26                   ;Entity X
+   .db #72                   ;Entity Y
+
+   .db #level_new_entity
+   .dw #t_spawner_from_template_01
+   .db #54
+   .db #176
+   .dw #_sys_ai_behaviourSpawner_template
+   .db #0                                 ; e_ai_aux_l
+   .db #0                                 ; e_ai_aux_h
+   .dw #t_es_05
+   .dw #enemy_no_shoot
+
+   .db #level_new_entity
+   .dw #t_spawner_from_template_01
+   .db #20
+   .db #140
+   .dw #_sys_ai_behaviourSpawner_template
+   .db #0                                 ; e_ai_aux_l
+   .db #0                                 ; e_ai_aux_h
+   .dw #t_es_06
+   .dw #enemy_no_shoot
+
+   .db #level_separator
+   ;================================================================================
+   ; Level 11
    ;================================================================================
    ; .dw #_tilemap_02            ;Tilemap
    ; .db #level_new_entity
@@ -465,37 +495,37 @@ _level1:
    ;
    ; .db #level_separator
    ;================================================================================
-   ; Level 11
-   ;================================================================================
-   ; .dw #_tilemap_07            ;Tilemap
-   ; .db #level_new_entity
-   ; .dw #t_player
-   ; .db #10
-   ; .db #56
-   ;
-   ; .db #level_new_entity
-   ; .dw #t_spawner_from_template_01
-   ; .db #54
-   ; .db #80
-   ; .dw #_sys_ai_behaviourSpawner_plist
-   ; .db #00                                 ; e_ai_aux_l
-   ; .db #00                                 ; e_ai_aux_h
-   ; .dw #spawner_plist_02
-   ; .dw #enemy_no_shoot
-   ;
-   ; .db #level_new_entity
-   ; .dw #t_enemy_basic_purple
-   ; .db #28
-   ; .db #160
-   ; .dw #_sys_ai_beh_follow_player_x
-   ; .db #5
-   ; .db #16
-   ; .dw #patrol_all_game_zone_0m
-   ; .dw #_sys_ai_beh_shoot_y
-   ;
-   ; .db #level_separator
-   ;================================================================================
    ; Level 12
+   ;================================================================================
+   .dw #_tilemap_07            ;Tilemap
+   .db #level_new_entity
+   .dw #t_player
+   .db #10
+   .db #56
+
+   .db #level_new_entity
+   .dw #t_spawner_from_template_01
+   .db #54
+   .db #80
+   .dw #_sys_ai_behaviourSpawner_plist
+   .db #00                                 ; e_ai_aux_l
+   .db #00                                 ; e_ai_aux_h
+   .dw #spawner_plist_02
+   .dw #enemy_no_shoot
+
+   .db #level_new_entity
+   .dw #t_enemy_basic_purple
+   .db #28
+   .db #160
+   .dw #_sys_ai_beh_follow_player_x
+   .db #5
+   .db #16
+   .dw #patrol_all_game_zone_0m
+   .dw #_sys_ai_beh_shoot_y
+
+   .db #level_separator
+   ;================================================================================
+   ; Level 13
    ;================================================================================
    ; .dw #_tilemap_04            ;Tilemap
    ; .db #level_new_entity
@@ -535,48 +565,48 @@ _level1:
    ;
    ; .db #level_separator
    ;================================================================================
-   ; Level 12b
+   ; Level 14
    ;================================================================================
    ;; TODO: aqui puede pasar lo de pasar de level sin matar al spawner
-   .dw #_tilemap_06            ;Tilemap
-   .db #level_new_entity
-   .dw #t_player
-   .db #4
-   .db #48
-
-   .db #level_new_entity
-   .dw #t_spawner_from_template_01
-   .db #4
-   .db #174
-   .dw #_sys_ai_behaviourSpawner_template
-   .db #00                                 ; e_ai_aux_l
-   .db #00                                 ; e_ai_aux_h
-   .dw #t_es_04
-   .dw #enemy_no_shoot
-
-   .db #level_new_entity
-   .dw #t_enemy_basic_purple
-   .db #48
-   .db #48
-   .dw #_sys_ai_beh_follow_player_y
-   .db #t_follow_timer                                 ; e_ai_aux_l
-   .db #t_follow_timer                                 ; e_ai_aux_h
-   .dw #0
-   .dw #_sys_ai_beh_shoot_x_f
-
-   .db #level_new_entity
-   .dw #t_enemy_basic_green
-   .db #4
-   .db #136
-   .dw #_sys_ai_behaviourPatrolRelative
-   .db #4                                 ; e_ai_aux_l
-   .db #136                                 ; e_ai_aux_h
-   .dw #patrol_relative_x_36
-   .dw #enemy_no_shoot
+   ; .dw #_tilemap_06            ;Tilemap
+   ; .db #level_new_entity
+   ; .dw #t_player
+   ; .db #4
+   ; .db #48
    ;
-   .db #level_separator
+   ; .db #level_new_entity
+   ; .dw #t_spawner_from_template_01
+   ; .db #4
+   ; .db #174
+   ; .dw #_sys_ai_behaviourSpawner_template
+   ; .db #00                                 ; e_ai_aux_l
+   ; .db #00                                 ; e_ai_aux_h
+   ; .dw #t_es_04
+   ; .dw #enemy_no_shoot
+   ;
+   ; .db #level_new_entity
+   ; .dw #t_enemy_basic_purple
+   ; .db #48
+   ; .db #48
+   ; .dw #_sys_ai_beh_follow_player_y
+   ; .db #t_follow_timer                                 ; e_ai_aux_l
+   ; .db #t_follow_timer                                 ; e_ai_aux_h
+   ; .dw #0
+   ; .dw #_sys_ai_beh_shoot_x_f
+   ;
+   ; .db #level_new_entity
+   ; .dw #t_enemy_basic_green
+   ; .db #4
+   ; .db #136
+   ; .dw #_sys_ai_behaviourPatrolRelative
+   ; .db #4                                 ; e_ai_aux_l
+   ; .db #136                                 ; e_ai_aux_h
+   ; .dw #patrol_relative_x_36
+   ; .dw #enemy_no_shoot
+   ; ;
+   ; .db #level_separator
    ;================================================================================
-   ; Level 13 es jodido igual mas adelante
+   ; Level 15 es jodido igual mas adelante
    ;================================================================================
    ; .dw #_tilemap_05            ;Tilemap
    ; .db #level_new_entity
@@ -616,7 +646,7 @@ _level1:
    ;
    ; .db #level_separator
    ;================================================================================
-   ; 13 Level mas adelantes esmuy chungo
+   ; 16 Level mas adelantes esmuy chungo
    ;================================================================================
 
    ; 4 zonas de gamezone
@@ -669,37 +699,47 @@ _level1:
    ;
    ;
    ; .db #level_separator
-   ; ;================================================================================
-   ; ; Level SUS
-   ; ;================================================================================
-   ; .dw #_tilemap_0sus            ;Tilemap
-   ; .db #level_new_entity
-   ; .dw #t_player
-   ; .db #26                   ;Entity X
-   ; .db #72                   ;Entity Y
-   ;
-   ; .db #level_new_entity
-   ; .dw #t_enemy_basic_red
-   ; .db #54
-   ; .db #156
-   ; .dw #_sys_ai_behaviourSeekAndPatrol
-   ; .db #t_follow_timer                                 ; e_ai_aux_l
-   ; .db #15
-   ; .dw #patrol_seeknpatrol_01
-   ; .dw #_sys_ai_beh_shoot_xy_rand
-   ;
-   ; .db #level_new_entity
-   ; .dw #t_enemy_basic_green
-   ; .db #26
-   ; .db #140
-   ; .dw #_sys_ai_behaviourPatrolRelative
-   ; .db #26
-   ; .db #140
-   ; .dw #patrol_relative_x_36
-   ; .dw #_sys_ai_beh_shoot_y_f
-   ;
-   ; .db #level_separator
-   ; ;================================================================================
-   ; ; GAME END
-   ; ;================================================================================
+   ;================================================================================
+   ; Level 17 tres rojos
+   ;================================================================================
+   .dw #_tilemap_0run            ;Tilemap
+   .db #level_new_entity
+   .dw #t_player
+   .db #12
+   .db #104
+
+   .db #level_new_entity
+   .dw #t_enemy_basic_red
+   .db #70
+   .db #176
+   .dw #_sys_ai_behaviourSeekAndPatrol
+   .db #25
+   .db #25
+   .dw #patrol_seeknpatrol_01
+   .dw #_sys_ai_beh_shoot_seekplayer
+
+   .db #level_new_entity
+   .dw #t_enemy_basic_red
+   .db #54
+   .db #176
+   .dw #_sys_ai_behaviourSeekAndPatrol
+   .db #25
+   .db #25
+   .dw #patrol_seeknpatrol_02
+   .dw #_sys_ai_beh_shoot_xy_rand
+
+   .db #level_new_entity
+   .dw #t_enemy_basic_red
+   .db #4
+   .db #176
+   .dw #_sys_ai_behaviourSeekAndPatrol
+   .db #25
+   .db #25
+   .dw #patrol_relative_around_01
+   .dw #enemy_no_shoot
+
+   .db #level_separator
+   ;================================================================================
+   ; GAME END
+   ;================================================================================
    .db #level_separator

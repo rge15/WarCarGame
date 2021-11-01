@@ -32,6 +32,7 @@
 .globl t_enemy_patrol_relative_01
 .globl t_enemy_patrol_relative_02
 .globl t_enemy_seeknpatrol
+.globl t_enemy_seeknpatrol_02
 .globl t_enemy_patrol_01
 .globl t_enemy_patrol_x_shoot_y
 
@@ -51,6 +52,8 @@
 .globl t_es_02
 .globl t_es_03
 .globl t_es_04
+.globl t_es_05
+.globl t_es_06
 
 .globl t_enemy_testing
 .globl t_enemy_testing2

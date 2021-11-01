@@ -249,9 +249,10 @@ spawner_plist_01:
 
 ; pasa del primero
 spawner_plist_02:
-   ; .dw #t_es_01
+   .dw #t_es_03
    .dw #t_es_01
    .dw #t_es_02
+   .dw #t_es_03
    .dw #t_es_02
    .dw #0x0000
    .db #patrol_invalid_move
@@ -261,6 +262,14 @@ spawner_plist_02:
 spawner_plist_03:
    .dw #t_enemy_patrol_game_zone
    .dw #t_enemy_patrol_game_zone_i
+   .dw #t_enemy_seeknpatrol
+   .dw #0x0000
+   .dw #patrol_invalid_move
+
+spawner_plist_04:
+   .dw #t_es_06
+   .dw #t_enemy_seeknpatrol
+   .dw #t_es_06
    .dw #t_enemy_seeknpatrol
    .dw #0x0000
    .dw #patrol_invalid_move
