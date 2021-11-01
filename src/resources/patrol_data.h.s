@@ -9,6 +9,8 @@
 .globl patrol_08
 .globl patrol_09
 
+.globl patrol_11
+
 .globl patrol_none
 .globl patrol_x_50_20
 .globl patrol_y_50_120
