@@ -61,6 +61,7 @@
 .globl t_es_06
 .globl t_es_07
 .globl t_es_08
+.globl t_es_09
 
 .globl t_enemy_testing
 .globl t_enemy_testing2

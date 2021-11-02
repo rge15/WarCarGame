@@ -859,31 +859,94 @@ _level1:
    ;================================================================================
    ; Level 22
    ;================================================================================
-   .dw #_tilemap_05            ;Tilemap
+   ; .dw #_tilemap_05            ;Tilemap
+   ; .db #level_new_entity
+   ; .dw #t_player
+   ; .db #36                   ;Entity X
+   ; .db #176                   ;Entity Y
+   ;
+   ; .db #level_new_entity
+   ; .dw #t_spawner_from_template_01
+   ; .db #36
+   ; .db #108
+   ; .dw #_sys_ai_behaviourSpawner_plist
+   ; .db #00                                 ; e_ai_aux_l
+   ; .db #00                                 ; e_ai_aux_h
+   ; .dw #spawner_plist_06
+   ; .dw #enemy_no_shoot
+   ;
+   ; .db #level_new_entity
+   ; .dw #t_es_07
+   ; .db #36
+   ; .db #108
+   ; .dw #_sys_ai_behaviourPatrolRelative
+   ; .db #36                                 ; e_ai_aux_l
+   ; .db #108                                 ; e_ai_aux_h
+   ; .dw #patrol_relative_around_01
+   ; .dw #_sys_ai_beh_shoot_d
+   ;
+   ; .db #level_separator
+   ;================================================================================
+   ; Level 23
+   ;================================================================================
+   ; .dw #_tilemap_01            ;Tilemap
+   ; .db #level_new_entity
+   ; .dw #t_player
+   ; .db #4                   ;Entity X
+   ; .db #176                   ;Entity Y
+   ;
+   ; .db #level_new_entity
+   ; .dw #t_spawner_from_template_01
+   ; .db #36
+   ; .db #108
+   ; .dw #_sys_ai_behaviourSpawner_template
+   ; .db #00                                 ; e_ai_aux_l
+   ; .db #00                                 ; e_ai_aux_h
+   ; .dw #t_es_08
+   ; .dw #enemy_no_shoot
+   ;
+   ; .db #level_new_entity
+   ; .dw #t_es_07
+   ; .db #36
+   ; .db #108
+   ; .dw #_sys_ai_behaviourPatrolRelative
+   ; .db #36                                 ; e_ai_aux_l
+   ; .db #108                                 ; e_ai_aux_h
+   ; .dw #patrol_relative_around_01
+   ; .dw #_sys_ai_beh_shoot_d
+   ;
+   ; .db #level_separator
+   ;================================================================================
+   ; Level 24 FINAL
+   ;================================================================================
+   .dw #_tilemap_01            ;Tilemap
    .db #level_new_entity
    .dw #t_player
-   .db #36                   ;Entity X
-   .db #176                   ;Entity Y
+   .db #4                   ;Entity X
+   .db #104                   ;Entity Y
 
+   ; a ver en realidad hay probabilidad de que cuando mates a un spawner
+   ; el otro saque 3 enemigos, pero para ese momento ya estas muerto o sea que no 
+   ; pasa nada
    .db #level_new_entity
    .dw #t_spawner_from_template_01
-   .db #36
-   .db #108
-   .dw #_sys_ai_behaviourSpawner_plist
+   .db #70
+   .db #176
+   .dw #_sys_ai_behaviourSpawner_template_f
    .db #00                                 ; e_ai_aux_l
    .db #00                                 ; e_ai_aux_h
-   .dw #spawner_plist_06
+   .dw #t_es_08
    .dw #enemy_no_shoot
 
    .db #level_new_entity
-   .dw #t_es_07
-   .db #36
-   .db #108
-   .dw #_sys_ai_behaviourPatrolRelative
-   .db #36                                 ; e_ai_aux_l
-   .db #108                                 ; e_ai_aux_h
-   .dw #patrol_relative_around_01
-   .dw #_sys_ai_beh_shoot_d
+   .dw #t_spawner_from_template_01
+   .db #70
+   .db #48
+   .dw #_sys_ai_behaviourSpawner_template_f
+   .db #00                                 ; e_ai_aux_l
+   .db #00                                 ; e_ai_aux_h
+   .dw #t_es_09
+   .dw #enemy_no_shoot
 
    .db #level_separator
    ;================================================================================
