@@ -283,6 +283,8 @@ _m_game_playerShot::
    push de     ;; guardamos la primera pos del array de la bala
 
    ;; Sacamos la pos del player en el array de entidades
+   push ix
+   pop iy
    GET_PLAYER_ENTITY ix
    ; ld hl, #_m_playerEntity
    ; ld d, (hl)
@@ -346,6 +348,10 @@ _m_game_playerShot::
       ld a, e_ypos(ix)
       add a, #0x03
       ld e_ypos(ix), a
+
+      ld a, e_xpos(ix)
+      add a, #0x3
+      ld e_xpos(ix), a
       jp stopCheckOrientation
 
    downOrientation:
@@ -356,7 +362,7 @@ _m_game_playerShot::
       ld e_heigth(ix), #0x08
       
       ld a, e_ypos(ix)
-      add a, #0x2
+      add a, #0xc
       ld e_ypos(ix), a
       ld a, e_xpos(ix)
       add a, #0x01
@@ -376,8 +382,9 @@ _m_game_playerShot::
       ld a, e_ypos(ix)
       add a, #0x03
       ld e_ypos(ix), a
+
       ld a, e_xpos(ix)
-      add a, #0x01
+      sub a, #0x02
       ld e_xpos(ix), a
 
       ld hl, #_vBullet_0
@@ -396,7 +403,8 @@ _m_game_playerShot::
       ld e_heigth(ix), #0x08
       
       ld a, e_ypos(ix)
-      add a, #0x02
+      ; add a, #0x02
+      sub a, #0x8
       ld e_ypos(ix), a
       ld a, e_xpos(ix)
       add a, #0x01
