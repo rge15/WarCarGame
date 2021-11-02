@@ -556,22 +556,22 @@ _level1:
    ;
    ; .db #level_new_entity
    ; .dw #t_spawner_from_template_01
-   ; .db #54
-   ; .db #176
-   ; .dw #_sys_ai_behaviourSpawner_template
-   ; .db #0                                 ; e_ai_aux_l
-   ; .db #0                                 ; e_ai_aux_h
-   ; .dw #t_es_05
-   ; .dw #enemy_no_shoot
-   ;
-   ; .db #level_new_entity
-   ; .dw #t_spawner_from_template_01
    ; .db #20
    ; .db #140
    ; .dw #_sys_ai_behaviourSpawner_template
    ; .db #0                                 ; e_ai_aux_l
    ; .db #0                                 ; e_ai_aux_h
    ; .dw #t_es_06
+   ; .dw #enemy_no_shoot
+   ;
+   ; .db #level_new_entity
+   ; .dw #t_spawner_from_template_01
+   ; .db #54
+   ; .db #176
+   ; .dw #_sys_ai_behaviourSpawner_template_f
+   ; .db #0                                 ; e_ai_aux_l
+   ; .db #0                                 ; e_ai_aux_h
+   ; .dw #t_es_05
    ; .dw #enemy_no_shoot
    ;
    ; .db #level_separator
@@ -926,8 +926,8 @@ _level1:
    .db #104                   ;Entity Y
 
    ; a ver en realidad hay probabilidad de que cuando mates a un spawner
-   ; el otro saque 3 enemigos, pero para ese momento ya estas muerto o sea que no 
-   ; pasa nada
+   ; el otro saque 3 enemigos y se realentice el juego, pero para ese momento ya
+   ; estas muerto o sea que no pasa nada
    .db #level_new_entity
    .dw #t_spawner_from_template_01
    .db #70
