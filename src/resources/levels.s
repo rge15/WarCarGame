@@ -118,6 +118,26 @@ _level1:
    ;
    ; .db #level_separator
 
+   ; ================================================================================
+   ; Level numbers test
+   ; ================================================================================
+   ; .dw #_tilemap_01decoration
+   ; .db #level_new_entity
+   ; .dw #t_player
+   ; .db #38                   ;Entity X
+   ; .db #160                   ;Entity Y
+   ;
+   ; .db #level_new_entity
+   ; .dw #t_enemy_basic_green
+   ; .db #38
+   ; .db #136
+   ; .dw #enemy_no_move
+   ; .db #0                                 ; e_ai_aux_l
+   ; .db #0
+   ; .dw #patrol_01
+   ; .dw #enemy_no_shoot
+   ;
+   ; .db #level_separator
    ;
    ; ; ================================================================================
    ; ; Level 1
