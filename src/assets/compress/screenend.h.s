@@ -2,8 +2,8 @@
 ;; Compresor used:   zx7b
 ;; Files compressed: [ 'src/assets/sprites/GameEnd.bin' ]
 ;; Uncompressed:     16384 bytes
-;; Compressed:       1386 bytes
-;; Space saved:      14998 bytes
+;; Compressed:       1486 bytes
+;; Space saved:      14898 bytes
 ;;
 
 ;; Declaration of the compressed array and
@@ -12,7 +12,7 @@
 .globl _screenend_end
 
 ;; Compressed and uncompressed sizes
-_screenend_size_z == 1386
+_screenend_size_z == 1486
 _screenend_size   == 16384
 
 

@@ -294,7 +294,7 @@ _m_game_playerShot::
    sub b
    ret NZ ;; Si ha disparado se sale de la etiqueta
 
-
+   
    CREATE_ENTITY_FROM_TEMPLATE t_bullet_player
    ;; HL es la primera pos del array de la bala
    ex de, hl   ;; de = hl

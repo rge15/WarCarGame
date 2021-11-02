@@ -136,6 +136,10 @@ _sys_input_updateOneEntity::
         jp stopCheckMovement
 
     spacePressed:
+        ld a, #0x00
+        ld e_vx(ix), a
+        ld a, #0x00
+        ld e_vy(ix), a   
         call _m_game_playerShot
         jp stopCheckMovement
 

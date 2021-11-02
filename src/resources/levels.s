@@ -166,8 +166,8 @@ _level1:
    .dw #__tilemap_01controls
    .db #level_new_entity
    .dw #t_player
-   .db #10                   ;Entity X
-   .db #125                   ;Entity Y
+   .db #38                   ;Entity X
+   .db #160                   ;Entity Y                  ;Entity Y
 
    .db #level_new_entity
    .dw #t_enemy_basic_green
@@ -177,16 +177,6 @@ _level1:
    .db #0                                 ; e_ai_aux_l
    .db #0
    .dw #patrol_01
-   .dw #enemy_no_shoot
-
-   .db #level_new_entity
-   .dw #t_enemy_basic_green
-   .db #64
-   .db #56
-   .dw #_sys_ai_behaviourPatrol
-   .db #0                                 ; e_ai_aux_l
-   .db #0
-   .dw #patrol_02
    .dw #enemy_no_shoot
 
    .db #level_separator

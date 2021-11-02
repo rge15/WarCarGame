@@ -2,8 +2,8 @@
 ;; Compresor used:   zx7b
 ;; Files compressed: [ 'src/assets/sprites/victoryScreen.bin' ]
 ;; Uncompressed:     16384 bytes
-;; Compressed:       1589 bytes
-;; Space saved:      14795 bytes
+;; Compressed:       1665 bytes
+;; Space saved:      14719 bytes
 ;;
 
 ;; Declaration of the compressed array and
@@ -12,7 +12,7 @@
 .globl _screenvictory_end
 
 ;; Compressed and uncompressed sizes
-_screenvictory_size_z == 1589
+_screenvictory_size_z == 1665
 _screenvictory_size   == 16384
 
 
