@@ -16,6 +16,7 @@
 .globl cpct_akp_musicPlay_asm
 .globl cpct_zx7b_decrunch_s_asm
 
+.globl cpct_drawCharM2_asm
 
 
 ;; TODO: estos van en render
