@@ -123,64 +123,64 @@ _level1:
    ; ; Level 1
    ; ; ================================================================================
    ;
-   ; .dw #_tilemap_01decoration
-   ; .db #level_new_entity
-   ; .dw #t_player
-   ; .db #38                   ;Entity X
-   ; .db #160                   ;Entity Y
-   ;
-   ; .db #level_new_entity
-   ; .dw #t_enemy_basic_green
-   ; .db #8
-   ; .db #56
-   ; .dw #_sys_ai_behaviourPatrol
-   ; .db #0                                 ; e_ai_aux_l
-   ; .db #0
-   ; .dw #patrol_01
-   ; .dw #enemy_no_shoot
-   ;
-   ; .db #level_new_entity
-   ; .dw #t_enemy_basic_green
-   ; .db #64
-   ; .db #56
-   ; .dw #_sys_ai_behaviourPatrol
-   ; .db #0                                 ; e_ai_aux_l
-   ; .db #0
-   ; .dw #patrol_02
-   ; .dw #enemy_no_shoot
-   ;
-   ; .db #level_separator
-   ; ;================================================================================
-   ; ; Level 2
-   ; ;================================================================================
-   ;
-   ; .dw #_tilemap_01decoration
-   ; .db #level_new_entity
-   ; .dw #t_player
-   ; .db #36                   ;Entity X
-   ; .db #112                   ;Entity Y
-   ;
-   ; .db #level_new_entity
-   ; .dw #t_enemy_basic_blue
-   ; .db #16
-   ; .db #168
-   ; .dw #_sys_ai_behaviourPatrolRelative
-   ; .db #16                                 ; e_ai_aux_l
-   ; .db #168
-   ; .dw #patrol_relative_x_36
-   ; .dw #_sys_ai_beh_shoot_y
-   ;
-   ; .db #level_new_entity
-   ; .dw #t_enemy_basic_green
-   ; .db #40
-   ; .db #56
-   ; .dw #_sys_ai_behaviourPatrol
-   ; .db #0                                 ; e_ai_aux_l
-   ; .db #0
-   ; .dw #patrol_06
-   ; .dw #enemy_no_shoot
-   ;
-   ; .db #level_separator
+   .dw #_tilemap_01decoration
+   .db #level_new_entity
+   .dw #t_player
+   .db #38                   ;Entity X
+   .db #160                   ;Entity Y
+
+   .db #level_new_entity
+   .dw #t_enemy_basic_green
+   .db #8
+   .db #56
+   .dw #_sys_ai_behaviourPatrol
+   .db #0                                 ; e_ai_aux_l
+   .db #0
+   .dw #patrol_01
+   .dw #enemy_no_shoot
+
+   .db #level_new_entity
+   .dw #t_enemy_basic_green
+   .db #64
+   .db #56
+   .dw #_sys_ai_behaviourPatrol
+   .db #0                                 ; e_ai_aux_l
+   .db #0
+   .dw #patrol_02
+   .dw #enemy_no_shoot
+
+   .db #level_separator
+   ;================================================================================
+   ; Level 2
+   ;================================================================================
+
+   .dw #_tilemap_01decoration
+   .db #level_new_entity
+   .dw #t_player
+   .db #36                   ;Entity X
+   .db #112                   ;Entity Y
+
+   .db #level_new_entity
+   .dw #t_enemy_basic_blue
+   .db #16
+   .db #168
+   .dw #_sys_ai_behaviourPatrolRelative
+   .db #16                                 ; e_ai_aux_l
+   .db #168
+   .dw #patrol_relative_x_36
+   .dw #_sys_ai_beh_shoot_y
+
+   .db #level_new_entity
+   .dw #t_enemy_basic_green
+   .db #40
+   .db #56
+   .dw #_sys_ai_behaviourPatrol
+   .db #0                                 ; e_ai_aux_l
+   .db #0
+   .dw #patrol_06
+   .dw #enemy_no_shoot
+
+   .db #level_separator
    ; ; ================================================================================
    ; ; Level 3
    ; ; ================================================================================

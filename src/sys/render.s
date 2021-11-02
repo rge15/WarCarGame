@@ -313,6 +313,28 @@ _sys_render_renderHUDScore::
 
     ret
 
+
+_sys_render_level_counter:
+
+   ld de, #0xC000
+   ld c, #0x22
+   ld b, #0x34
+   call cpct_getScreenPtr_asm
+
+   ex de, hl
+
+   ; ld hl, #_spriteScore_00
+   ; ld c, #4
+   ; ld b, #8
+
+   ld hl, #_numback
+   ld c, #12
+   ld b, #16
+
+   call cpct_drawSprite_asm
+
+   ret
+
 ;===================================================================================================================================================
 ; FUNCION _m_game_StartMenu   
 ; Funcion que renderiza los items de los menus que le llegan

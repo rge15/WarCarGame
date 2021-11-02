@@ -61,3 +61,5 @@
 .globl _ovni_bullet_1
 
 .globl _nextStage
+
+.globl _numback

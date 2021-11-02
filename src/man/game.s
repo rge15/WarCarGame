@@ -213,14 +213,6 @@ ei
    ld a, #0x00
    call _m_HUD_renderScore
 
-   ld de, #0xC000
-   ld hl, #_spriteScore_09
-   ld bc, #0x1010
-
-   call cpct_drawSprite_asm
-
-   ; imprimir en algun lado _m_current_level_counter !!
-
    ld hl, #Key_Return
    call waitKeyPressed
    cpctm_clearScreen_asm 0
@@ -654,6 +646,8 @@ _man_game_updateGameStatus::
 
    ;; Dibujamos el sprite para pasar de lvl
    LOAD_PNG_TO_SCREEN #0x09, #0x48, #0x3E, #0x2C, #_nextStage
+
+   call _sys_render_level_counter
 
    ld hl, #Key_Return
    call waitKeyPressed

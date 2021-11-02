@@ -80,6 +80,8 @@ $(eval $(call IMG2SP, SET_FOLDER      , src/assets/sprites               ))
 $(eval $(call IMG2SP, SET_IMG_FORMAT  , sprites            )) #	{ sprites, zgtiles, screen }
 $(eval $(call IMG2SP, CONVERT         , assets/png/nextStage.png , 124, 44, nextStage,,))
 
+$(eval $(call IMG2SP, CONVERT         , assets/png/numback.png , 24, 16, numback,,))
+
 ## ========== PNG ENTEROS ========== 
 $(eval $(call IMG2SP, SET_IMG_FORMAT  , screen  ))
 $(eval $(call IMG2SP, SET_OUTPUT      , bin ))

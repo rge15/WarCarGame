@@ -10,3 +10,5 @@
 .globl _sys_render_renderHUDLifes
 .globl _sys_render_renderHUDScore
 .globl _renderMenuItems
+
+.globl _sys_render_level_counter
