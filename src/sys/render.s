@@ -314,8 +314,12 @@ _sys_render_renderHUDScore::
     ret
 
 
+lvl_ctr_x = #0x24
+lvl_ctr_y = #0x38
+
 _sys_render_level_counter:
 
+   ; base
    ld de, #0xC000
    ld c, #0x22
    ld b, #0x34
@@ -323,14 +327,35 @@ _sys_render_level_counter:
 
    ex de, hl
 
-   ; ld hl, #_spriteScore_00
-   ; ld c, #4
-   ; ld b, #8
-
    ld hl, #_numback
    ld c, #12
    ld b, #16
+   call cpct_drawSprite_asm
 
+   ; numeros
+
+   ; primero
+   ld de, #0xC000
+   ld c, #lvl_ctr_x
+   ld b, #lvl_ctr_y
+   call cpct_getScreenPtr_asm
+   ex de, hl
+
+   ld hl, #_spriteScore_00
+   ld c, #4
+   ld b, #8
+   call cpct_drawSprite_asm
+
+   ; segundo
+   ld de, #0xC000
+   ld c, #lvl_ctr_x+4
+   ld b, #lvl_ctr_y
+   call cpct_getScreenPtr_asm
+   ex de, hl
+
+   ld hl, #_spriteScore_00
+   ld c, #4
+   ld b, #8
    call cpct_drawSprite_asm
 
    ret
