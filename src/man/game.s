@@ -630,9 +630,7 @@ _man_game_updateGameStatus::
    jp victoryScreen
    
    nextLevel:
-   ; call _m_game_inc_level_counter
-   ld hl, #_m_current_level_counter
-   inc (hl)
+   call _m_game_inc_level_counter
 
    ;TODO : Meter aquñi el sprite de " Ready?" 
    call _m_HUD_saveScore
@@ -718,4 +716,5 @@ _m_game_restart_level_counter:
 _m_game_inc_level_counter:
    ld hl, #_m_current_level_counter
    inc (hl)
+
    ret

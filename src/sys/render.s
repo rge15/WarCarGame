@@ -317,6 +317,9 @@ _sys_render_renderHUDScore::
 lvl_ctr_x = #0x24
 lvl_ctr_y = #0x38
 
+lvl_ctr_sprite_1: .dw #_spriteScore_02
+lvl_ctr_sprite_2: .dw #_spriteScore_01
+
 _sys_render_level_counter:
 
    ; base
@@ -341,19 +344,38 @@ _sys_render_level_counter:
    call cpct_getScreenPtr_asm
    ex de, hl
 
-   ld hl, #_spriteScore_00
+   ; cargar de variable
+   push de
+   ld de, #lvl_ctr_sprite_1
+   ld a, (de)
+   ld l, a
+   inc de
+   ld a, (de)
+   ld h, a
+   pop de
+
    ld c, #4
    ld b, #8
    call cpct_drawSprite_asm
 
    ; segundo
+
    ld de, #0xC000
    ld c, #lvl_ctr_x+4
    ld b, #lvl_ctr_y
    call cpct_getScreenPtr_asm
    ex de, hl
 
-   ld hl, #_spriteScore_00
+   ; cargar de variable
+   push de
+   ld de, #lvl_ctr_sprite_2
+   ld a, (de)
+   ld l, a
+   inc de
+   ld a, (de)
+   ld h, a
+   pop de
+
    ld c, #4
    ld b, #8
    call cpct_drawSprite_asm
