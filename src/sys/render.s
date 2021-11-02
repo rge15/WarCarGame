@@ -317,8 +317,8 @@ _sys_render_renderHUDScore::
 lvl_ctr_x = #0x24
 lvl_ctr_y = #0x38
 
-lvl_ctr_sprite_1: .dw #_spriteScore_02
-lvl_ctr_sprite_2: .dw #_spriteScore_01
+lvl_ctr_sprite_1: .dw #_spriteScore_00
+lvl_ctr_sprite_2: .dw #_spriteScore_00
 
 _sys_render_level_counter:
 

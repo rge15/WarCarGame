@@ -70,7 +70,8 @@ _m_enemyCounter:
 ; victory_str:
 ;    .asciz "Has ganao suprimo, dale a enter pa volver a generar endorcinas"
 
-_m_current_level_counter:: .db #1
+_m_current_level_counter:: .db #0
+_m_max_level = #24
 
 ;; TODO: nose poner mejor
 player_shoot_cooldown_l = 40
@@ -709,12 +710,252 @@ ret
 ;; Destroy HL
 _m_game_restart_level_counter:
    ld hl, #_m_current_level_counter
-   ld (hl), #1
+   ld (hl), #0
    ret
 
+
+; esto lo hicimos el ultimo dia a ultima hora vale pedimos perdon
+;; ES HORRIBLE PERO LO HICE EN DOS HORAS E LDIA DE LA ENTRGA 
 ;; Destroy HL
 _m_game_inc_level_counter:
    ld hl, #_m_current_level_counter
    inc (hl)
 
+   ld a, #1
+   cp (hl)
+   jp z, lvl_01
+
+   ld a, #2
+   cp (hl)
+   jp z, lvl_02
+
+   ld a, #3
+   cp (hl)
+   jp z, lvl_03
+
+   ld a, #4
+   cp (hl)
+   jp z, lvl_04
+
+   ld a, #5
+   cp (hl)
+   jp z, lvl_05
+
+   ld a, #6
+   cp (hl)
+   jp z, lvl_06
+
+   ld a, #7
+   cp (hl)
+   jp z, lvl_07
+
+   ld a, #8
+   cp (hl)
+   jp z, lvl_08
+
+   ld a, #9
+   cp (hl)
+   jp z, lvl_09
+
+   ld a, #10
+   cp (hl)
+   jp z, lvl_10
+
+   ld a, #11
+   cp (hl)
+   jp z, lvl_11
+
+   ld a, #12
+   cp (hl)
+   jp z, lvl_12
+
+   ld a, #13
+   cp (hl)
+   jp z, lvl_13
+
+   ld a, #14
+   cp (hl)
+   jp z, lvl_14
+
+   ld a, #15
+   cp (hl)
+   jp z, lvl_15
+
+   ld a, #16
+   cp (hl)
+   jp z, lvl_16
+
+   ld a, #17
+   cp (hl)
+   jp z, lvl_17
+
+   ld a, #18
+   cp (hl)
+   jp z, lvl_18
+
+   ld a, #19
+   cp (hl)
+   jp z, lvl_19
+
+   ld a, #20
+   cp (hl)
+   jp z, lvl_20
+
+   ld a, #21
+   cp (hl)
+   jp z, lvl_21
+
+   ld a, #22
+   cp (hl)
+   jp z, lvl_22
+
+   ld a, #23
+   cp (hl)
+   jp z, lvl_23
+
+   ld a, #24
+   cp (hl)
+   jp z, lvl_24
+
+   ret
+
+lvl_01:
+   ; pintamos el primero de 0 por si viene de un nivel superior a 10
+   ld hl, #_spriteScore_00
+   call load_lvl_ctr_sprite_1
+
+   ld hl, #_spriteScore_01
+   call load_lvl_ctr_sprite_2
+   ret
+lvl_02:
+   ld hl, #_spriteScore_02
+   call load_lvl_ctr_sprite_2
+   ret
+lvl_03:
+   ld hl, #_spriteScore_03
+   call load_lvl_ctr_sprite_2
+   ret
+
+lvl_04:
+   ld hl, #_spriteScore_04
+   call load_lvl_ctr_sprite_2
+   ret
+
+lvl_05:
+   ld hl, #_spriteScore_05
+   call load_lvl_ctr_sprite_2
+   ret
+
+lvl_06:
+   ld hl, #_spriteScore_06
+   call load_lvl_ctr_sprite_2
+   ret
+
+lvl_07:
+   ld hl, #_spriteScore_07
+   call load_lvl_ctr_sprite_2
+   ret
+lvl_08:
+   ld hl, #_spriteScore_08
+   call load_lvl_ctr_sprite_2
+   ret
+
+lvl_09:
+   ld hl, #_spriteScore_09
+   call load_lvl_ctr_sprite_2
+   ret
+
+lvl_10:
+   ld hl, #_spriteScore_00
+   call load_lvl_ctr_sprite_2
+   ld hl, #_spriteScore_01
+   call load_lvl_ctr_sprite_1
+   ret
+lvl_11:
+   ; el primero numero ya tiene un 1
+   ld hl, #_spriteScore_01
+   call load_lvl_ctr_sprite_2
+   ret
+lvl_12:
+   ld hl, #_spriteScore_02
+   call load_lvl_ctr_sprite_2
+   ret
+lvl_13:
+   ld hl, #_spriteScore_03
+   call load_lvl_ctr_sprite_2
+   ret
+lvl_14:
+   ld hl, #_spriteScore_04
+   call load_lvl_ctr_sprite_2
+   ret
+lvl_15:
+   ld hl, #_spriteScore_05
+   call load_lvl_ctr_sprite_2
+   ret
+lvl_16:
+   ld hl, #_spriteScore_06
+   call load_lvl_ctr_sprite_2
+   ret
+lvl_17:
+   ld hl, #_spriteScore_07
+   call load_lvl_ctr_sprite_2
+   ret
+lvl_18:
+   ld hl, #_spriteScore_08
+   call load_lvl_ctr_sprite_2
+   ret
+lvl_19:
+   ld hl, #_spriteScore_09
+   call load_lvl_ctr_sprite_2
+   ret
+lvl_20:
+   ld hl, #_spriteScore_00
+   call load_lvl_ctr_sprite_2
+   ld hl, #_spriteScore_02
+   call load_lvl_ctr_sprite_1
+   ret
+lvl_21:
+   ; el primero numero ya tiene un 2
+   ld hl, #_spriteScore_01
+   call load_lvl_ctr_sprite_2
+   ret
+lvl_22:
+   ld hl, #_spriteScore_02
+   call load_lvl_ctr_sprite_2
+   ret
+lvl_23:
+   ld hl, #_spriteScore_03
+   call load_lvl_ctr_sprite_2
+   ret
+lvl_24:
+   ld hl, #_spriteScore_04
+   call load_lvl_ctr_sprite_2
+   ret
+
+
+inc_lvl_ctr_var:
+   ld hl, #_m_current_level_counter
+   inc (hl)
+   ret
+
+; hl: new sprite
+load_lvl_ctr_sprite_2:
+   ld de, #lvl_ctr_sprite_2
+   ; ld hl, #_spriteScore_01
+   ld a, l
+   ld (de), a
+   inc de
+   ld a, h
+   ld (de), a
+   ret
+
+; hl: new sprite
+load_lvl_ctr_sprite_1:
+   ld de, #lvl_ctr_sprite_1
+   ; ld hl, #_spriteScore_01
+   ld a, l
+   ld (de), a
+   inc de
+   ld a, h
+   ld (de), a
    ret
