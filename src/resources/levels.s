@@ -415,14 +415,14 @@ _level1:
    .dw #enemy_no_shoot
 
    .db #level_separator
-   ;================================================================================
+   ; ================================================================================
    ; Level 9
-   ;================================================================================
+   ; ================================================================================
    .dw #_tilemap_05            ;Tilemap
    .db #level_new_entity
    .dw #t_player
    .db #36                   ;Entity X
-   .db #152                   ;Entity Y
+   .db #156                   ;Entity Y
 
    .db #level_new_entity
    .dw #t_enemy_basic_purple
@@ -446,7 +446,7 @@ _level1:
 
    .db #level_new_entity
    .dw #t_enemy_basic_purple
-   .db #36
+   .db #4
    .db #48
    .dw #_sys_ai_beh_follow_player_x
    .db #16
@@ -461,7 +461,7 @@ _level1:
    .dw #_tilemap_03            ;Tilemap
    .db #level_new_entity
    .dw #t_player
-   .db #36
+   .db #16
    .db #176
 
    .db #level_new_entity
@@ -596,7 +596,7 @@ _level1:
 
    .db #level_new_entity
    .dw #t_enemy_basic_purple
-   .db #12
+   .db #36
    .db #168
    .dw #_sys_ai_beh_follow_player_x
    .db #16
