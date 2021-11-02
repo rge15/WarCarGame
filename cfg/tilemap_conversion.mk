@@ -40,6 +40,7 @@
 $(eval $(call TMX2DATA, SET_OUTPUTS     , hs s ))
 $(eval $(call TMX2DATA, SET_FOLDER      , src/assets/maps      ))
 $(eval $(call TMX2DATA, CONVERT, assets/maps/map01.tmx, tilemap_01 ))
+$(eval $(call TMX2DATA, CONVERT, assets/maps/mapControls.tmx, _tilemap_01controls ))
 $(eval $(call TMX2DATA, CONVERT, assets/maps/map01decoration.tmx, tilemap_01decoration ))
 $(eval $(call TMX2DATA, CONVERT, assets/maps/map02.tmx, tilemap_02 ))
 $(eval $(call TMX2DATA, CONVERT, assets/maps/map03.tmx, tilemap_03 ))

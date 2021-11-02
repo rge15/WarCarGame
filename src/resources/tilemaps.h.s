@@ -14,6 +14,7 @@
 .globl _tilemap_08
 .globl _tilemap_09
 .globl _tilemap_10
+.globl __tilemap_01controls
 
 .globl _tilemap_0sus
 .globl _tilemap_0run
