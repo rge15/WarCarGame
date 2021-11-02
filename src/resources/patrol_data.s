@@ -88,6 +88,20 @@ patrol_10:
    .db #patrol_invalid_move
    .dw #patrol_09
 
+patrol_11:
+   .db  4, 56
+   .db  4, 108
+   .db  22, 56
+   .db  22, 108
+   .db  22, 56
+   .db  4, 108
+   .db  4, 56
+
+   .db #patrol_invalid_move
+   .dw #patrol_11
+   
+
+
 patrol_none:
    .db  50, 60
    ; .db  20, 80
@@ -176,6 +190,12 @@ patrol_seeknpatrol_02:
    .db #patrol_invalid_move
    .dw #patrol_seeknpatrol_02
 
+patrol_seeknpatrol_03:
+   .db  0, -32
+   .db  0, 0
+   .db #patrol_invalid_move
+   .dw #patrol_seeknpatrol_03
+
 ; ????
 patrol_relative_03:
    .db  0, 0
@@ -214,6 +234,14 @@ patrol_relative_x_36:
    .db  36, 0
    .db #patrol_invalid_move
    .dw #patrol_relative_x_36
+
+patrol_relative_x_36_around:
+   .db  0, 0
+   .db  36, 0
+   .db  36, 8
+   .db  0, 8
+   .db #patrol_invalid_move
+   .dw #patrol_relative_x_36_around
 
 
 patrol_relative_y_32:
@@ -287,3 +315,19 @@ spawner_plist_05:
    .dw #t_es_07
    .dw #0x0000
    .dw #patrol_invalid_move
+
+; 08 es seeknpatrol
+spawner_plist_06:
+   .dw #t_es_06
+   .dw #t_es_08
+   .dw #t_es_08
+   .dw #t_es_07
+   .dw #t_es_08
+   .dw #t_es_07
+   .dw #t_es_08
+   .dw #t_es_07
+
+   .dw #0x0000
+   .dw #patrol_invalid_move
+
+

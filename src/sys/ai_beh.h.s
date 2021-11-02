@@ -11,6 +11,7 @@
 
 .globl _sys_ai_behaviourSpawner_plist
 .globl _sys_ai_behaviourSpawner_template
+.globl _sys_ai_behaviourSpawner_template_f
 
 
 .globl _sys_ai_beh_follow_player_x

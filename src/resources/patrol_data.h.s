@@ -9,6 +9,8 @@
 .globl patrol_08
 .globl patrol_09
 
+.globl patrol_11
+
 .globl patrol_none
 .globl patrol_x_50_20
 .globl patrol_y_50_120
@@ -23,11 +25,15 @@
 .globl patrol_relative_03
 .globl patrol_seeknpatrol_01
 .globl patrol_seeknpatrol_02
+.globl patrol_seeknpatrol_03
+
 .globl patrol_relative_none
 
 .globl patrol_relative_x_16
 .globl patrol_relative_x_24
 .globl patrol_relative_x_36
+
+.globl patrol_relative_x_36_around
 
 .globl patrol_relative_y_32
 .globl patrol_relative_y_48
@@ -39,3 +45,4 @@
 .globl spawner_plist_03
 .globl spawner_plist_04
 .globl spawner_plist_05
+.globl spawner_plist_06

@@ -349,7 +349,7 @@ _sys_checkTilePosition::
          or a
          jr z, set_fixed_tile
 
-         ld e_aictr(iy), #8
+         ld e_aictr(iy), #28
          ret
 
          ;; TODO: a veces salen dos

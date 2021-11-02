@@ -260,6 +260,10 @@ _sys_ai_check_tile_collision_from_ai:
 ;===============================================================================
 ; SPAWNER
 ;===============================================================================
+_sys_ai_behaviourSpawner_template_f::
+   call _sys_ai_beh_spawner_commmon_f
+   call c, _sys_ai_spawnEnemy_template
+   ret
 
 _sys_ai_behaviourSpawner_template::
    call _sys_ai_beh_spawner_commmon
@@ -296,6 +300,38 @@ _sys_ai_beh_spawner_commmon::
    ret
    check_if_spawn_enemy:
       ld d, #enemy_max_spawn
+      ld a, (_m_enemyCounter)
+      cp d
+   ret
+
+; igual que el normal pero puede spawnar con enemy_max_spawn = 5
+_sys_ai_beh_spawner_commmon_f::
+   push bc
+   pop ix
+
+   ;; TODO: menor tiempo de spawn
+   ; ld h, e_orient(ix)
+   ; ld l, e_aictr(ix)
+   ; dec hl
+   ; ld a, e_aictr(ix)
+   ; ld h, #16
+   ; cp h
+   ; call c, _sys_ai_prepare_spawn
+
+   ; or #0
+   ; call c, _sys_ai_prepare_spawn
+
+   ld b, e_xpos(ix)
+   ld c, e_ypos(ix)
+   dec e_aictr(ix)
+
+   jr z, check_if_spawn_enemy_f
+   ret
+   check_if_spawn_enemy_f:
+      ; ld d, #enemy_max_spawn+2
+      ; no va con globales solo si lo pongo justo asi1!
+      ; ld d, #0x05
+      ld d, #enemy_max_spawn + 1
       ld a, (_m_enemyCounter)
       cp d
    ret
