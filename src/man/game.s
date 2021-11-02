@@ -74,8 +74,8 @@ _m_current_level_counter:: .db #0
 _m_max_level = #24
 
 ;; TODO: nose poner mejor
-player_shoot_cooldown_l = 40
-player_shoot_cooldown_h = 40
+player_shoot_cooldown_l = 65
+player_shoot_cooldown_h = 65
 
 player_bullet_vel_x = #1
 player_bullet_vel_y = #2

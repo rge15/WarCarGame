@@ -45,9 +45,9 @@ t_bullet_vel_x = 1
 t_bullet_vel_y = 2
 
 ; ai_aux_l
-t_bullet_vel_x_f = 2
+t_bullet_vel_x_f = 1
 ; ai_aux_h
-t_bullet_vel_y_f = 4
+t_bullet_vel_y_f = 2
 
 
 enemy_no_shoot = 0x0000
@@ -376,7 +376,7 @@ t_bullet_player:
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
    .dw #_sys_ai_behaviourBullet              ; ai_behaviour
-   .db #40                                ; ai_counter   ;; Contador de la bala
+   .db #60                                ; ai_counter   ;; Contador de la bala
    .dw #0x00                                 ; animator
    .db #0x00                                 ; anim. counter
    .dw #0x0000                               ; input_behaviour
