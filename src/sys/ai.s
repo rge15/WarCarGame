@@ -205,6 +205,7 @@ _sys_ai_shoot_bullet_l_x:
    call _sys_ai_shoot_bullet_l_common
    ld d, e_ai_aux_l(ix)
    call _sys_ai_seekCoords_x
+   CHECK_VX_VY_ZERO _sys_ai_set_vx_on_zero
    ret
 
 ;; fast version
@@ -212,12 +213,14 @@ _sys_ai_shoot_bullet_l_x_f:
    call _sys_ai_shoot_bullet_l_common_f
    ld d, e_ai_aux_l(ix)
    call _sys_ai_seekCoords_x
+   CHECK_VX_VY_ZERO _sys_ai_set_vx_on_zero
    ret
 
 _sys_ai_shoot_bullet_l_y:
    call _sys_ai_shoot_bullet_l_common
    ld d, e_ai_aux_h(ix)
    call _sys_ai_seekCoords_y
+   CHECK_VX_VY_ZERO _sys_ai_set_vy_on_zero
    ret
 
 ;; fast version
@@ -225,6 +228,7 @@ _sys_ai_shoot_bullet_l_y_f:
    call _sys_ai_shoot_bullet_l_common_f
    ld d, e_ai_aux_h(ix)
    call _sys_ai_seekCoords_y
+   CHECK_VX_VY_ZERO _sys_ai_set_vy_on_zero
    ret
 
 _sys_ai_shoot_bullet_l_xy_rand:
@@ -550,3 +554,10 @@ _sys_ai_reset_spawner_aictr:
    ld e_aictr(ix), #t_spawner_timer
    ret
 
+_sys_ai_set_vx_on_zero:
+   ld e_vx(ix), #t_bullet_vel_x
+   ret
+
+_sys_ai_set_vy_on_zero:
+   ld e_vy(ix), #t_bullet_vel_y
+   ret
