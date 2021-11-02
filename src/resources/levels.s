@@ -148,7 +148,7 @@ _level1:
    .db #level_new_entity
    .dw #t_player
    .db #38                   ;Entity X
-   .db #160                   ;Entity Y
+   .db #140                   ;Entity Y
 
    .db #level_new_entity
    .dw #t_enemy_basic_green
@@ -415,15 +415,15 @@ _level1:
    .db #70
    .db #176
 
-   .db #level_new_entity
-   .dw #t_enemy_basic_blue
-   .db #4
-   .db #64
-   .dw #_sys_ai_behaviourPatrol
-   .db #0                                 ; e_ai_aux_l
-   .db #0                                 ; e_ai_aux_h
-   .dw #patrol_11
-   .dw #_sys_ai_beh_shoot_d
+   ; .db #level_new_entity
+   ; .dw #t_enemy_basic_blue
+   ; .db #4
+   ; .db #64
+   ; .dw #_sys_ai_behaviourPatrol
+   ; .db #0                                 ; e_ai_aux_l
+   ; .db #0                                 ; e_ai_aux_h
+   ; .dw #patrol_11
+   ; .dw #_sys_ai_beh_shoot_d
 
    .db #level_new_entity
    .dw #t_spawner_from_template_01
@@ -435,6 +435,47 @@ _level1:
    .dw #t_es_01
    .dw #enemy_no_shoot
 
+
+   .db #level_separator
+
+      ;================================================================================
+   ; Level 4
+   ;================================================================================
+   .dw #_tilemap_10            ;Tilemap
+   .db #level_new_entity
+   .dw #t_player
+   .db #36
+   .db #176
+
+   .db #level_new_entity
+   .dw #t_enemy_basic_blue
+   .db #4
+   .db #48
+   .dw #_sys_ai_behaviourPatrolRelative
+   .db #4                                 ; e_ai_aux_l
+   .db #48                                 ; e_ai_aux_h
+   .dw #patrol_relative_x_36_around
+   .dw #_sys_ai_beh_shoot_y
+
+   .db #level_new_entity
+   .dw #t_enemy_basic_blue
+   .db #16
+   .db #48
+   .dw #_sys_ai_behaviourPatrolRelative
+   .db #16                                 ; e_ai_aux_l
+   .db #48                                 ; e_ai_aux_h
+   .dw #patrol_relative_x_36_around
+   .dw #_sys_ai_beh_shoot_seekplayer
+
+   .db #level_new_entity
+   .dw #t_enemy_basic_blue
+   .db #28
+   .db #48
+   .dw #_sys_ai_behaviourPatrolRelative
+   .db #28                                 ; e_ai_aux_l
+   .db #48                                 ; e_ai_aux_h
+   .dw #patrol_relative_x_36_around
+   .dw #_sys_ai_beh_shoot_y
 
    .db #level_separator
 
@@ -538,6 +579,38 @@ _level1:
    .dw #_sys_ai_beh_shoot_xy_rand
 
    .db #level_separator
+   ;================================================================================
+   ; Level 6.2
+   ;================================================================================
+   .dw #_tilemap_01decoration
+   .db #level_new_entity
+   .dw #t_player
+   .db #70
+   .db #176
+
+   .db #level_new_entity
+   .dw #t_enemy_basic_blue
+   .db #4
+   .db #64
+   .dw #_sys_ai_behaviourPatrol
+   .db #0                                 ; e_ai_aux_l
+   .db #0                                 ; e_ai_aux_h
+   .dw #patrol_11
+   .dw #_sys_ai_beh_shoot_d
+
+   .db #level_new_entity
+   .dw #t_spawner_from_template_01
+   .db #38
+   .db #96
+   .dw #_sys_ai_behaviourSpawner_template
+   .db #0                                 ; e_ai_aux_l
+   .db #0                                 ; e_ai_aux_h
+   .dw #t_es_01
+   .dw #enemy_no_shoot
+
+
+   .db #level_separator
+
    ;================================================================================
    ; Level 12
    ;================================================================================

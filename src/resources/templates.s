@@ -17,7 +17,7 @@ t_shoot_timer_enemy_r_l = 54
 t_shoot_timer_enemy_r_h = 96
 
 ; tiempo de espera hasta disparar despues de bala tile colision
-t_shoot_timer_tile_collision = 20
+t_shoot_timer_tile_collision = 28
 
 
 ; tiempo hasta que la bala de un enemy se destruye
