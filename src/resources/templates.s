@@ -595,13 +595,13 @@ t_es_06:
    .db #16                                   ; heigth
    .db #0                                    ; vx
    .db #0                                    ; vy
-   .dw #_ovni_purple_0                      ; sprite
+   .dw #_ovni_blue_0                      ; sprite
    .db #0x00                                 ; orientation
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
    .dw #_sys_ai_behaviourPatrolRelative
    .db #t_shoot_timer_enemy_s
-   .dw #_man_anim_enemy_purple
+   .dw #_man_anim_enemy_blue
    .db #0x0                                  ; anim. counter
    .dw #_sys_ai_beh_shoot_seekplayer                               ; input_behaviour
    .db #0x00                                 ; e_ai_aim_x
