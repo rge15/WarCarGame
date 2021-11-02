@@ -347,17 +347,12 @@ _m_game_playerShot::
    jr z, upOrientation ;; Si es 0 va a la arriba
 
    jp stopCheckOrientation
-
    righOrientation:
       ld e_vx(ix), #player_bullet_vel_x
       ld e_orient(ix), #0x00
       ld a, e_ypos(ix)
       add a, #0x03
       ld e_ypos(ix), a
-
-      ld a, e_xpos(ix)
-      add a, #0x3
-      ld e_xpos(ix), a
       jp stopCheckOrientation
 
    downOrientation:
@@ -368,7 +363,7 @@ _m_game_playerShot::
       ld e_heigth(ix), #0x08
       
       ld a, e_ypos(ix)
-      add a, #0xc
+      add a, #0x2
       ld e_ypos(ix), a
       ld a, e_xpos(ix)
       add a, #0x01
@@ -388,9 +383,8 @@ _m_game_playerShot::
       ld a, e_ypos(ix)
       add a, #0x03
       ld e_ypos(ix), a
-
       ld a, e_xpos(ix)
-      sub a, #0x02
+      add a, #0x01
       ld e_xpos(ix), a
 
       ld hl, #_vBullet_0
@@ -409,8 +403,7 @@ _m_game_playerShot::
       ld e_heigth(ix), #0x08
       
       ld a, e_ypos(ix)
-      ; add a, #0x02
-      sub a, #0x8
+      add a, #0x02
       ld e_ypos(ix), a
       ld a, e_xpos(ix)
       add a, #0x01
@@ -420,7 +413,6 @@ _m_game_playerShot::
       ld e_sprite2(ix), h
       ld e_sprite1(ix), l
       jp stopCheckOrientation
-
    stopCheckOrientation:
 
    ; ; ;; Indicamos que ya ha disparado
