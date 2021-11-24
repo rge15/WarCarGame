@@ -29,7 +29,8 @@
 .globl _sys_render_renderHUDScore
 .globl _renderMenuItems
 
-.globl _sys_render_level_counter
+.globl _sys_render_level_counter_next
+.globl _sys_render_level_counter_end
 
 .globl lvl_ctr_sprite_1
 .globl lvl_ctr_sprite_2

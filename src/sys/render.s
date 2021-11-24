@@ -339,7 +339,7 @@ lvl_ctr_y = #0x38
 lvl_ctr_sprite_1: .dw #_spriteScore_00
 lvl_ctr_sprite_2: .dw #_spriteScore_00
 
-_sys_render_level_counter:
+_sys_render_level_counter_next:
 
    ; base
    ld de, #0xC000
@@ -401,6 +401,68 @@ _sys_render_level_counter:
 
    ret
 
+; esto es horrible pero yo que se tiene que funcionar ya
+_sys_render_level_counter_end:
+
+   ; base
+   ld de, #0xC000
+   ld c, #0x22
+   ld b, #0x34+12
+   call cpct_getScreenPtr_asm
+
+   ex de, hl
+
+   ld hl, #_numback
+   ld c, #12
+   ld b, #16
+   call cpct_drawSprite_asm
+
+   ; numeros
+
+   ; primero
+   ld de, #0xC000
+   ld c, #lvl_ctr_x
+   ld b, #lvl_ctr_y + 12
+   call cpct_getScreenPtr_asm
+   ex de, hl
+
+   ; cargar de variable
+   push de
+   ld de, #lvl_ctr_sprite_1
+   ld a, (de)
+   ld l, a
+   inc de
+   ld a, (de)
+   ld h, a
+   pop de
+
+   ld c, #4
+   ld b, #8
+   call cpct_drawSprite_asm
+
+   ; segundo
+
+   ld de, #0xC000
+   ld c, #lvl_ctr_x+4
+   ld b, #lvl_ctr_y + 12
+   call cpct_getScreenPtr_asm
+   ex de, hl
+
+   ; cargar de variable
+   push de
+   ld de, #lvl_ctr_sprite_2
+   ld a, (de)
+   ld l, a
+   inc de
+   ld a, (de)
+   ld h, a
+   pop de
+
+   ld c, #4
+   ld b, #8
+   call cpct_drawSprite_asm
+
+   ret
 ;===================================================================================================================================================
 ; FUNCION _m_game_StartMenu   
 ; Funcion que renderiza los items de los menus que le llegan
