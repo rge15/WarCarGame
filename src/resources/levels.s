@@ -580,36 +580,6 @@ _level1:
 
    .db #level_separator
    ;================================================================================
-   ; Level 13 SUS
-   ;================================================================================
-   .dw #_tilemap_0sus            ;Tilemap
-   .db #level_new_entity
-   .dw #t_player
-   .db #26                   ;Entity X
-   .db #72                   ;Entity Y
-
-   .db #level_new_entity
-   .dw #t_spawner_from_template_01
-   .db #20
-   .db #140
-   .dw #_sys_ai_behaviourSpawner_template
-   .db #0                                 ; e_ai_aux_l
-   .db #0                                 ; e_ai_aux_h
-   .dw #t_es_06
-   .dw #enemy_no_shoot
-
-   .db #level_new_entity
-   .dw #t_spawner_from_template_01
-   .db #54
-   .db #176
-   .dw #_sys_ai_behaviourSpawner_template_f
-   .db #0                                 ; e_ai_aux_l
-   .db #0                                 ; e_ai_aux_h
-   .dw #t_es_05
-   .dw #enemy_no_shoot
-
-   .db #level_separator
-   ;================================================================================
    ; Level 14
    ;================================================================================
    .dw #_tilemap_02            ;Tilemap
@@ -983,7 +953,62 @@ _level1:
    .dw #enemy_no_shoot
 
    .db #level_separator
+
+   ;================================================================================
+   ; TEST END
+   ;================================================================================
+   .dw #_tilemap_01            ;Tilemap
+   .db #level_new_entity
+   .dw #t_player
+   .db #4                   ;Entity X
+   .db #48                   ;Entity Y
+
+   .db #level_new_entity
+   .dw #t_enemy_basic_blue
+   .db #70
+   .db #176
+   .dw #enemy_no_move
+   .db #00                                 ; e_ai_aux_l
+   .db #00                                 ; e_ai_aux_h
+   .dw #00
+   .dw #enemy_no_shoot
+
+   .db #level_separator
    ;================================================================================
    ; GAME END
    ;================================================================================
+   .db #level_separator
+
+
+
+bonus_levels:
+   ;================================================================================
+   ; Level 13 SUS
+   ;================================================================================
+   .dw #_tilemap_0sus            ;Tilemap
+   .db #level_new_entity
+   .dw #t_player
+   .db #26                   ;Entity X
+   .db #72                   ;Entity Y
+
+   .db #level_new_entity
+   .dw #t_spawner_from_template_01
+   .db #20
+   .db #140
+   .dw #_sys_ai_behaviourSpawner_template
+   .db #0                                 ; e_ai_aux_l
+   .db #0                                 ; e_ai_aux_h
+   .dw #t_es_06
+   .dw #enemy_no_shoot
+
+   .db #level_new_entity
+   .dw #t_spawner_from_template_01
+   .db #54
+   .db #176
+   .dw #_sys_ai_behaviourSpawner_template_f
+   .db #0                                 ; e_ai_aux_l
+   .db #0                                 ; e_ai_aux_h
+   .dw #t_es_05
+   .dw #enemy_no_shoot
+
    .db #level_separator

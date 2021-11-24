@@ -27,6 +27,7 @@
 .include "man/entity.h.s"
 .include "man/game.h.s"
 .include "sys/input.h.s"
+.include "cpctelera.h.s"
 
 
 ;===================================================================================================================================================
@@ -64,23 +65,48 @@ _sys_input_updateOneEntity::
 
     ld hl, #0x8005  ;;Key Space
     call cpct_isKeyPressed_asm
-    jr NZ, spacePressed
+    jp NZ, spacePressed
 
     ld hl, #0x0807  ;;Key W
     call cpct_isKeyPressed_asm
-    jr NZ, upPressed
+    jp NZ, upPressed
 
     ld hl, #0x2008  ;;Key A
     call cpct_isKeyPressed_asm
-    jr NZ, leftPressed
+    jp NZ, leftPressed
 
     ld hl, #0x1007  ;;Key S
     call cpct_isKeyPressed_asm
-    jr NZ, downPressed
+    jp NZ, downPressed
 
     ld hl, #0x2007  ;;Key D
     call cpct_isKeyPressed_asm
-    jr NZ, rightPressed
+    jp NZ, rightPressed
+
+    ld hl, #Joy0_Fire1
+    call cpct_isKeyPressed_asm
+    jp NZ, spacePressed
+
+    ld hl, #Joy0_Up
+    call cpct_isKeyPressed_asm
+    jp NZ, upPressed
+
+    ld hl, #Joy0_Left
+    call cpct_isKeyPressed_asm
+    jp NZ, leftPressed
+
+    ld hl, #Joy0_Down
+    call cpct_isKeyPressed_asm
+    jp NZ, downPressed
+
+    ld hl, #Joy0_Right
+    call cpct_isKeyPressed_asm
+    jp NZ, rightPressed
+
+    ld hl, #Key_N
+    call cpct_isKeyPressed_asm
+    jp NZ, NPressed
+
 
     ;EN caso de no pulsar nada se queda quieto
     ld a, #0x00
@@ -142,6 +168,11 @@ _sys_input_updateOneEntity::
         ld e_vy(ix), a   
         call _m_game_playerShot
         jp stopCheckMovement
+
+      .globl nextLevel
+      NPressed:
+         call nextLevel
+
 
     stopCheckMovement:
    ret
