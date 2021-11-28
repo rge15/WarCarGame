@@ -203,7 +203,7 @@ _level1:
    .dw #t_enemy_basic_green
    .db #8
    .db #56
-   .dw #_sys_ai_behaviourPatrol
+   .dw #_sys_ai_behaviourPatrol_f
    .db #0                                 ; e_ai_aux_l
    .db #0
    .dw #patrol_01
@@ -311,15 +311,15 @@ _level1:
    .dw #patrol_relative_x_36_around
    .dw #_sys_ai_beh_shoot_y
 
-   ; .db #level_new_entity
-   ; .dw #t_enemy_basic_blue
-   ; .db #16
-   ; .db #48
-   ; .dw #_sys_ai_behaviourPatrolRelative
-   ; .db #16                                 ; e_ai_aux_l
-   ; .db #48                                 ; e_ai_aux_h
-   ; .dw #patrol_relative_x_36_around
-   ; .dw #_sys_ai_beh_shoot_seekplayer
+   .db #level_new_entity
+   .dw #t_enemy_basic_blue
+   .db #16
+   .db #48
+   .dw #_sys_ai_behaviourPatrolRelative
+   .db #16                                 ; e_ai_aux_l
+   .db #48                                 ; e_ai_aux_h
+   .dw #patrol_relative_x_36_around
+   .dw #_sys_ai_beh_shoot_seekplayer
 
    .db #level_new_entity
    .dw #t_enemy_basic_blue

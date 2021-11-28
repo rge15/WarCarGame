@@ -25,7 +25,9 @@
 .globl enemy_no_move
 
 .globl _sys_ai_behaviourPatrol
+.globl _sys_ai_behaviourPatrol_f
 .globl _sys_ai_behaviourPatrolRelative
+.globl _sys_ai_behaviourPatrolRelative_f
 .globl _sys_ai_behaviourSeekAndPatrol
 
 .globl _sys_ai_behaviourSpawner_plist

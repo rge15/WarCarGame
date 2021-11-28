@@ -29,8 +29,8 @@
 .include "entityInfo.s"
 
 ; tiempo hasta que un enemy dispara
-t_shoot_timer_enemy_s = 48
-t_shoot_timer_enemy = 90
+t_shoot_timer_enemy_s = 38
+t_shoot_timer_enemy = 70
 ; r for range
 t_shoot_timer_enemy_r_l = 54
 t_shoot_timer_enemy_r_h = 96
@@ -46,7 +46,7 @@ t_bullet_timer_enemy_f = 16
 ; tiempo hasta que la bala del player se destruye
 t_bullet_timer_player = 27
 
-t_spawner_timer = 80
+t_spawner_timer = 45
 
 player_max_bullets = 1
 
@@ -66,6 +66,12 @@ t_bullet_vel_y = 4
 t_bullet_vel_x_f = 3
 ; ai_aux_h
 t_bullet_vel_y_f = 5
+
+t_enemy_vx = 1
+t_enemy_vy = 2
+
+t_enemy_vx_f = 2
+t_enemy_vy_f = 4
 
 
 enemy_no_shoot = 0x0000

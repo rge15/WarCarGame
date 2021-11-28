@@ -368,7 +368,8 @@ _sys_checkTilePosition:
          or a
          jr z, set_fixed_tile
 
-         ld e_aictr(iy), #28
+         ld e_aictr(iy), #t_shoot_timer_tile_collision - 4
+
          ret
 
          ;; TODO: a veces salen dos

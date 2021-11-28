@@ -129,6 +129,8 @@ _sys_ai_behaviourBulletSeektoPlayer:
 enemy_no_move:
    push bc
    pop ix
+   ld e_vx(ix), #0
+   ld e_vy(ix), #0
    ret
 
 ;===============================================================================
@@ -145,6 +147,22 @@ _sys_ai_behaviourPatrol:
    ; el orden importa para la colision no se
    call _sys_ai_seekCoords_y
    ld d, #1
+   call _sys_ai_seekCoords_x
+
+   call _sys_ai_check_tile_collision_from_ai
+
+   ret
+
+_sys_ai_behaviourPatrol_f:
+   push bc
+   pop ix
+
+   CHECK_VX_VY_ZERO _sys_patrol_next
+
+   ld d, #4
+   ; el orden importa para la colision no se
+   call _sys_ai_seekCoords_y
+   ld d, #2
    call _sys_ai_seekCoords_x
 
    call _sys_ai_check_tile_collision_from_ai
@@ -177,6 +195,26 @@ _sys_ai_behaviourPatrolRelative:
 
    ret
 
+_sys_ai_behaviourPatrolRelative_f:
+   push bc
+   pop ix
+   ;; TODO: ver como poner el origen solo una vez 
+   push ix
+   pop iy
+   ; dec e_aictr(ix)
+   ; call z, _sys_patrol_set_relative_origin
+   ; ld e_aictr(ix), #2
+
+   CHECK_VX_VY_ZERO _sys_patrol_next_relative
+
+   ld d, #4
+   call _sys_ai_seekCoords_y
+   ld d, #2
+   call _sys_ai_seekCoords_x
+
+   call _sys_ai_check_tile_collision_from_ai
+
+   ret
 ;; TODO: si pos inicial 1 peta no se
 ;===============================================================================
 ; Sigue al jugador cambiando y se para a hacer un patron
@@ -217,28 +255,6 @@ _sys_ai_beh_follow_player_y:
    call _sys_ai_beh_follow_player
    call z, do_follow_player_y
    ret
-
-; _sys_ai_beh_follow_player_xy_rand:
-;    call _sys_ai_beh_follow_player
-;    ; dec e_ai_aux_l(ix)
-;    jr z, xy_rand_go
-;    ret
-;    xy_rand_go:
-;       call _sys_ai_random_0_1
-;       dec a
-;       jr z, xy_rand_go_x
-;       jr xy_rand_go_y
-;       ret
-;       xy_rand_go_x:
-;          call do_follow_player_x
-;          ret
-;       xy_rand_go_y:
-;          call do_follow_player_y
-;          ret
-;       ; jp z, do_follow_player_x
-;       ; jp nz, do_follow_player_y
-;       ; ld e_ai_aux_l(ix), #test_time_fo2
-;       ret
 
 ; deja en z la condicion
 _sys_ai_beh_follow_player:
