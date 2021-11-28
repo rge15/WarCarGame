@@ -28,3 +28,4 @@
 ;; PUBLIC VARIABLES
 ;;====================================================================
 .globl _man_int_current
+.globl _man_frames_counter

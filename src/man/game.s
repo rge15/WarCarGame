@@ -204,6 +204,9 @@ ei
       ld a, (_man_int_current)
       cp #0
       jr nz, testIr
+      ld a, (_man_frames_counter)
+      cp #0
+      jr nz, testIr
       call _sys_render_update
       call _man_entityUpdate
       call _sys_physics_update
@@ -908,6 +911,7 @@ lvl_10:
    call load_lvl_ctr_sprite_2
    ld hl, #_spriteScore_01
    call load_lvl_ctr_sprite_1
+   call _man_game_increasePlayerLife
    ret
 lvl_11:
    ; el primero numero ya tiene un 1
@@ -929,6 +933,7 @@ lvl_14:
 lvl_15:
    ld hl, #_spriteScore_05
    call load_lvl_ctr_sprite_2
+   call _man_game_increasePlayerLife
    ret
 lvl_16:
    ld hl, #_spriteScore_06
@@ -951,6 +956,7 @@ lvl_20:
    call load_lvl_ctr_sprite_2
    ld hl, #_spriteScore_02
    call load_lvl_ctr_sprite_1
+   call _man_game_increasePlayerLife
    ret
 lvl_21:
    ; el primero numero ya tiene un 2

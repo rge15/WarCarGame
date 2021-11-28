@@ -32,6 +32,8 @@
 ;;====================================================================
 _man_int_current:: .db 0
 
+_man_frames_counter:: .db 0
+
 _int_handler_1::
 	push af
 	push bc
@@ -140,8 +142,13 @@ _int_handler_6::
 
     ld a, #0
     ld (#_man_int_current), a
-	
 
+	ld hl, #_man_frames_counter
+	dec (hl)
+	jr Z, followHandler
+	ld a, #1
+	ld (hl), a
+	followHandler:
 	ld de, #_int_handler_1
     call man_interruptions_set_next_interruption
 
