@@ -74,7 +74,7 @@ _m_render_tileset:
 ; Se encarga de iniciar el color y el modo de video de Amstrad(?)
 ; NO llega ningun dato
 ;===================================================================================================================================================
-_sys_init_render::
+_sys_init_render:
     ld  c, #0x00
     call  cpct_setVideoMode_asm
 
@@ -89,7 +89,7 @@ _sys_init_render::
 ; Llama a la inversión de control para renderizar los sprites de cada entidad que coincida con e_type_render
 ; NO llega ningun dato
 ;===================================================================================================================================================
-_sys_render_update::
+_sys_render_update:
     ld hl, #_sys_render_renderOneEntity
     ld (_m_functionMemory), hl
     ld hl , #_m_signatureMatch 
@@ -103,7 +103,7 @@ _sys_render_update::
 ; Renderiza los sprites de las entidades renderizables
 ; HL : Entidad a renderizar
 ;===================================================================================================================================================
-_sys_render_renderOneEntity::
+_sys_render_renderOneEntity:
     ;; Si es una entidad marcada para destruir no se renderiza
     push hl
     push hl
@@ -166,7 +166,7 @@ _sys_render_renderOneEntity::
 
     ret
 
-_sys_render_erasePrevPtr::
+_sys_render_erasePrevPtr:
         ld  a, e_prevptr1(ix)
         dec a
         inc a
@@ -191,7 +191,7 @@ _sys_render_erasePrevPtr::
 ; HL : Entidad a renderizar
 ; 
 ;===================================================================================================================================================
-_sys_render_renderTileMap::
+_sys_render_renderTileMap:
 
     ld  hl, #_m_render_tileset  ; Tileset to draw with
     ld e, (hl)
@@ -217,7 +217,7 @@ _sys_render_renderTileMap::
 ; Función encargada renderizar las vidaz en funcion de su estado
 ; HL : Llega el inicio del array de vidas
 ;===================================================================================================================================================
-_sys_render_renderHUDLifes::
+_sys_render_renderHUDLifes:
     ld a, #0x03
     renderHUDLife:
     push af
@@ -261,7 +261,7 @@ _sys_render_renderHUDLifes::
 
     ret
 
-_sys_render_renderHUDScore::
+_sys_render_renderHUDScore:
 
     inc a
     dec a
@@ -471,7 +471,7 @@ _sys_render_level_counter_end:
 ;       - B: Width
 ;       - C: Height
 ;===================================================================================================================================================
-_renderMenuItems::
+_renderMenuItems:
     ex de, hl
     call cpct_drawSprite_asm
 

@@ -35,12 +35,12 @@ _level1:
    ; TEST LEVEL
    ;================================================================================
 
-   ; .dw #_tilemap_0sus            ;Tilemap
-   ; .db #level_new_entity
-   ; .dw #t_player
-   ; .db #4                   ;Entity X
-   ; .db #48                   ;Entity Y
-   ;
+   .dw #_tilemap_01            ;Tilemap
+   .db #level_new_entity
+   .dw #t_player
+   .db #4                   ;Entity X
+   .db #48                   ;Entity Y
+
    ; .db #level_new_entity
    ; .dw #t_spawner_from_plist_01
    ; .db #70
@@ -50,7 +50,7 @@ _level1:
    ; .db #00                                 ; e_ai_aux_h
    ; .dw #spawner_plist_01
    ; .dw #enemy_no_shoot
-   ;
+
    ; .db #level_new_entity
    ; .dw #t_spawner_from_template_01
    ; .db #54
@@ -62,9 +62,19 @@ _level1:
    ; ; .dw #t_es_01
    ; .dw #spawner_plist_02
    ; .dw #enemy_no_shoot
-   ;
-   ;
-   ; .db #level_separator
+
+   .db #level_new_entity
+   .dw #t_enemy_basic_green
+   .db #24
+   .db #156
+   .dw #enemy_no_move
+   .db #4                                 ; e_ai_aux_l
+   .db #48                                 ; e_ai_aux_h
+   .dw #patrol_all_game_zone_m0
+   .dw #enemy_no_shoot
+
+
+   .db #level_separator
    ;================================================================================
    ; LEVEL ALL SPRITES
    ;================================================================================

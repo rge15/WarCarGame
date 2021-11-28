@@ -72,7 +72,7 @@ _m_startLevelPlayerScore:
 ; Functions
 ;===================================================================================================================================================
 
-_m_HUD_saveScore::
+_m_HUD_saveScore:
     ld de, #_m_playerScore
     ld hl, #_m_startLevelPlayerScore
     ld a, (de)
@@ -85,7 +85,7 @@ _m_HUD_saveScore::
 
     ret
 
-_m_HUD_resetLevelScore::
+_m_HUD_resetLevelScore:
     ld hl, #_m_playerScore
     ld de, #_m_startLevelPlayerScore
     ld a, (de)
@@ -102,7 +102,7 @@ _m_HUD_resetLevelScore::
 ; Función encargada de iniciar las variables de HUD (Videas y Score)
 ; NO llega ningun dato
 ;===================================================================================================================================================
-_m_HUD_initHUD::
+_m_HUD_initHUD:
     call _m_HUD_initLifes
     call _m_HUD_initScore
     ret
@@ -112,7 +112,7 @@ _m_HUD_initHUD::
 ; Función encargada de iniciar las vidas
 ; NO llega ningun dato
 ;===================================================================================================================================================
-_m_HUD_initLifes::
+_m_HUD_initLifes:
     ld hl, #_m_HUD_life
     ld a, #0x03
     ld bc, #0x0003
@@ -129,7 +129,7 @@ _m_HUD_initLifes::
 ; Función encargada de iniciar el valor de la puntuación
 ; NO llega ningun dato
 ;===================================================================================================================================================
-_m_HUD_initScore::
+_m_HUD_initScore:
     ld hl, #_m_playerScore
     ld (hl), #0x00
     inc hl
@@ -147,7 +147,7 @@ _m_HUD_initScore::
 ; Función encargada de llamar al render del HUD
 ; NO llega ningun dato
 ;===================================================================================================================================================
-_m_HUD_renderHUD::
+_m_HUD_renderHUD:
     call _m_HUD_renderLifes
     ld a, #0x01
     call _m_HUD_renderScore
@@ -158,7 +158,7 @@ _m_HUD_renderHUD::
 ; Función encargada de renderizar las vidas
 ; NO llega ningun dato
 ;===================================================================================================================================================
-_m_HUD_renderLifes::
+_m_HUD_renderLifes:
     ld hl , #_m_HUD_life
     call _sys_render_renderHUDLifes
     ret
@@ -169,7 +169,7 @@ _m_HUD_renderLifes::
 ;       - a = 1 -> Es para imprimir mid-game
 ;       - a = 0 -> Es para imprimir al acabar partida
 ;===================================================================================================================================================
-_m_HUD_renderScore::
+_m_HUD_renderScore:
     ;; Comprobamos de donde se llama la función
     inc a
     dec a
@@ -275,7 +275,7 @@ _m_HUD_renderScore::
 ; Función encargada de restar las vidas
 ; NO llega ningun dato
 ;===================================================================================================================================================
-_m_HUD_decreaseLife::
+_m_HUD_decreaseLife:
     ld hl, #_m_HUD_life
     inc (hl)
     dec (hl)
@@ -303,7 +303,7 @@ _m_HUD_decreaseLife::
 ; Función encargada de sumar puntos
 ; BC : Llegan los puntos a sumar
 ;===================================================================================================================================================
-_m_HUD_addPoints::
+_m_HUD_addPoints:
     ;Cargamos la primera parte del Score en A 
     ld hl, #_m_playerScore
     ; ld bc, #0x0002

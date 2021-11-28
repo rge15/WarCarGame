@@ -32,7 +32,7 @@
 ; Llama a la inversión de control para updatear las fisicas de cada entidad que coincida con e_type_movable
 ; NO llega ningun dato
 ;===================================================================================================================================================
-_sys_physics_update::
+_sys_physics_update:
     ld hl, #_sys_physics_updateOneEntity
     ld (_m_functionMemory), hl
     ld hl , #_m_signatureMatch 
@@ -47,7 +47,7 @@ _sys_physics_update::
 ; los valores de sus velocidades
 ; HL : Entidad a updatear
 ;===================================================================================================================================================
-_sys_physics_updateOneEntity::    
+_sys_physics_updateOneEntity:    
     push hl
     pop ix
 

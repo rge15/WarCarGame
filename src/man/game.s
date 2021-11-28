@@ -89,7 +89,7 @@ _m_enemyCounter:
 ; victory_str:
 ;    .asciz "Has ganao suprimo, dale a enter pa volver a generar endorcinas"
 
-_m_current_level_counter:: .db #0
+_m_current_level_counter: .db #0
 _m_max_level = #24
 
 ;; TODO: nose poner mejor
@@ -103,7 +103,7 @@ player_bullet_vel_y = #2
 ; ; Crea la entidad con el template indicado
 ; BC : Valor de template a crear
 ;===================================================================================================================================================
-_m_game_createInitTemplate::
+_m_game_createInitTemplate:
    call _man_createEntity
    push hl
    ex de,hl
@@ -121,7 +121,7 @@ _m_game_createInitTemplate::
 ; Inicializa el juego y sus entidades
 ; NO llega ningun dato
 ;===================================================================================================================================================
-_m_game_init::
+_m_game_init:
    call  _sys_init_render
 
    ;; TODO: me salia undefined
@@ -138,7 +138,7 @@ _m_game_init::
 ; Funcion encargada de esperar a que se pulse de forma única la tecla pasada por registro
 ; HL = Tecla para pulsar
 ;===================================================================================================================================================
-waitKeyPressed::
+waitKeyPressed:
    push hl
    call cpct_isKeyPressed_asm
    pop hl
@@ -157,7 +157,7 @@ waitKeyPressed::
 ; Bucle del juego
 ; NO llega ningun dato
 ;===================================================================================================================================================
-_m_game_play::
+_m_game_play:
 ;==================
 ;Pantalla inicio
 ;==================
@@ -269,7 +269,7 @@ ret
 ; Funcion que destruye la entidad indicada
 ; HL : Llega el valor de la entidad
 ;===================================================================================================================================================
-_m_game_destroyEntity::
+_m_game_destroyEntity:
    call _man_setEntity4Destroy
    ret
 
@@ -278,7 +278,7 @@ _m_game_destroyEntity::
 ; FUNCION _m_game_bulletDestroyed
 ; ; Funcion que indica al player que su bala ha sido destruida
 ;===================================================================================================================================================
-_m_game_bulletDestroyed::
+_m_game_bulletDestroyed:
    ld hl, #_m_playerShot
    ld (hl), #0x00
 ret
@@ -288,7 +288,7 @@ ret
 ; ; Funcion que dispara si puede
 ; NO llega nada
 ;===================================================================================================================================================
-_m_game_playerShot::
+_m_game_playerShot:
    ; ;; Se comprueba si el jugador ha disparado ya
    ; ;; Si el ai_counter del player es != 0 es que está en cooldown (ha disparado)
    GET_ENTITY_POSITION #_m_playerEntity
@@ -457,7 +457,7 @@ _m_game_playerShot::
 ; NO llega ningun dato
 ;===================================================================================================================================================
 
-_wait::
+_wait:
    ld h, #0x05
       waitLoop:
          ld b, #0x02
@@ -473,7 +473,7 @@ _wait::
 ; Función encargada de iniciar/resetear los valores del juego
 ; NO llega ningun dato
 ;===================================================================================================================================================
-_man_game_initGameVar::
+_man_game_initGameVar:
 
    ld hl, #_m_lifePlayer
    ld (hl), #0x03
@@ -495,7 +495,7 @@ _man_game_initGameVar::
 ; Función encargada de cargar los datos y crear entidades del nivel
 ; NO llega ningun dato
 ;===================================================================================================================================================
-_man_game_loadLevel::
+_man_game_loadLevel:
    ld hl, #_m_gameLevel
    ld e, (hl)
    inc hl
@@ -612,7 +612,7 @@ _man_game_loadLevel::
 ; Función encargada de updatear el estado del juego y nivel
 ; NO llega ningun dato
 ;===================================================================================================================================================
-_man_game_updateGameStatus::
+_man_game_updateGameStatus:
 
    ; /
    ; ; | Se checkea si el jugador ha perdido las 3 vidas
@@ -687,7 +687,7 @@ _man_game_updateGameStatus::
 ; Función encargada de decrementar la vida del jugador
 ; NO llega ningun dato
 ;===================================================================================================================================================
-_man_game_decreasePlayerLife::
+_man_game_decreasePlayerLife:
    ld hl, #_m_lifePlayer
    dec (hl)
    call _m_HUD_decreaseLife
@@ -710,7 +710,7 @@ _man_game_decreasePlayerLife::
 ; Función encargada de decrementar el número de enemigos
 ; NO llega ningun dato
 ;===================================================================================================================================================
-_man_game_decreaseEnemyCounter::
+_man_game_decreaseEnemyCounter:
    ld hl, #_m_enemyCounter
    dec (hl)
    ld bc, #0x0002
@@ -724,7 +724,7 @@ _man_game_decreaseEnemyCounter::
 ; Funcion que manda a renderizar la pantalla de inicio del juego
 ; NO llega ningun dato
 ; ;===================================================================================================================================================
-_m_game_StartMenu::
+_m_game_StartMenu:
 
    ld hl, #_screenmenu_end
    ld de, #0xFFFF

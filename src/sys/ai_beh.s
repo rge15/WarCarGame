@@ -41,7 +41,7 @@
 ; Updatea el contador de existencia de la bala y la destruye si hace falta
 ; BC : Entidad a updatear
 ;===================================================================================================================================================
-_sys_ai_behaviourBullet::
+_sys_ai_behaviourBullet:
     ld h, b
     ld l, c
     push hl
@@ -70,7 +70,7 @@ _sys_ai_behaviourBullet::
 ;===============================================================================
 ; Esta bala muere cuado aictr llega a 0
 ;===============================================================================
-_sys_ai_behaviourBulletLinear::
+_sys_ai_behaviourBulletLinear:
    push bc
    pop ix
 
@@ -93,7 +93,7 @@ _sys_ai_behaviourBulletLinear::
 ;===============================================================================
 ; Esta bala muere cuado llega al ai_aim
 ;===============================================================================
-_sys_ai_behaviourBulletSeektoPlayer::
+_sys_ai_behaviourBulletSeektoPlayer:
    push bc
    pop ix
 
@@ -135,7 +135,7 @@ enemy_no_move:
 ; actualiza _sys_ai_nextPatrolCoords
 ; Destroy: HL, BC
 ;===============================================================================
-_sys_ai_behaviourPatrol::
+_sys_ai_behaviourPatrol:
    push bc
    pop ix
 
@@ -156,7 +156,7 @@ _sys_ai_behaviourPatrol::
 ; !!! Necesario poner en e_ai_aux mismas posiciones que en xpos ypos
 ; Destroy: HL, BC
 ;===============================================================================
-_sys_ai_behaviourPatrolRelative::
+_sys_ai_behaviourPatrolRelative:
    push bc
    pop ix
    ;; TODO: ver como poner el origen solo una vez 
@@ -182,7 +182,7 @@ _sys_ai_behaviourPatrolRelative::
 ; Sigue al jugador cambiando y se para a hacer un patron
 ; Usa el aictr
 ;===============================================================================
-_sys_ai_behaviourSeekAndPatrol::
+_sys_ai_behaviourSeekAndPatrol:
    push bc
    pop ix
 
@@ -279,23 +279,23 @@ _sys_ai_check_tile_collision_from_ai:
 ;===============================================================================
 ; SPAWNER
 ;===============================================================================
-_sys_ai_behaviourSpawner_template_f::
+_sys_ai_behaviourSpawner_template_f:
    call _sys_ai_beh_spawner_commmon_f
    call c, _sys_ai_spawnEnemy_template
    ret
 
-_sys_ai_behaviourSpawner_template::
+_sys_ai_behaviourSpawner_template:
    call _sys_ai_beh_spawner_commmon
    call c, _sys_ai_spawnEnemy_template
    ret
 
-_sys_ai_behaviourSpawner_plist::
+_sys_ai_behaviourSpawner_plist:
    call _sys_ai_beh_spawner_commmon
    call c, _sys_ai_spawnEnemy_plist
    ret
 
 ;; TODO: hacer estructura de datos para generar segun templates con un invalid al finla
-_sys_ai_beh_spawner_commmon::
+_sys_ai_beh_spawner_commmon:
    push bc
    pop ix
 
@@ -324,7 +324,7 @@ _sys_ai_beh_spawner_commmon::
    ret
 
 ; igual que el normal pero puede spawnar con enemy_max_spawn = 5
-_sys_ai_beh_spawner_commmon_f::
+_sys_ai_beh_spawner_commmon_f:
    push bc
    pop ix
 

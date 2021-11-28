@@ -33,31 +33,31 @@
 ;===================================================================================================================================================
 ;; Descripcion : Array de entidades
 ;; TODO: recalcular con los cambios de estructura de entity
-_m_entities::
+_m_entities:
     .ds 448
 
 ;; Descripcion : Memoria vacia al final del array para controlar su final
-_m_emptyMemCheck::
+_m_emptyMemCheck:
     .ds 1
 
 ;; Descripcion : Direccion de memoria con la siguiente posicion del array libre 
-_m_next_free_entity::
+_m_next_free_entity:
     .ds 2
 
 ;; Descripcion : Direccion de memoria donde este la funcion de inversion de control
-_m_functionMemory::
+_m_functionMemory:
     .ds 2
 
 ;; Descripcion : Signature para comprobar entidades en el forAllMatching 
-_m_signatureMatch::
+_m_signatureMatch:
     .ds 1
 
 ;; Descripcion : Numero de entidades que caben en el array _m_entities
-_m_numEntities::
+_m_numEntities:
     .ds 1
 
 ;; Descripcion : TAmaño en bytes de 1 entity
-_m_sizeOfEntity::
+_m_sizeOfEntity:
     .db #0x1c
 
 
@@ -66,7 +66,7 @@ _m_sizeOfEntity::
 ; Inicializa el manager de entidades y sus datos
 ; NO llega ningun dato
 ;===================================================================================================================================================
-_man_entityInit::
+_man_entityInit:
     ld  DE, #_m_entities
     ld  A,  #0x00
     ld  (_m_emptyMemCheck), a
@@ -85,7 +85,7 @@ _man_entityInit::
 ; Crea una entidad
 ; NO llega ningun dato
 ;===================================================================================================================================================
-_man_createEntity::
+_man_createEntity:
     ld  de, (_m_next_free_entity)
     ld  h, #0x00
 
@@ -107,7 +107,7 @@ _man_createEntity::
 ; Ejecuta la funcion  de _m_functionMemory por cada entidad que cumpla con el tipo designado en  _m_signatureMatch
 ; NO llega ningun dato
 ;===================================================================================================================================================
-_man_entityForAllMatching::
+_man_entityForAllMatching:
     ld  hl, #_m_entities
     
     ld  a,(hl)
@@ -154,7 +154,7 @@ _man_entityForAllMatching::
 ; Establece la entidad para ser destruida
 ; HL : La entidad para ser marcada
 ;===================================================================================================================================================
-_man_setEntity4Destroy::
+_man_setEntity4Destroy:
    ; ld (hl), #e_type_dead
     ld a, #0x80
     or (hl)
@@ -167,7 +167,7 @@ ret
 ; para establecer la ultima entidad al espacio liberado por la entidad destruida 
 ; HL : La entidad para ser destruida
 ;===================================================================================================================================================
-_man_entityDestroy::
+_man_entityDestroy:
     ;; HL = _m_next_free_entity
     ;; DE = entity to destroy
     ld de, (#_m_next_free_entity)
@@ -235,7 +235,7 @@ _man_entityDestroy::
 ; Recorre todas las entidades y destruye las entidades marcadas
 ; NO llega ningun dato 
 ;===================================================================================================================================================
-_man_entitiesUpdate::
+_man_entitiesUpdate:
     ld hl, #_m_entities
 
     inc (hl)
@@ -266,7 +266,7 @@ _man_entitiesUpdate::
 ; Devuelve en a si hay espacio libre en las entidades para poder generar
 ; NO llega ningun dato 
 ;===================================================================================================================================================
-; _man_entity_freeSpace::
+; _man_entity_freeSpace:
         ; ld hl, #_m_numEntities
         ; ld a, (#_m_numEntities)
         ; sub (hl)
@@ -279,7 +279,7 @@ _man_entitiesUpdate::
 ; Encargado de updatear las entidades y al jugador
 ; NO llega ningun dato 
 ;===================================================================================================================================================
-_man_entityUpdate::
+_man_entityUpdate:
     call _man_entitiesUpdate
     call _man_playerUpdate
     ret
@@ -291,7 +291,7 @@ _man_entityUpdate::
 ; Actualiza el sprite del jugador en funcion de su orientacion
 ; NO llega ningun dato 
 ;===================================================================================================================================================
-_man_playerUpdate::
+_man_playerUpdate:
     ;; Actualiza el cooldown de la bala
     call _man_playerBulletCooldown
     
@@ -357,7 +357,7 @@ _man_playerUpdate::
 ; Descuenta el cooldown de la bala
 ; NO llega ningun dato 
 ;===================================================================================================================================================
-_man_playerBulletCooldown::
+_man_playerBulletCooldown:
     ld ix, #_m_playerEntity
     
     ld h, (ix)
@@ -380,14 +380,14 @@ _man_playerBulletCooldown::
 
 ret
 
-_man_getEntityArray::
+_man_getEntityArray:
       ld hl, #_m_entities
 ret
 
-_man_getNumEntities::
+_man_getNumEntities:
       ld hl, #_m_numEntities
 ret
 
-_man_getSizeOfEntity::
+_man_getSizeOfEntity:
       ld hl, #_m_sizeOfEntity
 ret

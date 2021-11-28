@@ -34,7 +34,7 @@
 ;==========
 ;TODO : Ver donde meto esto es una guarrada tener lo de los macros aqui
 ;==========
-_macro_addresAux::
+_macro_addresAux:
     .dw #0x0000
 
 .area _CODE
@@ -47,7 +47,7 @@ _macro_addresAux::
 ; Inicio del programa
 ; NO llega ningun valor
 ;===================================================================================================================================================
-_main::
+_main:
     call	cpct_disableFirmware_asm
 
     cpctm_setBorder_asm HW_BRIGHT_CYAN

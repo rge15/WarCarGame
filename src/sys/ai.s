@@ -35,7 +35,7 @@
 ; Manager data
 ;===================================================================================================================================================
 
-_sys_ai_directionMemory::
+_sys_ai_directionMemory:
     .dw #0x0000
 
 ;; TODO: mejorar igual
@@ -47,7 +47,7 @@ _sys_ai_enemy_count: .db 0
 ;; AI FUNCTIONS
 ;;--------------------------------------------------------------------------------
 
-_sys_ai_init::
+_sys_ai_init:
    ; ld hl, #_sys_ai_patrol_pos
    ; ld (_sys_ai_nextPatrolCoords), hl
    ;
@@ -60,7 +60,7 @@ _sys_ai_init::
 ; Actualiza ai_beh
 ; HL: direction of new behaviour
 ;===============================================================================
-_sys_ai_changeBevaviour::
+_sys_ai_changeBevaviour:
    ld e_aibeh1(ix), l
    ld e_aibeh2(ix), h
    ret
@@ -72,7 +72,7 @@ _sys_ai_changeBevaviour::
 ; las entidades que coincida con e_type_movable
 ; NO llega ningun dato
 ;===================================================================================================================================================
-_sys_ai_update::
+_sys_ai_update:
     ld hl, #_sys_ai_updateOneEntity
     ld (_m_functionMemory), hl
     ld hl , #_m_signatureMatch 
@@ -86,7 +86,7 @@ _sys_ai_update::
 ; HL : LA entidad a updatear
 ;   - Sale BC que es la entidad a updatear
 ;===================================================================================================================================================
-_sys_ai_updateOneEntity::    
+_sys_ai_updateOneEntity:    
 
     ld b, h
     ld c, l
@@ -137,7 +137,7 @@ _sys_ai_updateOneEntity::
 ; BC: posicon desde dodne sale
 ;; TODO[Edu]: no sale del centro de la entidad
 ;===============================================================================
-_sys_ai_shootBulletSeek::
+_sys_ai_shootBulletSeek:
    call _sys_ai_reset_shoot_aictr
 
    push bc
@@ -308,7 +308,7 @@ _sys_ai_shoot_bullet_l_d:
 ; Destroy: IX, IY, HL, BC
 ;; TODO[Edu]: no sale del centro de la entidad
 ;===============================================================================
-_sys_ai_spawnEnemy_plist::
+_sys_ai_spawnEnemy_plist:
    call _sys_ai_reset_spawner_aictr
    ; si es patrol_invalid_move se sale
    call check_next_step
@@ -428,7 +428,7 @@ _sys_ai_spawner_has_to_die:
 ; IX: entidad que va a hacer el seek
 ; HL: coordenadas nuveas
 ;===============================================================================
-_sys_ai_setAiAim::
+_sys_ai_setAiAim:
 
    ld e_ai_aim_x(ix), h
    ld e_ai_aim_y(ix), l
@@ -442,7 +442,7 @@ _sys_ai_setAiAim::
 ; IX: entidad que va a hacer el seek
 ; D: velocidad
 ;===============================================================================
-_sys_ai_seekCoords_x::
+_sys_ai_seekCoords_x:
    ld a, e_ai_aim_x(ix)
 
    ld b, e_xpos(ix)
@@ -474,7 +474,7 @@ _sys_ai_seekCoords_x::
 ; IX: entidad que va a hacer el seek
 ; D: velocidad
 ;===============================================================================
-_sys_ai_seekCoords_y::
+_sys_ai_seekCoords_y:
    ld a, e_ai_aim_y(ix)
 
    ld b, e_ypos(ix)

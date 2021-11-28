@@ -45,7 +45,7 @@
 ; Llama a la inversión de control para updatear las fisicas de cada entidad que coincida con e_type_movable
 ; NO llega ningun dato
 ;===================================================================================================================================================
-_sys_input_update::
+_sys_input_update:
     ld hl, #_sys_input_updateOneEntity
     ld (_m_functionMemory), hl
     ld hl , #_m_signatureMatch 
@@ -58,7 +58,7 @@ _sys_input_update::
 ; Updatea cada una de las entidades que tiene componente input
 ; HL : Entidad a updatear
 ;===================================================================================================================================================
-_sys_input_updateOneEntity::    
+_sys_input_updateOneEntity:    
     
     push hl
     pop ix

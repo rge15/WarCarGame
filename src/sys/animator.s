@@ -31,7 +31,7 @@
 ; Llama a la inversión de control para updatear las animaciones de cada entidad que coincida con e_type_animator
 ; NO llega ningun dato
 ;===================================================================================================================================================
-_sys_animator_update::
+_sys_animator_update:
     ld hl, #_sys_animator_updateOneEntity
     ld (_m_functionMemory), hl
     ld hl , #_m_signatureMatch 
@@ -47,7 +47,7 @@ _sys_animator_update::
 ; resetea la animación y establece los datos como el paso descrito antes.
 ; HL : Entidad a updatear
 ;===================================================================================================================================================
-_sys_animator_updateOneEntity::    
+_sys_animator_updateOneEntity:    
     ;/
     ;|Comprobamos comprobamos y decrementamos el valor de anim. counter
     ;\

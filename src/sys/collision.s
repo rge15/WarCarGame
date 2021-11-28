@@ -40,33 +40,33 @@
 ; Manager data   
 ;===================================================================================================================================================
 ;; Punto 1 de la colision de la entidad
-_sys_entityColisionPos1_X::
+_sys_entityColisionPos1_X:
     .ds 1
 
-_sys_entityColisionPos1_Y::
+_sys_entityColisionPos1_Y:
     .ds 1
 
 ;; Punto 2 de la colision de la entidad
-_sys_entityColisionPos2_X::
+_sys_entityColisionPos2_X:
     .ds 1
 
-_sys_entityColisionPos2_Y::
+_sys_entityColisionPos2_Y:
     .ds 1
 
-_sys_entityArray::
+_sys_entityArray:
     .dw #0x0000
 
-_sys_numEntities::
+_sys_numEntities:
     .ds 1
 
-_sys_sizeOfEntity::
+_sys_sizeOfEntity:
     .ds 1    
 ;===================================================================================================================================================
 ; FUNCION _sys_collision_update
 ; Llama a varias etiquetas para updatear las colisiones
 ; NO llega ningun dato
 ;===================================================================================================================================================
-_sys_collision_update::
+_sys_collision_update:
 
     call _sys_checkColissionBwEntities
     call _sys_checkColissionBwTile
@@ -79,7 +79,7 @@ _sys_collision_update::
 ; Setea las variables para comprobar la colision entre todas las entidades
 ; NO llega ningun dato
 ;===================================================================================================================================================
-_sys_checkColissionBwEntities::
+_sys_checkColissionBwEntities:
     ld hl, #_m_entities
     ld (#_sys_entityArray), hl
     ld a, (#_m_numEntities)
@@ -95,7 +95,7 @@ ret
 ; Comprueba la colision de los type colisionables con el tile del mapa
 ; NO llega ningun dato
 ;===================================================================================================================================================
-_sys_checkColissionBwTile::
+_sys_checkColissionBwTile:
     ld hl, #_sys_collision_updateOneEntity
     ld (_m_functionMemory), hl
     ld hl , #_m_signatureMatch 
@@ -109,7 +109,7 @@ ret
 ; Comprueba la colision entre todas las entidades
 ; NO llega ningun dato
 ;===================================================================================================================================================
-_sys_collision_updateMultiple::
+_sys_collision_updateMultiple:
     ;; Guardamos en "ix" la entidad base a updatear
     ld hl, (#_sys_entityArray)
     push hl
@@ -193,7 +193,7 @@ ret
 ; Comprueba se las entidades realmente colisionan
 ; NO llega ningun dato
 ;===================================================================================================================================================
-_sys_collisionEntity_check::
+_sys_collisionEntity_check:
     
     ld a, e_xpos(ix)
     add e_width(ix)
@@ -223,7 +223,7 @@ ret
 ; Comprueba según la orientación si está colisionando con una tile
 ; HL : Entidad a updatear
 ;===================================================================================================================================================
-_sys_collision_updateOneEntity::
+_sys_collision_updateOneEntity:
     push hl
     pop ix
 
@@ -270,7 +270,7 @@ ret
 ; Comprueba si el punto que le han pasado colisiona con la tile y en ese caso updatea su velocidad
 ; BC : El punto en el que se va a comprobar la colision
 ;===================================================================================================================================================
-_sys_checkTilePosition::
+_sys_checkTilePosition:
     ld  a, e_ypos(ix)
     add b ;; Sumo el alto de mi personaje 10
     ;; Desplazo a la derecha 3 veces el bit 
@@ -428,7 +428,7 @@ _sys_checkTilePosition::
 ; Según la orientación de la entidad. Setea los puntos a comprobar en las variables
 ; BC : El punto en el que se va a comprobar la colision
 ;===================================================================================================================================================
-_sys_setEntityCollisionPoints::
+_sys_setEntityCollisionPoints:
     ld c, a
 
     ;; RIGHT = 0
@@ -538,7 +538,7 @@ ret
 ; Comportamiento de las colisiones del jugador
 ; NO llega nada
 ;===================================================================================================================================================
-playerCollisionBehaviour::
+playerCollisionBehaviour:
     ld a, #0x04
     and e_type(iy)
     call Z, _man_game_decreasePlayerLife
@@ -551,7 +551,7 @@ playerCollisionBehaviour::
 ; Comportamiento de las colisiones del enemigo
 ; NO llega nada
 ;===================================================================================================================================================
-enemyCollisionBehaviour::
+enemyCollisionBehaviour:
     ld a, #0x04
     and e_type(iy)
     ret Z
@@ -581,7 +581,7 @@ enemyCollisionBehaviour::
 ; Método encargado las dos entidades que colisionan
 ; NO llega nada
 ;===================================================================================================================================================
-destroyPairOfEntities::
+destroyPairOfEntities:
     push iy
     pop hl 
     call _m_game_destroyEntity
@@ -598,7 +598,7 @@ destroyPairOfEntities::
 ; Método encargado de las colisiones del enemySpawner
 ; NO llega nada
 ;===================================================================================================================================================
-enemySpawnerCollisionBehaviour::
+enemySpawnerCollisionBehaviour:
 
     ld a, #0x04
     and e_type(iy)
@@ -623,7 +623,7 @@ enemySpawnerCollisionBehaviour::
 ; Método encargado de las colisiones del bullet
 ; NO llega nada
 ;===================================================================================================================================================
-bulletCollisionBehaviour::
+bulletCollisionBehaviour:
     ld a, #e_type_enemy
     and e_type(iy)
     jr NZ, destroyEnityOvni
@@ -685,7 +685,7 @@ bulletCollisionBehaviour::
 ; Método encargado de las colisiones del enemyBullet
 ; NO llega nada
 ;===================================================================================================================================================
-enemyBulletCollisionBehaviour::
+enemyBulletCollisionBehaviour:
     ld a, #0x04
     and e_type(iy)
     ret Z
