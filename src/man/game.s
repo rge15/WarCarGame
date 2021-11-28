@@ -96,8 +96,8 @@ _m_max_level = #24
 player_shoot_cooldown_l = 65
 player_shoot_cooldown_h = 65
 
-player_bullet_vel_x = #1
-player_bullet_vel_y = #2
+player_bullet_vel_x = #2
+player_bullet_vel_y = #4
 ;===================================================================================================================================================
 ; FUNCION _m_game_createInitTemplate   
 ; ; Crea la entidad con el template indicado
@@ -207,16 +207,25 @@ ei
       ld a, (_man_frames_counter)
       cp #0
       jr nz, testIr
+
+      cpctm_setBorder_asm HW_BLUE
       call _sys_render_update
+      cpctm_setBorder_asm HW_BLACK
       call _man_entityUpdate
+      cpctm_setBorder_asm HW_YELLOW
       call _sys_physics_update
+      cpctm_setBorder_asm HW_RED
       call _sys_input_update
+      cpctm_setBorder_asm HW_GREEN
       call _sys_animator_update
+      cpctm_setBorder_asm HW_WHITE
       call _sys_ai_update
+      cpctm_setBorder_asm HW_RED
       call _sys_collision_update
 
       call _man_game_updateGameStatus
-      
+      cpctm_setBorder_asm HW_BRIGHT_YELLOW
+
       ld a, (_man_int_current)
       cp #0
       jr nz, testIr
@@ -547,7 +556,20 @@ _man_game_loadLevel:
       dec a
       jr Z, playerCreated ; Si no entra aqui crea un enemigo pq no hay más entityType del level así que sumamos uno a los enemigos
 
+
       push hl
+
+      ; no se xq va pero va !!
+      ld a, e_type(ix)
+      cp #e_type_item
+      jr z, load_level_item
+      jr load_level_enemy
+
+      load_level_item:
+         ld hl, #_m_enemyCounter
+         dec (hl)
+      load_level_enemy:
+
       ld hl, #_m_enemyCounter
       inc (hl)
       pop  hl
@@ -718,6 +740,45 @@ _man_game_increasePlayerLife:
    call _m_HUD_renderLifes
    dontIncrease:
 
+   ret
+
+;===============================================================================
+; l: item id
+; iy: item entity
+;===============================================================================
+_man_game_getItem:
+   push hl
+
+   ld b, #0
+   ld c, e_ai_aim_y(iy)
+
+   ld hl, #_m_playerScore
+   inc hl
+   ld a, (hl)
+   cp c
+   jr z, can_pick_item
+
+   pop hl
+   ret
+
+   can_pick_item:
+
+      ; usa bc
+      call _m_HUD_subPoints
+
+      ld a, #1
+      call _m_HUD_renderScore
+
+      pop hl
+
+      ld a, #i_heart
+      cp l
+      call z, _man_game_increasePlayerLife
+
+      push iy
+      pop hl
+
+      call _m_game_destroyEntity
    ret
 
 

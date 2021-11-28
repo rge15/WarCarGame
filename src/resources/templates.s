@@ -58,14 +58,14 @@ t_follow_timer_f = 1
 t_spawner_max_hp = 3
 
 ; ai_aux_l
-t_bullet_vel_x = 1
+t_bullet_vel_x = 2
 ; ai_aux_h
-t_bullet_vel_y = 2
+t_bullet_vel_y = 4
 
 ; ai_aux_l
-t_bullet_vel_x_f = 1
+t_bullet_vel_x_f = 3
 ; ai_aux_h
-t_bullet_vel_y_f = 2
+t_bullet_vel_y_f = 5
 
 
 enemy_no_shoot = 0x0000
@@ -859,3 +859,29 @@ t_enemy_patrol_x_shoot_y:
    .db #0x02                                 ; e_ai_aux_l
    .db #0x00                                 ; e_ai_aux_h
    .dw #patrol_03                            ; e_patrol_step
+
+; e_ai_aim_x: id item
+; e_ai_aim_x: precio item
+t_item_testing:
+   .db #e_type_item                                 ; type
+   .db #0x21                                 ; cmp
+   .db #50                                 ; x
+   .db #50                                 ; y
+   .db #6                                 ; width
+   .db #16                                 ; heigth
+   .db #0x00                                 ; vx
+   .db #0x00                                 ; vy
+   .dw #_heart                      ; sprite
+   .db #0x00                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
+   .db #0x00                                 ; prev. orientation
+   .dw #0x0000                               ; prevptr
+   .dw #0
+   .db #0
+   .dw #0x0                                  ; animator
+   .db #0x0A                                 ; anim. counter
+   .dw #0                                    ; input_behaviour
+   .db #i_heart                                 ; e_ai_aim_x
+   .db #2                                 ; e_ai_aim_y
+   .db #0                                    ; e_ai_aux_l
+   .db #0x00                                 ; e_ai_aux_h
+   .dw #1                                    ; e_patrol_step

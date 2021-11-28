@@ -117,7 +117,7 @@ _sys_input_updateOneEntity:
 
     upPressed:
         ;; Cambiamos la posicion
-        ld a, #0xFE
+        ld a, #0xFC
         ;; Meto dos dec para que avance byte y no pixels
         ld e_vy(ix), a
         ld a, #0x00
@@ -129,7 +129,7 @@ _sys_input_updateOneEntity:
 
     leftPressed:
         ;; Cambiamos la posicion
-        ld a, #0xFF
+        ld a, #0xFE
         ; dec a
         ld e_vx(ix), a
         ld a, #0x00
@@ -141,7 +141,7 @@ _sys_input_updateOneEntity:
 
     downPressed:
         ;; Cambiamos la posicion
-        ld a, #0x02
+        ld a, #0x04
         ld e_vy(ix), a
         ld a, #0x00
         ld e_vx(ix), a
@@ -152,7 +152,7 @@ _sys_input_updateOneEntity:
 
     rightPressed:
         ;; Cambiamos la posicion
-        ld a, #0x01
+        ld a, #0x02
         ld e_vx(ix), a
         ld a, #0x00
         ld e_vy(ix), a

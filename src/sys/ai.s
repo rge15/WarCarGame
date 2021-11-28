@@ -39,7 +39,7 @@ _sys_ai_directionMemory:
     .dw #0x0000
 
 ;; TODO: mejorar igual
-enemy_max_spawn = 3
+enemy_max_spawn = 4
 _sys_ai_enemy_count: .db 0
 
 

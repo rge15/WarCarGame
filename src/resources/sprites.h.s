@@ -79,6 +79,8 @@
 .globl _ovni_bullet_0
 .globl _ovni_bullet_1
 
+.globl _heart
+
 .globl _nextStage
 
 .globl _numback

@@ -82,6 +82,10 @@ $(eval $(call IMG2SP, CONVERT         , assets/png/nextStage.png , 124, 44, next
 
 $(eval $(call IMG2SP, CONVERT         , assets/png/numback.png , 24, 16, numback,,))
 
+## ========== ITEMS ========== 
+$(eval $(call IMG2SP, CONVERT         , assets/heart1.png, 12, 16, heart,,))
+
+
 ## ========== PNG ENTEROS ========== 
 $(eval $(call IMG2SP, SET_IMG_FORMAT  , screen  ))
 $(eval $(call IMG2SP, SET_OUTPUT      , bin ))

@@ -538,10 +538,19 @@ ret
 ; Comportamiento de las colisiones del jugador
 ; NO llega nada
 ;===================================================================================================================================================
+no_collision_player_die = (e_type_bullet | e_type_item)
+
 playerCollisionBehaviour:
-    ld a, #0x04
+    ; GET_PLAYER_ENTITY iy
+    ld a, #no_collision_player_die
     and e_type(iy)
     call Z, _man_game_decreasePlayerLife
+
+    ld a, #e_type_item
+    and e_type(iy)
+    ld l, e_ai_aim_x(iy)
+    call NZ, _man_game_getItem
+
     ret
 
 

@@ -29,6 +29,7 @@
 .globl _m_game_StartMenu
 .globl _man_game_decreaseEnemyCounter
 .globl _man_game_decreasePlayerLife
+.globl _man_game_getItem
 .globl _wait
 
 ;================================================================================

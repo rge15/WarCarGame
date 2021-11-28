@@ -38,3 +38,5 @@
 .globl _m_HUD_lifeWidth
 .globl _m_HUD_lifeHeight
 .globl _m_playerScore
+
+.globl _m_HUD_subPoints

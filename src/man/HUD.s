@@ -349,3 +349,24 @@ _m_HUD_addPoints:
     ld (hl), a
     
     ret
+
+; lo mismo que arriba pero he cambiado add por sub y ha 
+; fucionado sinceramnte estoy flipando
+_m_HUD_subPoints:
+    ;Cargamos la primera parte del Score en A 
+    ld hl, #_m_playerScore
+    ; ld bc, #0x0002
+    inc hl
+    ld a, (hl)
+
+    ;Subimos la puntuación
+    sub c
+    daa
+    ld (hl), a
+    dec hl
+    ld a,(hl)
+    sub b
+    daa
+    ld (hl), a
+    
+    ret
