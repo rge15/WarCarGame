@@ -21,6 +21,7 @@
 ; HUD Functions Declaration
 ;================================================================================
 .globl _m_HUD_decreaseLife
+.globl _m_HUD_increaseLife
 .globl _m_HUD_initLifes
 .globl _m_HUD_renderLifes
 .globl _m_HUD_renderScore

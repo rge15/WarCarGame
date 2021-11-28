@@ -705,6 +705,19 @@ _man_game_decreasePlayerLife:
    ret
 
 
+_man_game_increasePlayerLife:
+   ld hl, #_m_lifePlayer
+   ld a,(hl)
+   cp #3
+   jr Z, dontIncrease
+   inc (hl)
+   call _m_HUD_increaseLife
+   call _m_HUD_renderLifes
+   dontIncrease:
+
+   ret
+
+
 ;===================================================================================================================================================
 ; FUNCION _man_game_decreaseEnemyCounter   
 ; Función encargada de decrementar el número de enemigos
@@ -868,6 +881,7 @@ lvl_04:
 lvl_05:
    ld hl, #_spriteScore_05
    call load_lvl_ctr_sprite_2
+   call _man_game_increasePlayerLife
    ret
 
 lvl_06:

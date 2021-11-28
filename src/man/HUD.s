@@ -297,6 +297,34 @@ _m_HUD_decreaseLife:
 
     ret
 
+;===================================================================================================================================================
+; FUNCION _m_HUD_increaseLife
+; Función encargada de anyadir las vidas
+; NO llega ningun dato
+;===================================================================================================================================================
+_m_HUD_increaseLife:
+    ld a, #0x02
+    ld bc, #0x0003
+
+    ld hl, #_m_HUD_life
+    add hl, bc
+    inc (hl)
+    dec (hl)
+    jr Z, incLife
+
+    dec hl
+    dec hl
+    dec hl
+    inc (hl)
+    dec (hl)
+    jr Z, incLife
+    jr NZ,  fullLifes
+    incLife:
+    inc (hl)
+    fullLifes:
+
+    ret
+
 
 ;===================================================================================================================================================
 ; FUNCION _m_HUD_addPoints
