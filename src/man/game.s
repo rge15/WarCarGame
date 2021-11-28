@@ -755,8 +755,10 @@ _man_game_getItem:
    ld hl, #_m_playerScore
    inc hl
    ld a, (hl)
+
+   ; if score >= precio NC flag
    cp c
-   jr z, can_pick_item
+   jr nc, can_pick_item
 
    pop hl
    ret
@@ -765,6 +767,7 @@ _man_game_getItem:
 
       ; usa bc
       call _m_HUD_subPoints
+      call _m_HUD_saveScore
 
       ld a, #1
       call _m_HUD_renderScore

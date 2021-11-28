@@ -862,7 +862,7 @@ t_enemy_patrol_x_shoot_y:
 
 ; e_ai_aim_x: id item
 ; e_ai_aim_x: precio item
-t_item_testing:
+t_item_heart:
    .db #e_type_item                                 ; type
    .db #0x21                                 ; cmp
    .db #50                                 ; x

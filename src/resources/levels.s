@@ -84,7 +84,7 @@ _level1:
    .dw #enemy_no_shoot
 
    .db #level_new_entity
-   .dw #t_item_testing
+   .dw #t_item_heart
    .db #56
    .db #156
    .dw #0
@@ -239,6 +239,16 @@ _level1:
    .db #0
    .dw #patrol_06
    .dw #enemy_no_shoot
+
+   .db #level_new_entity
+   .dw #t_item_heart
+   .db #56
+   .db #156
+   .dw #0
+   .db #4                                  ; e_ai_aux_l
+   .db #48                                 ; e_ai_aux_h
+   .dw #0
+   .dw #0
 
    .db #level_separator
    ; ================================================================================
