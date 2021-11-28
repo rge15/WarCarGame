@@ -102,11 +102,11 @@ _man_anim_enemy_red:
     .dw #_man_anim_enemy_red
 
 _man_anim_exp:
-    .db #2
+    .db #1
     .dw #_ovni_exp_0
-    .db #2
+    .db #1
     .dw #_ovni_exp_1
-    .db #2
+    .db #1
     .dw #_ovni_exp_2
     .db #2
     .dw #_ovni_exp_3
@@ -118,9 +118,9 @@ _man_anim_exp:
 ; Enemy Bullet Animations
 ;===================================================================================================================================================
 _man_anim_enemy_bullet:
-    .db #0x06
+    .db #0x03
     .dw #_ovni_bullet_0
-    .db #0x06
+    .db #0x03
     .dw #_ovni_bullet_1
     .db #0
     .dw #_man_anim_enemy_bullet
