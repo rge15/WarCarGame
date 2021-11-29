@@ -55,3 +55,4 @@
 .globl _sys_ai_restore_spawn
 
 .globl _sys_ai_beh_ingame_shield
+.globl _sys_ai_beh_ingame_rotator

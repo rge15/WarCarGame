@@ -196,6 +196,13 @@ patrol_relative_around_01:
    .db #patrol_invalid_move
    .dw #patrol_relative_around_01
 
+patrol_relative_around_02:
+   .db  4, -8
+   .db  4, 12
+   .db  -2, 12
+   .db  -2, -8
+   .db #patrol_invalid_move
+   .dw #patrol_relative_around_02
 
 patrol_seeknpatrol_01:
    .db  0, -16

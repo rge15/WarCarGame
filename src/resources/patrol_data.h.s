@@ -41,6 +41,7 @@
 .globl patrol_all_game_zone_m0
 
 .globl patrol_relative_around_01
+.globl patrol_relative_around_02
 .globl patrol_relative_03
 .globl patrol_seeknpatrol_01
 .globl patrol_seeknpatrol_02

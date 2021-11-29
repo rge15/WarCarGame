@@ -63,19 +63,29 @@ _level1:
    ; .dw #spawner_plist_02
    ; .dw #enemy_no_shoot
 
-   .db #level_new_entity
-   .dw #t_enemy_basic_green
-   .db #48
-   .db #108
-   .dw #enemy_no_move
-   .db #4                                 ; e_ai_aux_l
-   .db #48                                 ; e_ai_aux_h
-   .dw #patrol_all_game_zone_m0
-   .dw #_sys_ai_beh_shoot_y
+   ; .db #level_new_entity
+   ; .dw #t_enemy_basic_green
+   ; .db #48
+   ; .db #108
+   ; .dw #enemy_no_move
+   ; .db #4                                 ; e_ai_aux_l
+   ; .db #48                                 ; e_ai_aux_h
+   ; .dw #patrol_all_game_zone_m0
+   ; .dw #_sys_ai_beh_shoot_y
 
    .db #level_new_entity
    .dw #t_enemy_basic_green
    .db #24
+   .db #156
+   .dw #enemy_no_move
+   .db #4                                 ; e_ai_aux_l
+   .db #48                                 ; e_ai_aux_h
+   .dw #patrol_all_game_zone_m0
+   .dw #enemy_no_shoot
+
+   .db #level_new_entity
+   .dw #t_enemy_basic_green
+   .db #8
    .db #156
    .dw #enemy_no_move
    .db #4                                 ; e_ai_aux_l
@@ -94,7 +104,7 @@ _level1:
    .dw #0
 
    .db #level_new_entity
-   .dw #t_item_shield
+   .dw #t_item_rotator
    .db #56
    .db #124
    .dw #0

@@ -493,3 +493,29 @@ _sys_ai_beh_ingame_shield:
    ld e_ypos(ix), a
 
    ret
+
+_sys_ai_beh_ingame_rotator:
+   push bc
+   pop ix
+
+   ; GET_PLAYER_ENTITY iy
+   ; ld a, e_xpos(iy)
+   ; ; add #2
+   ; ld e_xpos(ix), a
+   ;
+   ; ld a, e_ypos(iy)
+   ; ; add #1
+   ; ld e_ypos(ix), a
+
+   GET_PLAYER_ENTITY iy
+   ld a, e_xpos(iy)
+   ld e_ai_aux_l(ix), a
+
+   ld a, e_ypos(iy)
+   ld e_ai_aux_h(ix), a
+
+   push ix
+   pop bc
+   call _sys_ai_behaviourPatrolRelative_f
+
+   ret

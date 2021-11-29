@@ -13,10 +13,6 @@ item_pick_heart:
    call _man_game_increasePlayerLife
    ret
 
-item_pick_shield:
-   call item_create_ingame_shield
-   ret
-
 item_pick_skip:
    call nextLevel
    ret
@@ -30,6 +26,14 @@ item_pick_speed_bullet:
    ld (hl), #4
    ld hl, #player_bullet_vel_y
    ld (hl), #8
+   ret
+
+item_pick_shield:
+   call item_create_ingame_shield
+   ret
+
+item_pick_rotator:
+   call item_create_ingame_rotator
    ret
 
 ;===============================================================================
@@ -49,5 +53,24 @@ item_create_ingame_shield:
    ld a, e_ypos(iy)
    ld e_ypos(ix), a
 
+   ret
+
+item_create_ingame_rotator:
+   ld bc, #t_ingame_rotator
+   call _m_game_createInitTemplate
+   push hl
+   pop ix
+
+   ld a, e_xpos(iy)
+   ld e_xpos(ix), a
+   ld e_ai_aux_l(ix), a
+
+   ld a, e_ypos(iy)
+   ld e_ypos(ix), a
+   ld e_ai_aux_h(ix), a
+
+   ; ld a, e_xpos(iy)
+   ;
+   ; ld a, e_ypos(iy)
 
    ret

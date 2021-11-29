@@ -84,7 +84,9 @@
 .globl _restart_item_sprite
 .globl _skip_item_sprite
 .globl _speed_b_item_sprite
+.globl _rotator_item_sprite
 
+.globl _rotator_ingame_sprite
 .globl _shield_ingame_sprite
 
 .globl _nextStage
