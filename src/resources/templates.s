@@ -867,10 +867,10 @@ t_enemy_patrol_x_shoot_y:
    .db #0x00                                 ; e_ai_aux_h
    .dw #patrol_03                            ; e_patrol_step
 
-; pickable items
+;===============================================================================
+; Pickable items
+;===============================================================================
 
-.globl _man_game_increasePlayerLife
-; e_ai_aim_x: id item
 ; e_ai_aim_y: precio item
 ; animator: funcion que ejecuta al pick
 t_item_heart:
@@ -891,7 +891,7 @@ t_item_heart:
    .dw #item_pick_heart                                  ; animator
    .db #0x0A                                 ; anim. counter
    .dw #0                                    ; input_behaviour
-   .db #item_type_heart                                 ; e_ai_aim_x
+   .db #0                                 ; e_ai_aim_x
    ; .db #8                                 ; e_ai_aim_y
    .db #1                                 ; e_ai_aim_y
    .db #0                                    ; e_ai_aux_l
@@ -914,10 +914,10 @@ t_item_shield:
    .dw #0x0000                               ; prevptr
    .dw #0
    .db #0
-   .dw #item_pick_shield                                  ; animator
+   .dw #0                                  ; animator
    .db #0x0A                                 ; anim. counter
    .dw #0                                    ; input_behaviour
-   .db #item_type_shield                                 ; e_ai_aim_x
+   .db #0                                 ; e_ai_aim_x
    ; .db #23                                 ; e_ai_aim_y
    .db #1                                 ; e_ai_aim_y
    .db #0                                    ; e_ai_aux_l
@@ -942,7 +942,7 @@ t_item_restart:
    .dw #item_pick_restart                                  ; animator
    .db #0x0A                                 ; anim. counter
    .dw #0                                    ; input_behaviour
-   .db #item_type_shield                                 ; e_ai_aim_x
+   .db #0                                 ; e_ai_aim_x
    ; .db #23                                 ; e_ai_aim_y
    .db #1                                 ; e_ai_aim_y
    .db #0                                    ; e_ai_aux_l
@@ -967,9 +967,33 @@ t_item_skip:
    .dw #item_pick_skip                                  ; animator
    .db #0x0A                                 ; anim. counter
    .dw #0                                    ; input_behaviour
-   .db #item_type_shield                                 ; e_ai_aim_x
+   .db #0                                 ; e_ai_aim_x
    ; .db #23                                 ; e_ai_aim_y
    .db #1                                 ; e_ai_aim_y
    .db #0                                    ; e_ai_aux_l
    .db #0x00                                 ; e_ai_aux_h
    .dw #0                                    ; e_patrol_step
+
+t_ingame_shield:
+   .db #e_type_enemy                         ; type
+   .db #0x3b                                 ; cmp
+   .db #0                                    ; x
+   .db #0                                    ; y
+   .db #7                                   ; width
+   .db #17                                   ; heigth
+   .db #0                                    ; vx
+   .db #0                                    ; vy
+   .dw #_ovni_green_0                      ; sprite
+   .db #0x00                                 ; orientation
+   .db #0x00                                 ; prev. orientation
+   .dw #0x0000                               ; prevptr
+   .dw #enemy_no_move                                    ; ai_behaviour
+   .db #t_shoot_timer_enemy_s
+   .dw #_man_anim_enemy_green                                  ; animator
+   .db #0x01                                  ; anim. counter
+   .dw #enemy_no_shoot                               ; input_behaviour
+   .db #0x00                                 ; e_ai_aim_x
+   .db #0x00                                 ; e_ai_aim_y
+   .db #0                                    ; e_ai_aux_l
+   .db #0                                    ; e_ai_aux_h
+   .dw #0                                    ; patrol_step
