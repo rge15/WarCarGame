@@ -2,6 +2,9 @@
 
 .include "items.h.s"
 .include "man/game.h.s"
+.include "resources/templates.h.s"
+.include "resources/macros.s"
+.include "resources/entityInfo.s"
 
 ;===============================================================================
 ; Item picks
@@ -11,6 +14,7 @@ item_pick_heart:
    ret
 
 item_pick_shield:
+   call item_create_ingame_shield
    ret
 
 item_pick_skip:
@@ -32,5 +36,18 @@ item_pick_speed_bullet:
 ; Item create
 ;===============================================================================
 
-item_create_shield:
+; iy: item colision
+item_create_ingame_shield:
+   ld bc, #t_ingame_shield
+   call _m_game_createInitTemplate
+   push hl
+   pop ix
+
+   ld a, e_xpos(iy)
+   ld e_xpos(ix), a
+
+   ld a, e_ypos(iy)
+   ld e_ypos(ix), a
+
+
    ret

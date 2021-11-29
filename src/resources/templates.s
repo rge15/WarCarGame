@@ -59,9 +59,9 @@ t_follow_timer_f = 1
 t_spawner_max_hp = 3
 
 ; ai_aux_l
-t_bullet_vel_x = 2
+t_bullet_vel_x = 1
 ; ai_aux_h
-t_bullet_vel_y = 4
+t_bullet_vel_y = 2
 
 ; ai_aux_l
 t_bullet_vel_x_f = 3
@@ -914,7 +914,7 @@ t_item_shield:
    .dw #0x0000                               ; prevptr
    .dw #0
    .db #0
-   .dw #0                                  ; animator
+   .dw #item_pick_shield                                  ; animator
    .db #0x0A                                 ; anim. counter
    .dw #0                                    ; input_behaviour
    .db #0                                 ; e_ai_aim_x
@@ -999,23 +999,24 @@ t_item_speed_bullet:
    .db #0x00                                 ; e_ai_aux_h
    .dw #0                                    ; e_patrol_step
 
+; type_bullet puede servir??
 t_ingame_shield:
-   .db #e_type_enemy                         ; type
-   .db #0x3b                                 ; cmp
+   .db #e_type_bullet                         ; type
+   .db #0x2B                                 ; cmp
    .db #0                                    ; x
    .db #0                                    ; y
-   .db #5                                   ; width
-   .db #14                                   ; heigth
+   .db #6                                   ; width
+   .db #16                                   ; heigth
    .db #0                                    ; vx
    .db #0                                    ; vy
    .dw #_shield_ingame_sprite                      ; sprite
    .db #0x00                                 ; orientation
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
-   .dw #0                                    ; ai_behaviour
+   .dw #_sys_ai_beh_ingame_shield            ; ai_behaviour
    .db #0
    .dw #0                                  ; animator
-   .db #0x01                                  ; anim. counter
+   .db #0                                  ; anim. counter
    .dw #0                               ; input_behaviour
    .db #0x00                                 ; e_ai_aim_x
    .db #0x00                                 ; e_ai_aim_y

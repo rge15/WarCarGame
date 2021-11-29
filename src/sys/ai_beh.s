@@ -474,3 +474,22 @@ _sys_ai_beh_shoot_d:
    call z, _sys_ai_shoot_bullet_l_d
    ret
 
+
+;;--------------------------------------------------------------------------------
+;; AI INGAME ITEMS
+;;--------------------------------------------------------------------------------
+
+_sys_ai_beh_ingame_shield:
+   push bc
+   pop ix
+
+   GET_PLAYER_ENTITY iy
+   ld a, e_xpos(iy)
+   ; add #2
+   ld e_xpos(ix), a
+
+   ld a, e_ypos(iy)
+   ; add #1
+   ld e_ypos(ix), a
+
+   ret

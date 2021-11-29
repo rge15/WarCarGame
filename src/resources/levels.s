@@ -66,12 +66,12 @@ _level1:
    .db #level_new_entity
    .dw #t_enemy_basic_green
    .db #48
-   .db #156
+   .db #108
    .dw #enemy_no_move
    .db #4                                 ; e_ai_aux_l
    .db #48                                 ; e_ai_aux_h
    .dw #patrol_all_game_zone_m0
-   .dw #enemy_no_shoot
+   .dw #_sys_ai_beh_shoot_y
 
    .db #level_new_entity
    .dw #t_enemy_basic_green

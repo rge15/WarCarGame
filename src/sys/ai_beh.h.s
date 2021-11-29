@@ -53,3 +53,5 @@
 
 .globl _sys_ai_prepare_ovni_die
 .globl _sys_ai_restore_spawn
+
+.globl _sys_ai_beh_ingame_shield
