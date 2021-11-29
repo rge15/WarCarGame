@@ -974,24 +974,49 @@ t_item_skip:
    .db #0x00                                 ; e_ai_aux_h
    .dw #0                                    ; e_patrol_step
 
+t_item_speed_bullet:
+   .db #e_type_item                                 ; type
+   .db #0x21                                 ; cmp
+   .db #50                                 ; x
+   .db #50                                 ; y
+   .db #7                                 ; width
+   .db #16                                 ; heigth
+   .db #0x00                                 ; vx
+   .db #0x00                                 ; vy
+   .dw #_speed_b_item_sprite                      ; sprite
+   .db #0x00                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
+   .db #0x00                                 ; prev. orientation
+   .dw #0x0000                               ; prevptr
+   .dw #0
+   .db #0
+   .dw #item_pick_speed_bullet                                  ; animator
+   .db #0x0A                                 ; anim. counter
+   .dw #0                                    ; input_behaviour
+   .db #0                                 ; e_ai_aim_x
+   ; .db #23                                 ; e_ai_aim_y
+   .db #1                                 ; e_ai_aim_y
+   .db #0                                    ; e_ai_aux_l
+   .db #0x00                                 ; e_ai_aux_h
+   .dw #0                                    ; e_patrol_step
+
 t_ingame_shield:
    .db #e_type_enemy                         ; type
    .db #0x3b                                 ; cmp
    .db #0                                    ; x
    .db #0                                    ; y
-   .db #7                                   ; width
-   .db #17                                   ; heigth
+   .db #5                                   ; width
+   .db #14                                   ; heigth
    .db #0                                    ; vx
    .db #0                                    ; vy
-   .dw #_ovni_green_0                      ; sprite
+   .dw #_shield_ingame_sprite                      ; sprite
    .db #0x00                                 ; orientation
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
-   .dw #enemy_no_move                                    ; ai_behaviour
-   .db #t_shoot_timer_enemy_s
-   .dw #_man_anim_enemy_green                                  ; animator
+   .dw #0                                    ; ai_behaviour
+   .db #0
+   .dw #0                                  ; animator
    .db #0x01                                  ; anim. counter
-   .dw #enemy_no_shoot                               ; input_behaviour
+   .dw #0                               ; input_behaviour
    .db #0x00                                 ; e_ai_aim_x
    .db #0x00                                 ; e_ai_aim_y
    .db #0                                    ; e_ai_aux_l

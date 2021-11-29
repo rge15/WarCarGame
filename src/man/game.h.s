@@ -43,3 +43,6 @@
 
 .globl restartLevel
 .globl nextLevel
+
+.globl player_bullet_vel_x
+.globl player_bullet_vel_y

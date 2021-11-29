@@ -114,7 +114,7 @@ _level1:
    .dw #0
 
    .db #level_new_entity
-   .dw #t_item_restart
+   .dw #t_item_speed_bullet
    .db #56
    .db #68
    .dw #0
@@ -122,6 +122,17 @@ _level1:
    .db #48                                 ; e_ai_aux_h
    .dw #0
    .dw #0
+
+   ; .db #level_new_entity
+   ; .dw #t_ingame_shield
+   ; .db #28
+   ; .db #48
+   ; .dw #enemy_no_move
+   ; .db #4                                 ; e_ai_aux_l
+   ; .db #48                                 ; e_ai_aux_h
+   ; .dw #0
+   ; .dw #enemy_no_shoot
+
 
    .db #level_separator
    ;================================================================================

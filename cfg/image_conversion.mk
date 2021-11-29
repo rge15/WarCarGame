@@ -87,6 +87,9 @@ $(eval $(call IMG2SP, CONVERT         , assets/item_heart.png, 14, 16, heart_ite
 $(eval $(call IMG2SP, CONVERT         , assets/item_shield.png, 14, 16, shield_item_sprite,,))
 $(eval $(call IMG2SP, CONVERT         , assets/item_restart.png, 14, 16, restart_item_sprite,,))
 $(eval $(call IMG2SP, CONVERT         , assets/item_skip.png, 14, 16, skip_item_sprite,,))
+$(eval $(call IMG2SP, CONVERT         , assets/item_speed_bullet.png, 14, 16, speed_b_item_sprite,,))
+
+$(eval $(call IMG2SP, CONVERT         , assets/shield_ingame.png, 10, 14, shield_ingame_sprite,,))
 
 
 ## ========== PNG ENTEROS ========== 

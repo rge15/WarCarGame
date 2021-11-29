@@ -96,8 +96,8 @@ _m_max_level = #24
 player_shoot_cooldown_l = 35
 player_shoot_cooldown_h = 35
 
-player_bullet_vel_x = #2
-player_bullet_vel_y = #4
+player_bullet_vel_x: .db #2
+player_bullet_vel_y: .db #4
 ;===================================================================================================================================================
 ; FUNCION _m_game_createInitTemplate   
 ; ; Crea la entidad con el template indicado
@@ -377,7 +377,9 @@ _m_game_playerShot:
 
    jp stopCheckOrientation
    righOrientation:
-      ld e_vx(ix), #player_bullet_vel_x
+      ld a, (player_bullet_vel_x)
+      ld e_vx(ix), a
+
       ld e_orient(ix), #0x00
       ld a, e_ypos(ix)
       add a, #0x03
@@ -385,7 +387,8 @@ _m_game_playerShot:
       jp stopCheckOrientation
 
    downOrientation:
-      ld e_vy(ix), #player_bullet_vel_y
+      ld a, (player_bullet_vel_y)
+      ld e_vy(ix), a
       ld e_orient(ix), #0x01
 
       ld e_width(ix),  #0x02
@@ -404,7 +407,8 @@ _m_game_playerShot:
       jp stopCheckOrientation
 
    leftOrientation:
-      ld d, #player_bullet_vel_x
+      ld a, (player_bullet_vel_x)
+      ld d, a
       NEGATE_NUMBER d
       ld e_vx(ix), a
       ld e_orient(ix), #0x02
@@ -423,7 +427,8 @@ _m_game_playerShot:
       jp stopCheckOrientation
 
    upOrientation:
-      ld d, #player_bullet_vel_y
+      ld a, (player_bullet_vel_y)
+      ld d, a
       NEGATE_NUMBER d
       ld e_vy(ix), a
       ld e_orient(ix), #0x03

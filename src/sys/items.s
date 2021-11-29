@@ -21,6 +21,13 @@ item_pick_restart:
    call restartLevel
    ret
 
+item_pick_speed_bullet:
+   ld hl, #player_bullet_vel_x
+   ld (hl), #4
+   ld hl, #player_bullet_vel_y
+   ld (hl), #8
+   ret
+
 ;===============================================================================
 ; Item create
 ;===============================================================================
