@@ -116,6 +116,10 @@ _sys_collision_updateMultiple:
     pop ix
     ld d, h
     ld e, l
+
+    ; ld a, e_cmp(ix)
+    ; and #e_cmp_collider
+
     jp _next_iy
 
     _next_ix:

@@ -81,6 +81,8 @@
 
 .globl _heart_item_sprite
 .globl _shield_item_sprite
+.globl _restart_item_sprite
+.globl _skip_item_sprite
 
 .globl _nextStage
 

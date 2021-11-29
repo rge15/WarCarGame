@@ -774,15 +774,20 @@ _man_game_getItem:
 
       pop hl
 
-      ; TIPOS DE ITEMS Y SU COMPORTAMIENTO
-      ld a, #item_type_heart
-      cp l
-      call z, _man_game_increasePlayerLife
+      ld bc, #after_item_jp
+      push bc
 
-      ld a, #item_type_shield
-      cp l
-      call z, restartLevel
+      ld h, e_anim2(iy)
+      ld l, e_anim1(iy)
+      jp (hl)
 
+      ; jp z, _man_game_increasePlayerLife
+
+      ; ld a, #item_type_shield
+      ; cp l
+      ; call z, restartLevel
+
+      after_item_jp:
       push iy
       pop hl
 
@@ -953,7 +958,6 @@ lvl_04:
 lvl_05:
    ld hl, #_spriteScore_05
    call load_lvl_ctr_sprite_2
-   call _man_game_increasePlayerLife
    ret
 
 lvl_06:
@@ -980,7 +984,6 @@ lvl_10:
    call load_lvl_ctr_sprite_2
    ld hl, #_spriteScore_01
    call load_lvl_ctr_sprite_1
-   call _man_game_increasePlayerLife
    ret
 lvl_11:
    ; el primero numero ya tiene un 1
@@ -1002,7 +1005,6 @@ lvl_14:
 lvl_15:
    ld hl, #_spriteScore_05
    call load_lvl_ctr_sprite_2
-   call _man_game_increasePlayerLife
    ret
 lvl_16:
    ld hl, #_spriteScore_06
@@ -1025,7 +1027,6 @@ lvl_20:
    call load_lvl_ctr_sprite_2
    ld hl, #_spriteScore_02
    call load_lvl_ctr_sprite_1
-   call _man_game_increasePlayerLife
    ret
 lvl_21:
    ; el primero numero ya tiene un 2

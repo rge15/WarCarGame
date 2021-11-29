@@ -83,8 +83,10 @@ $(eval $(call IMG2SP, CONVERT         , assets/png/nextStage.png , 124, 44, next
 $(eval $(call IMG2SP, CONVERT         , assets/png/numback.png , 24, 16, numback,,))
 
 ## ========== ITEMS ========== 
-$(eval $(call IMG2SP, CONVERT         , assets/heart1.png, 14, 16, heart_item_sprite,,))
-$(eval $(call IMG2SP, CONVERT         , assets/shield1.png, 14, 16, shield_item_sprite,,))
+$(eval $(call IMG2SP, CONVERT         , assets/item_heart.png, 14, 16, heart_item_sprite,,))
+$(eval $(call IMG2SP, CONVERT         , assets/item_shield.png, 14, 16, shield_item_sprite,,))
+$(eval $(call IMG2SP, CONVERT         , assets/item_restart.png, 14, 16, restart_item_sprite,,))
+$(eval $(call IMG2SP, CONVERT         , assets/item_skip.png, 14, 16, skip_item_sprite,,))
 
 
 ## ========== PNG ENTEROS ========== 
