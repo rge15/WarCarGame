@@ -84,4 +84,6 @@
 
 .globl t_enemy_testing
 .globl t_enemy_testing2
+
 .globl t_item_heart
+.globl t_item_shield

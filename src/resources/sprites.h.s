@@ -79,7 +79,8 @@
 .globl _ovni_bullet_0
 .globl _ovni_bullet_1
 
-.globl _heart
+.globl _heart_item_sprite
+.globl _shield_item_sprite
 
 .globl _nextStage
 

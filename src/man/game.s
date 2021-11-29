@@ -774,9 +774,14 @@ _man_game_getItem:
 
       pop hl
 
-      ld a, #i_heart
+      ; TIPOS DE ITEMS Y SU COMPORTAMIENTO
+      ld a, #item_type_heart
       cp l
       call z, _man_game_increasePlayerLife
+
+      ld a, #item_type_shield
+      cp l
+      call z, restartLevel
 
       push iy
       pop hl
