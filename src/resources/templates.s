@@ -114,8 +114,8 @@ t_enemy_basic_green:
    .db #0x3b                                 ; cmp
    .db #0                                    ; x
    .db #0                                    ; y
-   .db #6                                   ; width
-   .db #16                                   ; heigth
+   .db #4                                   ; width
+   .db #12                                   ; heigth
    .db #0                                    ; vx
    .db #0                                    ; vy
    .dw #_ovni_green_0                      ; sprite
@@ -138,8 +138,8 @@ t_enemy_basic_blue:
    .db #0x3b                                 ; cmp
    .db #0                                    ; x
    .db #0                                    ; y
-   .db #6                                   ; width
-   .db #16                                   ; heigth
+   .db #4                                   ; width
+   .db #12                                   ; heigth
    .db #0                                    ; vx
    .db #0                                    ; vy
    .dw #_ovni_blue_0                      ; sprite
@@ -162,8 +162,8 @@ t_enemy_basic_purple:
    .db #0x3b                                 ; cmp
    .db #0                                    ; x
    .db #0                                    ; y
-   .db #6                                   ; width
-   .db #16                                   ; heigth
+   .db #4                                   ; width
+   .db #12                                   ; heigth
    .db #0                                    ; vx
    .db #0                                    ; vy
    .dw #_ovni_purple_0                      ; sprite
@@ -186,8 +186,8 @@ t_enemy_basic_red:
    .db #0x3b                                 ; cmp
    .db #0                                    ; x
    .db #0                                    ; y
-   .db #6                                   ; width
-   .db #16                                   ; heigth
+   .db #4                                   ; width
+   .db #12                                   ; heigth
    .db #0                                    ; vx
    .db #0                                    ; vy
    .dw #_ovni_red_0                      ; sprite
@@ -210,8 +210,8 @@ t_enemy_seeknpatrol:
    .db #0x3b                                 ; cmp
    .db #00                                 ; x
    .db #00                                 ; y
-   .db #6                                   ; width
-   .db #16                                   ; heigth
+   .db #4                                   ; width
+   .db #12                                   ; heigth
    .db #0x00                                 ; vx
    .db #0x00                                 ; vy
    .dw #_ovni_red_0                      ; sprite
@@ -234,8 +234,8 @@ t_enemy_seeknpatrol_02:
    .db #0x3b                                 ; cmp
    .db #00                                 ; x
    .db #00                                 ; y
-   .db #6                                   ; width
-   .db #16                                   ; heigth
+   .db #4                                   ; width
+   .db #12                                   ; heigth
    .db #0x00                                 ; vx
    .db #0x00                                 ; vy
    .dw #_ovni_red_0                      ; sprite
@@ -258,8 +258,8 @@ t_enemy_patrol_game_zone:
    .db #0x3b                                 ; cmp
    .db #0                                    ; x
    .db #0                                    ; y
-   .db #6                                   ; width
-   .db #16                                   ; heigth
+   .db #4                                   ; width
+   .db #12                                   ; heigth
    .db #0                                    ; vx
    .db #0                                    ; vy
    .dw #_ovni_purple_0                      ; sprite
@@ -282,8 +282,8 @@ t_enemy_patrol_game_zone_i:
    .db #0x3b                                 ; cmp
    .db #0                                    ; x
    .db #0                                    ; y
-   .db #6                                   ; width
-   .db #16                                   ; heigth
+   .db #4                                   ; width
+   .db #12                                   ; heigth
    .db #0                                    ; vx
    .db #0                                    ; vy
    .dw #_ovni_purple_0                      ; sprite
@@ -499,8 +499,8 @@ t_es_01:
    .db #0x3b                                 ; cmp
    .db #0                                    ; x
    .db #0                                    ; y
-   .db #6                                   ; width
-   .db #16                                   ; heigth
+   .db #4                                   ; width
+   .db #12                                   ; heigth
    .db #0                                    ; vx
    .db #0                                    ; vy
    .dw #_ovni_blue_0                      ; sprite
@@ -523,8 +523,8 @@ t_es_02:
    .db #0x3b                                 ; cmp
    .db #0                                    ; x
    .db #0                                    ; y
-   .db #6                                   ; width
-   .db #16                                   ; heigth
+   .db #4                                   ; width
+   .db #12                                   ; heigth
    .db #0                                    ; vx
    .db #0                                    ; vy
    .dw #_ovni_purple_0                      ; sprite
@@ -547,8 +547,8 @@ t_es_03:
    .db #0x3b                                 ; cmp
    .db #0                                    ; x
    .db #0                                    ; y
-   .db #6                                   ; width
-   .db #16                                   ; heigth
+   .db #4                                   ; width
+   .db #12                                   ; heigth
    .db #0                                    ; vx
    .db #0                                    ; vy
    .dw #_ovni_green_0                      ; sprite
@@ -571,8 +571,8 @@ t_es_04:
    .db #0x3b                                 ; cmp
    .db #4                                    ; x
    .db #174                                    ; y
-   .db #6                                   ; width
-   .db #16                                   ; heigth
+   .db #4                                   ; width
+   .db #12                                   ; heigth
    .db #0                                    ; vx
    .db #0                                    ; vy
    .dw #_ovni_blue_0                      ; sprite
@@ -595,8 +595,8 @@ t_es_05:
    .db #0x3b                                 ; cmp
    .db #0                                    ; x
    .db #0                                    ; y
-   .db #6                                   ; width
-   .db #16                                   ; heigth
+   .db #4                                   ; width
+   .db #12                                   ; heigth
    .db #0                                    ; vx
    .db #0                                    ; vy
    .dw #_ovni_purple_0                      ; sprite
@@ -619,8 +619,8 @@ t_es_06:
    .db #0x3b                                 ; cmp
    .db #0                                    ; x
    .db #0                                    ; y
-   .db #6                                   ; width
-   .db #16                                   ; heigth
+   .db #4                                   ; width
+   .db #12                                   ; heigth
    .db #0                                    ; vx
    .db #0                                    ; vy
    .dw #_ovni_blue_0                      ; sprite
@@ -643,8 +643,8 @@ t_es_07:
    .db #0x3b                                 ; cmp
    .db #0                                    ; x
    .db #0                                    ; y
-   .db #6                                   ; width
-   .db #16                                   ; heigth
+   .db #4                                   ; width
+   .db #12                                   ; heigth
    .db #0                                    ; vx
    .db #0                                    ; vy
    .dw #_ovni_blue_0                      ; sprite
@@ -667,8 +667,8 @@ t_es_08:
    .db #0x3b                                 ; cmp
    .db #00                                 ; x
    .db #00                                 ; y
-   .db #6                                   ; width
-   .db #16                                   ; heigth
+   .db #4                                   ; width
+   .db #12                                   ; heigth
    .db #0x00                                 ; vx
    .db #0x00                                 ; vy
    .dw #_ovni_red_0                      ; sprite
@@ -691,8 +691,8 @@ t_es_09:
    .db #0x3b                                 ; cmp
    .db #00                                 ; x
    .db #00                                 ; y
-   .db #6                                   ; width
-   .db #16                                   ; heigth
+   .db #4                                   ; width
+   .db #12                                   ; heigth
    .db #0x00                                 ; vx
    .db #0x00                                 ; vy
    .dw #_ovni_red_0                      ; sprite
@@ -718,8 +718,8 @@ t_enemy_testing:
    .db #0x2b                                 ; cmp
    .db #50                                 ; x
    .db #50                                 ; y
-   .db #0x06                                 ; width
-   .db #0x0C                                 ; heigth
+   .db #4                                   ; width
+   .db #12                                   ; heigth
    .db #0x00                                 ; vx
    .db #0x00                                 ; vy
    .dw #_sprite_enemy01                      ; sprite
@@ -742,8 +742,8 @@ t_enemy_testing2:
    .db #0x2b                                 ; cmp
    .db #50                                 ; x
    .db #50                                 ; y
-   .db #0x06                                 ; width
-   .db #0x0C                                 ; heigth
+   .db #4                                   ; width
+   .db #12                                   ; heigth
    .db #0x00                                 ; vx
    .db #0x00                                 ; vy
    .dw #_sprite_enemy01                      ; sprite
@@ -766,8 +766,8 @@ t_enemy_patrol_relative_01:
    .db #0x2b                                 ; cmp
    .db #100                                    ; x
    .db #100                                    ; y
-   .db #0x06                                 ; width
-   .db #0x0C                                 ; heigth
+   .db #4                                   ; width
+   .db #12                                   ; heigth
    .db #0x00                                 ; vx
    .db #0x00                                 ; vy
    .dw #_sprite_enemy01                      ; sprite
@@ -796,8 +796,8 @@ t_enemy_patrol_relative_02:
    .db #0x2b                                 ; cmp
    .db #100                                    ; x
    .db #100                                    ; y
-   .db #0x06                                 ; width
-   .db #0x0C                                 ; heigth
+   .db #4                                   ; width
+   .db #12                                   ; heigth
    .db #0x00                                 ; vx
    .db #0x00                                 ; vy
    .dw #_sprite_enemy01                      ; sprite
@@ -825,8 +825,8 @@ t_enemy_patrol_01:
    .db #0x2b                                 ; cmp
    .db #50                                 ; x
    .db #50                                 ; y
-   .db #0x06                                 ; width
-   .db #0x0C                                 ; heigth
+   .db #4                                   ; width
+   .db #12                                   ; heigth
    .db #0x00                                 ; vx
    .db #0x00                                 ; vy
    .dw #_sprite_enemy01                      ; sprite
@@ -851,8 +851,8 @@ t_enemy_patrol_x_shoot_y:
    .db #0x2b                                 ; cmp
    .db #40                                 ; x
    .db #40                                 ; y
-   .db #0x06                                 ; width
-   .db #0x0C                                 ; heigth
+   .db #4                                   ; width
+   .db #12                                   ; heigth
    .db #0x00                                 ; vx
    .db #0x00                                 ; vy
    .dw #_sprite_enemy01                      ; sprite

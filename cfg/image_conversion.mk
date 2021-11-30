@@ -63,12 +63,11 @@ $(eval $(call IMG2SP, CONVERT         , assets/HUD.png , 12, 16, HUDLife,,))
 $(eval $(call IMG2SP, CONVERT         , assets/scoreNumeros.png , 8, 8, spriteScore,,))
 
 # 24, 16
-$(eval $(call IMG2SP, CONVERT         , assets/ovniGreen.png , 12, 16, ovni_green,,))
-$(eval $(call IMG2SP, CONVERT         , assets/ovniBlue.png , 12, 16, ovni_blue,,))
-$(eval $(call IMG2SP, CONVERT         , assets/ovniPurple.png , 12, 16, ovni_purple,,))
-# 2
-$(eval $(call IMG2SP, CONVERT         , assets/ovniRed.png , 12, 16, ovni_red,,))
-$(eval $(call IMG2SP, CONVERT         , assets/ovniExplosion.png , 12, 16, ovni_exp,,))
+$(eval $(call IMG2SP, CONVERT         , assets/ovniGreen.png , 8, 12, ovni_green,,))
+$(eval $(call IMG2SP, CONVERT         , assets/ovniBlue.png , 8, 12, ovni_blue,,))
+$(eval $(call IMG2SP, CONVERT         , assets/ovniPurple.png , 8, 12, ovni_purple,,))
+$(eval $(call IMG2SP, CONVERT         , assets/ovniRed.png , 8, 12, ovni_red,,))
+$(eval $(call IMG2SP, CONVERT         , assets/ovniExplosion.png , 8, 12, ovni_exp,,))
 
 # 3
 $(eval $(call IMG2SP, CONVERT         , assets/ovniPortal.png , 12, 16, ovni_portal,,))

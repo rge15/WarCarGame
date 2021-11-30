@@ -149,73 +149,73 @@ _level1:
    ; LEVEL ALL SPRITES
    ;================================================================================
 
-   ; .dw #_tilemap_01            ;Tilemap
-   ; .db #level_new_entity
-   ; .dw #t_player
-   ; .db #42                   ;Entity X
-   ; .db #176                   ;Entity Y
-   ;
-   ; .db #level_new_entity
-   ; .dw #t_enemy_basic_green
-   ; .db #24
-   ; .db #156
-   ; .dw #enemy_no_move
-   ; .db #4                                 ; e_ai_aux_l
-   ; .db #48                                 ; e_ai_aux_h
-   ; .dw #patrol_all_game_zone_m0
-   ; .dw #enemy_no_shoot
-   ;
-   ; .db #level_new_entity
-   ; .dw #t_enemy_basic_purple
-   ; .db #34
-   ; .db #156
-   ; .dw #enemy_no_move
-   ; .db #4                                 ; e_ai_aux_l
-   ; .db #48                                 ; e_ai_aux_h
-   ; .dw #patrol_all_game_zone_m0
-   ; .dw #enemy_no_shoot
-   ;
-   ; .db #level_new_entity
-   ; .dw #t_enemy_basic_purple
-   ; .db #44
-   ; .db #156
-   ; .dw #enemy_no_move
-   ; .db #4                                 ; e_ai_aux_l
-   ; .db #48                                 ; e_ai_aux_h
-   ; .dw #patrol_all_game_zone_m0
-   ; .dw #enemy_no_shoot
-   ;
-   ; .db #level_new_entity
-   ; .dw #t_enemy_basic_red
-   ; .db #54
-   ; .db #156
-   ; .dw #enemy_no_move
-   ; .db #4                                 ; e_ai_aux_l
-   ; .db #48                                 ; e_ai_aux_h
-   ; .dw #patrol_all_game_zone_m0
-   ; .dw #enemy_no_shoot
-   ;
-   ; .db #level_new_entity
-   ; .dw #t_spawner_from_template_01
-   ; .db #24
-   ; .db #124
-   ; .dw #_sys_ai_behaviourSpawner_template
-   ; .db #0                                 ; e_ai_aux_l
-   ; .db #0                                 ; e_ai_aux_h
-   ; .dw #t_enemy_patrol_game_zone
-   ; .dw #enemy_no_shoot
+   .dw #_tilemap_01            ;Tilemap
+   .db #level_new_entity
+   .dw #t_player
+   .db #42                   ;Entity X
+   .db #176                   ;Entity Y
 
-   ; .db #level_new_entity
-   ; .dw #t_bullet_enemy_l
-   ; .db #34
-   ; .db #124
-   ; .dw #enemy_no_move
-   ; .db #0                                 ; e_ai_aux_l
-   ; .db #0                                 ; e_ai_aux_h
-   ; .dw #patrol_none
-   ; .dw #enemy_no_shoot
-   ;
-   ; .db #level_separator
+   .db #level_new_entity
+   .dw #t_enemy_basic_green
+   .db #24
+   .db #156
+   .dw #enemy_no_move
+   .db #4                                 ; e_ai_aux_l
+   .db #48                                 ; e_ai_aux_h
+   .dw #patrol_all_game_zone_m0
+   .dw #enemy_no_shoot
+
+   .db #level_new_entity
+   .dw #t_enemy_basic_purple
+   .db #34
+   .db #156
+   .dw #enemy_no_move
+   .db #4                                 ; e_ai_aux_l
+   .db #48                                 ; e_ai_aux_h
+   .dw #patrol_all_game_zone_m0
+   .dw #enemy_no_shoot
+
+   .db #level_new_entity
+   .dw #t_enemy_basic_purple
+   .db #44
+   .db #156
+   .dw #enemy_no_move
+   .db #4                                 ; e_ai_aux_l
+   .db #48                                 ; e_ai_aux_h
+   .dw #patrol_all_game_zone_m0
+   .dw #enemy_no_shoot
+
+   .db #level_new_entity
+   .dw #t_enemy_basic_red
+   .db #54
+   .db #156
+   .dw #enemy_no_move
+   .db #4                                 ; e_ai_aux_l
+   .db #48                                 ; e_ai_aux_h
+   .dw #patrol_all_game_zone_m0
+   .dw #enemy_no_shoot
+
+   .db #level_new_entity
+   .dw #t_spawner_from_template_01
+   .db #24
+   .db #124
+   .dw #_sys_ai_behaviourSpawner_template
+   .db #0                                 ; e_ai_aux_l
+   .db #0                                 ; e_ai_aux_h
+   .dw #t_enemy_patrol_game_zone
+   .dw #enemy_no_shoot
+
+   .db #level_new_entity
+   .dw #t_bullet_enemy_l
+   .db #34
+   .db #124
+   .dw #enemy_no_move
+   .db #0                                 ; e_ai_aux_l
+   .db #0                                 ; e_ai_aux_h
+   .dw #patrol_none
+   .dw #enemy_no_shoot
+
+   .db #level_separator
 
    ; ================================================================================
    ; Level numbers test

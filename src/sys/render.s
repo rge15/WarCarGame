@@ -111,7 +111,8 @@ _sys_render_renderOneEntity:
     push hl
     pop ix
     ;Aqui vemos si hay q borrar el prevptr
-    ld a, #0x21
+    delete_prevptr = (e_type_player | e_type_bullet | e_type_enemy | e_type_enemy_bullet)
+    ld a, #delete_prevptr
     and e_type(ix)
     call NZ, _sys_render_erasePrevPtr
 
