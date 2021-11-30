@@ -250,10 +250,20 @@ _sys_ai_beh_follow_player_x:
    call z, do_follow_player_x
    ret
 
+_sys_ai_beh_follow_player_x_f:
+   call _sys_ai_beh_follow_player
+   call z, do_follow_player_x_f
+   ret
+
 ; require e_ai_aux_l
 _sys_ai_beh_follow_player_y:
    call _sys_ai_beh_follow_player
    call z, do_follow_player_y
+   ret
+
+_sys_ai_beh_follow_player_y_f:
+   call _sys_ai_beh_follow_player
+   call z, do_follow_player_y_f
    ret
 
 ; deja en z la condicion
@@ -273,6 +283,15 @@ do_follow_player_x:
    call _sys_ai_check_tile_collision_from_ai
    ret
 
+do_follow_player_x_f:
+   ld a, e_ai_aux_h(ix)
+   ld e_ai_aux_l(ix), a
+   ld d, #2
+   call _sys_ai_seekCoords_x
+   call _sys_ai_check_tile_collision_from_ai
+   ret
+
+
 do_follow_player_y:
    ld a, e_ai_aux_h(ix)
    ld e_ai_aux_l(ix), a
@@ -281,6 +300,13 @@ do_follow_player_y:
    call _sys_ai_check_tile_collision_from_ai
    ret
 
+do_follow_player_y_f:
+   ld a, e_ai_aux_h(ix)
+   ld e_ai_aux_l(ix), a
+   ld d, #4
+   call _sys_ai_seekCoords_y
+   call _sys_ai_check_tile_collision_from_ai
+   ret
 
 ; IX: entidad
 _sys_ai_check_tile_collision_from_ai:

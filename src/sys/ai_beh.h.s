@@ -37,6 +37,8 @@
 
 .globl _sys_ai_beh_follow_player_x
 .globl _sys_ai_beh_follow_player_y
+.globl _sys_ai_beh_follow_player_x_f
+.globl _sys_ai_beh_follow_player_y_f
 
 
 .globl _sys_ai_beh_shoot_seekplayer

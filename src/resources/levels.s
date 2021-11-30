@@ -396,8 +396,8 @@ _level1:
    .db #70
    .db #48
    .dw #_sys_ai_beh_follow_player_y
-   .db #20
-   .db #20                                 ; e_ai_aux_h
+   .db #10
+   .db #10                                 ; e_ai_aux_h
    .dw #0
    .dw #_sys_ai_beh_shoot_x
 

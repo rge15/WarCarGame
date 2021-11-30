@@ -64,9 +64,12 @@ t_bullet_vel_x = 1
 t_bullet_vel_y = 2
 
 ; ai_aux_l
-t_bullet_vel_x_f = 3
+t_bullet_vel_x_f = 2
 ; ai_aux_h
-t_bullet_vel_y_f = 5
+t_bullet_vel_y_f = 4
+
+t_bullet_vel_x_ff = 3
+t_bullet_vel_y_ff = 5
 
 t_enemy_vx = 1
 t_enemy_vy = 2
