@@ -722,12 +722,46 @@ _man_game_updateGameStatus:
 
 
 
+.globl _sys_render_erasePrevPtr
+.globl _sys_render_renderOneEntity
+
+player_quit_render_cmp:
+   call _sys_render_erasePrevPtr
+   ret
+
+player_restore_render_cmp:
+   push ix
+   pop hl
+   call _sys_render_renderOneEntity
+   ret
 ;===================================================================================================================================================
 ; FUNCION _man_game_decreasePlayerLife   
 ; Función encargada de decrementar la vida del jugador
 ; NO llega ningun dato
 ;===================================================================================================================================================
+player_max_blink = 60
+player_blink_time: .db #player_max_blink
 _man_game_decreasePlayerLife:
+
+   player_blink_loop:
+      halt
+      GET_PLAYER_ENTITY ix
+      ld hl, #player_blink_time
+
+      ; ld a, (hl)
+      ; cp #50
+      ; call z, #player_quit_render_cmp
+      ;
+      ; cp #20
+      ; call z, #player_restore_render_cmp
+
+      dec (hl)
+      jr nz, player_blink_loop
+
+   ; call cpct_waitVSYNC_asm
+   ld hl, #player_blink_time
+   ld (hl), #player_max_blink
+
    ld hl, #_m_lifePlayer
    dec (hl)
    call _m_HUD_decreaseLife
