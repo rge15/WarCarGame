@@ -418,12 +418,22 @@ _sys_checkTilePosition:
 
          push ix
          pop hl
+         ld a, #i_id_rotator
+         cp e_inputbeh1(ix)
+         jp z, is_type_rotator
+
          call _m_game_destroyEntity
          ; GET_PLAYER_ENTITY iy
          ; ld e_aictr(iy), #0
          call reset_player_aictr
 
          call _m_game_bulletDestroyed
+
+      ;; TODO[Edu]: mejorar !!
+      is_type_rotator:
+         ld  e_vx(ix), #0
+         ld  e_vy(ix), #0
+         ret
 
    ret
 
@@ -649,6 +659,10 @@ bulletCollisionBehaviour:
     ld a, #e_type_spawner
     and e_type(iy)
     jr NZ, decreaseLifeSpawner
+
+    ; ld a, #i_id_rotator
+    ; cp e_inputbeh1(ix)
+    ; call z, _m_game_quit_rotator
 
     ret
     decreaseLifeSpawner:

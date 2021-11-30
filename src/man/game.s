@@ -45,6 +45,7 @@
 .include "resources/sprites.h.s"
 .include "game.h.s"
 .include "resources/tilemaps.h.s"
+.include "sys/items.h.s"
 
 
 ;===================================================================================================================================================
@@ -98,6 +99,11 @@ player_shoot_cooldown_h = 35
 
 player_bullet_vel_x: .db #2
 player_bullet_vel_y: .db #4
+
+player_has_rotator: .db #0
+player_has_shield: .db #0
+
+player_max_rotators = 2
 ;===================================================================================================================================================
 ; FUNCION _m_game_createInitTemplate   
 ; ; Crea la entidad con el template indicado
@@ -634,6 +640,8 @@ _man_game_loadLevel:
    inc hl
    ld (hl), d
 
+   call _m_game_reg_ingame_items
+
    ret
 
 
@@ -769,7 +777,12 @@ _man_game_getItem:
    ret
 
    can_pick_item:
+      ld a, #i_id_rotator
+      cp e_ai_aim_x(iy)
+      pop hl
+      jp z, player_picking_rotator
 
+      can_pick_ingame_item:
       ; usa bc
       call _m_HUD_subPoints
       call _m_HUD_saveScore
@@ -799,6 +812,11 @@ _man_game_getItem:
       call _m_game_destroyEntity
    ret
 
+player_picking_rotator:
+   ld a, (player_has_rotator)
+   cp #0
+   jp z, can_pick_ingame_item
+   ret
 
 ;===================================================================================================================================================
 ; FUNCION _man_game_decreaseEnemyCounter   
@@ -825,6 +843,21 @@ _m_game_StartMenu:
    ld de, #0xFFFF
    call cpct_zx7b_decrunch_s_asm
 ret
+
+
+_m_game_reg_ingame_items:
+   GET_PLAYER_ENTITY iy
+
+   ld a, (player_has_rotator)
+   cp #1
+   call z, item_create_ingame_rotator
+
+   ret
+
+_m_game_quit_rotator:
+   ld hl, #player_has_rotator
+   dec (hl)
+   ret
 
 ;; Destroy HL
 _m_game_restart_level_counter:

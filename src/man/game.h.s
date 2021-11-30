@@ -46,3 +46,7 @@
 
 .globl player_bullet_vel_x
 .globl player_bullet_vel_y
+
+.globl player_has_rotator
+.globl player_has_shield
+.globl _m_game_quit_rotator

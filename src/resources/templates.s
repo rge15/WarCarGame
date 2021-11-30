@@ -917,7 +917,7 @@ t_item_shield:
    .dw #item_pick_shield                                  ; animator
    .db #0x0A                                 ; anim. counter
    .dw #0                                    ; input_behaviour
-   .db #0                                 ; e_ai_aim_x
+   .db #i_id_shield                                 ; e_ai_aim_x
    ; .db #23                                 ; e_ai_aim_y
    .db #1                                 ; e_ai_aim_y
    .db #0                                    ; e_ai_aux_l
@@ -942,7 +942,7 @@ t_item_restart:
    .dw #item_pick_restart                                  ; animator
    .db #0x0A                                 ; anim. counter
    .dw #0                                    ; input_behaviour
-   .db #0                                 ; e_ai_aim_x
+   .db #i_id_restart                                 ; e_ai_aim_x
    ; .db #23                                 ; e_ai_aim_y
    .db #1                                 ; e_ai_aim_y
    .db #0                                    ; e_ai_aux_l
@@ -967,7 +967,7 @@ t_item_skip:
    .dw #item_pick_skip                                  ; animator
    .db #0x0A                                 ; anim. counter
    .dw #0                                    ; input_behaviour
-   .db #0                                 ; e_ai_aim_x
+   .db #i_id_skip                                 ; e_ai_aim_x
    ; .db #23                                 ; e_ai_aim_y
    .db #1                                 ; e_ai_aim_y
    .db #0                                    ; e_ai_aux_l
@@ -992,7 +992,7 @@ t_item_speed_bullet:
    .dw #item_pick_speed_bullet                                  ; animator
    .db #0x0A                                 ; anim. counter
    .dw #0                                    ; input_behaviour
-   .db #0                                 ; e_ai_aim_x
+   .db #i_id_speed_bullet                                 ; e_ai_aim_x
    ; .db #23                                 ; e_ai_aim_y
    .db #1                                 ; e_ai_aim_y
    .db #0                                    ; e_ai_aux_l
@@ -1017,12 +1017,16 @@ t_item_rotator:
    .dw #item_pick_rotator                                  ; animator
    .db #0x0A                                 ; anim. counter
    .dw #0                                    ; input_behaviour
-   .db #0                                 ; e_ai_aim_x
+   .db #i_id_rotator                                 ; e_ai_aim_x
    ; .db #23                                 ; e_ai_aim_y
    .db #1                                 ; e_ai_aim_y
    .db #0                                    ; e_ai_aux_l
    .db #0x00                                 ; e_ai_aux_h
    .dw #0                                    ; e_patrol_step
+
+;===============================================================================
+; Ingame items
+;===============================================================================
 
 ; type_bullet puede servir??
 t_ingame_shield:
@@ -1049,7 +1053,7 @@ t_ingame_shield:
    .db #0                                    ; e_ai_aux_h
    .dw #0                                    ; patrol_step
 
-
+; input_behaviour: id de ingame item
 t_ingame_rotator:
    .db #e_type_bullet                         ; type
    .db #0x2B                                 ; cmp
@@ -1067,7 +1071,7 @@ t_ingame_rotator:
    .db #0
    .dw #0                                  ; animator
    .db #0                                  ; anim. counter
-   .dw #0                               ; input_behaviour
+   .dw #i_id_rotator                               ; input_behaviour
    .db #0x00                                 ; e_ai_aim_x
    .db #0x00                                 ; e_ai_aim_y
    .db #0                                    ; e_ai_aux_l

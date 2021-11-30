@@ -7,4 +7,7 @@
 .globl item_pick_shield
 .globl item_pick_rotator
 
+.globl item_create_ingame_rotator
+.globl item_create_ingame_shield
+
 

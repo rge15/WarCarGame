@@ -33,6 +33,8 @@ item_pick_shield:
    ret
 
 item_pick_rotator:
+   ld hl, #player_has_rotator
+   ld (hl), #1
    call item_create_ingame_rotator
    ret
 

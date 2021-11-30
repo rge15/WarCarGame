@@ -76,6 +76,17 @@ e_ai_aux_h = 25
 e_patrol_step_l = 26
 e_patrol_step_h = 27
 
+;================================================================================
+; Item id
+;================================================================================
+i_id_heart        = 0
+i_id_skip         = 1
+i_id_restart      = 2
+i_id_restart      = 3
+i_id_speed_bullet = 4
+i_id_shield       = 5
+i_id_rotator      = 6
+
 ;===================================================================================================================================================
 ; Entity struct       TODO : Investigar si así guay la estruct
 ;===================================================================================================================================================
@@ -95,4 +106,4 @@ e_patrol_step_h = 27
 ;    .db #0x00                         ; anim. counter
 ;    .dw #_sys_ai_behaviourExample     ; ai_behaviour
 ;    .db #0x00                         ; ai_counter
-;    .dw #_sys_input_behaviourExample  ; input_behaviour
+;    .dw #_sys_
