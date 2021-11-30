@@ -259,6 +259,8 @@ ei
    call waitKeyPressed
    cpctm_clearScreen_asm 0
 
+   call _m_game_reset_items_endgame
+
    jp startGame
 
 
@@ -851,7 +853,15 @@ _m_game_reg_ingame_items:
    ld a, (player_has_rotator)
    cp #1
    call z, item_create_ingame_rotator
+   ret
 
+_m_game_reset_items_endgame:
+   ld a, #2
+   ld (player_bullet_vel_x), a
+   ld a, #4
+   ld (player_bullet_vel_y), a
+   ld a, #0
+   ld (player_has_rotator), a
    ret
 
 _m_game_quit_rotator:
