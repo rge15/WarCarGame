@@ -202,11 +202,13 @@ ret
 _sys_collisionEntity_check:
     
     ld a, e_xpos(ix)
+    ; sub #player_vel_x
     add e_width(ix)
     sub e_xpos(iy)
     ret c
 
     ld a, e_xpos(iy)
+    ; sub #player_vel_x
     add e_width(iy)
     sub e_xpos(ix)
     ret c

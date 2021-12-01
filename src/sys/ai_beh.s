@@ -511,11 +511,11 @@ _sys_ai_beh_ingame_shield:
 
    GET_PLAYER_ENTITY iy
    ld a, e_xpos(iy)
-   ; add #2
+   sub #1
    ld e_xpos(ix), a
 
    ld a, e_ypos(iy)
-   ; add #1
+   sub #2
    ld e_ypos(ix), a
 
    ret
