@@ -801,11 +801,9 @@ _man_game_increasePlayerLife:
    ret
 
 ;===============================================================================
-; l: item id
 ; iy: item entity
 ;===============================================================================
 _man_game_getItem:
-   push hl
 
    ld b, #0
    ld c, e_ai_aim_y(iy)
@@ -818,14 +816,16 @@ _man_game_getItem:
    cp c
    jr nc, can_pick_item
 
-   pop hl
    ret
 
    can_pick_item:
       ld a, #i_id_rotator
       cp e_ai_aim_x(iy)
-      pop hl
       jp z, player_picking_rotator
+
+      ld a, #i_id_heart
+      cp e_ai_aim_x(iy)
+      jp z, player_picking_heart
 
       can_pick_ingame_item:
       ; usa bc
@@ -861,6 +861,12 @@ player_picking_rotator:
    ld a, (player_has_rotator)
    cp #0
    jp z, can_pick_ingame_item
+   ret
+
+player_picking_heart:
+   ld a, (_m_lifePlayer)
+   cp #3
+   jp nz, can_pick_ingame_item
    ret
 
 ;===================================================================================================================================================

@@ -609,7 +609,6 @@ playerCollisionBehaviour:
 
     ld a, #e_type_item
     and e_type(iy)
-    ld l, e_ai_aim_x(iy)
     call NZ, _man_game_getItem
 
     ret
