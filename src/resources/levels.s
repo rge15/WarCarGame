@@ -91,7 +91,7 @@ _level1:
    .db #4                                 ; e_ai_aux_l
    .db #48                                 ; e_ai_aux_h
    .dw #patrol_all_game_zone_m0
-   .dw #enemy_no_shoot
+   .dw #_sys_ai_beh_shoot_y
 
    .db #level_new_entity
    .dw #t_item_heart
@@ -104,7 +104,7 @@ _level1:
    .dw #0
 
    .db #level_new_entity
-   .dw #t_item_rotator
+   .dw #t_item_shield
    .db #56
    .db #124
    .dw #0

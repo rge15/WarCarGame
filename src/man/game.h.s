@@ -50,3 +50,6 @@
 .globl player_has_rotator
 .globl player_has_shield
 .globl _m_game_quit_rotator
+
+.globl player_vel_x
+.globl player_vel_y

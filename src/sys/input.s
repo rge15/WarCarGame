@@ -27,6 +27,7 @@
 .include "man/entity.h.s"
 .include "man/game.h.s"
 .include "sys/input.h.s"
+.include "resources/macros.s"
 .include "cpctelera.h.s"
 
 
@@ -117,6 +118,8 @@ _sys_input_updateOneEntity:
 
     upPressed:
         ;; Cambiamos la posicion
+        ld a, #player_vel_y
+        NEGATE_NUMBER d
         ld a, #0xFC
         ;; Meto dos dec para que avance byte y no pixels
         ld e_vy(ix), a
@@ -129,8 +132,8 @@ _sys_input_updateOneEntity:
 
     leftPressed:
         ;; Cambiamos la posicion
-        ld a, #0xFE
-        ; dec a
+        ld d, #player_vel_x
+        NEGATE_NUMBER d
         ld e_vx(ix), a
         ld a, #0x00
         ld e_vy(ix), a
@@ -141,7 +144,7 @@ _sys_input_updateOneEntity:
 
     downPressed:
         ;; Cambiamos la posicion
-        ld a, #0x04
+        ld a, #player_vel_y
         ld e_vy(ix), a
         ld a, #0x00
         ld e_vx(ix), a
@@ -152,7 +155,7 @@ _sys_input_updateOneEntity:
 
     rightPressed:
         ;; Cambiamos la posicion
-        ld a, #0x02
+        ld a, #player_vel_x
         ld e_vx(ix), a
         ld a, #0x00
         ld e_vy(ix), a

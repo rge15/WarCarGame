@@ -97,6 +97,9 @@ _m_max_level = #24
 player_shoot_cooldown_l = 35
 player_shoot_cooldown_h = 35
 
+player_vel_x = 2
+player_vel_y = 4
+
 player_bullet_vel_x: .db #2
 player_bullet_vel_y: .db #4
 
