@@ -104,7 +104,7 @@ _level1:
    .dw #0
 
    .db #level_new_entity
-   .dw #t_item_shield
+   .dw #t_item_rotator
    .db #56
    .db #124
    .dw #0

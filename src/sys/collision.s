@@ -273,13 +273,48 @@ _sys_collision_updateOneEntity:
 
 ret
 
+tile_margin_x: .db 0
+tile_margin_y: .db 0
+
+check_tile_margin_bullets:
+   special_tile_collision = (e_type_bullet | e_type_enemy_bullet)
+   ld a, #special_tile_collision
+
+   and e_type(ix)
+   jr nz, has_to_set_margin
+
+   ld hl, #tile_margin_x
+   ld (hl), #0
+
+   ld hl, #tile_margin_y
+   ld (hl), #0
+   ret
+
+   has_to_set_margin:
+
+      ld hl, #tile_margin_x
+      ld a, e_vx(ix)
+      ld (hl), a
+
+      ld hl, #tile_margin_y
+      ld a, e_vy(ix)
+      ld (hl), a
+
+   ret
+
 ;===================================================================================================================================================
 ; FUNCION _sys_checkTilePosition
 ; Comprueba si el punto que le han pasado colisiona con la tile y en ese caso updatea su velocidad
 ; BC : El punto en el que se va a comprobar la colision
 ;===================================================================================================================================================
 _sys_checkTilePosition:
-    ld  a, e_ypos(ix)
+    call check_tile_margin_bullets
+
+    ld a, (tile_margin_y)
+    add e_ypos(ix)
+    ; ld  a, e_ypos(ix)
+
+    ; add e_vy(ix)
     add b ;; Sumo el alto de mi personaje 10
     ;; Desplazo a la derecha 3 veces el bit 
     ;;(Si deplazo a la derecha 1 bit divido entre 2)
@@ -300,7 +335,10 @@ _sys_checkTilePosition:
     add hl, de  ;; HL = 20*ty
 
     ;; A = x
-    ld  a, e_xpos(ix)
+    ld a, (tile_margin_x)
+    add a, e_xpos(ix)
+
+    ; add e_vx(ix)
     add c
     srl a ;; | A = tx(x/4)
     srl a ;; |
@@ -325,7 +363,7 @@ _sys_checkTilePosition:
 
       ret nz
     ;; COLISION DETECTADA
-    
+
     ;; Dependiendo de la colision del axis setea a 0 la vel.
     CHECK_ORIENTATION_AXIS_PLAYER e_orient(ix)
     inc a
@@ -426,8 +464,10 @@ _sys_checkTilePosition:
          cp e_inputbeh1(ix)
          jp z, is_type_rotator
 
-         ld e_vx(ix), #0
-         ld e_vy(ix), #0
+         ; ld e_vx(ix), #0
+         ; ld e_vy(ix), #0
+         ; ld e_cmp(ix), #0x39
+
          call _m_game_destroyEntity
          ; GET_PLAYER_ENTITY iy
          ; ld e_aictr(iy), #0
