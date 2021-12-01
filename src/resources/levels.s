@@ -22,6 +22,7 @@
 .include "resources/patrol_data.h.s"
 .include "sys/ai.h.s"
 .include "sys/ai_beh.h.s"
+.include "resources/macros.s"
 
 
 ; dos seguidos significa fin de levels
@@ -97,41 +98,25 @@ _level1:
    .dw #t_item_heart
    .db #56
    .db #156
-   .dw #0
-   .db #4                                  ; e_ai_aux_l
-   .db #48                                 ; e_ai_aux_h
-   .dw #0
-   .dw #0
+   ITEM_LEVEL_ZEROS
 
    .db #level_new_entity
    .dw #t_item_rotator
    .db #56
    .db #124
-   .dw #0
-   .db #4                                  ; e_ai_aux_l
-   .db #48                                 ; e_ai_aux_h
-   .dw #0
-   .dw #0
+   ITEM_LEVEL_ZEROS
 
    .db #level_new_entity
    .dw #t_item_shield
    .db #56
    .db #92
-   .dw #0
-   .db #4                                  ; e_ai_aux_l
-   .db #48                                 ; e_ai_aux_h
-   .dw #0
-   .dw #0
+   ITEM_LEVEL_ZEROS
 
    .db #level_new_entity
    .dw #t_item_speed_bullet
    .db #56
    .db #68
-   .dw #0
-   .db #4                                  ; e_ai_aux_l
-   .db #48                                 ; e_ai_aux_h
-   .dw #0
-   .dw #0
+   ITEM_LEVEL_ZEROS
 
    ; .db #level_new_entity
    ; .dw #t_ingame_shield
@@ -294,11 +279,7 @@ _level1:
    .dw #t_item_heart
    .db #56
    .db #156
-   .dw #0
-   .db #4                                  ; e_ai_aux_l
-   .db #48                                 ; e_ai_aux_h
-   .dw #0
-   .dw #0
+   ITEM_LEVEL_ZEROS
 
    .db #level_separator
    ; ================================================================================

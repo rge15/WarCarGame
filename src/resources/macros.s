@@ -383,3 +383,11 @@
    ld de, #_mempng
    call _renderMenuItems
 .endm
+
+.macro ITEM_LEVEL_ZEROS
+.dw #0
+.db #0
+.db #0
+.dw #0
+.dw #0
+.endm
