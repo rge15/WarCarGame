@@ -119,6 +119,8 @@ _sys_collision_updateMultiple:
 
     ; ld a, e_cmp(ix)
     ; and #e_cmp_collider
+    ; cp #e_cmp_collider
+    ; jp z, _next_ix
 
     jp _next_iy
 
@@ -422,6 +424,8 @@ _sys_checkTilePosition:
          cp e_inputbeh1(ix)
          jp z, is_type_rotator
 
+         ld e_vx(ix), #0
+         ld e_vy(ix), #0
          call _m_game_destroyEntity
          ; GET_PLAYER_ENTITY iy
          ; ld e_aictr(iy), #0
