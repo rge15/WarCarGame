@@ -70,6 +70,7 @@
 
 .globl t_bullet_vel_x_f
 .globl t_bullet_vel_y_f
+.globl free_item
 
 
 .globl t_es_01
@@ -86,6 +87,7 @@
 .globl t_enemy_testing2
 
 .globl t_item_heart
+.globl t_item_heart_free
 .globl t_item_shield
 .globl t_item_skip
 .globl t_item_restart

@@ -833,7 +833,10 @@ _man_game_getItem:
       can_pick_ingame_item:
       ; usa bc
       call _m_HUD_subPoints
-      call _m_HUD_saveScore
+
+      ld a, #free_item
+      cp e_ai_aim_y(ix)
+      call nz, _m_HUD_saveScore
 
       ld a, #1
       call _m_HUD_renderScore
@@ -846,12 +849,6 @@ _man_game_getItem:
       ld h, e_anim2(iy)
       ld l, e_anim1(iy)
       jp (hl)
-
-      ; jp z, _man_game_increasePlayerLife
-
-      ; ld a, #item_type_shield
-      ; cp l
-      ; call z, restartLevel
 
       after_item_jp:
       push iy

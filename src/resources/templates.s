@@ -80,6 +80,8 @@ t_enemy_vy_f = 4
 
 enemy_no_shoot = 0x0000
 
+free_item = 0
+
 ;===================================================================================================================================================
 ; Templates
 ;===================================================================================================================================================
@@ -897,6 +899,30 @@ t_item_heart:
    .db #0                                 ; e_ai_aim_x
    ; .db #8                                 ; e_ai_aim_y
    .db #1                                 ; e_ai_aim_y
+   .db #0                                    ; e_ai_aux_l
+   .db #0x00                                 ; e_ai_aux_h
+   .dw #0                                    ; e_patrol_step
+
+t_item_heart_free:
+   .db #e_type_item                                 ; type
+   .db #0x21                                 ; cmp
+   .db #50                                 ; x
+   .db #50                                 ; y
+   .db #7                                 ; width
+   .db #16                                 ; heigth
+   .db #0x00                                 ; vx
+   .db #0x00                                 ; vy
+   .dw #_heart_item_free_sprite                      ; sprite
+   .db #0x00                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
+   .db #0x00                                 ; prev. orientation
+   .dw #0x0000                               ; prevptr
+   .dw #0
+   .db #0
+   .dw #item_pick_heart                                  ; animator
+   .db #0x0A                                 ; anim. counter
+   .dw #0                                    ; input_behaviour
+   .db #0                                 ; e_ai_aim_x
+   .db #free_item                                 ; e_ai_aim_y
    .db #0                                    ; e_ai_aux_l
    .db #0x00                                 ; e_ai_aux_h
    .dw #0                                    ; e_patrol_step

@@ -80,6 +80,7 @@
 .globl _ovni_bullet_1
 
 .globl _heart_item_sprite
+.globl _heart_item_free_sprite
 .globl _shield_item_sprite
 .globl _restart_item_sprite
 .globl _skip_item_sprite
