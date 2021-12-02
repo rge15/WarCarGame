@@ -183,11 +183,79 @@ patrol_all_game_zone_m0:
    .dw #patrol_all_game_zone_m0
 
 patrol_boss:
+   .db  33, 88
+   .db  41, 88
+   .db  25, 88
+
    .db  4, 48
    .db  68, 48
+
+   .db  33, 88
+   .db  41, 88
+   .db  25, 88
+
+   .db  4, 48
+   .db  66, 48
+
+   .db  66, 170
+   .db  4, 170
+   .db  4, 48
+
    .db #patrol_invalid_move
-   .dw #patrol_boss
+   .dw #patrol_boss_2
+
+patrol_boss_2:
+   .db  66, 48
+   .db  4, 48
+
+   .db  25, 88
+   .db  41, 88
+   .db  33, 88
+
+   .db  4, 88
+   .db  4, 168
+   .db  6, 88
+
+   .db  66, 48
+   .db  4, 48
+
+   .db  25, 88
+   .db  41, 88
+   .db  33, 88
+
+   .db  44, 48
+   .db  68, 48
+   .db  4, 48
+
+   .db #patrol_invalid_move
+   .dw #patrol_boss_3
    
+patrol_boss_3:
+   .db  4, 48
+
+   .db  4, 56
+   .db  64, 56
+
+   .db  64, 64
+   .db  4, 64
+
+   .db  4, 72
+   .db  64, 72
+
+   .db  64, 80
+   .db  4, 80
+
+   .db  4, 96
+   .db  64, 96
+
+   .db  64, 112
+   .db  4, 112
+
+   .db  4, 144
+   .db  64, 144
+
+   .db #patrol_invalid_move
+   .dw #patrol_boss_3
 
 ;=============================================================================== 
 ; Relative Patrol

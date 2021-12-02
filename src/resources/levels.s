@@ -153,10 +153,12 @@ _level1:
    .dw #t_final_boss
    .db #33
    .db #88
-   .dw #enemy_no_move
+   .dw #_sys_ai_beh_boss_move
    .db #0                                 ; e_ai_aux_l
    .db #0
+   .globl patrol_boss_2
    .dw #patrol_boss
+   ; .dw #enemy_no_shoot
    .dw #_sys_ai_beh_boss_shoot
 
    .db #level_separator

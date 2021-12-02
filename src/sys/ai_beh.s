@@ -438,7 +438,17 @@ _sys_ai_beh_boss_move:
    push bc
    pop ix
 
-   ld a, #5
+   ld a, #66
+   cp e_xpos(ix)
+   call z, boss_in_x_66
+
+   ld a, #4
+   cp e_xpos(ix)
+   call z, boss_in_x_4
+   jr change_boss_velocity
+
+   change_boss_velocity:
+   ld a, #6
    cp e_animctr(ix)
 
    push ix
@@ -446,6 +456,42 @@ _sys_ai_beh_boss_move:
    jp c, _sys_ai_behaviourPatrol
    jp _sys_ai_behaviourPatrol_f
 
+   ret
+
+boss_in_x_66:
+   ld a, #168
+   cp e_ypos(ix)
+   call z, boss_in_x_66_y_170
+   ret
+
+boss_in_x_66_y_170:
+   ld bc, #t_spawner_from_plist_01
+   call _m_game_createInitTemplate
+   push hl
+   pop iy
+   ld e_xpos(iy), #66
+   ld e_ypos(iy), #170
+
+   ld hl, #_m_enemyCounter
+   inc (hl)
+   ret
+
+boss_in_x_4:
+   ld a, #166
+   cp e_ypos(ix)
+   call z, boss_in_x_4_y_168
+   ret
+
+boss_in_x_4_y_168:
+   ld bc, #t_es_09
+   call _m_game_createInitTemplate
+   push hl
+   pop iy
+   ld e_xpos(iy), #4
+   ld e_ypos(iy), #168
+
+   ld hl, #_m_enemyCounter
+   inc (hl)
    ret
 
 _sys_ai_beh_boss_shoot:
