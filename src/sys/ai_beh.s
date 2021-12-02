@@ -502,6 +502,10 @@ _sys_ai_beh_shoot_d:
    call z, _sys_ai_shoot_bullet_l_d
    ret
 
+_sys_ai_beh_shoot_d_f:
+   call _sys_ai_shoot_condition_common
+   call z, _sys_ai_shoot_bullet_l_d_f
+   ret
 
 ;;--------------------------------------------------------------------------------
 ;; AI INGAME ITEMS

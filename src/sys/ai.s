@@ -299,6 +299,14 @@ _sys_ai_shoot_bullet_l_d:
    call _sys_ai_seekCoords_y
    ret
 
+_sys_ai_shoot_bullet_l_d_f:
+   call _sys_ai_shoot_bullet_l_common_f
+   ld d, e_ai_aux_l(ix)
+   call _sys_ai_seekCoords_x
+   ld d, e_ai_aux_h(ix)
+   call _sys_ai_seekCoords_y
+   ret
+
 ;===============================================================================
 ; Esta bala muere cuando aictr llega a 0
 
