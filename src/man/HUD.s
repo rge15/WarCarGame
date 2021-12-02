@@ -261,11 +261,6 @@ _m_HUD_renderScore:
 
     call _sys_render_renderHUDScore
 
-    ld a, #0x00
-    PREPARE_SCORE_DIGIT_TO_RENDER (_m_HUD_scorePosition)
-
-    call _sys_render_renderHUDScore
-
     ret
 
 
