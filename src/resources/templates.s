@@ -42,7 +42,7 @@ t_shoot_timer_tile_collision = 28
 ; tiempo hasta que la bala de un enemy se destruye
 t_bullet_timer_enemy = 120
 ; fast
-t_bullet_timer_enemy_f = 16
+t_bullet_timer_enemy_f = 60
 
 ; tiempo hasta que la bala del player se destruye
 t_bullet_timer_player = 27
@@ -1021,6 +1021,31 @@ t_item_rotator:
    .db #0x0A                                 ; anim. counter
    .dw #0                                    ; input_behaviour
    .db #i_id_rotator                                 ; e_ai_aim_x
+   ; .db #23                                 ; e_ai_aim_y
+   .db #1                                 ; e_ai_aim_y
+   .db #0                                    ; e_ai_aux_l
+   .db #0x00                                 ; e_ai_aux_h
+   .dw #0                                    ; e_patrol_step
+
+t_item_sharp_bullet:
+   .db #e_type_item                                 ; type
+   .db #0x21                                 ; cmp
+   .db #50                                 ; x
+   .db #50                                 ; y
+   .db #7                                 ; width
+   .db #16                                 ; heigth
+   .db #0x00                                 ; vx
+   .db #0x00                                 ; vy
+   .dw #_sharp_bullet_sprite                      ; sprite
+   .db #0x00                                 ; orientation   0 = Right // 1 = Down // 2 = Left // 3 = Up
+   .db #0x00                                 ; prev. orientation
+   .dw #0x0000                               ; prevptr
+   .dw #0
+   .db #0
+   .dw #item_pick_sharp_bullet                                  ; animator
+   .db #0x0A                                 ; anim. counter
+   .dw #0                                    ; input_behaviour
+   .db #i_id_sharp_bullet                                 ; e_ai_aim_x
    ; .db #23                                 ; e_ai_aim_y
    .db #1                                 ; e_ai_aim_y
    .db #0                                    ; e_ai_aux_l

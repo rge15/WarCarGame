@@ -91,6 +91,7 @@
 .globl t_item_restart
 .globl t_item_speed_bullet
 .globl t_item_rotator
+.globl t_item_sharp_bullet
 
 .globl t_ingame_shield
 .globl t_ingame_rotator

@@ -630,15 +630,20 @@ enemyCollisionBehaviour:
     and e_type(iy)
     ret z
 
-    ; call destroyPairOfEntities
+    ld a, (player_has_sharp_bullet)
+    cp #0
+    jr z, not_sharp_bullet_2
+    jr has_sharp_bullet_2
+
+    not_sharp_bullet_2:
+       push iy
+       pop hl
+       call _m_game_destroyEntity
+
+    has_sharp_bullet_2:
+
     call _sys_ai_prepare_ovni_die
 
-    push iy
-    pop hl
-    call _m_game_destroyEntity
-
-    ; call _man_game_decreaseEnemyCounter
-    
     call reset_player_aictr
     call _m_game_bulletDestroyed
 
@@ -736,15 +741,24 @@ bulletCollisionBehaviour:
 
     destroyEnityOvni:
     call reset_player_aictr
-   ; ld a, #0x08
-   ; and e_type(iy)
-    ; call NZ, _man_game_decreaseEnemyCounter
+
+    ld a, (player_has_sharp_bullet)
+    cp #0
+    jr z, not_sharp_bullet_1
+    jr has_sharp_bullet_1
+
+    not_sharp_bullet_1:
+       ld__hl_ix
+       call _m_game_destroyEntity
+
+    has_sharp_bullet_1:
     push iy
     pop ix
     call _sys_ai_prepare_ovni_die
 
     ld a, #0x20
     and e_type(iy)
+
     jr Z, dontAddPoints
 
     dontAddPoints:

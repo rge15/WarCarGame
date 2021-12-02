@@ -94,8 +94,8 @@ _m_current_level_counter: .db #0
 _m_max_level = #24
 
 ;; TODO: nose poner mejor
-player_shoot_cooldown_l = 35
-player_shoot_cooldown_h = 35
+player_shoot_cooldown_l = 36
+player_shoot_cooldown_h = 36
 
 player_vel_x = 2
 player_vel_y = 4
@@ -103,8 +103,11 @@ player_vel_y = 4
 player_bullet_vel_x: .db #2
 player_bullet_vel_y: .db #4
 
+
 player_has_rotator: .db #0
 player_has_shield: .db #0
+
+player_has_sharp_bullet: .db #0
 
 player_max_rotators = 2
 ;===================================================================================================================================================
@@ -911,6 +914,8 @@ _m_game_reset_items_endgame:
    ld (player_bullet_vel_y), a
    ld a, #0
    ld (player_has_rotator), a
+   ld a, #0
+   ld (player_has_sharp_bullet), a
    ret
 
 _m_game_quit_rotator:

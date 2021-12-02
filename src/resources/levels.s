@@ -107,7 +107,7 @@ _level1:
    ITEM_LEVEL_ZEROS
 
    .db #level_new_entity
-   .dw #t_item_shield
+   .dw #t_item_sharp_bullet
    .db #56
    .db #92
    ITEM_LEVEL_ZEROS

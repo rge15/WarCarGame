@@ -86,6 +86,7 @@ i_id_restart      = 3
 i_id_speed_bullet = 4
 i_id_shield       = 5
 i_id_rotator      = 6
+i_id_sharp_bullet = 7
 
 ;===================================================================================================================================================
 ; Entity struct       TODO : Investigar si así guay la estruct

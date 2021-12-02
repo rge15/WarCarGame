@@ -88,6 +88,7 @@ $(eval $(call IMG2SP, CONVERT         , assets/item_restart.png, 14, 16, restart
 $(eval $(call IMG2SP, CONVERT         , assets/item_skip.png, 14, 16, skip_item_sprite,,))
 $(eval $(call IMG2SP, CONVERT         , assets/item_speed_bullet.png, 14, 16, speed_b_item_sprite,,))
 $(eval $(call IMG2SP, CONVERT         , assets/item_rotator.png, 14, 16, rotator_item_sprite,,))
+$(eval $(call IMG2SP, CONVERT         , assets/item_sharp_bullet.png, 14, 16, sharp_bullet_sprite,,))
 
 $(eval $(call IMG2SP, CONVERT         , assets/shield_ingame.png, 12, 16, shield_ingame_sprite,,))
 $(eval $(call IMG2SP, CONVERT         , assets/rotator_ingame.png , 4, 6, rotator_ingame_sprite,,))

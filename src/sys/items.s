@@ -38,6 +38,11 @@ item_pick_rotator:
    call item_create_ingame_rotator
    ret
 
+item_pick_sharp_bullet:
+   ld hl , #player_has_sharp_bullet
+   ld (hl), #1
+   ret
+
 ;===============================================================================
 ; Item create
 ;===============================================================================
