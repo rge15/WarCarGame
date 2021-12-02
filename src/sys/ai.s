@@ -527,6 +527,7 @@ decrease_boss_hp:
       push ix
       pop hl
       call _m_game_destroyEntity
+      call _man_game_decreaseEnemyCounter
 
    ret
 

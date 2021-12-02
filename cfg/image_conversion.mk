@@ -89,6 +89,7 @@ $(eval $(call IMG2SP, CONVERT         , assets/item_heart_free.png, 14, 16, hear
 $(eval $(call IMG2SP, CONVERT         , assets/item_shield.png, 14, 16, shield_item_sprite,,))
 $(eval $(call IMG2SP, CONVERT         , assets/item_restart.png, 14, 16, restart_item_sprite,,))
 $(eval $(call IMG2SP, CONVERT         , assets/item_skip.png, 14, 16, skip_item_sprite,,))
+$(eval $(call IMG2SP, CONVERT         , assets/item_skip_to_boss.png, 14, 16, skip_to_boss_item_sprite,,))
 $(eval $(call IMG2SP, CONVERT         , assets/item_speed_bullet.png, 14, 16, speed_b_item_sprite,,))
 $(eval $(call IMG2SP, CONVERT         , assets/item_rotator.png, 14, 16, rotator_item_sprite,,))
 $(eval $(call IMG2SP, CONVERT         , assets/item_sharp_bullet.png, 14, 16, sharp_bullet_sprite,,))

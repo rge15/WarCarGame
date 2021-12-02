@@ -454,7 +454,7 @@ _sys_ai_beh_boss_move:
    push ix
    pop bc
    jp c, _sys_ai_behaviourPatrol
-   jp _sys_ai_behaviourPatrol_f
+   jp _sys_ai_behaviourPatrol
 
    ret
 
