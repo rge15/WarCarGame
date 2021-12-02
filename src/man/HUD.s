@@ -176,13 +176,13 @@ _m_HUD_renderScore:
     jp nz, _midGamePos
 
     ld de, #0xC000
-    ld c, #0x1C    ;; X
+    ld c, #0x20    ;; X
     ld b, #0x5C   ;; Y
     call cpct_getScreenPtr_asm
     jp _avoidMidGamePos
 
     _midGamePos:
-    ld hl, #0xC0A8
+    ld hl, #0xC0AC
 
     _avoidMidGamePos:
 
@@ -253,6 +253,35 @@ _m_HUD_renderScore:
     ld a, #0x00
     PREPARE_SCORE_DIGIT_TO_RENDER (_m_HUD_scorePosition)
     ld hl, (_m_HUD_scorePosition)
+    dec hl
+    dec hl
+    dec hl
+    dec hl
+    dec hl
+    dec hl
+    dec hl
+    dec hl
+    dec hl
+    dec hl
+    dec hl
+    dec hl
+    dec hl
+    dec hl
+    dec hl
+    dec hl
+    dec hl
+    dec hl
+    dec hl
+    dec hl
+    ; ni idea de que esta psando aqui pero funciona
+
+    ld (_m_HUD_scorePosition), hl
+
+    call _sys_render_renderHUDScore
+
+    ld a, #0x00
+    PREPARE_SCORE_DIGIT_TO_RENDER (_m_HUD_scorePosition)
+    ld hl, (_m_HUD_scorePosition)
     inc hl
     inc hl
     inc hl
@@ -260,6 +289,7 @@ _m_HUD_renderScore:
     ld (_m_HUD_scorePosition), hl
 
     call _sys_render_renderHUDScore
+
 
     ret
 
