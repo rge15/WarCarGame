@@ -36,11 +36,11 @@ _level1:
    ; TEST LEVEL
    ;================================================================================
 
-   .dw #_tilemap_01            ;Tilemap
-   .db #level_new_entity
-   .dw #t_player
-   .db #4                   ;Entity X
-   .db #48                   ;Entity Y
+   ; .dw #_tilemap_01            ;Tilemap
+   ; .db #level_new_entity
+   ; .dw #t_player
+   ; .db #4                   ;Entity X
+   ; .db #48                   ;Entity Y
 
    ; .db #level_new_entity
    ; .dw #t_spawner_from_plist_01
@@ -74,49 +74,59 @@ _level1:
    ; .dw #patrol_all_game_zone_m0
    ; .dw #_sys_ai_beh_shoot_y
 
-   .db #level_new_entity
-   .dw #t_enemy_basic_green
-   .db #24
-   .db #156
-   .dw #enemy_no_move
-   .db #4                                 ; e_ai_aux_l
-   .db #48                                 ; e_ai_aux_h
-   .dw #patrol_all_game_zone_m0
-   .dw #_sys_ai_beh_shoot_y
+   ; .db #level_new_entity
+   ; .dw #t_final_boss
+   ; .db #24
+   ; .db #156
+   ; .dw #_sys_ai_beh_boss_move
+   ; .db #0                                 ; e_ai_aux_l
+   ; .db #0
+   ; .dw #patrol_boss
+   ; .dw #_sys_ai_beh_boss_shoot
 
-   .db #level_new_entity
-   .dw #t_enemy_basic_green
-   .db #8
-   .db #156
-   .dw #enemy_no_move
-   .db #4                                 ; e_ai_aux_l
-   .db #48                                 ; e_ai_aux_h
-   .dw #patrol_all_game_zone_m0
-   .dw #_sys_ai_beh_shoot_y_f
+   ; .db #level_new_entity
+   ; .dw #t_enemy_basic_green
+   ; .db #8
+   ; .db #156
+   ; .dw #enemy_no_move
+   ; .db #4                                 ; e_ai_aux_l
+   ; .db #48                                 ; e_ai_aux_h
+   ; .dw #patrol_all_game_zone_m0
+   ; .dw #_sys_ai_beh_shoot_y_f
+   ;
+   ; .db #level_new_entity
+   ; .dw #t_spawner_from_template_01
+   ; .db #24
+   ; .db #124
+   ; .dw #_sys_ai_behaviourSpawner_template
+   ; .db #0                                 ; e_ai_aux_l
+   ; .db #0                                 ; e_ai_aux_h
+   ; .dw #t_enemy_patrol_game_zone
+   ; .dw #enemy_no_shoot
 
-   .db #level_new_entity
-   .dw #t_item_shield
-   .db #56
-   .db #156
-   ITEM_LEVEL_ZEROS
-
-   .db #level_new_entity
-   .dw #t_item_rotator
-   .db #56
-   .db #124
-   ITEM_LEVEL_ZEROS
-
-   .db #level_new_entity
-   .dw #t_item_sharp_bullet
-   .db #56
-   .db #92
-   ITEM_LEVEL_ZEROS
-
-   .db #level_new_entity
-   .dw #t_item_speed_bullet
-   .db #56
-   .db #68
-   ITEM_LEVEL_ZEROS
+   ; .db #level_new_entity
+   ; .dw #t_item_shield
+   ; .db #56
+   ; .db #156
+   ; ITEM_LEVEL_ZEROS
+   ;
+   ; .db #level_new_entity
+   ; .dw #t_item_rotator
+   ; .db #56
+   ; .db #124
+   ; ITEM_LEVEL_ZEROS
+   ;
+   ; .db #level_new_entity
+   ; .dw #t_item_sharp_bullet
+   ; .db #56
+   ; .db #92
+   ; ITEM_LEVEL_ZEROS
+   ;
+   ; .db #level_new_entity
+   ; .dw #t_item_speed_bullet
+   ; .db #56
+   ; .db #68
+   ; ITEM_LEVEL_ZEROS
 
    ; .db #level_new_entity
    ; .dw #t_ingame_shield
@@ -128,6 +138,26 @@ _level1:
    ; .dw #0
    ; .dw #enemy_no_shoot
 
+
+   ; .db #level_separator
+   ;================================================================================
+   ; BOSS LEVEL
+   ;================================================================================
+   .dw #_tilemap_01            ;Tilemap
+   .db #level_new_entity
+   .dw #t_player
+   .db #36                   ;Entity X
+   .db #144                   ;Entity Y
+
+   .db #level_new_entity
+   .dw #t_final_boss
+   .db #33
+   .db #88
+   .dw #enemy_no_move
+   .db #0                                 ; e_ai_aux_l
+   .db #0
+   .dw #patrol_boss
+   .dw #_sys_ai_beh_boss_shoot
 
    .db #level_separator
    ;================================================================================

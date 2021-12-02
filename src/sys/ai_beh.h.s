@@ -59,3 +59,6 @@
 
 .globl _sys_ai_beh_ingame_shield
 .globl _sys_ai_beh_ingame_rotator
+
+.globl _sys_ai_beh_boss_move
+.globl _sys_ai_beh_boss_shoot

@@ -33,6 +33,7 @@
 .globl patrol_none
 .globl patrol_x_50_20
 .globl patrol_y_50_120
+.globl patrol_boss
 
 .globl patrol_all_game_zone_00
 .globl patrol_all_game_zone_0m

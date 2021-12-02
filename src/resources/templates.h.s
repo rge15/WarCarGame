@@ -49,6 +49,7 @@
 .globl t_enemy_basic_blue
 .globl t_enemy_basic_purple
 .globl t_enemy_basic_red
+.globl t_final_boss
 
 .globl t_enemy_patrol_game_zone
 .globl t_enemy_patrol_game_zone_i

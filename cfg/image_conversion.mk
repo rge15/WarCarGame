@@ -69,6 +69,8 @@ $(eval $(call IMG2SP, CONVERT         , assets/ovniPurple.png , 8, 12, ovni_purp
 $(eval $(call IMG2SP, CONVERT         , assets/ovniRed.png , 8, 12, ovni_red,,))
 $(eval $(call IMG2SP, CONVERT         , assets/ovniExplosion.png , 8, 12, ovni_exp,,))
 
+$(eval $(call IMG2SP, CONVERT         , assets/final_boss2.png , 20, 22, final_boss,,))
+
 # 3
 $(eval $(call IMG2SP, CONVERT         , assets/ovniPortal.png , 12, 16, ovni_portal,,))
 

@@ -207,6 +207,33 @@ t_enemy_basic_red:
    .db #0                                    ; e_ai_aux_h
    .dw #patrol_seeknpatrol_01                                    ; patrol_step
 
+
+; anim counter : life
+t_final_boss:
+   .db #e_type_enemy                         ; type
+   .db #0x2b                                 ; cmp
+   .db #0                                    ; x
+   .db #0                                    ; y
+   .db #10                                    ; width
+   .db #22                                   ; heigth
+   .db #0                                    ; vx
+   .db #0                                    ; vy
+   ; .dw #_final_boss                      ; sprite
+   .dw #_final_boss_09                      ; sprite
+   .db #0x00                                 ; orientation
+   .db #0x00                                 ; prev. orientation
+   .dw #0x0000                               ; prevptr
+   .dw #enemy_no_move                                    ; ai_behaviour
+   .db #t_shoot_timer_enemy_s
+   .dw #0                                  ; animator
+   .db #10                                  ; anim. counter
+   .dw #enemy_no_shoot                               ; input_behaviour
+   .db #0x00                                 ; e_ai_aim_x
+   .db #0x00                                 ; e_ai_aim_y
+   .db #0                                    ; e_ai_aux_l
+   .db #0                                    ; e_ai_aux_h
+   .dw #0                                    ; patrol_step
+
 t_enemy_seeknpatrol:
    .db #e_type_enemy                                 ; type
    .db #0x3b                                 ; cmp

@@ -94,3 +94,16 @@
 .globl _nextStage
 
 .globl _numback
+
+; .globl _final_boss
+
+.globl _final_boss_00
+.globl _final_boss_01
+.globl _final_boss_02
+.globl _final_boss_03
+.globl _final_boss_04
+.globl _final_boss_05
+.globl _final_boss_06
+.globl _final_boss_07
+.globl _final_boss_08
+.globl _final_boss_09

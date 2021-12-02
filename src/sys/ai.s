@@ -431,6 +431,105 @@ _sys_ai_spawner_has_to_die:
    call _man_game_decreaseEnemyCounter
    ret
 
+; iy: entity
+decrease_boss_hp:
+   dec e_animctr(ix)
+
+   ld a, #0
+   cp e_animctr(ix)
+   jp z, boss_has_0_hp
+
+   ld a, #1
+   cp e_animctr(ix)
+   jp z, boss_has_1_hp
+
+   ld a, #2
+   cp e_animctr(ix)
+   jp z, boss_has_2_hp
+
+   ld a, #3
+   cp e_animctr(ix)
+   jp z, boss_has_3_hp
+
+   ld a, #4
+   cp e_animctr(ix)
+   jp z, boss_has_4_hp
+
+   ld a, #5
+   cp e_animctr(ix)
+   jp z, boss_has_5_hp
+
+   ld a, #6
+   cp e_animctr(ix)
+   jp z, boss_has_6_hp
+
+   ld a, #7
+   cp e_animctr(ix)
+   jp z, boss_has_7_hp
+
+   ld a, #8
+   cp e_animctr(ix)
+   jp z, boss_has_8_hp
+
+   ld a, #9
+   cp e_animctr(ix)
+   jp z, boss_has_9_hp
+
+   ret
+
+   ; el sprite es 1 menos porque empieza por 00
+   boss_has_9_hp:
+      ld hl, #_final_boss_08
+      ld e_sprite1(ix), l
+      ld e_sprite2(ix), h
+      ret
+   boss_has_8_hp:
+      ld hl, #_final_boss_07
+      ld e_sprite1(ix), l
+      ld e_sprite2(ix), h
+      ret
+   boss_has_7_hp:
+      ld hl, #_final_boss_06
+      ld e_sprite1(ix), l
+      ld e_sprite2(ix), h
+      ret
+   boss_has_6_hp:
+      ld hl, #_final_boss_05
+      ld e_sprite1(ix), l
+      ld e_sprite2(ix), h
+      ret
+   boss_has_5_hp:
+      ld hl, #_final_boss_04
+      ld e_sprite1(ix), l
+      ld e_sprite2(ix), h
+      ret
+   boss_has_4_hp:
+      ld hl, #_final_boss_03
+      ld e_sprite1(ix), l
+      ld e_sprite2(ix), h
+      ret
+   boss_has_3_hp:
+      ld hl, #_final_boss_02
+      ld e_sprite1(ix), l
+      ld e_sprite2(ix), h
+      ret
+   boss_has_2_hp:
+      ld hl, #_final_boss_01
+      ld e_sprite1(ix), l
+      ld e_sprite2(ix), h
+      ret
+   boss_has_1_hp:
+      ld hl, #_final_boss_00
+      ld e_sprite1(ix), l
+      ld e_sprite2(ix), h
+      ret
+   boss_has_0_hp:
+      push ix
+      pop hl
+      call _m_game_destroyEntity
+
+   ret
+
 ;===============================================================================
 ; actualizar ai_aim a nueva posicion y guardar en ai_last_aim la de antes del cambio
 ; IX: entidad que va a hacer el seek

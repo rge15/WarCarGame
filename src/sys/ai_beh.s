@@ -434,6 +434,41 @@ _sys_ai_prepare_ovni_die:
 
    ret
 
+_sys_ai_beh_boss_move:
+   push bc
+   pop ix
+
+   ld a, #5
+   cp e_animctr(ix)
+
+   push ix
+   pop bc
+   jp c, _sys_ai_behaviourPatrol
+   jp _sys_ai_behaviourPatrol_f
+
+   ret
+
+_sys_ai_beh_boss_shoot:
+   call _sys_ai_shoot_condition_common
+   call z, boss_multi_shoot
+
+   ret
+
+boss_multi_shoot:
+   push bc
+   call _sys_ai_shoot_bullet_l_y_f
+   pop bc
+
+   push bc
+   call _sys_ai_shoot_bullet_l_d_f
+   pop bc
+
+   push ix
+   call _sys_ai_shootBulletSeek
+   pop ix
+
+   ret
+
 ;;--------------------------------------------------------------------------------
 ;; AI SHOOT BEHAVIOURS
 ;;--------------------------------------------------------------------------------

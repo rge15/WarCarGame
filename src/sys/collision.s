@@ -637,6 +637,10 @@ enemyCollisionBehaviour:
     and e_type(iy)
     ret z
 
+    ld a, #10
+    cp e_width(ix)
+    jr z, is_final_boss
+
     ld a, (player_has_sharp_bullet)
     cp #0
     jr z, not_sharp_bullet_2
@@ -653,6 +657,15 @@ enemyCollisionBehaviour:
 
     call reset_player_aictr
     call _m_game_bulletDestroyed
+
+    ret
+
+    is_final_boss:
+      call decrease_boss_hp
+      push iy
+      pop hl
+      call _m_game_destroyEntity
+      call reset_player_aictr
 
     ret
 
