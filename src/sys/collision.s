@@ -410,6 +410,13 @@ _sys_checkTilePosition:
          push hl
          pop iy
 
+         ; si es enemy_no_shoot salimos
+         ; no esla mejor forma poruqe si de casualidad
+         ; el label acaba en 0 tambien se sale
+         ld a, #0
+         cp e_inputbeh1(iy)
+         ret z
+
          call _sys_ai_random_0_1
          or a
          jr z, set_fixed_tile

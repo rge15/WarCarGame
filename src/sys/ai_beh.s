@@ -413,7 +413,9 @@ _sys_ai_beh_ovni_die:
 
 ;; IX: enemy entity
 _sys_ai_prepare_ovni_die:
-   ld e_inputbeh1(ix), #enemy_no_shoot
+   ld hl, #enemy_no_shoot
+   ld e_inputbeh1(ix), l
+   ld e_inputbeh2(ix), h
 
    ld e_aictr(ix), #7
    ld hl, #_sys_ai_beh_ovni_die
