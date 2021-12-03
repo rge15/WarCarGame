@@ -455,6 +455,8 @@ _sys_ai_beh_boss_move:
    pop bc
    jp c, _sys_ai_behaviourPatrol
    jp _sys_ai_behaviourPatrol
+   ;; TODO[Edu]: ver si es viable
+   ; jp _sys_ai_behaviourSeekAndPatrol
 
    ret
 
