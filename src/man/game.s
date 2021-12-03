@@ -1030,6 +1030,50 @@ _m_game_inc_level_counter:
    cp (hl)
    jp z, lvl_24
 
+   ld a, #25
+   cp (hl)
+   jp z, lvl_25
+
+   ld a, #26
+   cp (hl)
+   jp z, lvl_26
+
+   ld a, #27
+   cp (hl)
+   jp z, lvl_27
+
+   ld a, #28
+   cp (hl)
+   jp z, lvl_28
+
+   ld a, #29
+   cp (hl)
+   jp z, lvl_29
+
+   ld a, #30
+   cp (hl)
+   jp z, lvl_30
+
+   ld a, #31
+   cp (hl)
+   jp z, lvl_31
+
+   ld a, #32
+   cp (hl)
+   jp z, lvl_32
+
+   ld a, #32
+   cp (hl)
+   jp z, lvl_32
+
+   ld a, #33
+   cp (hl)
+   jp z, lvl_33
+
+   ld a, #34
+   cp (hl)
+   jp z, lvl_34
+
    ret
 
 lvl_01:
@@ -1141,6 +1185,49 @@ lvl_23:
    call load_lvl_ctr_sprite_2
    ret
 lvl_24:
+   ld hl, #_spriteScore_04
+   call load_lvl_ctr_sprite_2
+   ret
+
+lvl_25:
+   ld hl, #_spriteScore_05
+   call load_lvl_ctr_sprite_2
+   ret
+lvl_26:
+   ld hl, #_spriteScore_06
+   call load_lvl_ctr_sprite_2
+   ret
+lvl_27:
+   ld hl, #_spriteScore_07
+   call load_lvl_ctr_sprite_2
+   ret
+lvl_28:
+   ld hl, #_spriteScore_08
+   call load_lvl_ctr_sprite_2
+   ret
+lvl_29:
+   ld hl, #_spriteScore_09
+   call load_lvl_ctr_sprite_2
+   ret
+lvl_30:
+   ld hl, #_spriteScore_00
+   call load_lvl_ctr_sprite_2
+   ld hl, #_spriteScore_03
+   call load_lvl_ctr_sprite_1
+   ret
+lvl_31:
+   ld hl, #_spriteScore_01
+   call load_lvl_ctr_sprite_2
+   ret
+lvl_32:
+   ld hl, #_spriteScore_02
+   call load_lvl_ctr_sprite_2
+   ret
+lvl_33:
+   ld hl, #_spriteScore_03
+   call load_lvl_ctr_sprite_2
+   ret
+lvl_34:
    ld hl, #_spriteScore_04
    call load_lvl_ctr_sprite_2
    ret
