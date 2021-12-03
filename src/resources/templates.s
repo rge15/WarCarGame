@@ -999,7 +999,7 @@ t_item_restart:
    .db #0x0A                                 ; anim. counter
    .dw #0                                    ; input_behaviour
    .db #i_id_restart                                 ; e_ai_aim_x
-   ; .db #23                                 ; e_ai_aim_y
+   ; .db #3                                 ; e_ai_aim_y
    .db #1                                 ; e_ai_aim_y
    .db #0                                    ; e_ai_aux_l
    .db #0x00                                 ; e_ai_aux_h
@@ -1024,7 +1024,7 @@ t_item_skip:
    .db #0x0A                                 ; anim. counter
    .dw #0                                    ; input_behaviour
    .db #i_id_skip                                 ; e_ai_aim_x
-   ; .db #23                                 ; e_ai_aim_y
+   ; .db #10                                 ; e_ai_aim_y
    .db #1                                 ; e_ai_aim_y
    .db #0                                    ; e_ai_aux_l
    .db #0x00                                 ; e_ai_aux_h
@@ -1049,7 +1049,7 @@ t_item_skip_to_boss:
    .db #0x0A                                 ; anim. counter
    .dw #0                                    ; input_behaviour
    .db #i_id_skip                                 ; e_ai_aim_x
-   .db #0                                 ; e_ai_aim_y
+   .db #free_item                                 ; e_ai_aim_y
    .db #0                                    ; e_ai_aux_l
    .db #0x00                                 ; e_ai_aux_h
    .dw #0                                    ; e_patrol_step
@@ -1073,7 +1073,7 @@ t_item_speed_bullet:
    .db #0x0A                                 ; anim. counter
    .dw #0                                    ; input_behaviour
    .db #i_id_speed_bullet                                 ; e_ai_aim_x
-   ; .db #23                                 ; e_ai_aim_y
+   ; .db #15                                 ; e_ai_aim_y
    .db #1                                 ; e_ai_aim_y
    .db #0                                    ; e_ai_aux_l
    .db #0x00                                 ; e_ai_aux_h
@@ -1098,7 +1098,7 @@ t_item_rotator:
    .db #0x0A                                 ; anim. counter
    .dw #0                                    ; input_behaviour
    .db #i_id_rotator                                 ; e_ai_aim_x
-   ; .db #23                                 ; e_ai_aim_y
+   ; .db #12                                 ; e_ai_aim_y
    .db #1                                 ; e_ai_aim_y
    .db #0                                    ; e_ai_aux_l
    .db #0x00                                 ; e_ai_aux_h
@@ -1123,7 +1123,7 @@ t_item_sharp_bullet:
    .db #0x0A                                 ; anim. counter
    .dw #0                                    ; input_behaviour
    .db #i_id_sharp_bullet                                 ; e_ai_aim_x
-   ; .db #23                                 ; e_ai_aim_y
+   ; .db #25                                 ; e_ai_aim_y
    .db #1                                 ; e_ai_aim_y
    .db #0                                    ; e_ai_aux_l
    .db #0x00                                 ; e_ai_aux_h
