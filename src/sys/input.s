@@ -104,9 +104,9 @@ _sys_input_updateOneEntity:
     call cpct_isKeyPressed_asm
     jp NZ, rightPressed
 
-    ld hl, #Key_N
-    call cpct_isKeyPressed_asm
-    jp NZ, NPressed
+    ; ld hl, #Key_N
+    ; call cpct_isKeyPressed_asm
+    ; jp NZ, NPressed
 
 
     ;EN caso de no pulsar nada se queda quieto
