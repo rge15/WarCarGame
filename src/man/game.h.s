@@ -50,6 +50,7 @@
 .globl player_has_rotator
 .globl player_has_shield
 .globl player_has_sharp_bullet
+.globl player_has_speed_bullet
 
 .globl _m_game_quit_rotator
 

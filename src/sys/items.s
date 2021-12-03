@@ -26,6 +26,9 @@ item_pick_speed_bullet:
    ld (hl), #4
    ld hl, #player_bullet_vel_y
    ld (hl), #8
+
+   ld hl, #player_has_speed_bullet
+   ld (hl), #1
    ret
 
 item_pick_shield:

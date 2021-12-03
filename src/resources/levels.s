@@ -105,13 +105,13 @@ _level1:
    ; .dw #enemy_no_shoot
 
    ; .db #level_new_entity
-   ; .dw #t_item_shield
+   ; .dw #t_item_speed_bullet
    ; .db #56
    ; .db #156
    ; ITEM_LEVEL_ZEROS
    ;
    ; .db #level_new_entity
-   ; .dw #t_item_rotator
+   ; .dw #t_item_speed_bullet
    ; .db #56
    ; .db #124
    ; ITEM_LEVEL_ZEROS
@@ -123,13 +123,13 @@ _level1:
    ; ITEM_LEVEL_ZEROS
    ;
    ; .db #level_new_entity
-   ; .dw #t_item_speed_bullet
+   ; .dw #t_item_sharp_bullet
    ; .db #56
    ; .db #68
    ; ITEM_LEVEL_ZEROS
-
+   ;
    ; .db #level_new_entity
-   ; .dw #t_ingame_shield
+   ; .dw #t_enemy_basic_green
    ; .db #28
    ; .db #48
    ; .dw #enemy_no_move
@@ -137,8 +137,7 @@ _level1:
    ; .db #48                                 ; e_ai_aux_h
    ; .dw #0
    ; .dw #enemy_no_shoot
-
-
+   ;
    ; .db #level_separator
    ;================================================================================
    ; LEVEL ALL SPRITES
@@ -422,6 +421,45 @@ _level1:
 
    .db #level_separator
    ;================================================================================
+   ; Level 8
+   ;================================================================================
+   ; score 51
+   ; score 63
+
+   .dw #_tilemap_01decoration
+   .db #level_new_entity
+   .dw #t_player
+   .db #70
+   .db #176
+
+   ; .db #level_new_entity
+   ; .dw #t_enemy_basic_blue
+   ; .db #4
+   ; .db #64
+   ; .dw #_sys_ai_behaviourPatrol
+   ; .db #0                                 ; e_ai_aux_l
+   ; .db #0                                 ; e_ai_aux_h
+   ; .dw #patrol_11
+   ; .dw #_sys_ai_beh_shoot_d
+
+   .db #level_new_entity
+   .dw #t_spawner_from_template_01
+   .db #38
+   .db #96
+   .dw #_sys_ai_behaviourSpawner_template
+   .db #0                                 ; e_ai_aux_l
+   .db #0                                 ; e_ai_aux_h
+   .dw #t_es_01
+   .dw #enemy_no_shoot
+
+   .db #level_new_entity
+   .dw #t_item_heart
+   .db #8                   ;Entity X
+   .db #144                   ;Entity Y
+   ITEM_LEVEL_ZEROS
+
+   .db #level_separator
+   ;================================================================================
    ; Level 6
    ;================================================================================
    ; score 32
@@ -509,45 +547,6 @@ _level1:
    .db #t_follow_timer
    .dw #patrol_03
    .dw #enemy_no_shoot
-
-   .db #level_separator
-   ;================================================================================
-   ; Level 8
-   ;================================================================================
-   ; score 51
-   ; score 63
-
-   .dw #_tilemap_01decoration
-   .db #level_new_entity
-   .dw #t_player
-   .db #70
-   .db #176
-
-   ; .db #level_new_entity
-   ; .dw #t_enemy_basic_blue
-   ; .db #4
-   ; .db #64
-   ; .dw #_sys_ai_behaviourPatrol
-   ; .db #0                                 ; e_ai_aux_l
-   ; .db #0                                 ; e_ai_aux_h
-   ; .dw #patrol_11
-   ; .dw #_sys_ai_beh_shoot_d
-
-   .db #level_new_entity
-   .dw #t_spawner_from_template_01
-   .db #38
-   .db #96
-   .dw #_sys_ai_behaviourSpawner_template
-   .db #0                                 ; e_ai_aux_l
-   .db #0                                 ; e_ai_aux_h
-   .dw #t_es_01
-   .dw #enemy_no_shoot
-
-   .db #level_new_entity
-   .dw #t_item_heart
-   .db #8                   ;Entity X
-   .db #144                   ;Entity Y
-   ITEM_LEVEL_ZEROS
 
    .db #level_separator
    ;================================================================================
@@ -852,6 +851,11 @@ _level1:
    .db #116                   ;Entity Y
    ITEM_LEVEL_ZEROS
 
+   .db #level_new_entity
+   .dw #t_item_skip
+   .db #68                   ;Entity X
+   .db #72                   ;Entity Y
+   ITEM_LEVEL_ZEROS
 
    .db #level_separator
    ;================================================================================
@@ -894,6 +898,12 @@ _level1:
    .db #0
    .dw #patrol_08
    .dw #_sys_ai_beh_shoot_d
+
+   .db #level_new_entity
+   .dw #t_item_skip
+   .db #5                   ;Entity X
+   .db #168                   ;Entity Y
+   ITEM_LEVEL_ZEROS
 
    .db #level_separator
    ;================================================================================
@@ -1077,6 +1087,12 @@ _level1:
    .dw #patrol_relative_around_01
    .dw #_sys_ai_beh_shoot_d
 
+   .db #level_new_entity
+   .dw #t_item_sharp_bullet
+   .db #66                    ;Entity X
+   .db #168                   ;Entity Y
+   ITEM_LEVEL_ZEROS
+
    .db #level_separator
    ;================================================================================
    ; Level 20 tres rojos
@@ -1116,6 +1132,52 @@ _level1:
    .db #25
    .dw #patrol_relative_around_01
    .dw #enemy_no_shoot
+
+   .db #level_separator
+   ;================================================================================
+   ; Level 17 f es jodido igual mas adelante
+   ;================================================================================
+   .dw #_tilemap_05            ;Tilemap
+   .db #level_new_entity
+   .dw #t_player
+   .db #36
+   .db #176
+
+   .db #level_new_entity
+   .dw #t_enemy_basic_red
+   .db #12
+   .db #64
+   .dw #_sys_ai_behaviourSeekAndPatrol
+   .db #25
+   .db #25
+   .dw #patrol_seeknpatrol_01
+   .dw #_sys_ai_beh_shoot_xy_rand
+
+   .db #level_new_entity
+   .dw #t_enemy_basic_blue
+   .db #70
+   .db #48
+   .dw #_sys_ai_behaviourPatrol_f
+   .db #0
+   .db #0
+   .dw #patrol_all_game_zone_0m
+   .dw #_sys_ai_beh_shoot_seekplayer
+
+   .db #level_new_entity
+   .dw #t_enemy_basic_blue
+   .db #28
+   .db #80
+   .dw #_sys_ai_behaviourPatrol_f
+   .db #0
+   .db #0
+   .dw #patrol_08
+   .dw #_sys_ai_beh_shoot_d
+
+   .db #level_new_entity
+   .dw #t_item_heart
+   .db #5                   ;Entity X
+   .db #168                   ;Entity Y
+   ITEM_LEVEL_ZEROS
 
    .db #level_separator
    ;================================================================================

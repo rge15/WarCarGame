@@ -108,6 +108,7 @@ player_has_rotator: .db #0
 player_has_shield: .db #0
 
 player_has_sharp_bullet: .db #0
+player_has_speed_bullet: .db #0
 
 player_max_rotators = 2
 ;===================================================================================================================================================
@@ -830,6 +831,14 @@ _man_game_getItem:
       cp e_ai_aim_x(iy)
       jp z, player_picking_heart
 
+      ld a, #i_id_sharp_bullet
+      cp e_ai_aim_x(iy)
+      jp z, player_picking_sharp_bullet
+
+      ld a, #i_id_speed_bullet
+      cp e_ai_aim_x(iy)
+      jp z, player_picking_speed_bullet
+
       can_pick_ingame_item:
       ; usa bc
       call _m_HUD_subPoints
@@ -867,6 +876,18 @@ player_picking_heart:
    ld a, (_m_lifePlayer)
    cp #3
    jp nz, can_pick_ingame_item
+   ret
+
+player_picking_sharp_bullet:
+   ld a, (player_has_sharp_bullet)
+   cp #0
+   jp z, can_pick_ingame_item
+   ret
+
+player_picking_speed_bullet:
+   ld a, (player_has_speed_bullet)
+   cp #0
+   jp z, can_pick_ingame_item
    ret
 
 ;===================================================================================================================================================
