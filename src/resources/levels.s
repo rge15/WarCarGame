@@ -36,11 +36,11 @@ _level1:
    ; TEST LEVEL
    ;================================================================================
 
-   .dw #_tilemap_01            ;Tilemap
-   .db #level_new_entity
-   .dw #t_player
-   .db #4                   ;Entity X
-   .db #48                   ;Entity Y
+   ; .dw #_tilemap_01            ;Tilemap
+   ; .db #level_new_entity
+   ; .dw #t_player
+   ; .db #4                   ;Entity X
+   ; .db #48                   ;Entity Y
 
    ; .db #level_new_entity
    ; .dw #t_spawner_from_plist_01
@@ -138,17 +138,17 @@ _level1:
    ; .dw #0
    ; .dw #enemy_no_shoot
 
-   .db #level_new_entity
-   .dw #t_enemy_basic_red
-   .db #4
-   .db #176
-   .dw #_sys_ai_behaviourSeekAndPatrol_f
-   .db #25
-   .db #25
-   .dw #patrol_relative_around_01
-   .dw #enemy_no_shoot
-
-   .db #level_separator
+   ; .db #level_new_entity
+   ; .dw #t_enemy_basic_red
+   ; .db #4
+   ; .db #176
+   ; .dw #_sys_ai_behaviourSeekAndPatrol_f
+   ; .db #25
+   ; .db #25
+   ; .dw #patrol_relative_around_01
+   ; .dw #enemy_no_shoot
+   ;
+   ; .db #level_separator
    ;================================================================================
    ; LEVEL ALL SPRITES
    ;================================================================================
@@ -1248,11 +1248,11 @@ _level1:
    .dw #t_es_07
    .db #36
    .db #108
-   .dw #_sys_ai_behaviourPatrolRelative
+   .dw #_sys_ai_behaviourPatrolRelative_f
    .db #36                                 ; e_ai_aux_l
    .db #108                                 ; e_ai_aux_h
    .dw #patrol_relative_around_01
-   .dw #_sys_ai_beh_shoot_d
+   .dw #_sys_ai_beh_shoot_d_f
 
    .db #level_separator
    ;================================================================================
@@ -1285,6 +1285,16 @@ _level1:
    .db #00                                 ; e_ai_aux_h
    .dw #t_es_09
    .dw #enemy_no_shoot
+
+   .db #level_new_entity
+   .dw #t_es_07
+   .db #36
+   .db #108
+   .dw #_sys_ai_behaviourPatrolRelative_f
+   .db #36                                 ; e_ai_aux_l
+   .db #108                                 ; e_ai_aux_h
+   .dw #patrol_relative_around_01
+   .dw #_sys_ai_beh_shoot_d_f
 
    .db #level_separator
    ;================================================================================

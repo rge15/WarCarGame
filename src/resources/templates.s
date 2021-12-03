@@ -584,7 +584,7 @@ t_es_03:
    .db #0x00                                 ; orientation
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
-   .dw #_sys_ai_behaviourPatrolRelative
+   .dw #_sys_ai_behaviourPatrolRelative_f
    .db #t_shoot_timer_enemy_s
    .dw #_man_anim_enemy_green                                  ; animator
    .db #0x0                                  ; anim. counter
@@ -608,7 +608,7 @@ t_es_04:
    .db #0x00                                 ; orientation
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
-   .dw #_sys_ai_behaviourPatrolRelative
+   .dw #_sys_ai_behaviourPatrolRelative_f
    .db #t_shoot_timer_enemy_s
    .dw #_man_anim_enemy_blue                  ; animator
    .db #0x0                                  ; anim. counter
@@ -656,7 +656,7 @@ t_es_06:
    .db #0x00                                 ; orientation
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
-   .dw #_sys_ai_behaviourPatrolRelative
+   .dw #_sys_ai_behaviourPatrolRelative_f
    .db #t_shoot_timer_enemy_s
    .dw #_man_anim_enemy_blue
    .db #0x0                                  ; anim. counter
@@ -924,8 +924,7 @@ t_item_heart:
    .db #0x0A                                 ; anim. counter
    .dw #0                                    ; input_behaviour
    .db #0                                 ; e_ai_aim_x
-   ; .db #8                                 ; e_ai_aim_y
-   .db #1                                 ; e_ai_aim_y
+   .db #8                                 ; e_ai_aim_y
    .db #0                                    ; e_ai_aux_l
    .db #0x00                                 ; e_ai_aux_h
    .dw #0                                    ; e_patrol_step
@@ -974,8 +973,7 @@ t_item_shield:
    .db #0x0A                                 ; anim. counter
    .dw #0                                    ; input_behaviour
    .db #i_id_shield                                 ; e_ai_aim_x
-   ; .db #23                                 ; e_ai_aim_y
-   .db #1                                 ; e_ai_aim_y
+   .db #23                                 ; e_ai_aim_y
    .db #0                                    ; e_ai_aux_l
    .db #0x00                                 ; e_ai_aux_h
    .dw #0                                    ; e_patrol_step
@@ -999,8 +997,7 @@ t_item_restart:
    .db #0x0A                                 ; anim. counter
    .dw #0                                    ; input_behaviour
    .db #i_id_restart                                 ; e_ai_aim_x
-   ; .db #3                                 ; e_ai_aim_y
-   .db #1                                 ; e_ai_aim_y
+   .db #3                                 ; e_ai_aim_y
    .db #0                                    ; e_ai_aux_l
    .db #0x00                                 ; e_ai_aux_h
    .dw #0                                    ; e_patrol_step
@@ -1024,8 +1021,7 @@ t_item_skip:
    .db #0x0A                                 ; anim. counter
    .dw #0                                    ; input_behaviour
    .db #i_id_skip                                 ; e_ai_aim_x
-   ; .db #10                                 ; e_ai_aim_y
-   .db #1                                 ; e_ai_aim_y
+   .db #10                                 ; e_ai_aim_y
    .db #0                                    ; e_ai_aux_l
    .db #0x00                                 ; e_ai_aux_h
    .dw #0                                    ; e_patrol_step
@@ -1073,8 +1069,7 @@ t_item_speed_bullet:
    .db #0x0A                                 ; anim. counter
    .dw #0                                    ; input_behaviour
    .db #i_id_speed_bullet                                 ; e_ai_aim_x
-   ; .db #15                                 ; e_ai_aim_y
-   .db #1                                 ; e_ai_aim_y
+   .db #15                                 ; e_ai_aim_y
    .db #0                                    ; e_ai_aux_l
    .db #0x00                                 ; e_ai_aux_h
    .dw #0                                    ; e_patrol_step
@@ -1098,8 +1093,7 @@ t_item_rotator:
    .db #0x0A                                 ; anim. counter
    .dw #0                                    ; input_behaviour
    .db #i_id_rotator                                 ; e_ai_aim_x
-   ; .db #12                                 ; e_ai_aim_y
-   .db #1                                 ; e_ai_aim_y
+   .db #12                                 ; e_ai_aim_y
    .db #0                                    ; e_ai_aux_l
    .db #0x00                                 ; e_ai_aux_h
    .dw #0                                    ; e_patrol_step
@@ -1123,8 +1117,7 @@ t_item_sharp_bullet:
    .db #0x0A                                 ; anim. counter
    .dw #0                                    ; input_behaviour
    .db #i_id_sharp_bullet                                 ; e_ai_aim_x
-   ; .db #25                                 ; e_ai_aim_y
-   .db #1                                 ; e_ai_aim_y
+   .db #25                                 ; e_ai_aim_y
    .db #0                                    ; e_ai_aux_l
    .db #0x00                                 ; e_ai_aux_h
    .dw #0                                    ; e_patrol_step

@@ -221,29 +221,29 @@ ei
       cp #0
       jr nz, testIr
 
-      cpctm_setBorder_asm HW_BLUE
+      ; cpctm_setBorder_asm HW_BLUE
       call _sys_render_update
 
-      cpctm_setBorder_asm HW_BLACK
+      ; cpctm_setBorder_asm HW_BLACK
       call _man_entityUpdate
 
-      cpctm_setBorder_asm HW_RED
+      ; cpctm_setBorder_asm HW_RED
       call _sys_input_update
 
-      cpctm_setBorder_asm HW_GREEN
+      ; cpctm_setBorder_asm HW_GREEN
       call _sys_animator_update
 
-      cpctm_setBorder_asm HW_WHITE
+      ; cpctm_setBorder_asm HW_WHITE
       call _sys_ai_update
 
-      cpctm_setBorder_asm HW_RED
+      ; cpctm_setBorder_asm HW_RED
       call _sys_collision_update
 
-      cpctm_setBorder_asm HW_YELLOW
+      ; cpctm_setBorder_asm HW_YELLOW
       call _sys_physics_update
 
       call _man_game_updateGameStatus
-      cpctm_setBorder_asm HW_BRIGHT_YELLOW
+      ; cpctm_setBorder_asm HW_BRIGHT_YELLOW
 
       ld a, (_man_int_current)
       cp #0
