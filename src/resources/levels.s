@@ -36,11 +36,11 @@ _level1:
    ; TEST LEVEL
    ;================================================================================
 
-   ; .dw #_tilemap_01            ;Tilemap
-   ; .db #level_new_entity
-   ; .dw #t_player
-   ; .db #4                   ;Entity X
-   ; .db #48                   ;Entity Y
+   .dw #_tilemap_01            ;Tilemap
+   .db #level_new_entity
+   .dw #t_player
+   .db #4                   ;Entity X
+   .db #48                   ;Entity Y
 
    ; .db #level_new_entity
    ; .dw #t_spawner_from_plist_01
@@ -137,8 +137,18 @@ _level1:
    ; .db #48                                 ; e_ai_aux_h
    ; .dw #0
    ; .dw #enemy_no_shoot
-   ;
-   ; .db #level_separator
+
+   .db #level_new_entity
+   .dw #t_enemy_basic_red
+   .db #4
+   .db #176
+   .dw #_sys_ai_behaviourSeekAndPatrol_f
+   .db #25
+   .db #25
+   .dw #patrol_relative_around_01
+   .dw #enemy_no_shoot
+
+   .db #level_separator
    ;================================================================================
    ; LEVEL ALL SPRITES
    ;================================================================================
@@ -1121,7 +1131,7 @@ _level1:
    .db #25
    .db #25
    .dw #patrol_seeknpatrol_02
-   .dw #_sys_ai_beh_shoot_xy_rand
+   .dw #_sys_ai_beh_shoot_xy_rand_f
 
    .db #level_new_entity
    .dw #t_enemy_basic_red
@@ -1131,7 +1141,13 @@ _level1:
    .db #25
    .db #25
    .dw #patrol_relative_around_01
-   .dw #enemy_no_shoot
+   .dw #_sys_ai_beh_shoot_xy_rand_f
+
+   .db #level_new_entity
+   .dw #t_item_sharp_bullet
+   .db #66                    ;Entity X
+   .db #52                   ;Entity Y
+   ITEM_LEVEL_ZEROS
 
    .db #level_separator
    ;================================================================================

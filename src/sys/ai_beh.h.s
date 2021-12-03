@@ -29,6 +29,7 @@
 .globl _sys_ai_behaviourPatrolRelative
 .globl _sys_ai_behaviourPatrolRelative_f
 .globl _sys_ai_behaviourSeekAndPatrol
+.globl _sys_ai_behaviourSeekAndPatrol_f
 
 .globl _sys_ai_behaviourSpawner_plist
 .globl _sys_ai_behaviourSpawner_template

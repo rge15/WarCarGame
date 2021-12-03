@@ -242,6 +242,28 @@ _sys_ai_behaviourSeekAndPatrol:
 
    ret
 
+_sys_ai_behaviourSeekAndPatrol_f:
+   push bc
+   pop ix
+
+   GET_PLAYER_ENTITY iy
+   CHECK_NO_AIM_XY _sys_ai_aim_to_entity
+
+   dec e_ai_aux_l(ix)
+   call z, _sys_patrol_set_relative_origin
+
+   CHECK_VX_VY_ZERO _sys_patrol_next_relative
+
+   ld d, #2
+   call _sys_ai_seekCoords_x
+   call _sys_ai_check_tile_collision_from_ai
+   ld d, #4
+   call _sys_ai_seekCoords_y
+
+   call _sys_ai_check_tile_collision_from_ai
+
+   ret
+
 ;; FOLLOW PLAYER IN AXIS
 
 ; require e_ai_aux_l
