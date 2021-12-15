@@ -539,7 +539,7 @@ t_es_01:
    .dw #_sys_ai_behaviourPatrol
    .db #t_shoot_timer_enemy_s
    .dw #_man_anim_enemy_blue                                  ; animator
-   .db #0x0                                  ; anim. counter
+   .db #0x1                                  ; anim. counter
    .dw #_sys_ai_beh_shoot_xy_rand                               ; input_behaviour
    .db #0x00                                 ; e_ai_aim_x
    .db #0x00                                 ; e_ai_aim_y
@@ -563,7 +563,7 @@ t_es_02:
    .dw #_sys_ai_beh_follow_player_y
    .db #t_shoot_timer_enemy_s
    .dw #_man_anim_enemy_purple                                  ; animator
-   .db #0x0                                  ; anim. counter
+   .db #0x1                                  ; anim. counter
    .dw #enemy_no_shoot                               ; input_behaviour
    .db #0x00                                 ; e_ai_aim_x
    .db #0x00                                 ; e_ai_aim_y
@@ -587,7 +587,7 @@ t_es_03:
    .dw #_sys_ai_behaviourPatrolRelative_f
    .db #t_shoot_timer_enemy_s
    .dw #_man_anim_enemy_green                                  ; animator
-   .db #0x0                                  ; anim. counter
+   .db #0x1                                  ; anim. counter
    .dw #enemy_no_shoot                               ; input_behaviour
    .db #0x00                                 ; e_ai_aim_x
    .db #0x00                                 ; e_ai_aim_y
@@ -608,10 +608,10 @@ t_es_04:
    .db #0x00                                 ; orientation
    .db #0x00                                 ; prev. orientation
    .dw #0x0000                               ; prevptr
-   .dw #_sys_ai_behaviourPatrolRelative_f
+   .dw #_sys_ai_behaviourPatrolRelative
    .db #t_shoot_timer_enemy_s
    .dw #_man_anim_enemy_blue                  ; animator
-   .db #0x0                                  ; anim. counter
+   .db #0x1                                  ; anim. counter
    .dw #_sys_ai_beh_shoot_xy_rand                       ; input_behaviour
    .db #0x00                                 ; e_ai_aim_x
    .db #0x00                                 ; e_ai_aim_y
@@ -635,7 +635,7 @@ t_es_05:
    .dw #_sys_ai_beh_follow_player_y
    .db #t_shoot_timer_enemy_s
    .dw #_man_anim_enemy_purple                                  ; animator
-   .db #0x0                                  ; anim. counter
+   .db #0x1                                  ; anim. counter
    .dw #_sys_ai_beh_shoot_d                               ; input_behaviour
    .db #0x00                                 ; e_ai_aim_x
    .db #0x00                                 ; e_ai_aim_y
@@ -659,7 +659,7 @@ t_es_06:
    .dw #_sys_ai_behaviourPatrolRelative_f
    .db #t_shoot_timer_enemy_s
    .dw #_man_anim_enemy_blue
-   .db #0x0                                  ; anim. counter
+   .db #0x1                                  ; anim. counter
    .dw #_sys_ai_beh_shoot_seekplayer                               ; input_behaviour
    .db #0x00                                 ; e_ai_aim_x
    .db #0x00                                 ; e_ai_aim_y
@@ -683,7 +683,7 @@ t_es_07:
    .dw #_sys_ai_behaviourPatrolRelative
    .db #t_shoot_timer_enemy_s
    .dw #_man_anim_enemy_blue
-   .db #0x0                                  ; anim. counter
+   .db #0x1                                  ; anim. counter
    .dw #_sys_ai_beh_shoot_d                               ; input_behaviour
    .db #0x00                                 ; e_ai_aim_x
    .db #0x00                                 ; e_ai_aim_y
@@ -707,7 +707,7 @@ t_es_08:
    .dw #_sys_ai_behaviourSeekAndPatrol              ; ai_behaviour
    .db #t_shoot_timer_enemy_s                                 ; ai_counter
    .dw #_man_anim_enemy_red                                  ; animator
-   .db #0x0A                                 ; anim. counter
+   .db #0x01                                 ; anim. counter
    .dw #_sys_ai_beh_shoot_seekplayer                               ; input_behaviour
    .db #0                                 ; e_ai_aim_x
    .db #0                                 ; e_ai_aim_y
@@ -731,7 +731,7 @@ t_es_09:
    .dw #_sys_ai_behaviourSeekAndPatrol              ; ai_behaviour
    .db #t_shoot_timer_enemy_s                                 ; ai_counter
    .dw #_man_anim_enemy_red                                  ; animator
-   .db #0x0A                                 ; anim. counter
+   .db #0x01                                 ; anim. counter
    .dw #_sys_ai_beh_shoot_xy_rand_f                               ; input_behaviour
    .db #0                                 ; e_ai_aim_x
    .db #0                                 ; e_ai_aim_y

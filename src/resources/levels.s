@@ -608,7 +608,7 @@ _level1:
    .dw #_tilemap_03            ;Tilemap
    .db #level_new_entity
    .dw #t_player
-   .db #16
+   .db #32
    .db #176
 
    .db #level_new_entity
@@ -861,11 +861,11 @@ _level1:
    .db #116                   ;Entity Y
    ITEM_LEVEL_ZEROS
 
-   .db #level_new_entity
-   .dw #t_item_skip
-   .db #68                   ;Entity X
-   .db #72                   ;Entity Y
-   ITEM_LEVEL_ZEROS
+   ; .db #level_new_entity
+   ; .dw #t_item_skip
+   ; .db #68                   ;Entity X
+   ; .db #72                   ;Entity Y
+   ; ITEM_LEVEL_ZEROS
 
    .db #level_separator
    ;================================================================================
